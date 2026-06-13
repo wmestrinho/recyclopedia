@@ -4,14 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project Overview
 
-**psychicrecycle** — Planned / Not started.
-**Planned live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com)
+**chorecycle** (repo slug: psychicrecycle) — Active development, v0.1.0 alpha.
+**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com)
 
-Project purpose is TBD. Update this file once the project scope is defined.
+A recycling education platform by Absolutely Plausible Solutions. Three pillars:
+1. **Academy** — Educational modules on recycling, e-waste, hazardous materials, myths
+2. **Recyclopedia** — Searchable database of recyclable items (60+ items, Phase 2: 500+)
+3. **Donate Electronics** — Intake form with searchable electronics dropdown (200+ items)
+
+**Stack:** Pure HTML/CSS/JS · Cloudflare Pages · Font: Share Tech Mono
+**Design:** AP design system, green-shifted accent palette (`--accent: #3d9c6b`)
 
 ## Deployment
 
-Deployment not yet defined. Domain: `psychicrecycle.absolutelyplausible.com`
+```sh
+npx wrangler pages deploy .
+```
+
+Domain: `psychicrecycle.absolutelyplausible.com`
 
 ## Version Rule
 
