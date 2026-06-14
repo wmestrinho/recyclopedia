@@ -11,7 +11,7 @@ A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
 The world's most complete recycling education platform.
 
 - **Academy** — Six learning modules covering recycling basics, e-waste, hazardous materials, zero-waste living, myth-busting, and local regulations
-- **Search** — Searchable database of 60+ items with exact recycling instructions, prep steps, and drop-off locations (the core of the Recyclopedia)
+- **Lookup** — Searchable database of 60+ items with exact recycling instructions, prep steps, and drop-off locations (the core of the Recyclopedia)
 - **Donate Electronics** — Intake form for electronics donations (working or not); searchable dropdown from 200+ item list
 
 ## Stack

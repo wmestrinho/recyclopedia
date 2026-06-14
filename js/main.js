@@ -7,7 +7,7 @@
   var pageTitles = {
     home:         "Recyclopedia — The World's Most Complete Recycling Resource",
     academy:      'Academy | Recyclopedia',
-    recyclopedia: 'Search | Recyclopedia',
+    recyclopedia: 'Lookup | Recyclopedia',
     donate:       'Donate Electronics | Recyclopedia',
     about:        'About | Recyclopedia'
   };
