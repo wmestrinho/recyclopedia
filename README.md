@@ -1,8 +1,8 @@
-# chorecycle
+# Recyclopedia
 
 **Status:** In development — v0.1.0 alpha
-**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com)
-**Project name:** chorecycle (display name) · repo slug: psychicrecycle
+**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com) _(dedicated domain pending)_
+**Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
 A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
 
@@ -11,7 +11,7 @@ A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
 The world's most complete recycling education platform.
 
 - **Academy** — Six learning modules covering recycling basics, e-waste, hazardous materials, zero-waste living, myth-busting, and local regulations
-- **Recyclopedia** — Searchable database of 60+ items with exact recycling instructions, prep steps, and drop-off locations
+- **Search** — Searchable database of 60+ items with exact recycling instructions, prep steps, and drop-off locations (the core of the Recyclopedia)
 - **Donate Electronics** — Intake form for electronics donations (working or not); searchable dropdown from 200+ item list
 
 ## Stack
@@ -41,6 +41,6 @@ python3 scripts/validate_agent_baseline.py
 
 ## Roadmap
 
-- **Phase 1 (current):** Homepage, Recyclopedia (60+ items), Academy myths module, Electronics donation form
+- **Phase 1 (current):** Homepage, searchable database (60+ items), Academy myths module, Electronics donation form
 - **Phase 2:** Expand to 500+ items, Supabase backend, state/municipality regulations database
 - **Phase 3:** Full Academy course content, interactive quizzes, facility locator by ZIP

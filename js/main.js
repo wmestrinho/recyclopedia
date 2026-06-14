@@ -5,11 +5,11 @@
   var menuToggle = document.querySelector('.menu-toggle');
   var pages = document.querySelectorAll('.page[data-page]');
   var pageTitles = {
-    home:         "chorecycle — The World's Most Complete Recycling Resource",
-    academy:      'Academy | chorecycle',
-    recyclopedia: 'Recyclopedia | chorecycle',
-    donate:       'Donate Electronics | chorecycle',
-    about:        'About | chorecycle'
+    home:         "Recyclopedia — The World's Most Complete Recycling Resource",
+    academy:      'Academy | Recyclopedia',
+    recyclopedia: 'Search | Recyclopedia',
+    donate:       'Donate Electronics | Recyclopedia',
+    about:        'About | Recyclopedia'
   };
 
   function closeMenu() {
