@@ -1,7 +1,7 @@
-# AGENTS.md — psychicrecycle
+# AGENTS.md — recyclopedia
 
 Canonical path
-- `/Users/wmestrinho/Workspace/Projects/psychicrecycle`
+- `/Users/wmestrinho/Workspace/Projects/recyclopedia`
 
 Legacy path
 - `/Users/wmestrinho/.openclaw/workspace/projects/psychicrecycle`
@@ -9,7 +9,7 @@ Legacy path
 
 Project purpose
 - See `README.md` — project purpose TBD.
-- Planned live target: `https://psychicrecycle.absolutelyplausible.com`
+- Planned live target: `https://psychicrecycle.absolutelyplausible.com` (dedicated domain pending)
 
 Required baseline for AI agents
 - Read this file before editing.

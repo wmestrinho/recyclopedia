@@ -1,15 +1,15 @@
-# CLAUDE.md — psychicrecycle
+# CLAUDE.md — recyclopedia
 
 This file provides guidance to Claude Code (claude.ai/code) when working with this repository.
 
 ## Project Overview
 
-**chorecycle** (repo slug: psychicrecycle) — Active development, v0.1.0 alpha.
-**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com)
+**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.1.0 alpha.
+**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com) (dedicated domain pending)
 
-A recycling education platform by Absolutely Plausible Solutions. Three pillars:
+A recycling education platform by Absolutely Plausible Solutions. The site **is** the Recyclopedia — a searchable encyclopedia of recycling. Three areas:
 1. **Academy** — Educational modules on recycling, e-waste, hazardous materials, myths
-2. **Recyclopedia** — Searchable database of recyclable items (60+ items, Phase 2: 500+)
+2. **Lookup** — Searchable database of recyclable items (60+ items, Phase 2: 500+) — the core of the Recyclopedia
 3. **Donate Electronics** — Intake form with searchable electronics dropdown (200+ items)
 
 **Stack:** Pure HTML/CSS/JS · Cloudflare Pages · Font: Share Tech Mono
