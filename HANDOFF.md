@@ -12,9 +12,8 @@ every session.
 - The site **is** the Recyclopedia; the searchable section is labeled "Lookup" in the UI.
 
 ## Current live state (as of 2026-06-15)
-- **Domain registered:** `recyclopedia.cc` (bought 2026-06-15). 🎉
-- **Deployed:** https://recyclopedia.pages.dev (Cloudflare Pages project `recyclopedia`, production branch `main`).
-- ⏳ DNS + custom-domain wiring on the Pages project still pending — `recyclopedia.cc` is not yet serving the site.
+- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL, serving the site. Registered + wired up 2026-06-15.
+- **Deployed:** https://recyclopedia.pages.dev (Cloudflare Pages project `recyclopedia`, production branch `main`); `recyclopedia.cc` is a custom domain on that project.
 - Old interim URL `psychicrecycle.absolutelyplausible.com` may still point at the previous `chorecycle` Pages project — not the source of truth anymore.
 - `main` is up to date; rename work merged via PR #2.
 
@@ -34,7 +33,7 @@ Single source of truth for version: the `VERSION` file (currently `v0.1.0 alpha`
 ## TODO / next up (rough priority)
 - [x] **Buy domain `recyclopedia.cc`** — done 2026-06-15.
 - [x] Update domain references in README/CLAUDE/AGENTS — done 2026-06-15.
-- [ ] **Wire up `recyclopedia.cc`:** add it as a custom domain on the `recyclopedia` Pages project (Cloudflare dashboard → Pages → recyclopedia → Custom domains) + confirm DNS record. Then verify https://recyclopedia.cc serves the site.
+- [x] **Wire up `recyclopedia.cc`:** custom domain added to the `recyclopedia` Pages project (apex + www), DNS auto-created, SSL Active, verified serving the site — done 2026-06-15.
 - [ ] **Rename local folder on the primary Mac** to `recyclopedia` (cosmetic; not needed on the ThinkPad): `mv ~/Workspace/Projects/psychicrecycle ~/Workspace/Projects/recyclopedia`
 - [ ] Decommission / clean up the old `chorecycle` Cloudflare Pages project once the new domain is live.
 - [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations.
