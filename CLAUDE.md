@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 ## Project Overview
 
 **Recyclopedia** (repo slug: recyclopedia) — Active development, v0.1.0 alpha.
-**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com) (dedicated domain pending)
+**Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 
 A recycling education platform by Absolutely Plausible Solutions. The site **is** the Recyclopedia — a searchable encyclopedia of recycling. Three areas:
 1. **Academy** — Educational modules on recycling, e-waste, hazardous materials, myths
@@ -21,7 +21,7 @@ A recycling education platform by Absolutely Plausible Solutions. The site **is*
 npx wrangler pages deploy .
 ```
 
-Domain: `psychicrecycle.absolutelyplausible.com`
+Domain: `recyclopedia.cc`
 
 ## Version Rule
 

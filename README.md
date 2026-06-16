@@ -1,7 +1,7 @@
 # Recyclopedia
 
 **Status:** In development — v0.1.0 alpha
-**Live site:** [psychicrecycle.absolutelyplausible.com](https://psychicrecycle.absolutelyplausible.com) _(dedicated domain pending)_
+**Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
 A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
@@ -27,7 +27,7 @@ The world's most complete recycling education platform.
 npx wrangler pages deploy .
 ```
 
-Domain: `psychicrecycle.absolutelyplausible.com`
+Domain: `recyclopedia.cc`
 
 ## Version
 

@@ -11,8 +11,10 @@ every session.
 - **Structure:** single-page site (`index.html`). Three areas — Academy, **Lookup** (the searchable item database, core of the site), Donate Electronics.
 - The site **is** the Recyclopedia; the searchable section is labeled "Lookup" in the UI.
 
-## Current live state (as of 2026-06-14)
+## Current live state (as of 2026-06-15)
+- **Domain registered:** `recyclopedia.cc` (bought 2026-06-15). 🎉
 - **Deployed:** https://recyclopedia.pages.dev (Cloudflare Pages project `recyclopedia`, production branch `main`).
+- ⏳ DNS + custom-domain wiring on the Pages project still pending — `recyclopedia.cc` is not yet serving the site.
 - Old interim URL `psychicrecycle.absolutelyplausible.com` may still point at the previous `chorecycle` Pages project — not the source of truth anymore.
 - `main` is up to date; rename work merged via PR #2.
 
@@ -30,8 +32,9 @@ git status --short --branch
 Single source of truth for version: the `VERSION` file (currently `v0.1.0 alpha`).
 
 ## TODO / next up (rough priority)
-- [ ] **Buy domain `recyclopedia.cc`** (~$8). Luiz wants it; not purchased yet as of 2026-06-14.
-- [ ] Once bought: add `recyclopedia.cc` as a custom domain on the `recyclopedia` Pages project + create DNS record. Update domain references in README/CLAUDE/AGENTS.
+- [x] **Buy domain `recyclopedia.cc`** — done 2026-06-15.
+- [x] Update domain references in README/CLAUDE/AGENTS — done 2026-06-15.
+- [ ] **Wire up `recyclopedia.cc`:** add it as a custom domain on the `recyclopedia` Pages project (Cloudflare dashboard → Pages → recyclopedia → Custom domains) + confirm DNS record. Then verify https://recyclopedia.cc serves the site.
 - [ ] **Rename local folder on the primary Mac** to `recyclopedia` (cosmetic; not needed on the ThinkPad): `mv ~/Workspace/Projects/psychicrecycle ~/Workspace/Projects/recyclopedia`
 - [ ] Decommission / clean up the old `chorecycle` Cloudflare Pages project once the new domain is live.
 - [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations.

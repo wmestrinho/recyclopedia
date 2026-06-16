@@ -9,7 +9,7 @@ Legacy path
 
 Project purpose
 - See `README.md` — project purpose TBD.
-- Planned live target: `https://psychicrecycle.absolutelyplausible.com` (dedicated domain pending)
+- Live domain: `https://recyclopedia.cc` (registered 2026-06-15) — see `HANDOFF.md` for DNS/Pages wiring status.
 
 Required baseline for AI agents
 - Read this file before editing.
