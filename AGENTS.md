@@ -3,12 +3,8 @@
 Canonical path
 - `/Users/wmestrinho/Workspace/Projects/recyclopedia`
 
-Legacy path
-- `/Users/wmestrinho/.openclaw/workspace/projects/psychicrecycle`
-- Treat legacy path as deprecated. Do not start new work there.
-
 Project purpose
-- See `README.md` — project purpose TBD.
+- See `README.md`.
 - Live domain: `https://recyclopedia.cc` (registered 2026-06-15) — see `HANDOFF.md` for DNS/Pages wiring status.
 
 Required baseline for AI agents

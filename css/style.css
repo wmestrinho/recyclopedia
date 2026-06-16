@@ -185,6 +185,14 @@ table {
   text-transform: uppercase;
 }
 
+.brand__copy small a {
+  color: inherit;
+}
+
+.brand__copy small a:hover {
+  color: var(--accent);
+}
+
 .site-nav {
   display: flex;
   align-items: center;
