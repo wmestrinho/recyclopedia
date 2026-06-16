@@ -50,7 +50,7 @@ Single source of truth for version: the `VERSION` file (currently `v0.1.0 alpha`
 - [ ] **Phase 3:** full Academy course content, quizzes, facility locator by ZIP.
 - [ ] (Low priority / optional) Internal element IDs and JS still use `recyclopedia`/`recyclopedia-results` for the Lookup feature — fine to leave; rename only if doing a broader refactor.
 
-**Done (2026-06-15):** bought `recyclopedia.cc`; wired apex + www + `diy.` subdomain; purged legacy names (chorecycle/psychicrecycle); footer tagline + all "Absolutely Plausible" mentions linked to absolutelyplausible.com; confirmed the 1993/2008 dates are intentional.
+**Done (2026-06-15):** bought `recyclopedia.cc`; wired apex + www + `diy.` subdomain; purged all legacy project names so recyclopedia.cc is the sole identity; footer tagline + all "Absolutely Plausible" mentions linked to absolutelyplausible.com; confirmed the 1993/2008 dates are intentional.
 
 ## Coordination
 - Multiple machines/agents may touch this repo. Coordinate via GitHub only.
