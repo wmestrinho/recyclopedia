@@ -16,6 +16,16 @@ every session.
 - **Deployed:** https://recyclopedia.pages.dev (Cloudflare Pages project `recyclopedia`, production branch `main`); `recyclopedia.cc` is a custom domain on that project.
 - `main` is up to date.
 
+## Domains & subdomains (recyclopedia.cc zone, all on Cloudflare)
+- `recyclopedia.cc` + `www.recyclopedia.cc` → Pages project **`recyclopedia`** (this repo).
+- `diy.recyclopedia.cc` → Pages project **`diy-pallet-guide`** (separate repo, separate agent). Subdomain plumbing verified 2026-06-15; its content is owned by that project's `main` branch.
+- Rule of thumb: each new subdomain = a custom domain on its own Pages project; Cloudflare auto-creates the proxied CNAME in this zone.
+
+## Brand / founding dates (intentional — do NOT "fix")
+- **1993** (footer tagline "since 1993") = founder's personal origin of the mission, growing up in Brazil.
+- **2008** (About section "since 2008") = year the founder committed to it as a life goal and became an entrepreneur / founded AP.
+- The two dates are deliberate and different. Inline HTML comments in `index.html` mark both.
+
 ## How to deploy
 ```sh
 npx wrangler pages deploy . --project-name=recyclopedia --branch=main
@@ -30,14 +40,17 @@ git status --short --branch
 Single source of truth for version: the `VERSION` file (currently `v0.1.0 alpha`).
 
 ## TODO / next up (rough priority)
-- [x] **Buy domain `recyclopedia.cc`** — done 2026-06-15.
-- [x] Update domain references in README/CLAUDE/AGENTS — done 2026-06-15.
-- [x] **Wire up `recyclopedia.cc`:** custom domain added to the `recyclopedia` Pages project (apex + www), DNS auto-created, SSL Active, verified serving the site — done 2026-06-15.
+
+**Manual, owner-only (Luiz's machine / Cloudflare dashboard — agents can't do these):**
 - [ ] **Rename the local folder on the primary Mac** to `recyclopedia` (cosmetic; the working dir is still under the old folder name): `mv ~/Workspace/Projects/psychicrecycle ~/Workspace/Projects/recyclopedia`
 - [ ] Decommission / clean up the previous (pre-`recyclopedia.cc`) Cloudflare Pages project + its interim subdomain, now that the new domain is live.
+
+**Project work:**
 - [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations.
 - [ ] **Phase 3:** full Academy course content, quizzes, facility locator by ZIP.
 - [ ] (Low priority / optional) Internal element IDs and JS still use `recyclopedia`/`recyclopedia-results` for the Lookup feature — fine to leave; rename only if doing a broader refactor.
+
+**Done (2026-06-15):** bought `recyclopedia.cc`; wired apex + www + `diy.` subdomain; purged legacy names (chorecycle/psychicrecycle); footer tagline + all "Absolutely Plausible" mentions linked to absolutelyplausible.com; confirmed the 1993/2008 dates are intentional.
 
 ## Coordination
 - Multiple machines/agents may touch this repo. Coordinate via GitHub only.
