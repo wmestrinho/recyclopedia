@@ -80,7 +80,7 @@ than an honest "check local." This is a feature of the ethic, not a gap.
 ## Next steps
 
 1. **Design the ranked-disposition schema first** — the spine everything ingests
-   into. Gate for Phase 2.
+   into. Gate for Phase 2. ✅ Drafted in [DATA_SCHEMA.md](DATA_SCHEMA.md).
 2. **Outreach (owner-only):** contact **Earth911** and **The Recycling
    Partnership** for partnership/API terms — this decides whether layer 2 is
    "license now" or "defer behind check-local." See HANDOFF.
