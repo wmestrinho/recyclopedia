@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recyclopedia Lens — Scan Result Card (mockup)</title>
+<!--
+  MOCKUP / NON-PRODUCTION. Phase 4 "Recyclopedia Lens" scan-result card.
+  Shows the three states of the flow:
+    1. Confirm   — recognized, ask the user "does this look right?"
+    2. Answer    — on confirm, speak to the OBJECT + show the Gratitude Hierarchy
+    3. Not sure  — honest fallback: search by name / ask a human / try again / back
+  Uses the live site's design tokens. See VISION.md + ENVIRONMENTAL_RESPECT_POLICY.md.
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+  :root {
+    --bg: #eef0f2;
+    --surface: #ffffff;
+    --surface-alt: #f5f6f9;
+    --surface-soft: #e9ebef;
+    --border: #d6d8e0;
+    --text: #1e2238;
+    --muted: #5f6480;
+    --accent: #3d9c6b;
+    --accent-mid: #2e7d52;
+    --accent-deep: #1f5c3c;
+    --accent-hover: #4db87e;
+    --glow-accent: 0 0 6px #3d9c6b44, 0 0 18px #3d9c6b1f;
+    --shadow: 0 1px 3px rgba(30, 34, 56, 0.1), 0 0 0 1px var(--border);
+    --radius: 8px;
+    --radius-lg: 14px;
+    --font: 'Share Tech Mono', 'Courier New', monospace;
+    --status-yes: #2e7d52;      --status-yes-bg: #e6f4ed;
+    --status-drop: #8a5a00;     --status-drop-bg: #fff3cd;
+    --status-partial: #1a5f7a;  --status-partial-bg: #dff0f8;
+    --status-no: #c0392b;       --status-no-bg: #fce8e6;
+  }
+
+  * , *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(109, 172, 44, 0.10), transparent 24%),
+      radial-gradient(circle at top right, rgba(61, 156, 107, 0.09), transparent 28%),
+      var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 2rem 1rem 4rem;
+  }
+  /* scanline overlay, matching the live site */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.025) 3px, rgba(0,0,0,0.025) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+
+  .page-head { max-width: 1180px; margin: 0 auto 2rem; }
+  .page-head h1 { font-size: 1.1rem; letter-spacing: 0.06em; margin: 0 0 0.35rem; }
+  .page-head p { margin: 0; color: var(--muted); font-size: 0.82rem; max-width: 60ch; }
+  .page-head code { background: var(--surface-soft); padding: 0.05rem 0.35rem; border-radius: 4px; }
+
+  .gallery {
+    max-width: 1180px; margin: 0 auto;
+    display: grid; gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    align-items: start;
+  }
+  .state { display: grid; gap: 0.6rem; justify-items: center; }
+  .state__label {
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent-mid);
+  }
+
+  /* phone frame to suggest the PWA / mobile context */
+  .phone {
+    width: 100%; max-width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    box-shadow: 0 10px 30px rgba(30,34,56,0.12), 0 0 0 1px var(--border);
+    padding: 0.9rem;
+    display: grid; gap: 0.85rem;
+  }
+
+  /* captured-photo strip */
+  .capture {
+    position: relative;
+    height: 130px; border-radius: var(--radius);
+    background:
+      linear-gradient(135deg, #cfd6da, #aeb8bd 60%, #97a3a8);
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .capture::after { /* faux scan reticle */
+    content: ''; position: absolute; inset: 14px;
+    border: 1px solid #ffffffaa; border-radius: 6px;
+    box-shadow: 0 0 0 1px #00000014 inset;
+  }
+  .capture__tag {
+    position: relative; z-index: 1; margin: 0.5rem;
+    font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+    background: #00000066; color: #fff; padding: 0.2rem 0.5rem; border-radius: 999px;
+  }
+
+  .cat { margin: 0; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .name { margin: 0.1rem 0 0; font-size: 1.05rem; letter-spacing: 0.02em; }
+
+  /* confidence meter */
+  .conf { display: grid; gap: 0.25rem; }
+  .conf__row { display: flex; justify-content: space-between; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .conf__track { height: 6px; border-radius: 999px; background: var(--surface-soft); overflow: hidden; }
+  .conf__fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-mid)); }
+  .conf__fill--low { background: linear-gradient(90deg, #d9a441, #c0392b); }
+
+  .ask { margin: 0; font-size: 0.82rem; text-align: center; }
+
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .btn-row--stack { grid-template-columns: 1fr; }
+  .button {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 42px; padding: 0.55rem 0.9rem;
+    font-family: var(--font); font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
+    border-radius: var(--radius); border: 0; cursor: pointer; width: 100%;
+  }
+  .button--solid { background: linear-gradient(135deg, var(--accent), var(--accent-mid)); color: #fff; box-shadow: var(--glow-accent); }
+  .button--ghost { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+  .button--link { background: transparent; color: var(--muted); min-height: 34px; box-shadow: none; }
+
+  hr.sep { border: 0; border-top: 1px solid var(--border); margin: 0.1rem 0; }
+
+  /* ---- Answer state ---- */
+  .confirmed {
+    display: inline-flex; align-items: center; gap: 0.3rem; width: fit-content;
+    font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--status-yes); background: var(--status-yes-bg);
+    padding: 0.2rem 0.55rem; border-radius: 999px;
+  }
+  .grateful {
+    margin: 0; padding: 0.7rem 0.8rem;
+    background: var(--status-yes-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.84rem; line-height: 1.5; color: var(--accent-deep);
+  }
+  .best { display: grid; gap: 0.5rem; padding: 0.2rem 0; }
+  .best__label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .best__badge {
+    display: inline-flex; align-items: center; gap: 0.4rem; width: fit-content;
+    font-size: 0.92rem; letter-spacing: 0.03em;
+    background: var(--status-yes-bg); color: var(--status-yes);
+    padding: 0.35rem 0.8rem; border-radius: 999px; font-weight: normal;
+  }
+  .rows { display: grid; gap: 0.35rem; }
+  .row { display: grid; grid-template-columns: 54px 1fr; gap: 0.5rem; font-size: 0.78rem; line-height: 1.45; }
+  .row__k { color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.62rem; padding-top: 0.15rem; }
+
+  details.ladder { border-top: 1px solid var(--border); padding-top: 0.55rem; }
+  details.ladder > summary {
+    cursor: pointer; list-style: none; font-size: 0.68rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-mid);
+  }
+  details.ladder > summary::-webkit-details-marker { display: none; }
+  details.ladder > summary::after { content: ' ▾'; }
+  details.ladder[open] > summary::after { content: ' ▴'; }
+  .rung { display: flex; gap: 0.55rem; align-items: baseline; font-size: 0.76rem; padding: 0.3rem 0; color: var(--text); }
+  .rung__n { color: var(--muted); font-size: 0.66rem; min-width: 1.2rem; }
+  .rung--top { color: var(--status-yes); }
+  .rung--off { color: var(--muted); }
+
+  .why { margin: 0; font-size: 0.7rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 0.55rem; line-height: 1.5; }
+  .why a { color: var(--accent); text-decoration: none; }
+
+  .unsure-icon { text-align: center; font-size: 1.6rem; }
+  .unsure-msg { margin: 0; text-align: center; font-size: 0.84rem; }
+  .unsure-sub { margin: 0; text-align: center; font-size: 0.74rem; color: var(--muted); }
+  .search-box {
+    display: flex; align-items: center; gap: 0.4rem;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface-alt); padding: 0.5rem 0.7rem; font-size: 0.78rem; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+  <header class="page-head">
+    <h1>Recyclopedia Lens — Scan Result Card</h1>
+    <p>
+      Phase 4 mockup. The flow after the camera captures an object:
+      <strong>confirm → speak to the object → act</strong>. Lower rungs of the
+      <em>Gratitude Hierarchy</em> stay collapsed under the best available path.
+      Non-production; design tokens pulled from the live <code>recyclopedia.cc</code>.
+    </p>
+  </header>
+
+  <main class="gallery">
+
+    <!-- ============ STATE 1: CONFIRM ============ -->
+    <section class="state">
+      <span class="state__label">1 · Confirm</span>
+      <div class="phone">
+        <div class="capture"><span class="capture__tag">◎ captured</span></div>
+
+        <div>
+          <p class="cat">Electronics · likely match</p>
+          <h2 class="name">Smartphone</h2>
+        </div>
+
+        <div class="conf">
+          <div class="conf__row"><span>Confidence</span><span>High · 94%</span></div>
+          <div class="conf__track"><div class="conf__fill" style="width:94%"></div></div>
+        </div>
+
+        <p class="ask">Does this look right?</p>
+        <div class="btn-row">
+          <button class="button button--ghost">Not quite</button>
+          <button class="button button--solid">Yes, that's it</button>
+        </div>
+        <button class="button button--link">↺ Scan again</button>
+      </div>
+    </section>
+
+    <!-- ============ STATE 2: ANSWER ============ -->
+    <section class="state">
+      <span class="state__label">2 · Answer (after confirm)</span>
+      <div class="phone">
+        <span class="confirmed">✓ Confirmed · Smartphone</span>
+
+        <p class="grateful">
+          This little machine holds gold, silver, and cobalt pulled from the
+          earth — and it still has more life in it. Let's pass it on.
+        </p>
+
+        <div class="best">
+          <span class="best__label">Best path for this object</span>
+          <span class="best__badge">♡ Donate — it still works</span>
+        </div>
+
+        <div class="rows">
+          <div class="row"><span class="row__k">Prep</span><span>Back up data, factory reset, remove SIM &amp; SD card.</span></div>
+          <div class="row"><span class="row__k">Where</span><span>Donate Electronics intake, manufacturer take-back, or a local refurbisher.</span></div>
+        </div>
+
+        <details class="ladder">
+          <summary>Other respectful paths</summary>
+          <div class="rung rung--top"><span class="rung__n">①</span><span>Reuse — keep using it as a backup or media device</span></div>
+          <div class="rung rung--top"><span class="rung__n">②</span><span>Repair — a cracked screen or battery is often worth fixing</span></div>
+          <div class="rung rung--top"><span class="rung__n">④</span><span><strong>Donate</strong> — give it to someone who needs one ◀ best</span></div>
+          <div class="rung rung--off"><span class="rung__n">⑤</span><span>Recycle — recover the metals at a certified e-waste facility</span></div>
+          <div class="rung rung--off"><span class="rung__n">⑦</span><span>Dispose — never; phones never belong in the trash</span></div>
+        </details>
+
+        <p class="why">
+          Why donate first? A working device kept in use honors far more of its
+          embodied value than recycling it. — <a href="../ENVIRONMENTAL_RESPECT_POLICY.md">Environmental Respect Policy</a>
+        </p>
+
+        <div class="btn-row">
+          <button class="button button--ghost">↺ Scan another</button>
+          <button class="button button--solid">Open full page</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATE 3: NOT SURE ============ -->
+    <section class="state">
+      <span class="state__label">3 · Not sure (honest fallback)</span>
+      <div class="phone">
+        <div class="capture"><span class="capture__tag">◎ captured</span></div>
+
+        <p class="unsure-icon">🤔</p>
+        <p class="unsure-msg">We're not sure about this one.</p>
+        <p class="unsure-sub">
+          We'd rather say so than guess you into a landfill. Let's find it together.
+        </p>
+
+        <div class="conf">
+          <div class="conf__row"><span>Best guess</span><span>Low · 38% · "container?"</span></div>
+          <div class="conf__track"><div class="conf__fill conf__fill--low" style="width:38%"></div></div>
+        </div>
+
+        <div class="search-box">🔍 Search the Recyclopedia by name…</div>
+
+        <hr class="sep" />
+
+        <div class="btn-row btn-row--stack">
+          <button class="button button--solid">↺ Try again</button>
+          <button class="button button--ghost">Ask a human</button>
+        </div>
+        <button class="button button--link">← Back</button>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

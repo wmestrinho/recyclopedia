@@ -43,4 +43,5 @@ python3 scripts/validate_agent_baseline.py
 
 - **Phase 1 (current):** Homepage, searchable database (60+ items), Academy myths module, Electronics donation form
 - **Phase 2:** Expand to 500+ items, Supabase backend, state/municipality regulations database
-- **Phase 3:** Full Academy course content, interactive quizzes, facility locator by ZIP
+- **Phase 3:** Full Academy course content, interactive quizzes, and a **national registry + map of US recycling & transfer stations** (the searchable "where" behind every recommendation)
+- **Phase 4 — Recyclopedia Lens (camera):** Point a phone camera at an object → recognize it → open the right page of the Recyclopedia with a ranked, locally-aware path down the Gratitude Hierarchy (reuse → repair → repurpose → donate → recycle → compost → dispose). PWA first (native later); barcode-first + AI recognition (provisional — to revisit). See [VISION.md](VISION.md), grounded in the [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_POLICY.md) and [AP Guidelines](AP_GUIDELINES.md).
