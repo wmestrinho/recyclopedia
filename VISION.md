@@ -112,7 +112,8 @@ camera north star:
 - **Data model evolution.** Lookup items today carry a single `status`
   (curbside / drop-off / hazardous / …). The camera flow needs each object to map
   to a **ranked list of dispositions** following the Gratitude Hierarchy. This
-  shapes the Phase 2 Supabase schema.
+  shapes the Phase 2 Supabase schema. **How we source all of this is set out in
+  [DATA_STRATEGY.md](DATA_STRATEGY.md)** (the four-layer build/license/aggregate model).
 - **Local rules.** How we source and store municipality/state-level rules so the
   ranked path is locally accurate.
 - **Naming.** Working name for the feature: **Recyclopedia Lens** (point it, the

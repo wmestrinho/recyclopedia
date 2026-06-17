@@ -44,6 +44,10 @@ Single source of truth for version: the `VERSION` file (currently `v0.1.0 alpha`
 **Manual, owner-only (Luiz's machine / Cloudflare dashboard — agents can't do these):**
 - [ ] **Rename the local folder on the primary Mac** to `recyclopedia` (cosmetic; the working dir is still under the old folder name): `mv ~/Workspace/Projects/psychicrecycle ~/Workspace/Projects/recyclopedia`
 - [ ] Decommission / clean up the previous (pre-`recyclopedia.cc`) Cloudflare Pages project + its interim subdomain, now that the new domain is live.
+- [ ] **Data partnership outreach (gates the "local rules" layer — see `DATA_STRATEGY.md`):**
+  - [ ] **The Recycling Partnership** — Recycle Check / National Recycling Database (9,000+ community programs, real-time local rules). Ask about partnership/API/licensing terms. recyclingpartnership.org/recyclecheck
+  - [ ] **Earth911** — Search API (350+ materials, ~800k listings); request a developer API key + terms. api.earth911.com
+  - Outcome decides whether layer 2 is "license now" or "defer behind honest *check local*."
 
 **Project work:**
 - [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations.
