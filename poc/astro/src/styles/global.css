@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --bg: #eef0f2;
+  --surface: #ffffff;
+  --surface-alt: #f5f6f9;
+  --border: #d6d8e0;
+  --text: #1e2238;
+  --muted: #5f6480;
+  --accent: #3d9c6b;
+  --accent-mid: #2e7d52;
+  --accent-deep: #1f5c3c;
+  --accent-bg: #e6f4ed;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --font: 'Share Tech Mono', 'Courier New', monospace;
+  --max-width: 1100px;
+}
+
+* , *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(109, 172, 44, 0.10), transparent 24%),
+    radial-gradient(circle at top right, rgba(61, 156, 107, 0.09), transparent 28%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
+
+.hero { padding: 3.5rem 0 2rem; }
+.hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-mid); margin: 0 0 0.5rem; }
+.hero__title { font-size: 2rem; margin: 0 0 0.5rem; letter-spacing: 0.02em; }
+.hero__sub { color: var(--muted); margin: 0; max-width: 60ch; }
+.poc-badge {
+  display: inline-block; margin-top: 1rem; padding: 0.3rem 0.7rem;
+  border: 1px dashed var(--accent); border-radius: 999px;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-mid);
+}
+
+.section { padding: 1rem 0 4rem; }
+.section__title { font-size: 1.1rem; margin: 0 0 0.25rem; }
+.section__hint { color: var(--muted); font-size: 0.82rem; margin: 0 0 1.4rem; }
+
+.site-footer { border-top: 1px solid var(--border); padding: 1.5rem 0; color: var(--muted); font-size: 0.78rem; }

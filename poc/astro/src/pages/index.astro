@@ -1,0 +1,47 @@
+---
+import Lookup from '../components/Lookup.svelte';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recyclopedia — Astro POC</title>
+    <meta
+      name="description"
+      content="Proof-of-concept: Recyclopedia on Astro. Static homepage + an interactive Lookup island on the ranked-disposition data."
+    />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap">
+        <p class="hero__eyebrow">Recyclopedia · Astro POC</p>
+        <h1 class="hero__title">The most grateful end for everything.</h1>
+        <p class="hero__sub">
+          This page is static HTML (zero JS). The Lookup below is an interactive
+          Astro island — proving the content-first + islands model from TECH_STACK.md.
+        </p>
+        <span class="poc-badge">Non-production · poc/astro</span>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="wrap">
+        <h2 class="section__title">Lookup</h2>
+        <p class="section__hint">
+          Search or filter by category. Each card shows the object-directed
+          gratitude note, the best path, and collapsible alternate rungs.
+        </p>
+        <Lookup client:load />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        Recyclopedia Astro POC — an Absolutely Plausible Solutions experiment.
+      </div>
+    </footer>
+  </body>
+</html>
