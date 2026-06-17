@@ -882,6 +882,62 @@ table {
   line-height: 1.55;
 }
 
+/* Gratitude Hierarchy on the card (see DATA_SCHEMA.md) */
+.recycle-card__gratitude {
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  background: var(--status-yes-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--accent-deep);
+}
+
+.recycle-card__best {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.recycle-card__best-label {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 0.35rem;
+}
+
+.recycle-card__best-val {
+  color: var(--accent-mid);
+}
+
+.recycle-card__paths {
+  border-top: 1px solid var(--border);
+  padding-top: 0.55rem;
+}
+
+.recycle-card__paths > summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-mid);
+}
+
+.recycle-card__paths > summary::-webkit-details-marker { display: none; }
+.recycle-card__paths > summary::after { content: ' ▾'; }
+.recycle-card__paths[open] > summary::after { content: ' ▴'; }
+
+.recycle-card__rung {
+  margin: 0.3rem 0 0;
+  font-size: 0.76rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
