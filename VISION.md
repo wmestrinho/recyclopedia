@@ -102,6 +102,15 @@ camera north star:
   recognition layer live on the same platform we already deploy to.
   ⚠️ **This is a provisional choice and an explicit open question — see below.**
 
+- **Scan modes: a pre-capture gate.** Before the camera opens, the user declares
+  the capture type — **(1) one item**, **(2) multi-material**, or **(3) pile/hoard**
+  — so we never guess. **MVP ships Mode 1 only**; Modes 2–3 are designed-for but
+  deferred. (Details in [DATA_SCHEMA.md](DATA_SCHEMA.md).)
+
+- **Every item earns a real category — no "Other."** The taxonomy is a complete,
+  exhaustive set of 11 disposal-stream categories. A junk-drawer category would
+  break the encyclopedia's promise that *nothing* goes unlisted.
+
 ## Open questions (to revisit with deeper research)
 
 - **Recognition engine — REVISIT.** Barcode-first + AI fallback is the starting

@@ -55,6 +55,33 @@ existing card UI keeps working during migration.
 
 ---
 
+## Category taxonomy — complete, no "Other"
+
+**Principle:** every item earns a real category. There is **no `other` catch-all** —
+a junk drawer just hides items from review and erodes the encyclopedia's promise
+that *nothing* goes unlisted. The taxonomy is a flat list of 11 categories, each a
+genuine disposal stream:
+
+```
+Metal   Plastic   Paper   Glass   Electronics   Batteries
+Hazardous   Textiles   Organics   Rubber   Bulky Goods
+```
+
+`Organics`, `Rubber`, and `Bulky Goods` replace the old `Other`. Reclassification
+of the current items:
+
+| Was `Other` | Now | Note |
+|-------------|-----|------|
+| Food scraps / organics | **Organics** | |
+| Cooking oil (used) | **Organics** | food-derived → biodiesel/grease recycling |
+| Tires | **Rubber** | real stream (retailer/tire-amnesty drop-off) |
+| Mattress | **Bulky Goods** | real stream (Mattress Recycling Council / bulky pickup) |
+| Ink / toner cartridge | **Electronics** | **dedup** — already listed under Electronics |
+
+> The current `js/recyclopedia.js` `CATEGORIES` array (`…,'Textiles','Other'`)
+> becomes `…,'Textiles','Organics','Rubber','Bulky Goods'` (drop `'Other'`), and the
+> ~5 items above get re-tagged, when migration Step 1 runs.
+
 ## Item shape — static JSON (use now)
 
 This enriches the current `js/recyclopedia.js` item without breaking it. The old
@@ -140,9 +167,9 @@ create type channel_t as enum
   ('curbside','drop_off','mail_back','retail_takeback','hhw','scrap_yard',
    'donation_center','compost_home','compost_municipal','trash','special_event');
 
-create type category_t as enum
+create type category_t as enum   -- complete & exhaustive; NO 'other' catch-all
   ('metal','plastic','paper','glass','electronics','batteries',
-   'hazardous','textiles','organics','other');
+   'hazardous','textiles','organics','rubber','bulky');
 
 -- sources (citations — "no greenwashing") ---------------------------------
 create table source (
@@ -255,6 +282,23 @@ service role / admin. (`alter table item enable row level security;` + a
 
 ---
 
+## Scan modes — pre-capture gate
+
+Before the camera ever opens, the user declares **what kind of capture** this is.
+This removes ambiguity at the source (we never have to guess whether a photo is one
+thing or twenty) and keeps each mode's logic clean.
+
+| # | Mode | Meaning | Status |
+|---|------|---------|--------|
+| 1 | **One item only** | A single object fills the frame. | ✅ **MVP** |
+| 2 | **Multi-material** | One object made of several materials (e.g. a blister pack: plastic + foil + paper). Resolves to per-component dispositions. | 🔜 later |
+| 3 | **Pile or Hoard** | Many distinct items in one capture; detect & itemize each. | 🔜 later |
+
+**MVP builds Mode 1 only.** Modes 2–3 are defined now so the UI, schema, and
+recognition pipeline are designed to accommodate them — but they are deliberately
+deferred to keep the MVP solid and simple. (Mode 2 is why `item.material_codes[]`
+exists; Mode 3 is a multi-detection problem on top of the same item lookup.)
+
 ## How the camera flow uses it (Phase 4)
 
 1. **Barcode present?** → `barcode.gtin` → `item`. Exact match, highest confidence.
@@ -277,11 +321,12 @@ service role / admin. (`alter table item enable row level security;` + a
 
 ## Open schema questions
 
-- **`organics` vs `other`:** today food scraps live in `other` with a compost
-  status. Splitting `organics` out is cleaner — confirmed in the enum above; the
-  ~60 current items would need re-tagging.
 - **Materials vs items:** some rules key on *material* (`#5 PP`) not the item.
   `material_codes[]` + `local_rule.material_code` support this; may warrant a
   full `material` table later.
-- **Multi-material objects:** an object made of several materials (e.g. a blister
-  pack) may need per-component dispositions — out of scope for v1, flagged.
+
+### Resolved
+- **No `other` category** — replaced by the complete 11-category taxonomy above
+  (`organics` / `rubber` / `bulky` added). Every item earns a real home.
+- **Multi-material objects** — handled by the **pre-capture scan-mode gate**
+  (Mode 2), not guesswork. MVP is single-item (Mode 1) only.
