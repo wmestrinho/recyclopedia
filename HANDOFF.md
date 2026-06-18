@@ -12,8 +12,8 @@ every session.
 - The site **is** the Recyclopedia; the searchable section is labeled "Lookup" in the UI.
 
 ## Current live state (as of 2026-06-16)
-- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL. Now serving **v0.1.1 alpha**.
-- **Deploy is automatic:** push to `main` → Cloudflare Pages git integration builds & deploys (verified — v0.1.1 went live on push). `npx wrangler pages deploy .` is just the manual fallback.
+- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL. Current repo version is **v0.1.2 alpha**.
+- **Deploy is automatic:** push to `main` → Cloudflare Pages git integration builds & deploys. `npx wrangler pages deploy .` is just the manual fallback.
 - `main` is up to date and clean.
 
 ## Session 2026-06-16 — what changed (big strategy + first build)
@@ -35,14 +35,15 @@ Defined the project's ultimate goal and the path to it. **All new docs are canon
   - The POC currently carries **9 representative items**, not the full live dataset.
   - The live site still holds **58 items across all 11 categories** in `js/recyclopedia.js`.
   - Conclusion: approve Astro as the Phase 2 direction, but do **not** replace the live site with the POC as-is.
-- Best next engineering step remains **Migration Step 2** from `DATA_SCHEMA.md`: extract the live 58-item dataset out of `js/recyclopedia.js` into a standalone static data file (`items.json` or typed module), then port the real page incrementally.
+- **Migration Step 2 bridge completed:** the live 58-item dataset now lives in `js/recyclopedia-data.js`, loaded separately from the render logic in `js/recyclopedia.js`.
+- Next engineering step: convert that standalone data file into JSON or a typed module as the Astro migration starts, then port the real page incrementally.
 - Owner blockers are unchanged: partnership/API outreach (Earth911, The Recycling Partnership) and the source workflow for the future 500+ item dataset.
 
 ## Next session — start here
 1. **Read the canon docs above** (VISION → DATA_STRATEGY → DATA_SCHEMA → TECH_STACK) before touching Phase 2.
 2. **Treat the Astro POC as approved direction, not merge-ready production.** Keep it as the architecture proof.
-3. **Do Migration Step 2 next:** extract all 58 live Lookup items from `js/recyclopedia.js` into a standalone schema-shaped data file, preserving the current card behavior.
-4. **Only after data extraction is stable,** port the real live page into Astro incrementally (`index.html` + CSS parity first, Lookup island second).
+3. **Use the extracted dataset as the migration base:** `js/recyclopedia-data.js` is now the source file to convert into JSON or a typed Astro module.
+4. **Next build step:** port the real live page into Astro incrementally (`index.html` + CSS parity first, Lookup island second), using the extracted dataset instead of re-copying item content.
 5. **Owner-only, blocking later phases:** data-partnership outreach to The Recycling Partnership + Earth911 (see TODO below); these gate the "local rules" layer.
 6. **Open questions still to resolve:** recognition engine (barcode+AI is provisional — needs deeper research); where the 500+ item set is being assembled.
 - Tip: run `python3 scripts/validate_agent_baseline.py` before committing; bump `VERSION` (+ footer in `index.html`) for meaningful changes.
@@ -68,7 +69,7 @@ Requires wrangler auth (`npx wrangler login`) with access to the Cloudflare acco
 python3 scripts/validate_agent_baseline.py
 git status --short --branch
 ```
-Single source of truth for version: the `VERSION` file (currently `v0.1.1 alpha`).
+Single source of truth for version: the `VERSION` file (currently `v0.1.2 alpha`).
 
 ## TODO / next up (rough priority)
 
@@ -81,7 +82,7 @@ Single source of truth for version: the `VERSION` file (currently `v0.1.1 alpha`
   - Outcome decides whether layer 2 is "license now" or "defer behind honest *check local*."
 
 **Project work:**
-- [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations. Schema in `DATA_SCHEMA.md` (ranked dispositions). ✅ **Migration Step 1 done (v0.1.1):** all 58 items now carry `gratitude_note` + ranked `dispositions[]`; complete 11-category taxonomy (no "Other"); ink/toner deduped; Lookup card renders grateful note + best path + collapsible "Other respectful paths". Next: Step 2 (extract items to `items.json`) and grow toward 500+.
+- [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations. Schema in `DATA_SCHEMA.md` (ranked dispositions). ✅ **Migration Step 1 done (v0.1.1):** all 58 items now carry `gratitude_note` + ranked `dispositions[]`; complete 11-category taxonomy (no "Other"); ink/toner deduped; Lookup card renders grateful note + best path + collapsible "Other respectful paths". ✅ **Migration Step 2 bridge done (v0.1.2):** dataset extracted to `js/recyclopedia-data.js`. Next: convert to JSON/typed module as Astro migration begins, then grow toward 500+.
 - [ ] **Phase 3:** full Academy course content, quizzes, and a **national registry + map of US recycling & transfer stations** (elevated from a simple ZIP locator per the founder's business draft — it's the "where" behind every recommendation).
 - [ ] **From Google Drive source docs (2026-06):** the 500+ item DB is still being built — define where it's assembled and how it imports into the ranked-disposition schema. Reference orgs + contacts captured in `REFERENCE_ORGANIZATIONS.md`. (Note: canonical brand spelling is **Recyclopedia** with an "o"; "Recyclepedia" in the draft was a typo.)
 - [ ] **Phase 4 — Recyclopedia Lens (camera):** the big bet. Point a phone camera at an object → recognize → open the right Recyclopedia page with a ranked path down the Gratitude Hierarchy. North-star metric: objects correctly diverted from landfill. **Delivery: PWA now, native later. Recognition: barcode-first + AI fallback — PROVISIONAL, needs deeper research before committing.** Data model must evolve from single `status` to a ranked list of dispositions (shapes the Phase 2 Supabase schema). Canon: `VISION.md`, `ENVIRONMENTAL_RESPECT_POLICY.md`, `AP_GUIDELINES.md` (all added 2026-06-16).
