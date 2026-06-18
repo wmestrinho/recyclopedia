@@ -7,12 +7,12 @@ every session.
 ## Project at a glance
 - **Name:** Recyclopedia (recycle + encyclopedia). Official domain/identity: **recyclopedia.cc**.
 - **Repo:** `wmestrinho/recyclopedia`.
-- **Stack:** Pure HTML/CSS/JS, no build step. Cloudflare Pages.
-- **Structure:** single-page site (`index.html`). Three areas — Academy, **Lookup** (the searchable item database, core of the site), Donate Electronics.
+- **Stack:** Astro + TypeScript at repo root, Svelte for the Lookup island, existing CSS/browser JS preserved under `public/`. Cloudflare Pages.
+- **Structure:** single-page Astro site (`src/pages/index.astro`). Three areas — Academy, **Lookup** (the searchable item database, core of the site), Donate Electronics.
 - The site **is** the Recyclopedia; the searchable section is labeled "Lookup" in the UI.
 
 ## Current live state (as of 2026-06-16)
-- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL. Current repo version is **v0.1.2 alpha**.
+- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL. Current repo version is **v0.1.3 alpha**.
 - **Deploy is automatic:** push to `main` → Cloudflare Pages git integration builds & deploys. `npx wrangler pages deploy .` is just the manual fallback.
 - `main` is up to date and clean.
 
@@ -39,14 +39,30 @@ Defined the project's ultimate goal and the path to it. **All new docs are canon
 - Next engineering step: convert that standalone data file into JSON or a typed module as the Astro migration starts, then port the real page incrementally.
 - Owner blockers are unchanged: partnership/API outreach (Earth911, The Recycling Partnership) and the source workflow for the future 500+ item dataset.
 
+## Session 2026-06-18 — Astro root migration started
+- **Migration Step 3 completed in working tree:** Astro/Svelte project files added at repo root (`package.json`, `astro.config.mjs`, `tsconfig.json`).
+- The live page shell was ported to `src/pages/index.astro` with the existing visual structure and CSS.
+- Static browser assets moved into `public/css/style.css`, `public/js/main.js`, and `public/js/donate.js`.
+- The full 58-item dataset was converted into a typed Astro module at `src/data/items.ts`.
+- Lookup was converted from vanilla DOM rendering to a Svelte island at `src/components/Lookup.svelte`, using the same live card classes and ranked-disposition behavior.
+- `wrangler.jsonc` now points Pages output to `dist`.
+- Node/npm are now available on the Windows PowerShell machine (`node v24.16.0`, `npm 11.13.0`).
+- Build verification passed: `npm run build` generated `dist/index.html` successfully.
+- Validation passed: `python scripts/validate_agent_baseline.py`.
+- Migration fix applied: public scripts in `src/pages/index.astro` use `is:inline` so Astro preserves `/js/donate.js` and `/js/main.js` as static browser assets.
+- Encoding fix applied: `src/pages/index.astro` and `src/data/items.ts` were re-decoded to proper UTF-8 after Windows mojibake broke symbols/copy (`♻`, arrows, em dashes, emoji icons). Current scan over `src`, `public`, and `dist` is clean.
+- Dependency pins applied in `package.json`/`package-lock.json` (`astro 6.4.7`, `@astrojs/svelte 8.1.2`, `svelte 5.56.3`, `typescript 6.0.3`) instead of `latest`.
+- Local build quirk: Astro/Vite needed a narrow alias for `astro/entrypoints/prerender` in `astro.config.mjs`; keep it unless a future dependency update proves it unnecessary.
+- npm reported 3 low-severity advisories; do not run `npm audit fix --force` casually during migration because it can introduce breaking dependency churn.
+
 ## Next session — start here
 1. **Read the canon docs above** (VISION → DATA_STRATEGY → DATA_SCHEMA → TECH_STACK) before touching Phase 2.
 2. **Treat the Astro POC as approved direction, not merge-ready production.** Keep it as the architecture proof.
-3. **Use the extracted dataset as the migration base:** `js/recyclopedia-data.js` is now the source file to convert into JSON or a typed Astro module.
-4. **Next build step:** port the real live page into Astro incrementally (`index.html` + CSS parity first, Lookup island second), using the extracted dataset instead of re-copying item content.
+3. **Astro root migration is build-verified on Windows PowerShell.** Next step is visual/browser smoke testing the built site, then commit/push/deploy.
+4. **Confirm Cloudflare Pages settings:** build command `npm run build`, output directory `dist`. Manual fallback: `npx wrangler pages deploy dist --project-name=recyclopedia --branch=main`.
 5. **Owner-only, blocking later phases:** data-partnership outreach to The Recycling Partnership + Earth911 (see TODO below); these gate the "local rules" layer.
 6. **Open questions still to resolve:** recognition engine (barcode+AI is provisional — needs deeper research); where the 500+ item set is being assembled.
-- Tip: run `python3 scripts/validate_agent_baseline.py` before committing; bump `VERSION` (+ footer in `index.html`) for meaningful changes.
+- Tip: run `npm run build` and `python3 scripts/validate_agent_baseline.py` before committing; bump `VERSION` (+ footer in `src/pages/index.astro`) for meaningful changes.
 
 ## Domains & subdomains (recyclopedia.cc zone, all on Cloudflare)
 - `recyclopedia.cc` + `www.recyclopedia.cc` → Pages project **`recyclopedia`** (this repo).
@@ -60,7 +76,9 @@ Defined the project's ultimate goal and the path to it. **All new docs are canon
 
 ## How to deploy
 ```sh
-npx wrangler pages deploy . --project-name=recyclopedia --branch=main
+npm install
+npm run build
+npx wrangler pages deploy dist --project-name=recyclopedia --branch=main
 ```
 Requires wrangler auth (`npx wrangler login`) with access to the Cloudflare account.
 
@@ -69,7 +87,7 @@ Requires wrangler auth (`npx wrangler login`) with access to the Cloudflare acco
 python3 scripts/validate_agent_baseline.py
 git status --short --branch
 ```
-Single source of truth for version: the `VERSION` file (currently `v0.1.2 alpha`).
+Single source of truth for version: the `VERSION` file (currently `v0.1.3 alpha`).
 
 ## TODO / next up (rough priority)
 
@@ -82,7 +100,7 @@ Single source of truth for version: the `VERSION` file (currently `v0.1.2 alpha`
   - Outcome decides whether layer 2 is "license now" or "defer behind honest *check local*."
 
 **Project work:**
-- [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations. Schema in `DATA_SCHEMA.md` (ranked dispositions). ✅ **Migration Step 1 done (v0.1.1):** all 58 items now carry `gratitude_note` + ranked `dispositions[]`; complete 11-category taxonomy (no "Other"); ink/toner deduped; Lookup card renders grateful note + best path + collapsible "Other respectful paths". ✅ **Migration Step 2 bridge done (v0.1.2):** dataset extracted to `js/recyclopedia-data.js`. Next: convert to JSON/typed module as Astro migration begins, then grow toward 500+.
+- [ ] **Phase 2:** expand the Lookup database to 500+ items; add Supabase backend; state/municipality regulations. Schema in `DATA_SCHEMA.md` (ranked dispositions). ✅ **Migration Step 1 done (v0.1.1):** all 58 items now carry `gratitude_note` + ranked `dispositions[]`; complete 11-category taxonomy (no "Other"); ink/toner deduped; Lookup card renders grateful note + best path + collapsible "Other respectful paths". ✅ **Migration Step 2 bridge done (v0.1.2):** dataset extracted to `js/recyclopedia-data.js`. ✅ **Migration Step 3 build-verified (v0.1.3):** dataset converted to typed `src/data/items.ts`, live page ported to Astro, Lookup moved to a Svelte island, root build passes. Next: browser smoke test, commit/push/deploy, then grow toward 500+.
 - [ ] **Phase 3:** full Academy course content, quizzes, and a **national registry + map of US recycling & transfer stations** (elevated from a simple ZIP locator per the founder's business draft — it's the "where" behind every recommendation).
 - [ ] **From Google Drive source docs (2026-06):** the 500+ item DB is still being built — define where it's assembled and how it imports into the ranked-disposition schema. Reference orgs + contacts captured in `REFERENCE_ORGANIZATIONS.md`. (Note: canonical brand spelling is **Recyclopedia** with an "o"; "Recyclepedia" in the draft was a typo.)
 - [ ] **Phase 4 — Recyclopedia Lens (camera):** the big bet. Point a phone camera at an object → recognize → open the right Recyclopedia page with a ranked path down the Gratitude Hierarchy. North-star metric: objects correctly diverted from landfill. **Delivery: PWA now, native later. Recognition: barcode-first + AI fallback — PROVISIONAL, needs deeper research before committing.** Data model must evolve from single `status` to a ranked list of dispositions (shapes the Phase 2 Supabase schema). Canon: `VISION.md`, `ENVIRONMENTAL_RESPECT_POLICY.md`, `AP_GUIDELINES.md` (all added 2026-06-16).

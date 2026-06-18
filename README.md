@@ -1,6 +1,6 @@
 # Recyclopedia
 
-**Status:** In development — v0.1.2 alpha
+**Status:** In development — v0.1.3 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
@@ -16,7 +16,9 @@ The world's most complete recycling education platform.
 
 ## Stack
 
-- Pure HTML / CSS / JS — no build step, no framework
+- Astro + TypeScript at the repo root
+- Svelte island for the interactive Lookup
+- Existing CSS and browser JS preserved under `public/`
 - Cloudflare Pages — `$0/month` hosting
 - Font: Share Tech Mono (Google Fonts)
 - Database (Phase 2): Supabase
@@ -24,18 +26,21 @@ The world's most complete recycling education platform.
 ## Deployment
 
 ```sh
-npx wrangler pages deploy .
+npm install
+npm run build
+npx wrangler pages deploy dist --project-name=recyclopedia --branch=main
 ```
 
 Domain: `recyclopedia.cc`
 
 ## Version
 
-See `VERSION` file. Current: `v0.1.2 alpha`
+See `VERSION` file. Current: `v0.1.3 alpha`
 
 ## Validation
 
 ```sh
+npm run build
 python3 scripts/validate_agent_baseline.py
 ```
 
