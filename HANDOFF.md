@@ -28,12 +28,23 @@ Defined the project's ultimate goal and the path to it. **All new docs are canon
 - **`js/recyclopedia.js`** (v0.1.1, SHIPPED): all 58 items migrated to `gratitude_note` + ranked `dispositions[]`; Lookup card renders best path + collapsible other paths; taxonomy applied (Organics/Rubber/Bulky Goods, ink/toner deduped).
 - **Astro POC:** branch **`astro-poc`**, **draft PR #4**, in `poc/astro/` (Astro 6 + Svelte 5; homepage + Lookup island; builds clean). NOT deployed.
 
+## Session 2026-06-17 — Phase 2 review on Windows Codex machine
+- Repo sync/cleanup complete; local repo is clean and aligned with GitHub.
+- **Astro POC reviewed:** good direction, not production-ready by itself.
+  - `poc/astro/` proves the recommended architecture: static Astro page + Svelte Lookup island + typed data.
+  - The POC currently carries **9 representative items**, not the full live dataset.
+  - The live site still holds **58 items across all 11 categories** in `js/recyclopedia.js`.
+  - Conclusion: approve Astro as the Phase 2 direction, but do **not** replace the live site with the POC as-is.
+- Best next engineering step remains **Migration Step 2** from `DATA_SCHEMA.md`: extract the live 58-item dataset out of `js/recyclopedia.js` into a standalone static data file (`items.json` or typed module), then port the real page incrementally.
+- Owner blockers are unchanged: partnership/API outreach (Earth911, The Recycling Partnership) and the source workflow for the future 500+ item dataset.
+
 ## Next session — start here
 1. **Read the canon docs above** (VISION → DATA_STRATEGY → DATA_SCHEMA → TECH_STACK) before touching Phase 2.
-2. **Decide on the Astro POC (PR #4):** review it; if approved, the migration path is in TECH_STACK.md — port `index.html` + CSS into Astro, then move all 58 items from `js/recyclopedia.js` into a typed `items.ts`.
-3. **Do NOT rewrite the live site for its own sake** — adopt Astro at the *start* of Phase 2 (when data → typed modules + app surfaces appear). The vanilla site is fine until then.
-4. **Owner-only, blocking later phases:** data-partnership outreach to The Recycling Partnership + Earth911 (see TODO below); these gate the "local rules" layer.
-5. **Open questions still to resolve:** recognition engine (barcode+AI is provisional — needs deeper research); where the 500+ item set is being assembled.
+2. **Treat the Astro POC as approved direction, not merge-ready production.** Keep it as the architecture proof.
+3. **Do Migration Step 2 next:** extract all 58 live Lookup items from `js/recyclopedia.js` into a standalone schema-shaped data file, preserving the current card behavior.
+4. **Only after data extraction is stable,** port the real live page into Astro incrementally (`index.html` + CSS parity first, Lookup island second).
+5. **Owner-only, blocking later phases:** data-partnership outreach to The Recycling Partnership + Earth911 (see TODO below); these gate the "local rules" layer.
+6. **Open questions still to resolve:** recognition engine (barcode+AI is provisional — needs deeper research); where the 500+ item set is being assembled.
 - Tip: run `python3 scripts/validate_agent_baseline.py` before committing; bump `VERSION` (+ footer in `index.html`) for meaningful changes.
 
 ## Domains & subdomains (recyclopedia.cc zone, all on Cloudflare)
@@ -57,7 +68,7 @@ Requires wrangler auth (`npx wrangler login`) with access to the Cloudflare acco
 python3 scripts/validate_agent_baseline.py
 git status --short --branch
 ```
-Single source of truth for version: the `VERSION` file (currently `v0.1.0 alpha`).
+Single source of truth for version: the `VERSION` file (currently `v0.1.1 alpha`).
 
 ## TODO / next up (rough priority)
 
