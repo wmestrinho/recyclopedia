@@ -11,10 +11,17 @@ every session.
 - **Structure:** single-page Astro site (`src/pages/index.astro`). Three areas — Academy, **Lookup** (the searchable item database, core of the site), Donate Electronics.
 - The site **is** the Recyclopedia; the searchable section is labeled "Lookup" in the UI.
 
-## Current live state (as of 2026-06-16)
-- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL. Current repo version is **v0.1.3 alpha**.
-- **Deploy is automatic:** push to `main` → Cloudflare Pages git integration builds & deploys. `npx wrangler pages deploy .` is just the manual fallback.
+## Current live state (as of 2026-06-19)
+- **LIVE on official domain:** https://recyclopedia.cc 🎉 (and https://www.recyclopedia.cc) — both Active, valid SSL. Current repo version is **v0.1.4 alpha**.
+- **Deploy is automatic:** push to `main` → Cloudflare Pages git integration builds & deploys. `npx wrangler pages deploy dist` is just the manual fallback.
 - `main` is up to date and clean.
+
+## Session 2026-06-19 — go-live correctness fixes (v0.1.4, pushed)
+Done on the **primary Mac (Opus 4.8)**, on top of the Astro root migration (v0.1.3):
+- **Donate form no longer discards submissions.** It previously showed "Donation submitted! We'll contact you in 48 hours" while sending nothing. Now `public/js/donate.js` validates required fields and opens the donor's mail client pre-filled to `contact@absolutelyplausible.com` (zero-backend honest stopgap). Success copy in `src/pages/index.astro` updated to match. **Proper fix = a Cloudflare Pages Function that emails submissions directly; tracked for Phase 2.**
+- **Favicon 404 fixed** in `src/pages/index.astro` (`assets/favicon.png` never existed → inline SVG ♻ data-URI).
+- Bumped to **v0.1.4 alpha**. Fixes were ported into the Astro source (not the now-legacy root `index.html`/`js/`).
+- ⚠️ **Verify on the live site after deploy** (build was not run locally this session): confirm the favicon shows, the donate flow opens an email, and Cloudflare Pages is set to **build `npm run build`, output `dist`** — if Pages still serves the repo root, the Astro build won't take effect.
 
 ## Session 2026-06-16 — what changed (big strategy + first build)
 Defined the project's ultimate goal and the path to it. **All new docs are canon; read them before Phase 2 work:**
