@@ -222,6 +222,37 @@
         itemHidden.value = itemInput.value.trim();
       }
 
+      // The form has `novalidate`; surface the required-field checks ourselves.
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      if (itemHidden && !itemHidden.value) {
+        if (itemInput) itemInput.focus();
+        return;
+      }
+
+      // No backend yet — rather than silently drop the submission, hand it off
+      // to the donor's email client fully pre-filled so it actually reaches us.
+      var get = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+      var item = itemHidden ? itemHidden.value : '';
+      var body = [
+        'Item: ' + item,
+        'Condition: ' + get('item-condition'),
+        'Quantity: ' + get('item-quantity'),
+        'Name: ' + get('donor-name'),
+        'Email: ' + get('donor-email'),
+        'Phone: ' + get('donor-phone'),
+        'ZIP: ' + get('donor-zip'),
+        '',
+        'Notes:',
+        get('item-notes')
+      ].join('\n');
+      var mailto = 'mailto:contact@absolutelyplausible.com'
+        + '?subject=' + encodeURIComponent('Electronics donation — ' + (item || 'item'))
+        + '&body=' + encodeURIComponent(body);
+      window.location.href = mailto;
+
       if (successPanel) {
         form.style.display = 'none';
         successPanel.classList.add('is-visible');
