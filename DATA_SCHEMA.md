@@ -184,12 +184,14 @@ create type category_t as enum   -- complete & exhaustive; NO 'other' catch-all
    'hazardous','textiles','organics','rubber','bulky');
 
 -- organizations (the Atlas provenance graph) ------------------------------
--- Every governing body / agency / university / NGO / WMO / standards body /
--- data provider that informs Recyclopedia is a typed node here, wired to the
--- layer(s) it feeds. Powers the public credibility infographic AND our internal
--- provenance map. Seeded from REFERENCE_ORGANIZATIONS.md.
+-- Every governing body / agency / university / NGO / intergovernmental body /
+-- standards body / data provider that informs Recyclopedia is a typed node here,
+-- wired to the layer(s) it feeds. Powers the public credibility infographic AND
+-- our internal provenance map. Seeded from REFERENCE_ORGANIZATIONS.md.
+-- NOTE: values are role *categories*, not named orgs — e.g. WMO/World Bank/UNEP
+-- are `intergovernmental`, not their own value.
 create type org_role_t as enum
-  ('governing_body','gov_agency','university','ngo','wmo',
+  ('governing_body','gov_agency','university','ngo','intergovernmental',
    'standards_body','data_provider');
 
 create table organization (
