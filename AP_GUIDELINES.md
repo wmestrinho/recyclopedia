@@ -31,10 +31,27 @@ we behave).
 - Local accuracy is preferred; when local rules are unknown, we say "check local."
 - Safety/hazardous handling is never softened for convenience.
 
+## Confidence thresholds (the Confidence Ladder)
+
+"Never guess someone into a landfill" is operationalized as the **Confidence Ladder**:
+the answer comes from the most trustworthy source available, and we degrade *honestly*
+rather than fabricate certainty.
+
+- **Recognition confidence.** The visual-AI rung returns a label with a confidence score.
+  Below `confidence_floor` (default **0.6**, see [DATA_SCHEMA.md](DATA_SCHEMA.md)) we do
+  **not** assert an identification — we fall to manual search (Lookup), then to the
+  **"not sure" / ask-a-human** card. Above it, we still **confirm with the user** before
+  acting.
+- **Answer sourcing.** Prefer a licensed **local rule**; absent that, our **item
+  knowledge**; absent that, a **category default**. Where local rules are unknown or
+  vary, set `local_variance` and show **"check local"** — that is the *correct* answer,
+  not a gap.
+- **Safety override.** For hazardous items, when confidence is low we surface the safe
+  handling path regardless — safety is never traded for a slicker answer.
+
 ## To be defined
 
 - Brand voice specifics and copy patterns.
-- Confidence thresholds for showing vs. withholding a recognition result.
 - Review process for added items and claims.
 - Accessibility standards.
 

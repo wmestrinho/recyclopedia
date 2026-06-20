@@ -20,6 +20,13 @@ product. The data being scattered is the opportunity, not the obstacle.
 | **3. Facility map** | "Where is the nearest place to act?" | EPA + ~19,000 municipalities (fragmented) |
 | **4. Macro / credibility** | "What is the global picture?" | World Bank, UNEP, Yale — free, open |
 
+**These four layers ARE the [Confidence Ladder](VISION.md) at query time.** When the app
+answers, it walks them top-down: *local rule (layer 2) → our item knowledge (layer 1) →
+category default → honest "check local."* They also map onto the three knowledge
+backbones: **layer 1 → Lookup**; **layers 2 + 3 → Atlas** (local rules + facilities);
+**layer 4 → Academy** (macro/credibility). The provenance of every layer traces to a
+typed node in the **Atlas organizations graph**.
+
 ## The decision: build vs. license vs. aggregate (per layer)
 
 The guiding principle: **own the thin, high-value editorial layer; aggregate or
@@ -50,6 +57,10 @@ than an honest "check local." This is a feature of the ethic, not a gap.
   facilities (landfills, transfer stations, MRFs, composting) via Data.gov. Raw
   and regulatory-flavored (won't list "Best Buy takes batteries"), but the free
   backbone for layer 3. <https://www.epa.gov/enviro/facility-registry-service-frs>
+- **EPA Envirofacts (api.data.gov)** — programmatic access to EPA's environmental
+  databases, complements FRS for layer 3 ingestion. <https://www.epa.gov/enviro/envirofacts-data-service-api>
+- **Data.gov** — the US open-data portal; state/municipal waste & recycling datasets
+  for seeding layer 3 (and the Atlas Facilities layer). <https://data.gov>
 - **World Bank — What a Waste 2.0** — global stats, **CC BY 3.0 IGO (free reuse)**,
   CSV download. Layer 4 / Academy. <https://datatopics.worldbank.org/what-a-waste/>
 - **Municipal open data** (e.g. Data.gov "recycling", city portals) — patchwork,
@@ -76,6 +87,12 @@ than an honest "check local." This is a feature of the ethic, not a gap.
   not specific consumer products. **This confirms barcode-first:** visual AI alone
   won't reliably tell a #5 tub from a #6 tub. Useful for benchmarking/fine-tuning
   only. <https://github.com/AgaMiko/waste-datasets-review>
+- **YOLO + TrashNet vs. Workers AI — the rung-2 tension.** A founder's Drive proposal
+  favored **YOLO + TrashNet** as the primary engine. But TrashNet's ~6 material buckets
+  are far too coarse for a 500-item, item-level encyclopedia and the Gratitude Hierarchy.
+  Working plan: **Workers AI open-vocab vision for MVP** (zero training, broad coverage),
+  **YOLO/custom on-device as a later cost/offline optimization** once we have labeled
+  data. PROVISIONAL — pending the recognition research dive (see VISION open questions).
 
 ## Next steps
 

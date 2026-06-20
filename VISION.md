@@ -44,6 +44,72 @@ defined canonically in the [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_
 > Note: **Donate** is already a path we have built (Donate Electronics). The
 > camera unifies it with Lookup and Academy.
 
+## The framework — four ladders, three backbones, surfaces
+
+> This is the shared vocabulary for the whole platform. "Tier", "fallback", and
+> "trickledown" are not one thing — they are **four distinct ordered systems
+> ("ladders")**. Everything we build is either one of three **knowledge backbones**
+> or a **surface** that presents them. Use these names everywhere.
+
+### The four decision ladders
+
+Each ladder is *ordered*: try the top first, fall to the next only when the one
+above can't answer confidently.
+
+1. **Recognition Ladder** — *how do we figure out what the object is?*
+   `barcode → visual AI → manual search (Lookup) → ask-a-human ("not sure")`.
+2. **Gratitude Hierarchy** — *what should they do with it?* (the **trickledown**)
+   `reuse → repair → repurpose → donate → recycle → compost → dispose` — always show
+   the **highest *available*** rung. (Canonical in the
+   [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_POLICY.md).)
+3. **Confidence Ladder** — *where does the answer come from, and how sure are we?*
+   `local rule (licensed) → our item knowledge → category default → honest "check local"`.
+   Governed by the [AP Guidelines](AP_GUIDELINES.md): **never guess someone into a landfill.**
+4. **Where Ladder** — *where do they physically go?*
+   `specific nearby facility → generic facility type → "check local."`
+
+**How they chain (the one model to reuse everywhere):**
+
+```
+Recognition  →  Lookup item  →  Gratitude ranking  →  Atlas "where"
+ (identify)      (the "what")     (the trickledown)     (the place)
+                          ⟍                       ⟋
+                       all gated by the Confidence Ladder
+                    (+ an Academy micro-lesson, the "why")
+```
+
+### The three knowledge backbones
+
+| Backbone | Owns | Answers |
+|----------|------|---------|
+| **Lookup** | item knowledge | *what is this + its grateful paths?* |
+| **Atlas** | geography + provenance | *where do I act, is it accepted locally, who says so?* |
+| **Academy** | concepts + macro/credibility | ***why*** *+ the credibility story* |
+
+Every complete answer is a **Lookup item × an Atlas location, gated by Confidence.**
+
+- **Lookup** — the searchable encyclopedia (60 → 500+ items), each with a
+  `gratitude_note` + ranked dispositions. **One dataset, two doors:** the search box
+  and the camera (Lens) are both inputs into it — never a separate database.
+- **Atlas** — one layered map with **three layers**: *Facilities* (**all disposition
+  endpoints**, not recycling-only → Where Ladder), *Jurisdictions + Local Rules*
+  (→ Confidence Ladder), and *Organizations & Sources* (a linked **provenance graph** —
+  every facility and rule traces to a typed source org). Two surfaces: the user-facing
+  actionable map, and the **provenance infographic** shown in Academy.
+- **Academy** — the "why" layer; a destination *and* a library that injects
+  contextual micro-lessons into Lookup and Lens. Hosts the public Atlas provenance
+  infographic and the macro/credibility sources.
+
+### The surfaces (doors)
+
+`Search box · Lens · The Map (Atlas) · Donate · Academy pages`
+
+- **Lens** — the **orchestrating front door** (Phase 4). Owns no data; it runs all
+  four ladders over all three backbones in a single gesture.
+- **Donate** — a rung-4 **action surface**: a "where to donate" Atlas view (all
+  categories) + AP's own intake form (AP as a donation node, electronics-only).
+  ⚠️ **Placeholder — AP is not accepting donations during development; revisit later.**
+
 ## Purpose · Big picture · Ultimate goal
 
 - **Purpose (why we exist):** Make the most respectful end-of-life choice for any
@@ -77,11 +143,12 @@ defined canonically in the [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_
 Two pillars from the founder's business draft (Google Drive, 2026-06) support the
 camera north star:
 
-- **National Facility Registry & Map.** A centralized, searchable registry and map
-  of recycling and transfer stations across the United States. This is what makes
-  the "Where" in every recommendation *locally true* — the camera tells you the
-  best rung, the registry tells you the nearest real place to act on it. (Larger
-  than the earlier "ZIP locator" idea; treat as a first-class pillar.)
+- **National Facility Registry & Map → now the Atlas backbone.** A centralized,
+  searchable registry and map of disposition endpoints across the United States. This is
+  what makes the "Where" in every recommendation *locally true* — the camera tells you
+  the best rung, the Atlas tells you the nearest real place to act on it. (Larger than
+  the earlier "ZIP locator" idea; merged with the organizations/sources registry into the
+  single layered **Atlas** described above.)
 
 - **Credible, globally-aware knowledge base.** A 500+ item database prioritized by
   urgency and global recycling need, informed by leading waste organizations
@@ -96,11 +163,14 @@ camera north star:
   using the browser camera — one codebase, no app stores, on the current
   pure-HTML / Cloudflare Pages stack. Wrap/port to native once usage justifies it.
 
-- **Recognition: barcode-first + AI fallback (for now).** Scan a barcode/label
-  for an exact product match when one is present; fall back to visual AI
-  recognition for loose objects. Cloudflare **Workers AI** vision models let the
-  recognition layer live on the same platform we already deploy to.
-  ⚠️ **This is a provisional choice and an explicit open question — see below.**
+- **Recognition: the Recognition Ladder (provisional).** Try a barcode/label for an
+  exact product match first; fall to **visual AI** for loose objects; fall to **manual
+  search (Lookup)**, which is always available; and finally to **ask-a-human ("not
+  sure")** below the confidence floor. For rung 2 (visual AI), the working plan is
+  **Cloudflare Workers AI open-vocabulary vision for the MVP** (zero training, broad
+  coverage, same platform we deploy to), with **YOLO / on-device custom models as a
+  later optimization** for cost and offline use once we have labeled data.
+  ⚠️ **Provisional — an explicit open question pending a research dive; see below.**
 
 - **Scan modes: a pre-capture gate.** Before the camera opens, the user declares
   the capture type — **(1) one item**, **(2) multi-material**, or **(3) pile/hoard**
@@ -113,11 +183,17 @@ camera north star:
 
 ## Open questions (to revisit with deeper research)
 
-- **Recognition engine — REVISIT.** Barcode-first + AI fallback is the starting
-  assumption, *not* a settled decision. Needs deeper research on: accuracy of
-  Workers AI vision models on real-world waste, per-scan cost at scale,
-  on-device vs. cloud trade-offs, privacy, and offline behavior. Do not treat as
-  final.
+- **Recognition engine — REVISIT.** The Recognition Ladder order is adopted, but the
+  rung-2 visual-AI engine is *not* a settled decision. **Workers AI for MVP / YOLO
+  later** is the working plan; a founder's Drive proposal favored **YOLO + TrashNet** as
+  primary — but TrashNet alone is too coarse (~6 material buckets, not item-level), so it
+  can fine-tune, not power, recognition. Needs a deeper research dive: accuracy of vision
+  models on real-world waste, per-scan cost at scale, on-device vs. cloud, privacy, and
+  offline behavior. Do not treat as final.
+- **"Recyclable vs. not" is not our answer.** Any framing (incl. earlier draft docs)
+  that reduces the result to a recyclable/non-recyclable binary is **superseded** by the
+  Gratitude Hierarchy: recognition outputs an item/category; the answer is a *ranked
+  path*, never a yes/no.
 - **Data model evolution.** Lookup items today carry a single `status`
   (curbside / drop-off / hazardous / …). The camera flow needs each object to map
   to a **ranked list of dispositions** following the Gratitude Hierarchy. This
@@ -136,5 +212,5 @@ camera north star:
 ## Status
 
 - This is a **forward-looking vision**, not yet built. Current shipped product is
-  v0.1.0 alpha (Academy, Lookup, Donate Electronics) — see `README.md`.
+  v0.1.4 alpha (Academy, Lookup, Donate Electronics) — see `README.md`.
 - The camera feature is tracked as **Phase 4** on the roadmap.

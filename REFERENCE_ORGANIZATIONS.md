@@ -9,6 +9,12 @@ These inform the [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_POLICY.md)
 (sourcing of claims) and the long-term goal of a credible, globally-aware
 recycling knowledge base.
 
+> Each organization below is a **typed node in the Atlas provenance graph** (see
+> [DATA_SCHEMA.md](DATA_SCHEMA.md) `organization`): it has a `role` and is wired to the
+> layer(s) it feeds. This list is the seed for both the public credibility infographic
+> and our internal provenance map. Growing it well is a dedicated follow-up — the
+> **source-gathering research dive**.
+
 ## World Bank
 - **Role:** Global waste generation and management practices (e.g. *What a Waste* research).
 - **HQ:** 1818 H Street NW, Washington, DC 20433
@@ -34,6 +40,18 @@ recycling knowledge base.
 - **HQ:** United Nations Avenue, Gigiri, P.O. Box 30552, 00100 Nairobi, Kenya
 - **Email:** unepinfo@unep.org
 - **Phone:** +254 (0)20 762 1234
+
+## NASA — Earth Science Division
+- **Role:** Earth-science and climate data (macro/credibility layer). `role: gov_agency`.
+- **Web:** <https://science.nasa.gov/earth-science/>
+
+## NOAA — National Oceanic and Atmospheric Administration
+- **Role:** Climate, ocean, and atmospheric data (macro/credibility layer). `role: gov_agency`.
+- **Web:** <https://www.noaa.gov/>
+
+## IPCC — Intergovernmental Panel on Climate Change
+- **Role:** Authoritative climate-science assessments (macro/credibility layer). `role: standards_body`.
+- **Web:** <https://www.ipcc.ch/>
 
 ---
 *Captured from founder source docs. Use as research/citation references and

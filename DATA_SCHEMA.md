@@ -18,9 +18,21 @@ collapsed beneath it.
 ```
 item ──< disposition >── facility_type ──< facility        (the "where", for the map)
   │           │
-  │           └── source          (citation — "no greenwashing")
+  │           └── source ──> organization   (provenance — "no greenwashing")
   └── barcode / recognition_label  (how the camera maps an image → an item)
 ```
+
+## How this schema implements the four ladders
+
+The four decision ladders from [VISION.md](VISION.md) each map onto concrete pieces
+of this schema. Use these names when describing the mechanics:
+
+| Ladder | Schema pieces that implement it |
+|--------|---------------------------------|
+| **Recognition Ladder** | `barcode` → `recognition_label` → manual `item` search → "not sure" (below `confidence_floor`) |
+| **Gratitude Hierarchy** (trickledown) | `disposition.rung` + `rank`; "best available path" resolution |
+| **Confidence Ladder** | `local_rule` → `item`/`disposition` → `category` default → `local_variance` ("check local") |
+| **Where Ladder** | `disposition.facility_type` → nearest `facility` (geo KNN) → `facility_type` generic → "check local" |
 
 ## Gratitude Hierarchy — canonical rungs
 
@@ -144,7 +156,7 @@ flat fields can be derived from `dispositions[0]` during transition.
 }
 ```
 
-**"Best path" resolution (what the scan card highlights):**
+**"Best path" resolution — the Gratitude Hierarchy trickledown (what the scan card highlights):**
 1. Filter `dispositions` to those *available* for the user's context (conditions
    met; not blocked by local rules).
 2. Pick `is_recommended === true` if a curator set one; otherwise the lowest
@@ -171,13 +183,34 @@ create type category_t as enum   -- complete & exhaustive; NO 'other' catch-all
   ('metal','plastic','paper','glass','electronics','batteries',
    'hazardous','textiles','organics','rubber','bulky');
 
--- sources (citations — "no greenwashing") ---------------------------------
-create table source (
-  id          text primary key,            -- e.g. 'epa-ewaste', 'earth911'
+-- organizations (the Atlas provenance graph) ------------------------------
+-- Every governing body / agency / university / NGO / WMO / standards body /
+-- data provider that informs Recyclopedia is a typed node here, wired to the
+-- layer(s) it feeds. Powers the public credibility infographic AND our internal
+-- provenance map. Seeded from REFERENCE_ORGANIZATIONS.md.
+create type org_role_t as enum
+  ('governing_body','gov_agency','university','ngo','wmo',
+   'standards_body','data_provider');
+
+create table organization (
+  id          text primary key,            -- e.g. 'epa', 'world-bank', 'trp'
   name        text not null,
+  role        org_role_t not null,
+  feeds       text[] not null default '{}', -- which layers: item/local_rule/facility/macro
   url         text,
-  license     text,
-  retrieved_at date
+  region      text,                         -- jurisdictional coverage (for the map)
+  geo         geography(point,4326),        -- HQ/location (for the map)
+  notes       text
+);
+
+-- sources (citations — "no greenwashing"); each traces to an organization ---
+create table source (
+  id              text primary key,         -- e.g. 'epa-ewaste', 'earth911'
+  name            text not null,
+  organization_id text references organization(id),
+  url             text,
+  license         text,
+  retrieved_at    date
 );
 
 -- items --------------------------------------------------------------------
@@ -199,8 +232,12 @@ create index item_category_idx on item (category);
 create index item_aliases_idx  on item using gin (aliases);
 
 -- facility types (generic "kind of place" a disposition points at) ---------
+-- Spans EVERY Gratitude rung, not recycling-only: repair_shop, donation_center,
+-- hhw, compost_site, scrap_yard, retail_takeback, recycling/transfer, etc. The
+-- Atlas Facilities layer must cover all disposition endpoints or the hierarchy
+-- has nowhere to send reuse/repair/donate/compost.
 create table facility_type (
-  id          text primary key,            -- 'hhw','ewaste','grocery_film',...
+  id          text primary key,            -- 'hhw','ewaste','repair_shop','compost_site',...
   name        text not null,
   description text
 );
@@ -247,7 +284,9 @@ create table barcode (
   source_id  text references source(id)
 );
 
--- recognition: AI fallback (model label → item/category) -------------------
+-- recognition: visual-AI rung (model label → item/category) ----------------
+-- engine-agnostic: labels may come from Workers AI open-vocab vision (MVP) or a
+-- YOLO/custom model (later optimization). PROVISIONAL — see VISION open questions.
 create table recognition_label (
   id              uuid primary key default gen_random_uuid(),
   label           text not null,           -- e.g. 'cell phone'
@@ -299,16 +338,22 @@ recognition pipeline are designed to accommodate them — but they are deliberat
 deferred to keep the MVP solid and simple. (Mode 2 is why `item.material_codes[]`
 exists; Mode 3 is a multi-detection problem on top of the same item lookup.)
 
-## How the camera flow uses it (Phase 4)
+## The Recognition Ladder → the scan card (Phase 4)
+
+This is the **Recognition Ladder** running over the backbones, gated by the
+**Confidence Ladder**:
 
 1. **Barcode present?** → `barcode.gtin` → `item`. Exact match, highest confidence.
-2. **No barcode?** → vision model label → `recognition_label.label` → `item` or
-   `category`. If best confidence `< confidence_floor` → the **"not sure"** card
-   (search / ask-a-human / try again).
+2. **No barcode?** → visual-AI label → `recognition_label.label` → `item` or
+   `category`. If best confidence `< confidence_floor` → fall to manual search
+   (Lookup), then the **"not sure" / ask-a-human** card. (The label can be produced by
+   Workers AI open-vocab vision for MVP, or a YOLO/custom model later — either way it
+   populates `recognition_label`.)
 3. **Confirm** with the user (per AP Guidelines), then:
 4. Load `item.gratitude_note` + ranked `dispositions`, resolve **best available
-   path** (above), resolve `facility_type` → nearest `facility` via `geo` KNN, and
-   render the scan card.
+   path** (the Gratitude Hierarchy trickledown, above), then run the **Where Ladder**:
+   `facility_type` → nearest `facility` via `geo` KNN → generic `facility_type` →
+   "check local". Render the scan card.
 
 ## Migration path (no double build)
 

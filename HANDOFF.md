@@ -16,6 +16,28 @@ every session.
 - **Deploy is automatic:** push to `main` → Cloudflare Pages git integration builds & deploys. `npx wrangler pages deploy dist` is just the manual fallback.
 - `main` is up to date and clean.
 
+## Session 2026-06-20 — framework definition (canon revised, docs-only)
+Brainstorm session that locked the platform's **shared vocabulary**. No code/runtime
+change; canon docs revised in place. Read `VISION.md` "The framework" section first.
+- **Four decision ladders** named: **Recognition** (barcode → visual AI → manual → ask-a-human),
+  **Gratitude Hierarchy** (the trickledown), **Confidence** (local rule → item → category → "check local"),
+  **Where** (facility → facility type → "check local"). The old "tier/fallback/trickledown" ambiguity is resolved.
+- **Three knowledge backbones:** **Lookup** (items; one dataset, two doors = search + Lens),
+  **Atlas** (geography + provenance), **Academy** (concepts + macro/credibility; destination + contextual micro-lessons).
+- **Atlas = merge of the old "Facility Map" (#5) + "Org/Sources Registry" (#6)** into one
+  layered map: Facilities (**all disposition endpoints**, not recycling-only) + Jurisdictions/Local Rules +
+  Organizations provenance graph. Two surfaces: user map + Academy provenance infographic (plots org location + jurisdiction).
+- **Lens** = the orchestrating front door (owns no data; runs all four ladders over all three backbones).
+- **Donate** = a rung-4 action surface (Atlas "where" view + AP intake node, electronics-only).
+  ⚠️ **Placeholder — AP NOT accepting donations during development; `#needs more discussion later#`.**
+- **Recognition engine — provisional:** Workers AI open-vocab for MVP, YOLO/on-device later
+  (TrashNet too coarse — ~6 buckets). Pending a **source-gathering + recognition research dive** (parked follow-up).
+- **Reconciled the Drive "Project proposal" (2026-06-18):** its YOLO+TrashNet-primary and
+  "recyclable vs. non-recyclable" framings are superseded; its EPA Envirofacts/Data.gov sources and NASA/NOAA/IPCC orgs were folded in.
+- **Deferred:** the impact/metrics dashboard (the inward half of the old #6).
+- Docs touched: `VISION.md`, `DATA_SCHEMA.md` (added `organization` provenance entity),
+  `DATA_STRATEGY.md`, `AP_GUIDELINES.md` (filled confidence thresholds), `REFERENCE_ORGANIZATIONS.md` (+NASA/NOAA/IPCC), `README.md`.
+
 ## Session 2026-06-19 — go-live correctness fixes (v0.1.4, pushed)
 Done on the **primary Mac (Opus 4.8)**, on top of the Astro root migration (v0.1.3):
 - **Donate form no longer discards submissions.** It previously showed "Donation submitted! We'll contact you in 48 hours" while sending nothing. Now `public/js/donate.js` validates required fields and opens the donor's mail client pre-filled to `contact@absolutelyplausible.com` (zero-backend honest stopgap). Success copy in `src/pages/index.astro` updated to match. **Proper fix = a Cloudflare Pages Function that emails submissions directly; tracked for Phase 2.**
@@ -94,7 +116,7 @@ Requires wrangler auth (`npx wrangler login`) with access to the Cloudflare acco
 python3 scripts/validate_agent_baseline.py
 git status --short --branch
 ```
-Single source of truth for version: the `VERSION` file (currently `v0.1.3 alpha`).
+Single source of truth for version: the `VERSION` file (currently `v0.1.4 alpha`).
 
 ## TODO / next up (rough priority)
 
