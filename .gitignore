@@ -8,3 +8,6 @@ dist/
 .astro/
 site/
 
+
+# Claude Code local settings
+.claude/
