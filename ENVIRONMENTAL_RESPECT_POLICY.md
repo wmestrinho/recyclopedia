@@ -101,7 +101,8 @@ We always recommend the **highest available rung** for a given object:
 > *"object-directed; shown after confirm"*). **Write every note from this spec — do
 > not invent notes item-by-item from scratch.**
 
-**The pattern — one sentence, ~8–16 words, doing three things:**
+**The pattern — one or two short sentences, ~8–16 words (flagship items may run to
+~20), doing three things:**
 
 1. **A material truth** — say something *true and specific* about the object's
    substance, value, or behaviour in the waste stream. (Lead with this.)
@@ -113,7 +114,8 @@ We always recommend the **highest available rung** for a given object:
 
 - Object-directed, warm, plain. A hurried person should feel thanked, not lectured.
 - Even a rung-7 ("trash") item earns a kind reframe — usually a *refuse/reduce* nudge.
-- One sentence. No exclamation-mark cheerleading. An em dash to pivot is on-brand.
+- Keep it tight (one or two short sentences). No exclamation-mark cheerleading. An em
+  dash, comma, or semicolon to pivot is on-brand.
 - Must be consistent with the Zero-Waste Policy and the "not accepted" list above.
 - Never overstate (no greenwashing): if it's barely recyclable, say so honestly.
 
@@ -127,7 +129,7 @@ We always recommend the **highest available rung** for a given object:
 | Cardboard | *"The most in-demand fiber after aluminum — flatten it and send it on."* | truth (demand) → action nudge |
 | Glass jar | *"A jar is a gift twice — store something in it, or recycle the metal lid apart."* | reuse-first reframe → nudge |
 
-**Mini-checklist before saving a note:** ☐ one sentence ☐ a true material fact
+**Mini-checklist before saving a note:** ☐ one or two short sentences ☐ a true material fact
 ☐ object-directed & kind ☐ ends on the right rung ☐ no greenwashing ☐ no shame.
 
 ---

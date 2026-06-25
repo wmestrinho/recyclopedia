@@ -379,6 +379,425 @@ export const ITEMS: Item[] = [
     ]
   },
   {
+    "slug": "pvc-vinyl-3",
+    "name": "PVC / vinyl #3",
+    "cat": "Plastic",
+    "status": "no",
+    "hazard": false,
+    "aliases": [
+      "pvc",
+      "vinyl",
+      "pipe",
+      "#3 plastic",
+      "cling wrap",
+      "vinyl siding"
+    ],
+    "material_codes": [
+      "PVC-3"
+    ],
+    "prep": "N/A",
+    "where": "Reuse / repurpose; otherwise regular trash. Some PVC pipe accepted at scrap yards.",
+    "note": "Almost never accepted curbside — PVC releases chlorine and ruins recycling batches. Give it a second job first.",
+    "gratitude_note": "Tough and chlorine-rich — almost no curb takes #3, so give it a second life first.",
+    "dispositions": [
+      {
+        "rung": "repurpose",
+        "rank": 3,
+        "channel": "retail_takeback",
+        "label": "reuse the pipe or vinyl for a project",
+        "is_recommended": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "landfill if unusable (never curbside)"
+      }
+    ]
+  },
+  {
+    "slug": "produce-bread-bag-4-ldpe",
+    "name": "Produce / bread bag #4 LDPE",
+    "cat": "Plastic",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "bread bag",
+      "produce bag",
+      "ldpe",
+      "#4 plastic",
+      "dry cleaning bag",
+      "newspaper sleeve"
+    ],
+    "material_codes": [
+      "LDPE-4"
+    ],
+    "prep": "Clean, dry, empty.",
+    "where": "Grocery-store plastic film drop-off bins (never curbside).",
+    "note": "Same stream as plastic grocery bags — soft #4 film belongs in store film bins, never the curbside cart.",
+    "gratitude_note": "Thin film #4 — clean and dry, it belongs in the store bag bin, not the curb.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "reuse it for storage first",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "store film drop-off bin"
+      }
+    ]
+  },
+  {
+    "slug": "clamshell-pet-1",
+    "name": "Clamshell / berry container #1 PET",
+    "cat": "Plastic",
+    "status": "partial",
+    "hazard": false,
+    "aliases": [
+      "clamshell",
+      "berry container",
+      "salad box",
+      "pet",
+      "#1 thermoform"
+    ],
+    "material_codes": [
+      "PET-1"
+    ],
+    "prep": "Empty, rinse, dry.",
+    "where": "Curbside where #1 thermoform is accepted (check local).",
+    "note": "Same PET as a bottle but thin thermoform — some programs accept it, many do not. Check yours.",
+    "gratitude_note": "Same PET as a bottle, thinner skin — many curbs welcome it, so check yours.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "curbside",
+        "label": "curbside where #1 clamshells are accepted",
+        "is_recommended": true,
+        "local_variance": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "trash if not accepted locally"
+      }
+    ]
+  },
+  {
+    "slug": "takeout-container-5-pp",
+    "name": "Take-out container #5 PP",
+    "cat": "Plastic",
+    "status": "partial",
+    "hazard": false,
+    "aliases": [
+      "takeout",
+      "deli container",
+      "#5",
+      "polypropylene",
+      "sour cream tub",
+      "margarine tub"
+    ],
+    "material_codes": [
+      "PP-5"
+    ],
+    "prep": "Empty and rinse.",
+    "where": "Reuse; curbside where #5 is accepted (check local).",
+    "note": "#5 PP is accepted in many but not all curbside programs, and these tubs are sturdy enough to reuse first.",
+    "gratitude_note": "Sturdy #5 — reuse it for leftovers a few times before the bin claims it.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "reuse for storage or leftovers",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "curbside",
+        "label": "curbside where #5 is accepted",
+        "local_variance": true
+      }
+    ]
+  },
+  {
+    "slug": "disposable-plastic-cup",
+    "name": "Disposable plastic cup",
+    "cat": "Plastic",
+    "status": "partial",
+    "hazard": false,
+    "aliases": [
+      "solo cup",
+      "party cup",
+      "cold cup",
+      "plastic cup"
+    ],
+    "prep": "Empty and rinse.",
+    "where": "Curbside if #1/#5 and accepted; otherwise trash. Best: a reusable cup.",
+    "note": "Clear cold cups are often #1 or #5 (sometimes recyclable); soft #6 cups are not. A reusable cup ends the question.",
+    "gratitude_note": "A few minutes of use, centuries as litter — a reusable cup ends this loop.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "switch to a reusable cup",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "curbside",
+        "label": "curbside if #1/#5 and accepted",
+        "local_variance": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "trash if #6 or unmarked"
+      }
+    ]
+  },
+  {
+    "slug": "nursery-plant-pot",
+    "name": "Plant pot / nursery pot",
+    "cat": "Plastic",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "plant pot",
+      "nursery pot",
+      "flower pot",
+      "garden pot",
+      "seedling tray"
+    ],
+    "prep": "Empty the soil.",
+    "where": "Garden-center take-back (Lowe’s, Home Depot, local nurseries); reuse for seedlings.",
+    "note": "Usually #2, #5, or #6. Many garden centers take pots back for reuse; rarely accepted curbside.",
+    "gratitude_note": "Built to grow life — refill it, or let a garden center take it back to grow more.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "reuse for seedlings",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "garden-center take-back"
+      }
+    ]
+  },
+  {
+    "slug": "loose-bottle-cap",
+    "name": "Loose bottle cap",
+    "cat": "Plastic",
+    "status": "partial",
+    "hazard": false,
+    "aliases": [
+      "bottle cap",
+      "plastic cap",
+      "lid",
+      "screw cap"
+    ],
+    "prep": "Leave the cap on the empty, rinsed bottle.",
+    "where": "On the bottle, in curbside.",
+    "note": "Caps left ON a bottle get recycled with it; loose caps fall through the sorters. Keep caps on.",
+    "gratitude_note": "Tiny and slippery alone — screw it back onto the bottle so both get recycled.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "curbside",
+        "label": "on the bottle, in curbside",
+        "is_recommended": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "loose caps fall through the sorters"
+      }
+    ]
+  },
+  {
+    "slug": "six-pack-rings",
+    "name": "Six-pack rings",
+    "cat": "Plastic",
+    "status": "no",
+    "hazard": false,
+    "aliases": [
+      "six pack rings",
+      "can holder",
+      "plastic rings",
+      "yoke"
+    ],
+    "prep": "Cut each loop.",
+    "where": "Regular trash (cut up).",
+    "note": "Not curbside-recyclable and a wildlife hazard. Cut every loop; choose ring-free or compostable packs next time.",
+    "gratitude_note": "Snip every loop so nothing gets caught — then choose ring-free next time.",
+    "dispositions": [
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "cut up, in the trash",
+        "is_recommended": true
+      }
+    ]
+  },
+  {
+    "slug": "compostable-pla-7",
+    "name": "Compostable plastic / PLA #7",
+    "cat": "Plastic",
+    "status": "no",
+    "hazard": false,
+    "aliases": [
+      "pla",
+      "compostable cup",
+      "bioplastic",
+      "#7",
+      "compostable plastic",
+      "compostable fork"
+    ],
+    "material_codes": [
+      "PLA-7"
+    ],
+    "prep": "N/A",
+    "where": "Industrial/municipal compost that accepts PLA, or trash. Never curbside recycling.",
+    "note": "NOT recyclable and NOT home-compostable — it needs an industrial composter. In the recycling bin it contaminates; in a backyard pile it just sits.",
+    "gratitude_note": "Made from plants, but only an industrial composter can finish it — never the curb.",
+    "dispositions": [
+      {
+        "rung": "compost",
+        "rank": 6,
+        "channel": "compost_municipal",
+        "label": "industrial/municipal compost that accepts PLA",
+        "is_recommended": true,
+        "local_variance": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "trash if no industrial composter"
+      }
+    ]
+  },
+  {
+    "slug": "plastic-toy",
+    "name": "Plastic toy",
+    "cat": "Plastic",
+    "status": "no",
+    "hazard": false,
+    "aliases": [
+      "toy",
+      "kids toy",
+      "action figure",
+      "plastic toys"
+    ],
+    "prep": "Clean; remove any batteries.",
+    "where": "Donate (Goodwill, shelters); trash if broken (mixed plastic).",
+    "note": "Mixed plastics and embedded electronics make toys hard to recycle — but a working toy is wanted by another child.",
+    "gratitude_note": "Still full of play — pass it to another kid before it ever becomes waste.",
+    "dispositions": [
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate if usable",
+        "is_recommended": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "trash if broken (mixed plastic)"
+      }
+    ]
+  },
+  {
+    "slug": "plastic-clothes-hanger",
+    "name": "Plastic clothes hanger",
+    "cat": "Plastic",
+    "status": "no",
+    "hazard": false,
+    "aliases": [
+      "hanger",
+      "clothes hanger",
+      "coat hanger"
+    ],
+    "prep": "N/A",
+    "where": "Return to a dry cleaner / donate to a thrift store; trash if broken.",
+    "note": "Mixed-resin and a curbside-jammer. Dry cleaners and thrift stores happily reuse them; rarely recyclable.",
+    "gratitude_note": "Made to be used for years — hand it to a dry cleaner or thrift store to reuse.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "return to a dry cleaner to reuse",
+        "is_recommended": true
+      },
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate to a thrift store"
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "trash if broken"
+      }
+    ]
+  },
+  {
+    "slug": "toothbrush-toothpaste-tube",
+    "name": "Toothbrush / toothpaste tube",
+    "cat": "Plastic",
+    "status": "no",
+    "hazard": false,
+    "aliases": [
+      "toothbrush",
+      "toothpaste tube",
+      "oral care",
+      "floss container"
+    ],
+    "prep": "Squeeze out the tube.",
+    "where": "TerraCycle oral-care mail-in program; otherwise trash.",
+    "note": "Multi-material and not curbside. TerraCycle / Colgate mail-in programs are the only real recycling path.",
+    "gratitude_note": "Mixed materials, hard to split — a TerraCycle mail-in gives it the only real path.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "mail_back",
+        "label": "TerraCycle oral-care mail-in",
+        "is_recommended": true,
+        "facility_type": "mail_back_program"
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "trash if no program"
+      }
+    ]
+  },
+  {
     "slug": "cardboard-clean-dry",
     "name": "Cardboard (clean, dry)",
     "cat": "Paper",
@@ -745,7 +1164,7 @@ export const ITEMS: Item[] = [
     "prep": "Back up data, factory reset, remove SIM and SD cards.",
     "where": "E-waste facility, manufacturer take-back, or Best Buy drop-off",
     "note": "Contains gold, silver, cobalt. Apple, Samsung, and Google have take-back programs — some offer credit.",
-    "gratitude_note": "This little machine holds gold, silver, and cobalt pulled from the earth — and it still has more life in it. Let’s pass it on.",
+    "gratitude_note": "Gold, silver, and cobalt from the earth — and still more life in it. Let’s pass it on.",
     "dispositions": [
       {
         "rung": "reuse",
@@ -964,6 +1383,345 @@ export const ITEMS: Item[] = [
     ]
   },
   {
+    "slug": "desktop-computer-tower",
+    "name": "Desktop computer / tower",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "desktop",
+      "pc",
+      "tower",
+      "computer"
+    ],
+    "prep": "Back up and wipe the drive (or remove it).",
+    "where": "E-waste facility, Best Buy, or manufacturer take-back.",
+    "note": "Recoverable metals plus a drive holding your data. Wipe it, then donate working units or use certified e-waste.",
+    "gratitude_note": "Gold in its board, your data on its drive — wipe it clean, then pass it on.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "keep it as a backup or home server"
+      },
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate if it still runs",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "certified e-waste (wiped)",
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "computer-monitor",
+    "name": "Computer monitor (LCD/LED)",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "monitor",
+      "screen",
+      "display",
+      "lcd monitor"
+    ],
+    "prep": "Detach the stand and cables.",
+    "where": "E-waste facility or retailer drop-off (Best Buy).",
+    "note": "Older backlights may contain mercury. E-waste only — it rides the same stream as TVs, never curbside.",
+    "gratitude_note": "A clear window for someone’s work still — donate it, or let certified e-waste reclaim it.",
+    "dispositions": [
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate if it works"
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "certified e-waste recycler",
+        "is_recommended": true,
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "keyboard-mouse",
+    "name": "Keyboard & mouse",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "keyboard",
+      "mouse",
+      "peripherals"
+    ],
+    "prep": "Remove batteries from wireless models.",
+    "where": "E-waste drop-off; donate if working.",
+    "note": "Plastic plus circuitry — not curbside. Working sets are donatable; otherwise e-waste.",
+    "gratitude_note": "Plenty of keystrokes left in them — donate the set, or send it to e-waste whole.",
+    "dispositions": [
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate working peripherals"
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "e-waste drop-off",
+        "is_recommended": true,
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "charging-cables-cords",
+    "name": "Charging cables & cords",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "cable",
+      "cord",
+      "charger cable",
+      "usb cable",
+      "wires",
+      "chargers"
+    ],
+    "prep": "Bundle and tie them together.",
+    "where": "E-waste drop-off or scrap-metal yard.",
+    "note": "The copper inside makes them valuable scrap, but loose cords tangle curbside sorters. E-waste or scrap only.",
+    "gratitude_note": "Copper veins worth saving — bundle them for e-waste, never the curbside bin.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "keep a spare that still works"
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "e-waste or scrap yard (copper)",
+        "is_recommended": true,
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "headphones-earbuds",
+    "name": "Headphones / earbuds",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": true,
+    "aliases": [
+      "headphones",
+      "earbuds",
+      "earphones",
+      "airpods",
+      "wireless earbuds"
+    ],
+    "prep": "N/A",
+    "where": "E-waste / battery drop-off (especially wireless).",
+    "note": "Wired or wireless, they are e-waste; wireless buds hold tiny lithium cells that are a fire risk in the trash.",
+    "gratitude_note": "Small but never trash — their tiny batteries belong in e-waste, not a landfill fire.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "battery / e-waste drop-off",
+        "is_recommended": true,
+        "facility_type": "ewaste",
+        "hazard": true
+      }
+    ]
+  },
+  {
+    "slug": "power-bank-portable-charger",
+    "name": "Power bank / portable charger",
+    "cat": "Electronics",
+    "status": "hazardous",
+    "hazard": true,
+    "aliases": [
+      "power bank",
+      "portable charger",
+      "battery pack",
+      "phone charger battery"
+    ],
+    "prep": "Tape the port; do not puncture.",
+    "where": "Certified e-waste / Call2Recycle battery drop-off.",
+    "note": "Built-in lithium-ion — never trash or curbside (fire risk). Treat it like any lithium battery.",
+    "gratitude_note": "A pocket of stored power — handle it gently and bring it to a battery drop-off.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "battery / e-waste drop-off",
+        "is_recommended": true,
+        "facility_type": "ewaste",
+        "hazard": true
+      }
+    ]
+  },
+  {
+    "slug": "game-console",
+    "name": "Game console",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "playstation",
+      "xbox",
+      "nintendo",
+      "console",
+      "gaming"
+    ],
+    "prep": "Sign out of accounts; factory reset.",
+    "where": "Sell / donate; e-waste if dead.",
+    "note": "High resale and reuse value; otherwise e-waste. Wipe accounts and storage first.",
+    "gratitude_note": "Hundreds of hours of joy left in it — sign out, wipe it, and pass it on.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "sell or hand it down"
+      },
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate if it works",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "e-waste if dead",
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "router-modem",
+    "name": "Router / modem / cable box",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "router",
+      "modem",
+      "cable box",
+      "wifi",
+      "gateway"
+    ],
+    "prep": "Factory reset; return leased gear to your ISP.",
+    "where": "ISP return or e-waste drop-off.",
+    "note": "Often leased — return it to your provider first. Owned units are e-waste, never curbside.",
+    "gratitude_note": "Likely your ISP’s on loan — return it first; if it’s yours, e-waste it whole.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "return leased gear to the ISP",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "e-waste if you own it",
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "usb-external-drive",
+    "name": "USB drive / external hard drive",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "usb",
+      "flash drive",
+      "thumb drive",
+      "external drive",
+      "hard drive",
+      "ssd"
+    ],
+    "prep": "Securely wipe or physically destroy first.",
+    "where": "E-waste drop-off (after wiping).",
+    "note": "Holds personal data — wipe or destroy it before recycling. E-waste, not curbside.",
+    "gratitude_note": "Your data still lives inside — wipe it clean, then let e-waste reclaim the metals.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "e-waste drop-off (wiped)",
+        "is_recommended": true,
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
+    "slug": "digital-camera",
+    "name": "Digital camera",
+    "cat": "Electronics",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "camera",
+      "dslr",
+      "digital camera",
+      "camcorder",
+      "point and shoot"
+    ],
+    "prep": "Remove and recycle the battery separately.",
+    "where": "Sell / donate; e-waste if dead.",
+    "note": "Working cameras hold real resale and donation value; the battery recycles separately. E-waste for dead units.",
+    "gratitude_note": "Still ready to catch the light — sell or donate it before it’s ever mined for parts.",
+    "dispositions": [
+      {
+        "rung": "reuse",
+        "rank": 1,
+        "channel": "retail_takeback",
+        "label": "sell or keep as a backup"
+      },
+      {
+        "rung": "donate",
+        "rank": 4,
+        "channel": "donation_center",
+        "label": "donate if it works",
+        "is_recommended": true
+      },
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "e-waste if dead",
+        "facility_type": "ewaste"
+      }
+    ]
+  },
+  {
     "slug": "alkaline-battery-aa-aaa-9v",
     "name": "Alkaline battery (AA, AAA, 9V)",
     "cat": "Batteries",
@@ -1063,6 +1821,122 @@ export const ITEMS: Item[] = [
         "label": "e-waste, terminals taped",
         "facility_type": "ewaste",
         "hazard": true,
+        "is_recommended": true
+      }
+    ]
+  },
+  {
+    "slug": "button-coin-cell",
+    "name": "Button / coin cell battery",
+    "cat": "Batteries",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "coin cell",
+      "button battery",
+      "cr2032",
+      "watch battery"
+    ],
+    "prep": "Tape both sides; store out of reach of children.",
+    "where": "Battery drop-off (Call2Recycle, retailers).",
+    "note": "Tiny but a serious swallowing hazard and often lithium. Tape it, drop it off, and keep it away from kids.",
+    "gratitude_note": "Small, shiny, and dangerous to little ones — tape it and bring it to a battery drop-off.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "battery drop-off (taped)",
+        "is_recommended": true
+      }
+    ]
+  },
+  {
+    "slug": "power-tool-battery",
+    "name": "Power-tool battery pack",
+    "cat": "Batteries",
+    "status": "hazardous",
+    "hazard": true,
+    "aliases": [
+      "drill battery",
+      "tool battery",
+      "dewalt battery",
+      "18v battery",
+      "cordless tool battery"
+    ],
+    "prep": "Tape terminals; do not puncture.",
+    "where": "Call2Recycle / tool-retailer drop-off (Home Depot, Lowe’s).",
+    "note": "High-capacity lithium or NiCd — a fire risk. Call2Recycle and tool retailers take them back.",
+    "gratitude_note": "Packed with power and risk — tape the terminals and hand it to Call2Recycle.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "Call2Recycle / retailer drop-off",
+        "is_recommended": true,
+        "hazard": true
+      }
+    ]
+  },
+  {
+    "slug": "vape-ecigarette",
+    "name": "Vape / e-cigarette",
+    "cat": "Batteries",
+    "status": "hazardous",
+    "hazard": true,
+    "aliases": [
+      "vape",
+      "e-cigarette",
+      "disposable vape",
+      "juul",
+      "vape pen"
+    ],
+    "prep": "Do not disassemble or puncture.",
+    "where": "Vape-shop take-back, HHW, or e-waste — never the trash.",
+    "note": "A lithium battery and nicotine residue welded together — both a fire risk and hazardous waste. Never trash or curbside.",
+    "gratitude_note": "A battery and a toxin in one — never the trash; a take-back or HHW handles it safely.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "vape-shop or e-waste take-back where it exists",
+        "facility_type": "ewaste",
+        "hazard": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "hhw",
+        "label": "HHW facility",
+        "is_recommended": true,
+        "hazard": true
+      }
+    ]
+  },
+  {
+    "slug": "hearing-aid-battery",
+    "name": "Hearing aid battery (zinc-air)",
+    "cat": "Batteries",
+    "status": "drop-off",
+    "hazard": false,
+    "aliases": [
+      "hearing aid battery",
+      "zinc air",
+      "za13",
+      "pr44"
+    ],
+    "prep": "Collect in a small container.",
+    "where": "Battery drop-off or audiologist.",
+    "note": "Zinc-air buttons are low-hazard but still worth diverting from landfill. Many audiologists and drop-offs accept them.",
+    "gratitude_note": "Spent zinc-air buttons — small, but a drop-off still keeps their metals in the loop.",
+    "dispositions": [
+      {
+        "rung": "recycle",
+        "rank": 5,
+        "channel": "drop_off",
+        "label": "battery drop-off or audiologist",
         "is_recommended": true
       }
     ]
