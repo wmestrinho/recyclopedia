@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project Overview
 
-**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.1.4 alpha.
+**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.1.5 alpha.
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 
 A recycling education platform by Absolutely Plausible Solutions. The site **is** the Recyclopedia — a searchable encyclopedia of recycling. Three areas:

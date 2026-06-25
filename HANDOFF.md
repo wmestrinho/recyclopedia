@@ -4,6 +4,14 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Done (2026-06-25) — housekeeping committed
+
+The previously-staged housekeeping landed: `.gitignore` now ignores `.vscode/`, and
+`.github/copilot-instructions.md` (Copilot guidance mirroring `CLAUDE.md`) was added.
+While committing, fixed a version drift — both the new Copilot file and `CLAUDE.md`'s
+Project Overview said `v0.1.4 alpha`; corrected to `v0.1.5 alpha` to match `VERSION`.
+Baseline validation passed. Mirrors `ap-ops` commit `e3be2cc`. No open follow-ups.
+
 ## Project at a glance
 - **Name:** Recyclopedia (recycle + encyclopedia). Official domain/identity: **recyclopedia.cc**.
 - **Repo:** `wmestrinho/recyclopedia`.
