@@ -17,16 +17,17 @@ A recycling education platform by Absolutely Plausible Solutions. The site **is*
 
 ## Deployment
 
-> ⚠️ **Auto-deploy is currently BROKEN (as of 2026-06-25).** The Cloudflare Pages
-> git-integration build fails on every push to `main` (has been failing for many
-> commits — live site was frozen at `v0.1.2` while `VERSION` was `v0.1.5`). The
-> `astro build` itself succeeds locally; the failure is in Cloudflare's build env.
-> **Until fixed, you MUST deploy manually after every push** (see below). Root cause
-> needs the build log from the authenticated Cloudflare dashboard.
+Push to `main` → Cloudflare Pages git integration builds (`npm run build` →
+`astro build` → `dist/`) and deploys automatically.
 
-Push to `main` is *intended* to trigger a Cloudflare Pages git-integration build
-(`astro build` → `dist/`) and deploy automatically — but this is broken (see above).
-**Working deploy path right now:**
+> **History (fixed 2026-06-25):** auto-deploy had been silently broken for many
+> commits — the Pages project had **no build command set**, so CF skipped the build
+> and failed on a missing `dist/` (which isn't committed). The site was frozen at
+> `v0.1.2` while `VERSION` was `v0.1.5`. Fixed by setting the project build command to
+> `npm run build` and pinning Node via `.nvmrc` (Astro 6 needs Node ≥22.12). If builds
+> regress, check the project's **build command** first.
+
+Manual fallback (if ever needed):
 
 ```sh
 npm run build && npx wrangler pages deploy dist --project-name recyclopedia

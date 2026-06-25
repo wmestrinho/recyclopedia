@@ -4,30 +4,22 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
-## 🔴 OPEN — Cloudflare Pages auto-deploy is broken (found 2026-06-25)
-
-`push to main → auto-deploy` does NOT work. The Cloudflare Pages git-integration build
-**fails on every commit** (confirmed failing back through many commits via
-`wrangler pages deployment list`). The live site had been frozen at `v0.1.2 alpha` while
-`VERSION` was already `v0.1.5 alpha`. `astro build` succeeds locally, so the fault is in
-Cloudflare's build environment/config, not the code.
-
-**Workaround (currently the only working deploy path) — run after every push:**
-```sh
-npm run build && npx wrangler pages deploy dist --project-name recyclopedia
-```
-**Root-cause TODO:** pull the failing build log from the authenticated Cloudflare
-dashboard (deployment list → any `main` build → "Failure") and fix the build config so
-git-integration deploys work again.
-
 ## ✅ Done (2026-06-25)
 
+- **Fixed Cloudflare Pages auto-deploy (root cause).** It had been silently broken for
+  many commits — the build log showed `No build command specified. Skipping build step.`
+  then `Error: Output directory "dist" not found.` The Pages project had **no build
+  command configured**, so CF skipped `astro build` and failed on the missing (un-
+  committed) `dist/`. Fixes:
+  - Set the project build command to `npm run build` (via Cloudflare API).
+  - Pinned Node via `.nvmrc` → `22.16.0` (commit `02d9cd2`); Astro 6 needs Node ≥22.12.
+  - Triggered a fresh git build: all stages green (`build` → `deploy` success).
+    Verified `v0.1.5 alpha` live on recyclopedia.cc (HTTP 200). **Auto-deploy works.**
+  - If builds ever regress, check the **build command** in the Pages project settings
+    first. Manual fallback: `npm run build && npx wrangler pages deploy dist --project-name recyclopedia`.
 - **Housekeeping committed** (`cedd2eb`): `.gitignore` ignores `.vscode/`;
   `.github/copilot-instructions.md` added (Copilot guidance mirroring `CLAUDE.md`);
   fixed `v0.1.4 → v0.1.5` version drift in the Copilot file and `CLAUDE.md` overview.
-  Baseline validation passed. Mirrors `ap-ops` commit `e3be2cc`.
-- **Manual deploy** got `v0.1.5 alpha` live on recyclopedia.cc (HTTP 200, verified),
-  unfreezing the site from the stale `v0.1.2` build.
 
 ## Project at a glance
 - **Name:** Recyclopedia (recycle + encyclopedia). Official domain/identity: **recyclopedia.cc**.
