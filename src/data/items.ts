@@ -36,8 +36,8 @@ export const RUNG_ORDER: Record<Rung, number> = {
 };
 
 export const RUNG_BADGE: Record<Rung, string> = {
-  reuse: '? Reuse', repair: '? Repair', repurpose: '? Repurpose', donate: '? Donate',
-  recycle: '? Recycle', compost: '? Compost', dispose: '? Dispose',
+  reuse: '↻ Reuse', repair: '⚒ Repair', repurpose: '⇄ Repurpose', donate: '♡ Donate',
+  recycle: '♻ Recycle', compost: '⚘ Compost', dispose: '⊘ Dispose',
 };
 
 export const ITEMS: Item[] = [
