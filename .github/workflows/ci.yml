@@ -1,0 +1,57 @@
+name: CI
+
+# Quality gate: runs on every push and PR. Mirrors the local pre-commit
+# steps (validate_agent_baseline.py + astro build) and guards against the
+# specific regressions we've already hit, so broken commits never reach
+# Cloudflare Pages.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Agent baseline validation
+        run: python3 scripts/validate_agent_baseline.py
+
+      - name: Guard against known regressions
+        run: |
+          # 1. Corrupted glyphs: a literal '? ' inside a quoted badge string
+          #    (this is the v0.1.4 bug — emoji stripped to question marks).
+          if grep -nE "'\? " src/data/items.ts; then
+            echo "::error file=src/data/items.ts::Corrupted badge glyph ('? ...') detected"
+            exit 1
+          fi
+
+          # 2. Version drift: VERSION must agree with package.json.
+          ver_file=$(head -n1 VERSION | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sed 's/^v//')
+          ver_pkg=$(node -p "require('./package.json').version" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          if [ "$ver_file" != "$ver_pkg" ]; then
+            echo "::error::VERSION ($ver_file) and package.json ($ver_pkg) disagree"
+            exit 1
+          fi
+          echo "Regression guards passed (glyphs intact, version $ver_file in sync)."
+
+      - name: Build
+        run: npm run build
