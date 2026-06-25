@@ -20,16 +20,16 @@
     partial: { label: '◑ Check Local', cls: 'status-badge--partial' },
   };
 
-  function byRung(a: Disposition, b: Disposition) {
-    return (RUNG_ORDER[a.rung] ?? 99) - (RUNG_ORDER[b.rung] ?? 99);
+  function byRank(a: Disposition, b: Disposition) {
+    return (a.rank ?? RUNG_ORDER[a.rung] ?? 99) - (b.rank ?? RUNG_ORDER[b.rung] ?? 99);
   }
 
   function bestDisposition(dispositions: Disposition[]) {
-    return dispositions.find((d) => d.best) ?? [...dispositions].sort(byRung)[0];
+    return dispositions.find((d) => d.is_recommended) ?? [...dispositions].sort(byRank)[0];
   }
 
   function rungText(disposition: Disposition) {
-    return `${RUNG_BADGE[disposition.rung] ?? disposition.rung} ${disposition.label}${disposition.local ? ' (check local)' : ''}`;
+    return `${RUNG_BADGE[disposition.rung] ?? disposition.rung} ${disposition.label}${disposition.local_variance ? ' (check local)' : ''}`;
   }
 
   const filteredItems = $derived(
@@ -41,7 +41,8 @@
         item.name.toLowerCase().includes(normalizedQuery) ||
         item.cat.toLowerCase().includes(normalizedQuery) ||
         item.prep.toLowerCase().includes(normalizedQuery) ||
-        item.where.toLowerCase().includes(normalizedQuery);
+        item.where.toLowerCase().includes(normalizedQuery) ||
+        (item.aliases?.some((a) => a.toLowerCase().includes(normalizedQuery)) ?? false);
 
       return matchesCategory && matchesQuery;
     }),
@@ -82,7 +83,7 @@
     {#each filteredItems as item (item.name)}
       {@const status = STATUS_CONFIG[item.status]}
       {@const best = bestDisposition(item.dispositions)}
-      {@const others = [...item.dispositions].sort(byRung).filter((disposition) => disposition !== best)}
+      {@const others = [...item.dispositions].sort(byRank).filter((disposition) => disposition !== best)}
 
       <article class="recycle-card">
         <div>

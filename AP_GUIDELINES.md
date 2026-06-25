@@ -51,7 +51,9 @@ rather than fabricate certainty.
 
 ## To be defined
 
-- Brand voice specifics and copy patterns.
+- Brand voice specifics and copy patterns. → **The `gratitude_note` voice spec is
+  canonical in [ENVIRONMENTAL_RESPECT_POLICY.md](ENVIRONMENTAL_RESPECT_POLICY.md)**
+  ("`gratitude_note` — voice spec"); broader copy patterns still to be written.
 - Review process for added items and claims.
 - Accessibility standards.
 

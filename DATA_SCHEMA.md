@@ -359,12 +359,18 @@ This is the **Recognition Ladder** running over the backbones, gated by the
 
 ## Migration path (no double build)
 
-- **Step 1 (now):** add a `dispositions[]` array to items in `js/recyclopedia.js`;
-  keep the flat fields, derive the badge from `dispositions[0]`. Site keeps working.
-- **Step 2:** move items to a static `items.json` of this exact shape (decouples
-  data from code; still no backend).
-- **Step 3 (Phase 2):** load that JSON into Supabase with the DDL above — a direct,
-  lossless import. Add `facility`, `barcode`, `local_rule` as those layers land.
+- ✅ **Step 1 (done):** `dispositions[]` added to every item; flat fields kept; badge
+  derived. Site keeps working.
+- ✅ **Step 2 (done, v0.1.5):** items live in the typed module `src/data/items.ts`
+  (chosen over a loose `items.json` for the Astro build). The `Item`/`Disposition`
+  interfaces now match this schema: `slug`, `aliases[]`, `material_codes[]`, `summary`,
+  `hazard`, and ranked dispositions with `rank` / `is_recommended` / `local_variance` /
+  `facility_type` / `source`. Channels normalized to `channel_t` (`ewaste` / `repair_shop`
+  moved to `facility_type`). Enrichment fields (`why`, `aliases`, `source`, …) fill over
+  time as the dataset grows. **The schema is now locked — imports below are lossless.**
+- **Step 3 (Phase 2):** load `items.ts` into Supabase with the DDL above — a direct,
+  lossless import (lowercase `cat`→`category_t`). Add `facility`, `barcode`, `local_rule`
+  as those layers land.
 
 ## Open schema questions
 

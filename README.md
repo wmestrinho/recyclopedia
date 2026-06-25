@@ -1,6 +1,6 @@
 # Recyclopedia
 
-**Status:** In development — v0.1.4 alpha
+**Status:** In development — v0.1.5 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
@@ -43,7 +43,7 @@ Domain: `recyclopedia.cc`
 
 ## Version
 
-See `VERSION` file. Current: `v0.1.4 alpha`
+See `VERSION` file. Current: `v0.1.5 alpha`
 
 ## Validation
 

@@ -28,7 +28,7 @@ Domain: `recyclopedia.cc`
 ## Version Rule
 
 - Single source of truth: `VERSION`
-- Current version: `v0.1.4 alpha`
+- Current version: `v0.1.5 alpha`
 
 ## Before Committing
 
