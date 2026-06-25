@@ -17,10 +17,19 @@ A recycling education platform by Absolutely Plausible Solutions. The site **is*
 
 ## Deployment
 
-Push to `main` → Cloudflare Pages git integration builds (`astro build` → `dist/`) and deploys automatically. Manual fallback:
+> ⚠️ **Auto-deploy is currently BROKEN (as of 2026-06-25).** The Cloudflare Pages
+> git-integration build fails on every push to `main` (has been failing for many
+> commits — live site was frozen at `v0.1.2` while `VERSION` was `v0.1.5`). The
+> `astro build` itself succeeds locally; the failure is in Cloudflare's build env.
+> **Until fixed, you MUST deploy manually after every push** (see below). Root cause
+> needs the build log from the authenticated Cloudflare dashboard.
+
+Push to `main` is *intended* to trigger a Cloudflare Pages git-integration build
+(`astro build` → `dist/`) and deploy automatically — but this is broken (see above).
+**Working deploy path right now:**
 
 ```sh
-npm run build && npx wrangler pages deploy dist
+npm run build && npx wrangler pages deploy dist --project-name recyclopedia
 ```
 
 Domain: `recyclopedia.cc`

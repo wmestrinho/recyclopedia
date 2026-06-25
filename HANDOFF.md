@@ -4,13 +4,30 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
-## ✅ Done (2026-06-25) — housekeeping committed
+## 🔴 OPEN — Cloudflare Pages auto-deploy is broken (found 2026-06-25)
 
-The previously-staged housekeeping landed: `.gitignore` now ignores `.vscode/`, and
-`.github/copilot-instructions.md` (Copilot guidance mirroring `CLAUDE.md`) was added.
-While committing, fixed a version drift — both the new Copilot file and `CLAUDE.md`'s
-Project Overview said `v0.1.4 alpha`; corrected to `v0.1.5 alpha` to match `VERSION`.
-Baseline validation passed. Mirrors `ap-ops` commit `e3be2cc`. No open follow-ups.
+`push to main → auto-deploy` does NOT work. The Cloudflare Pages git-integration build
+**fails on every commit** (confirmed failing back through many commits via
+`wrangler pages deployment list`). The live site had been frozen at `v0.1.2 alpha` while
+`VERSION` was already `v0.1.5 alpha`. `astro build` succeeds locally, so the fault is in
+Cloudflare's build environment/config, not the code.
+
+**Workaround (currently the only working deploy path) — run after every push:**
+```sh
+npm run build && npx wrangler pages deploy dist --project-name recyclopedia
+```
+**Root-cause TODO:** pull the failing build log from the authenticated Cloudflare
+dashboard (deployment list → any `main` build → "Failure") and fix the build config so
+git-integration deploys work again.
+
+## ✅ Done (2026-06-25)
+
+- **Housekeeping committed** (`cedd2eb`): `.gitignore` ignores `.vscode/`;
+  `.github/copilot-instructions.md` added (Copilot guidance mirroring `CLAUDE.md`);
+  fixed `v0.1.4 → v0.1.5` version drift in the Copilot file and `CLAUDE.md` overview.
+  Baseline validation passed. Mirrors `ap-ops` commit `e3be2cc`.
+- **Manual deploy** got `v0.1.5 alpha` live on recyclopedia.cc (HTTP 200, verified),
+  unfreezing the site from the stale `v0.1.2` build.
 
 ## Project at a glance
 - **Name:** Recyclopedia (recycle + encyclopedia). Official domain/identity: **recyclopedia.cc**.
