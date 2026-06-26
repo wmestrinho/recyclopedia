@@ -4,6 +4,47 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## Session 2026-06-26 (cont.) — Flat UI restyle + Myths lesson (same branch)
+
+- **Flat "Gumroad" restyle** (`public/css/style.css`, token-level): `--border` darkened to
+  `#2a2e45`; `--shadow`/`--glow-*` set to `none` (all box-shadows/glows/text-glows now render
+  nothing); removed body scanline + ambient glow overlays; replaced every gradient/translucent/
+  `backdrop-filter` background (header, cta-band, cards, footer, mobile nav) with **solid theme
+  colors**. Green accent palette + all rounded corners preserved.
+- **Myths → real lesson:** `src/content/academy/myths.md` (all 10 myths) at `/academy/myths`,
+  with new `academy_5_a` quiz in `src/data/quizzes.ts`. Homepage: "See all 10 myths →" and the
+  Module 05 card now link to `/academy/myths`; the inline 10-myth block was removed from
+  `index.astro` (4-myth home teaser kept). Catalog now lists 3 lessons.
+- **Rebrand (recorded, not executed):** parent brand will be **Lettuce Beet Grapefruit**
+  ("Let us be grateful"); recyclopedia.cc becomes a property under it. No rename yet.
+- Build green (5 pages); still on branch `feat/academy-online-school`, uncommitted.
+
+## Session 2026-06-26 — Academy online school, Phase 1 (branch `feat/academy-online-school`)
+
+Turned the Gemini-drafted Drive handoff (`RandDRecyclopedia`) into a real, static Academy.
+**Not yet merged/deployed** — on a feature branch, awaiting review.
+
+- **New architecture:** Academy is now an Astro **content collection** (`src/content.config.ts`,
+  `src/content/academy/*.md`) with routed pages `/academy` (catalog) and `/academy/<slug>`
+  (lesson). Graduated from the homepage hash-section SPA. Homepage nav + hero "Start Learning"
+  now point to `/academy`; the `#academy` teaser + Myths content stay reachable at `/#academy`.
+- **Two lessons live:** `hidden-history.md` (Module 1.1, ported) and `smartphone-sorting.md`
+  (Module 1.2, **rewritten** — the original "green stripe → trash" framing was factually wrong
+  and contradicted our Myths module; redone around resin codes, curbside vs drop-off, the
+  Gratitude Hierarchy, "when in doubt leave it out").
+- **Interactive quizzes:** `src/components/Quiz.svelte` (Svelte island, replaces Gemini's vanilla
+  JS class — fixed an undefined-`containerId` bug + full-page reload retake, applied AP tokens);
+  data in `src/data/quizzes.ts` (`academy_1_1_a/b`, `academy_1_2_a`).
+- **Rejected** the Canvas LMS + Gumroad + AWS plan (conflicts with our static/open-source canon).
+- **Parked B2B content** under `docs/academy/b2b-source/` (vendor SLA, NIR risk register +
+  financial CBA, frontline multilang materials) — Tier-2, not shipped. **Fixed localization bugs**
+  (ES had PT "LIXO"/"OBRIGATORIO"; PT had ES "PASO"/"CORRECTO" + EN "minutes"; added missing EN SOP).
+- **Provenance** recorded in `docs/academy/PROVENANCE.md` (Gemini research vs Claude implementation;
+  Gemini's self-written "Persistent Task Directive" logged as record, **not** adopted as policy).
+- Version bumped `v0.1.5 → v0.1.6 alpha` (VERSION, package.json, footers). Build + baseline validator green.
+- **TODO next:** review/merge → deploy; migrate Myths into a lesson; consider lesson i18n;
+  Module 1.3 (Zero-Waste Micro-Habits) still un-drafted.
+
 ## ✅ Done (2026-06-25)
 
 - **Fixed Cloudflare Pages auto-deploy (root cause).** It had been silently broken for

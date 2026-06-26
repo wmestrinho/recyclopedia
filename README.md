@@ -1,6 +1,6 @@
 # Recyclopedia
 
-**Status:** In development — v0.1.5 alpha
+**Status:** In development — v0.1.6 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
@@ -10,7 +10,7 @@ A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
 
 The world's most complete recycling education platform.
 
-- **Academy** — Six learning modules covering recycling basics, e-waste, hazardous materials, zero-waste living, myth-busting, and local regulations
+- **Academy** — Learning modules covering recycling basics, e-waste, hazardous materials, zero-waste living, myth-busting, and local regulations. Lessons are an Astro **content collection** (`src/content/academy/*.md`) rendered at `/academy` and `/academy/<slug>`, with interactive quiz islands (`src/components/Quiz.svelte`, data in `src/data/quizzes.ts`). Schema in `src/content.config.ts`.
 - **Lookup** — Searchable database of 60+ items with exact recycling instructions, prep steps, and drop-off locations (the core of the Recyclopedia)
 - **Donate Electronics** — Intake form for electronics donations (working or not); searchable dropdown from 200+ item list. ⚠️ Placeholder during development — AP is not yet accepting donations.
 
@@ -43,7 +43,7 @@ Domain: `recyclopedia.cc`
 
 ## Version
 
-See `VERSION` file. Current: `v0.1.5 alpha`
+See `VERSION` file. Current: `v0.1.6 alpha`
 
 ## Validation
 

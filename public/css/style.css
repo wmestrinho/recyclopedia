@@ -5,7 +5,7 @@
   --surface: #ffffff;
   --surface-alt: #f5f6f9;
   --surface-soft: #e9ebef;
-  --border: #d6d8e0;
+  --border: #2a2e45;
   --text: #1e2238;
   --muted: #5f6480;
   --accent: #3d9c6b;
@@ -14,9 +14,9 @@
   --accent-warm: #6dac2c;
   --accent-teal: #5cb0ad;
   --accent-hover: #4db87e;
-  --glow-accent: 0 0 6px #3d9c6b44, 0 0 18px #3d9c6b1f;
-  --glow-mid: 0 0 6px #2e7d5244, 0 0 18px #2e7d521f;
-  --shadow: 0 1px 3px rgba(30, 34, 56, 0.1), 0 0 0 1px var(--border);
+  --glow-accent: none;
+  --glow-mid: none;
+  --shadow: none;
   --radius: 8px;
   --radius-lg: 14px;
   --font: 'Share Tech Mono', 'Courier New', monospace;
@@ -47,11 +47,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(109, 172, 44, 0.10), transparent 24%),
-    radial-gradient(circle at top right, rgba(61, 156, 107, 0.09), transparent 28%),
-    radial-gradient(circle at 70% 20%, rgba(92, 176, 173, 0.07), transparent 30%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   line-height: 1.6;
@@ -59,31 +55,7 @@ body {
   overflow-x: hidden;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.025) 3px,
-    rgba(0, 0, 0, 0.025) 4px
-  );
-  pointer-events: none;
-  z-index: 9999;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(61, 156, 107, 0.06), transparent 18%),
-    radial-gradient(circle at 80% 15%, rgba(46, 125, 82, 0.07), transparent 14%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* Flat Gumroad-style: scanline + ambient glow overlays removed. */
 
 img {
   display: block;
@@ -131,9 +103,8 @@ table {
   position: sticky;
   top: 0;
   z-index: 300;
-  background: rgba(231, 233, 238, 0.94);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  background: var(--surface-soft);
+  border-bottom: 3px solid var(--border);
 }
 
 .site-header__inner {
@@ -221,8 +192,7 @@ table {
 
 .site-nav a.is-active {
   color: var(--accent);
-  background: rgba(61, 156, 107, 0.12);
-  box-shadow: var(--glow-accent);
+  background: var(--status-yes-bg);
 }
 
 .header-actions {
@@ -251,7 +221,7 @@ table {
 }
 
 .button--solid {
-  background: linear-gradient(135deg, var(--accent), var(--accent-mid));
+  background: var(--accent);
   color: #fff;
   box-shadow: var(--glow-accent);
 }
@@ -356,7 +326,7 @@ table {
 .feature-card,
 .support-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
@@ -383,7 +353,7 @@ table {
 }
 
 .panel-card--accent {
-  background: linear-gradient(180deg, rgba(61, 156, 107, 0.09), rgba(255, 255, 255, 1));
+  background: var(--surface);
 }
 
 .bullet-list {
@@ -465,7 +435,7 @@ table {
 .metric-card {
   padding: 1rem;
   background: var(--surface-alt);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius);
 }
 
@@ -495,14 +465,14 @@ table {
   overflow: hidden;
   min-height: 350px;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
   padding: 2rem;
-  background: linear-gradient(135deg, rgba(61, 156, 107, 0.13), rgba(31, 92, 60, 0.07));
+  background: var(--surface-alt);
 }
 
 .hero-recycle-symbol {
@@ -563,8 +533,8 @@ table {
   gap: 1rem;
   margin-top: 2rem;
   padding: 1rem 1.1rem;
-  background: linear-gradient(135deg, rgba(61, 156, 107, 0.09), rgba(92, 176, 173, 0.06));
-  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
@@ -583,7 +553,7 @@ table {
 
 .pillar-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 1.5rem;
@@ -595,7 +565,7 @@ table {
 
 .pillar-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow), var(--glow-accent);
+  box-shadow: none;
 }
 
 .pillar-card__icon {
@@ -626,7 +596,7 @@ table {
 
 .module-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 1.25rem;
@@ -677,7 +647,7 @@ table {
 
 .myth-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 1.25rem;
@@ -760,7 +730,7 @@ table {
 .search-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: var(--shadow), var(--glow-accent);
+  box-shadow: none;
 }
 
 .pill-group {
@@ -806,7 +776,7 @@ table {
 
 .recycle-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 1.1rem;
@@ -948,7 +918,7 @@ table {
 /* ── DONATE FORM ───────────────────────────────────────────── */
 .form-wrap {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: clamp(1.5rem, 3vw, 2rem);
@@ -998,7 +968,7 @@ table {
 .form-textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: var(--shadow), var(--glow-accent);
+  box-shadow: none;
 }
 
 .form-textarea {
@@ -1034,7 +1004,7 @@ table {
 .combobox__input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: var(--shadow), var(--glow-accent);
+  box-shadow: none;
 }
 
 .combobox__clear {
@@ -1068,9 +1038,9 @@ table {
   left: 0;
   right: 0;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: 0 4px 20px rgba(30, 34, 56, 0.14), 0 0 0 1px var(--border);
+  box-shadow: none;
   max-height: 280px;
   overflow-y: auto;
   z-index: 200;
@@ -1130,7 +1100,7 @@ table {
   text-align: center;
   padding: 3rem 1.5rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
@@ -1162,8 +1132,8 @@ table {
 .site-footer {
   position: relative;
   z-index: 1;
-  border-top: 1px solid var(--border);
-  background: rgba(238, 240, 242, 0.85);
+  border-top: 3px solid var(--border);
+  background: var(--bg);
 }
 
 .site-footer__inner {
@@ -1196,7 +1166,7 @@ table {
     flex-wrap: wrap;
     gap: 0.35rem;
     padding: 0.85rem 1rem 1rem;
-    background: rgba(231, 233, 238, 0.98);
+    background: var(--surface-soft);
     border-bottom: 1px solid var(--border);
   }
 
@@ -1280,4 +1250,78 @@ table {
     animation: none !important;
     transition-duration: 0ms !important;
   }
+}
+
+/* ── ACADEMY: linked module cards ──────────────────────────── */
+.module-card--link {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.module-card--link:hover {
+  border-color: var(--accent);
+  background: var(--surface-alt);
+}
+
+/* ── ACADEMY: lesson reader ────────────────────────────────── */
+.lesson {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.lesson__crumb {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+.lesson__crumb--end {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}
+.lesson__crumb a {
+  color: var(--accent);
+}
+.lesson__title {
+  margin: 0.25rem 0 1.5rem;
+  line-height: 1.2;
+}
+.lesson__body {
+  color: var(--text);
+  line-height: 1.7;
+}
+.lesson__body h2 {
+  margin: 2rem 0 0.75rem;
+  color: var(--accent-deep);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+.lesson__body h3 {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+.lesson__body p {
+  margin: 0 0 1rem;
+}
+.lesson__body ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+.lesson__body li {
+  margin-bottom: 0.5rem;
+}
+.lesson__body strong {
+  color: var(--accent-deep);
+}
+.lesson__body blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-alt);
+  color: var(--muted);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.lesson__quizzes {
+  margin-top: 1rem;
 }

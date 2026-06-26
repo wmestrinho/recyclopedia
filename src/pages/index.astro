@@ -30,7 +30,7 @@ import Lookup from '../components/Lookup.svelte';
 
       <nav class="site-nav" aria-label="Primary">
         <a href="#home" data-page="home">Home</a>
-        <a href="#academy" data-page="academy">Academy</a>
+        <a href="/academy">Academy</a>
         <a href="#recyclopedia" data-page="recyclopedia">Lookup</a>
         <a href="#donate" data-page="donate">Donate</a>
         <a href="#about" data-page="about">About</a>
@@ -65,7 +65,7 @@ import Lookup from '../components/Lookup.svelte';
 
           <div class="cta-row">
             <a class="button button--solid" href="#recyclopedia" data-page="recyclopedia">Search Recyclopedia</a>
-            <a class="button button--ghost" href="#academy" data-page="academy">Start Learning</a>
+            <a class="button button--ghost" href="/academy">Start Learning</a>
           </div>
 
           <div class="metric-grid">
@@ -163,7 +163,7 @@ import Lookup from '../components/Lookup.svelte';
           </article>
         </div>
         <div style="margin-top: 1rem;">
-          <a class="button button--ghost" href="#academy" data-page="academy">See all 10 myths →</a>
+          <a class="button button--ghost" href="/academy/myths">See all 10 myths →</a>
         </div>
       </div>
 
@@ -183,15 +183,16 @@ import Lookup from '../components/Lookup.svelte';
         <p class="section-kicker">Academy</p>
         <h2 id="academy-title">The most complete recycling education on the internet.</h2>
         <p class="lede">Six modules. Real information. No greenwashing. No corporate spin. Just the honest, actionable truth about what to do with the things you own.</p>
+        <p style="margin-top:1rem;"><a class="button button--solid" href="/academy">Enter the full Academy →</a></p>
       </div>
 
       <div class="module-grid">
-        <article class="module-card">
+        <a class="module-card module-card--link" href="/academy/hidden-history">
           <p class="module-card__number">Module 01</p>
           <h3>Recycling 101</h3>
-          <p>The basics of why recycling matters, how it actually works inside a materials recovery facility (MRF), and what happens to your materials after the bin.</p>
-          <p class="module-card__status">Content coming soon</p>
-        </article>
+          <p>The basics of why recycling matters, how it actually works, and what happens to your materials after the bin. Start with the history of trash and how to sort with your smartphone.</p>
+          <p class="module-card__status module-card__status--live">2 lessons live →</p>
+        </a>
         <article class="module-card">
           <p class="module-card__number">Module 02</p>
           <h3>Electronics & E-Waste</h3>
@@ -210,12 +211,12 @@ import Lookup from '../components/Lookup.svelte';
           <p>The goal is to never need the recycling bin. Refuse → Reduce → Reuse → Repair → Recycle. Learn to redesign your habits from the source up.</p>
           <p class="module-card__status">Content coming soon</p>
         </article>
-        <article class="module-card">
+        <a class="module-card module-card--link" href="/academy/myths">
           <p class="module-card__number">Module 05</p>
           <h3>The Myths — Debunked</h3>
           <p>Ten widely-believed recycling myths that are flat-out wrong — and some of them actively hurt recycling programs. This is the most important module on this site.</p>
-          <p class="module-card__status module-card__status--live">↓ Content live below</p>
-        </article>
+          <p class="module-card__status module-card__status--live">Read lesson →</p>
+        </a>
         <article class="module-card">
           <p class="module-card__number">Module 06</p>
           <h3>Local Regulations</h3>
@@ -224,86 +225,6 @@ import Lookup from '../components/Lookup.svelte';
         </article>
       </div>
 
-      <!-- Myths full content -->
-      <div class="section-block">
-        <div class="section-heading">
-          <p class="section-kicker">Module 05 · The Myths</p>
-          <h2>Ten recycling myths that are costing us the planet.</h2>
-          <p class="lede">Every myth below is believed by millions of people. Some are harmless misunderstandings. Others actively contaminate recycling loads and send entire truckloads to landfill.</p>
-        </div>
-
-        <div class="myth-grid">
-          <article class="myth-card">
-            <span class="myth-label">Myth 01</span>
-            <p class="myth-card__claim">"The recycling symbol on plastic means it can be recycled."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">The ♻ symbol on plastic indicates the resin type (1–7), not that your local program accepts it. Only #1 PET and #2 HDPE are widely accepted curbside. Always check your municipality's list — not the symbol on the bottom of the container.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 02</span>
-            <p class="myth-card__claim">"Plastic bags go in the curbside recycling bin."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Never. Plastic bags, film, and wrap clog and destroy sorting equipment — causing facility shutdowns that cost hundreds of thousands of dollars. Use plastic film drop-off bins at grocery stores (Target, Walmart, Publix). Never in the curbside bin.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 03</span>
-            <p class="myth-card__claim">"When in doubt, toss it in the recycling bin — it can't hurt."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Wishful recycling is the most destructive myth in this list. A single non-recyclable item can contaminate an entire load, sending hundreds of pounds of legitimate recyclables to the landfill. The rule is simple: if in doubt, leave it out.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 04</span>
-            <p class="myth-card__claim">"Pizza boxes can't be recycled."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Partial myth. The greasy, cheese-stained bottom cannot be recycled — grease destroys paper fibers. But the clean top half usually can. Tear the box in half: top half goes in recycling, greasy bottom goes in compost (or trash if no compost). Don't throw both away.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 05</span>
-            <p class="myth-card__claim">"You need to crush aluminum cans before recycling."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Do not crush cans. Sorting facilities use automated equipment that identifies cans by shape. A crushed can can fall through conveyor screens and miss the aluminum recovery line. Leave them uncrushed.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 06</span>
-            <p class="myth-card__claim">"Paper coffee cups are recyclable."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Most hot-drink paper cups are lined with a thin plastic or wax film that makes them non-recyclable in virtually all standard programs. Only a handful of specialized industrial facilities can process them. The plastic lids are typically #6 PS — also not accepted curbside.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 07</span>
-            <p class="myth-card__claim">"Glass is always recyclable in the curbside bin."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Many municipalities have stopped accepting glass curbside due to contamination and breakage — broken glass ruins paper, plastic, and metal at sorting facilities. Use dedicated glass drop-off containers or check your program at earth911.com before putting glass in the blue bin.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 08</span>
-            <p class="myth-card__claim">"You need to remove staples and paper clips from paper."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">No. Modern sorting facilities use industrial magnets to remove staples, paper clips, and binder rings from the paper stream. You do not need to remove them. This is wasted effort that discourages people from recycling paper at all.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 09</span>
-            <p class="myth-card__claim">"Electronics can safely go in the regular trash."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">E-waste contains lead (especially CRT screens), mercury, cadmium, and beryllium — heavy metals that leach into groundwater and soil from landfills for decades. It's illegal in many US states to put e-waste in regular trash. Use certified e-waste recyclers. Use our Recyclopedia to find out where.</p>
-          </article>
-
-          <article class="myth-card">
-            <span class="myth-label">Myth 10</span>
-            <p class="myth-card__claim">"Recycling is always the most sustainable option."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">Recycling is near the bottom of the sustainability hierarchy. The actual order is: Refuse → Reduce → Reuse → Repair → Refurbish → Recycle → Rot (compost) → Dispose. Recycling uses energy and water. Not buying the thing in the first place is always better.</p>
-          </article>
-        </div>
-      </div>
 
       <div class="cta-band">
         <div>
@@ -531,7 +452,7 @@ import Lookup from '../components/Lookup.svelte';
     <div class="site-footer__inner">
       <!-- "since 1993": the founder's personal origin of the mission (growing up in Brazil). Intentionally distinct from AP's 2008 founding date in the About section — do not "reconcile" them. -->
       <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
-      <p class="footer-version">v0.1.5 alpha</p>
+      <p class="footer-version">v0.1.6 alpha</p>
     </div>
   </footer>
 

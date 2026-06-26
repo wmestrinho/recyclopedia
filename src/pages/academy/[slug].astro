@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from 'astro:content';
+import Quiz from '../../components/Quiz.svelte';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('academy', ({ data }) => !data.draft);
+  return lessons.map((lesson) => ({
+    params: { slug: lesson.id },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+---
+
+<!DOCTYPE html>
+<html lang={lesson.data.lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{lesson.data.title} | Recyclopedia Academy</title>
+  <meta name="description" content={lesson.data.summary} />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#lesson-top">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="brand">
+        <span class="brand__mark">♻</span>
+        <span class="brand__copy">
+          <a class="brand__title" href="/" aria-label="Recyclopedia home"><strong>Recyclopedia</strong></a>
+          <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a></small>
+        </span>
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/academy" class="is-active">Academy</a>
+        <a href="/#recyclopedia">Lookup</a>
+        <a href="/#donate">Donate</a>
+        <a href="/#about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="button button--solid" href="/#donate">Donate Electronics</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <article class="page is-active lesson" id="lesson-top">
+      <p class="lesson__crumb"><a href="/academy">← Academy</a> · {lesson.data.track}</p>
+      <p class="section-kicker">Module {lesson.data.module}</p>
+      <h1 class="lesson__title">{lesson.data.title}</h1>
+
+      <div class="lesson__body">
+        <Content />
+      </div>
+
+      {lesson.data.quizzes.length > 0 && (
+        <section class="lesson__quizzes" aria-label="Knowledge check">
+          {lesson.data.quizzes.map((id) => (
+            <Quiz client:visible quizId={id} />
+          ))}
+        </section>
+      )}
+
+      <p class="lesson__crumb lesson__crumb--end"><a href="/academy">← Back to Academy</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
+      <p class="footer-version">v0.1.6 alpha</p>
+    </div>
+  </footer>
+</body>
+</html>

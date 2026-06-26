@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+
+const lessons = (await getCollection('academy', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academy | Recyclopedia</title>
+  <meta name="description" content="Recyclopedia Academy — free, honest, mobile-first lessons on how recycling actually works. No greenwashing, no corporate spin." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#academy-top">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="brand">
+        <span class="brand__mark">♻</span>
+        <span class="brand__copy">
+          <a class="brand__title" href="/" aria-label="Recyclopedia home"><strong>Recyclopedia</strong></a>
+          <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a></small>
+        </span>
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/academy" class="is-active">Academy</a>
+        <a href="/#recyclopedia">Lookup</a>
+        <a href="/#donate">Donate</a>
+        <a href="/#about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="button button--solid" href="/#donate">Donate Electronics</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page is-active" id="academy-top" aria-labelledby="academy-title">
+      <div class="section-heading">
+        <p class="section-kicker">Academy</p>
+        <h1 id="academy-title">The most complete recycling education on the internet.</h1>
+        <p class="lede">Free, honest, mobile-first lessons. No greenwashing, no corporate spin — just what to do with the things you own, and why.</p>
+      </div>
+
+      <div class="module-grid">
+        {lessons.map((lesson) => (
+          <a class="module-card module-card--link" href={`/academy/${lesson.id}`}>
+            <p class="module-card__number">Module {lesson.data.module}</p>
+            <h3>{lesson.data.title}</h3>
+            <p>{lesson.data.summary}</p>
+            <p class="module-card__status module-card__status--live">Read lesson →</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
+      <p class="footer-version">v0.1.6 alpha</p>
+    </div>
+  </footer>
+</body>
+</html>
