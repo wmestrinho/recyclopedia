@@ -4,6 +4,35 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ▶ NEXT SESSION — START HERE (planned 2026-06-27+)
+
+Two things Luiz lined up for next time:
+
+1. **New domain / brand kickoff.** Luiz will have the **Lettuce Beet Grapefruit** domain
+   ready ("Let us be grateful" — the parent brand; recyclopedia.cc becomes a property under
+   it). When it's in hand: plan the rebrand — parent-brand landing/identity, where recyclopedia
+   sits under LBG, DNS/Cloudflare wiring, and how AP visual identity carries over. Until the
+   domain exists, **do not rename** files/UI/strings. See the rebrand memory + `docs/academy/PROVENANCE.md`.
+2. **New content modules from Gemini.** Luiz will drop fresh drafts into the Drive
+   `RandDRecyclopedia` handoff station. Pull them via the **gdrive-ap** skill, then **review
+   together** before implementing — same bar as last time: check architecture fit, factual
+   accuracy (vs the Myths lesson + Gratitude Hierarchy), brand/emoji, and localization. Record
+   attribution in `docs/academy/PROVENANCE.md`.
+
+**Open backlog (not blocking):** migrate Modules 02/03/04/06 (E-Waste, Hazardous, Zero-Waste,
+Local Regs) from "coming soon" cards into real lessons; lesson i18n (collection supports
+`*.es.md`); Module 1.3 (Zero-Waste Micro-Habits) still un-drafted; B2B tier build-out when we
+court municipalities (source staged in `docs/academy/b2b-source/`).
+
+---
+
+## ✅ Session 2026-06-26 — SHIPPED & LIVE (v0.1.6 alpha on recyclopedia.cc)
+
+Merged `feat/academy-online-school` → `main` (commit `7acb301`), pushed, Cloudflare
+auto-deployed. **Verified live:** homepage footer `v0.1.6 alpha`, flat CSS (3px borders, zero
+gradients), `/academy` catalog lists 3 lessons, `/academy/myths` renders + quiz hydrates.
+Details of what shipped are in the two sub-sections below.
+
 ## Session 2026-06-26 (cont.) — Flat UI restyle + Myths lesson (same branch)
 
 - **Flat "Gumroad" restyle** (`public/css/style.css`, token-level): `--border` darkened to
@@ -17,12 +46,13 @@ every session.
   `index.astro` (4-myth home teaser kept). Catalog now lists 3 lessons.
 - **Rebrand (recorded, not executed):** parent brand will be **Lettuce Beet Grapefruit**
   ("Let us be grateful"); recyclopedia.cc becomes a property under it. No rename yet.
-- Build green (5 pages); still on branch `feat/academy-online-school`, uncommitted.
+- Final border pass: outer card containers + header bottom line + footer top line all **3px**
+  (inner inputs/chips stay 1px); committed in `7acb301`. Build green (5 pages). **Shipped & live.**
 
 ## Session 2026-06-26 — Academy online school, Phase 1 (branch `feat/academy-online-school`)
 
 Turned the Gemini-drafted Drive handoff (`RandDRecyclopedia`) into a real, static Academy.
-**Not yet merged/deployed** — on a feature branch, awaiting review.
+**Merged to `main` and deployed live** (see SHIPPED section above).
 
 - **New architecture:** Academy is now an Astro **content collection** (`src/content.config.ts`,
   `src/content/academy/*.md`) with routed pages `/academy` (catalog) and `/academy/<slug>`
