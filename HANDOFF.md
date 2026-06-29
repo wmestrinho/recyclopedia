@@ -4,6 +4,24 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## Sync audit — 2026-06-29 (Windows Codex)
+
+- Fetched GitHub and fast-forwarded local `main` to `08d5492`; the working tree
+  was clean and exactly matched `origin/main`.
+- Cross-repo reconciliation found a newer note in
+  `absolutely-plausible-ops/HANDOFF.md`: both LBG domains were secured and four
+  Recyclopedia files were reportedly still uncommitted on the other machine
+  (`src/pages/lbg/`, Academy Module 1.3, `docs/LBG_DNS_WIRING.md`, plus one
+  related file).
+- Those four files are **not present on GitHub `main`, `origin/astro-poc`, or
+  anywhere in this Windows workspace**. Recover and commit/push the original
+  files from the machine that created them before continuing the LBG rollout;
+  do not recreate them from the summary alone.
+- After recovery, the next owner-gated action remains changing the two LBG
+  domains' registrar nameservers to Cloudflare. The Drive content task still
+  requires pulling `RandDRecyclopedia` and reviewing the drafts with Luiz before
+  implementation.
+
 ## ▶ NEXT SESSION — START HERE (planned 2026-06-27+)
 
 Two things Luiz lined up for next time:
