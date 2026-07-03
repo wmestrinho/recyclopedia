@@ -8,7 +8,7 @@ import Lookup from '../components/Lookup.svelte';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Recyclopedia — The World's Most Complete Recycling Resource</title>
-  <meta name="description" content="Recyclopedia is the most complete recycling education platform on the internet. Learn what can be recycled, where to take it, debunk the myths, and donate your old electronics — for anything and everything." />
+  <meta name="description" content="Recyclopedia is the recycling answer engine. Search any item — or soon, scan any barcode or photograph any object — and get an immediate, local plan of action for proper disposal. Donate your old electronics too." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,7 +30,6 @@ import Lookup from '../components/Lookup.svelte';
 
       <nav class="site-nav" aria-label="Primary">
         <a href="#home" data-page="home">Home</a>
-        <a href="/academy">Academy</a>
         <a href="#recyclopedia" data-page="recyclopedia">Lookup</a>
         <a href="#donate" data-page="donate">Donate</a>
         <a href="#about" data-page="about">About</a>
@@ -59,13 +58,13 @@ import Lookup from '../components/Lookup.svelte';
           <h1 id="home-title">Everything has a path. We know the way.</h1>
           <p class="lede">
             We are the most psychotic people on the planet when it comes to recycling.
-            Nothing gets thrown away without a fight. Learn, search, and act — this is the last
-            recycling resource you will ever need.
+            Nothing gets thrown away without a fight. Search, scan, and act — this is
+            the recycling answer engine: any item in, an immediate plan of action out.
           </p>
 
           <div class="cta-row">
             <a class="button button--solid" href="#recyclopedia" data-page="recyclopedia">Search Recyclopedia</a>
-            <a class="button button--ghost" href="/academy">Start Learning</a>
+            <a class="button button--ghost" href="#tiers">How the engine works</a>
           </div>
 
           <div class="metric-grid">
@@ -74,8 +73,8 @@ import Lookup from '../components/Lookup.svelte';
               <span>Items in Recyclopedia</span>
             </article>
             <article class="metric-card">
-              <strong>10</strong>
-              <span>Myths debunked</span>
+              <strong>3</strong>
+              <span>Reasoning tiers</span>
             </article>
             <article class="metric-card">
               <strong>200+</strong>
@@ -105,65 +104,38 @@ import Lookup from '../components/Lookup.svelte';
         </aside>
       </div>
 
-      <!-- Three pillars -->
-      <div class="section-block">
+      <!-- Trickle-down tier engine -->
+      <div class="section-block" id="tiers">
         <div class="section-heading">
-          <p class="section-kicker">Three pillars</p>
-          <h2>Learn. Look it up. Take action.</h2>
+          <p class="section-kicker">The engine</p>
+          <h2>Trickle-down tier reasoning. Any item in, a plan of action out.</h2>
+          <p class="lede">Identification escalates only as far as it needs to — then everything funnels into the same answer: where this item actually goes, near you.</p>
         </div>
-        <div class="pillar-grid">
-          <button class="pillar-card" data-page="academy" aria-label="Go to Academy">
-            <div class="pillar-card__icon">🎓</div>
-            <h3>Academy</h3>
-            <p>Recycling 101, e-waste deep dives, hazardous materials, zero-waste living, and the complete myth-busting course — all in one place.</p>
-          </button>
-          <button class="pillar-card" data-page="recyclopedia" aria-label="Go to Lookup">
-            <div class="pillar-card__icon">🔍</div>
-            <h3>Lookup</h3>
-            <p>Search any item — pizza box, battery, old TV, motor oil. Instant lookup: recyclable or not, how to prep it, and where to take it.</p>
-          </button>
-          <button class="pillar-card" data-page="donate" aria-label="Go to Donate">
-            <div class="pillar-card__icon">📦</div>
-            <h3>Donate Electronics</h3>
-            <p>Working or not — we accept all electronics. Fill out the intake form and give your old devices a second life instead of a landfill grave.</p>
-          </button>
-        </div>
-      </div>
-
-      <!-- Myths preview -->
-      <div class="section-block">
-        <div class="section-heading">
-          <p class="section-kicker">Myths we destroy</p>
-          <h2>Popular recycling beliefs that are simply wrong.</h2>
-        </div>
-        <div class="myth-grid">
-          <article class="myth-card">
-            <span class="myth-label">Myth</span>
-            <p class="myth-card__claim">"Plastic bags go in the curbside recycling bin — it's fine."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">FALSE. Plastic bags and film wrap destroy sorting equipment. A single bag can shut down a processing facility for hours. Use store drop-off bins only — never the curbside bin.</p>
+        <div class="module-grid">
+          <a class="module-card module-card--link" href="#recyclopedia" data-page="recyclopedia">
+            <p class="module-card__number">Tier 1 · Human input</p>
+            <h3>🔍 Search it</h3>
+            <p>Type any item — pizza box, battery, old TV, motor oil. Instant answer: recyclable or not, how to prep it, and where to take it. 60+ items and growing.</p>
+            <p class="module-card__status module-card__status--live">Live now →</p>
+          </a>
+          <article class="module-card">
+            <p class="module-card__number">Tier 2 · Barcode</p>
+            <h3>📷 Scan it</h3>
+            <p>Point your camera at any barcode for machine-exact item recognition — no typing, no guessing which name we filed it under.</p>
+            <p class="module-card__status">In development</p>
           </article>
-          <article class="myth-card">
-            <span class="myth-label">Myth</span>
-            <p class="myth-card__claim">"If I'm not sure, it's better to put it in the recycling bin just in case."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">This is the most dangerous myth in recycling. Wishful recycling — putting something in "just in case" — contaminates entire loads of legitimate recyclables. When in doubt, leave it out.</p>
-          </article>
-          <article class="myth-card">
-            <span class="myth-label">Myth</span>
-            <p class="myth-card__claim">"If it has the recycling symbol, it can be recycled."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">The ♻ symbol on plastic (#1–#7) indicates the resin type, not that it's accepted in your program. Only #1 PET and #2 HDPE are accepted in most US curbside programs.</p>
-          </article>
-          <article class="myth-card">
-            <span class="myth-label">Myth</span>
-            <p class="myth-card__claim">"Electronics can go in the regular trash."</p>
-            <span class="myth-truth-label">Truth</span>
-            <p class="myth-card__truth">E-waste contains lead, mercury, cadmium, and beryllium — heavy metals that leach into groundwater from landfills. It's illegal in many states. Always use certified e-waste recyclers.</p>
+          <article class="module-card">
+            <p class="module-card__number">Tier 3 · AI vision (last resort)</p>
+            <h3>👁 Show it</h3>
+            <p>No barcode, no name? YOLO-class object recognition identifies the item — then its composition, so even new or discovered materials get an answer.</p>
+            <p class="module-card__status">Planned</p>
           </article>
         </div>
-        <div style="margin-top: 1rem;">
-          <a class="button button--ghost" href="/academy/myths">See all 10 myths →</a>
+        <div class="cta-band" style="margin-top: 1rem;">
+          <div>
+            <p class="section-kicker">Every tier funnels here</p>
+            <h3>Your location + district + available facilities → an immediate plan of action for proper disposal.</h3>
+          </div>
         </div>
       </div>
 
@@ -171,65 +143,6 @@ import Lookup from '../components/Lookup.svelte';
         <div>
           <p class="section-kicker">Ready to find out what actually goes where?</p>
           <h3>Search anything in the Recyclopedia. It's free, it's fast, and it's accurate.</h3>
-        </div>
-        <a class="button button--solid" href="#recyclopedia" data-page="recyclopedia">Open Recyclopedia</a>
-      </div>
-    </section>
-
-
-    <!-- ── ACADEMY ────────────────────────────────────────────── -->
-    <section class="page" id="academy" data-page="academy" aria-labelledby="academy-title">
-      <div class="section-heading">
-        <p class="section-kicker">Academy</p>
-        <h2 id="academy-title">The most complete recycling education on the internet.</h2>
-        <p class="lede">Six modules. Real information. No greenwashing. No corporate spin. Just the honest, actionable truth about what to do with the things you own.</p>
-        <p style="margin-top:1rem;"><a class="button button--solid" href="/academy">Enter the full Academy →</a></p>
-      </div>
-
-      <div class="module-grid">
-        <a class="module-card module-card--link" href="/academy/hidden-history">
-          <p class="module-card__number">Module 01</p>
-          <h3>Recycling 101</h3>
-          <p>The basics of why recycling matters, how it actually works, and what happens to your materials after the bin. Start with the history of trash and how to sort with your smartphone.</p>
-          <p class="module-card__status module-card__status--live">2 lessons live →</p>
-        </a>
-        <article class="module-card">
-          <p class="module-card__number">Module 02</p>
-          <h3>Electronics & E-Waste</h3>
-          <p>The fastest-growing waste stream on earth. What to do with your old devices, how to properly wipe data, and where to take everything — from phones to CRT TVs.</p>
-          <p class="module-card__status">Content coming soon</p>
-        </article>
-        <article class="module-card">
-          <p class="module-card__number">Module 03</p>
-          <h3>Hazardous Materials</h3>
-          <p>Motor oil, paint, batteries, fluorescent bulbs, pesticides, medications — some waste can't go in any bin. Know the rules before you make a dangerous mistake.</p>
-          <p class="module-card__status">Content coming soon</p>
-        </article>
-        <article class="module-card">
-          <p class="module-card__number">Module 04</p>
-          <h3>Zero Waste Lifestyle</h3>
-          <p>The goal is to never need the recycling bin. Refuse → Reduce → Reuse → Repair → Recycle. Learn to redesign your habits from the source up.</p>
-          <p class="module-card__status">Content coming soon</p>
-        </article>
-        <a class="module-card module-card--link" href="/academy/myths">
-          <p class="module-card__number">Module 05</p>
-          <h3>The Myths — Debunked</h3>
-          <p>Ten widely-believed recycling myths that are flat-out wrong — and some of them actively hurt recycling programs. This is the most important module on this site.</p>
-          <p class="module-card__status module-card__status--live">Read lesson →</p>
-        </a>
-        <article class="module-card">
-          <p class="module-card__number">Module 06</p>
-          <h3>Local Regulations</h3>
-          <p>Recycling rules vary dramatically by municipality. How to find your local program's exact rules and navigate state-by-state regulations for hazardous waste.</p>
-          <p class="module-card__status">Content coming soon</p>
-        </article>
-      </div>
-
-
-      <div class="cta-band">
-        <div>
-          <p class="section-kicker">Put your knowledge to work</p>
-          <h3>Look up any item in the Recyclopedia to find out exactly what to do with it.</h3>
         </div>
         <a class="button button--solid" href="#recyclopedia" data-page="recyclopedia">Open Recyclopedia</a>
       </div>
@@ -420,19 +333,19 @@ import Lookup from '../components/Lookup.svelte';
         </div>
         <div class="feature-grid">
           <article class="feature-card">
-            <h3>Phase 1 — Foundation</h3>
-            <p>Homepage, Academy myths module, Recyclopedia with 60+ items, Electronics donation intake form. Deployed to Cloudflare Pages.</p>
+            <h3>Phase 1 — Tier 1 foundation</h3>
+            <p>Recyclopedia search with 60+ items, electronics donation intake, deployed on Cloudflare. The human-input tier of the engine, live.</p>
             <div class="stack-tags" style="margin-top:0.75rem;"><span style="background:var(--status-yes-bg);color:var(--status-yes);border-color:var(--status-yes);">✓ Live now</span></div>
           </article>
           <article class="feature-card">
-            <h3>Phase 2 — Database</h3>
-            <p>Expand Recyclopedia to 500+ items. Add regulations database searchable by state and municipality. Supabase backend for real-time search.</p>
+            <h3>Phase 2 — Database & local resolution</h3>
+            <p>Expand to 500+ items. Regulations database by state and municipality, facility locator by ZIP — the location layer that turns every answer into a local plan of action.</p>
             <div class="stack-tags" style="margin-top:0.75rem;"><span>In planning</span></div>
           </article>
           <article class="feature-card">
-            <h3>Phase 3 — Academy</h3>
-            <p>Full course content for all 6 academy modules. Interactive quizzes, local facility locator by ZIP code, and user-submitted facility reviews.</p>
-            <div class="stack-tags" style="margin-top:0.75rem;"><span>Coming soon</span></div>
+            <h3>Phase 3 — Recognition tiers</h3>
+            <p>Tier 2 barcode scanning for exact item recognition, then Tier 3 AI vision (YOLO-class) with composition identification for anything without a name or a code.</p>
+            <div class="stack-tags" style="margin-top:0.75rem;"><span>Planned</span></div>
           </article>
         </div>
       </div>
@@ -453,7 +366,7 @@ import Lookup from '../components/Lookup.svelte';
       <!-- "since 1993": the founder's personal origin of the mission (growing up in Brazil). Intentionally distinct from AP's 2008 founding date in the About section — do not "reconcile" them. -->
       <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
       <p class="footer-license">EDUCATIONAL PURPOSES ONLY · Content © 2026 Recyclopedia — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (no commercial use)</p>
-      <p class="footer-version">v0.1.7 alpha</p>
+      <p class="footer-version">v0.2.0 alpha</p>
     </div>
   </footer>
 

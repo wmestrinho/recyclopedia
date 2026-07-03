@@ -6,7 +6,6 @@
   var pages = document.querySelectorAll('.page[data-page]');
   var pageTitles = {
     home:         "Recyclopedia — The World's Most Complete Recycling Resource",
-    academy:      'Academy | Recyclopedia',
     recyclopedia: 'Lookup | Recyclopedia',
     donate:       'Donate Electronics | Recyclopedia',
     about:        'About | Recyclopedia'

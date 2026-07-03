@@ -4,6 +4,24 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Site trimmed to the engine — 2026-07-03 (Mac mini, Claude Code) — v0.2.0 alpha
+
+First one-at-a-time property move, authorized by Luiz ("recyclopedia is all
+yours"). Per `docs/LBG_BRAND_ARCHITECTURE.md`:
+
+- Homepage restructured around the **Trickle-Down Tier engine**: "Three pillars"
+  block replaced with Tier 1 Search (live) / Tier 2 Barcode (in development) /
+  Tier 3 AI vision (planned) + the location→plan-of-action resolution band
+  (`#tiers`). Myths preview and the whole in-page `#academy` SPA section removed;
+  `academy` dropped from `pageTitles` in `public/js/main.js` (stray `#academy`
+  hashes fall back to home). Roadmap phases reframed to engine phases.
+- **Academy routes stay live and unchanged** (`/academy`, lessons, quizzes) —
+  only de-emphasized: out of the primary nav, migration notice on `/academy`
+  pointing to lettucebeetgrapefruit.org / LBGA. Content moves in the .org build.
+- Donate Electronics stays on the site until its home is decided (likely .com).
+- `v0.1.7 → v0.2.0 alpha` (VERSION + 3 page footers). Build verified: 7 pages,
+  no `/academy` links left on the homepage.
+
 ## Brand architecture locked — 2026-07-03 (Mac mini, Claude Code)
 
 - Luiz defined the canonical three-domain LBG architecture. **Read
