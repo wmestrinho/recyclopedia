@@ -6,11 +6,14 @@ credentialed `wrangler` session are marked **[you]**; everything else is already
 
 ## Target architecture
 
+> Canonical product definitions live in [LBG_BRAND_ARCHITECTURE.md](LBG_BRAND_ARCHITECTURE.md)
+> (2026-07-03); this table summarizes for DNS purposes.
+
 | Domain | Role | Serves |
 |---|---|---|
-| `lettucebeetgrapefruit.com` | **Umbrella / parent brand** — sibling of absolutelyplausible.com | The LBG landing page (`/lbg`), links out to both properties |
-| `lettucebeetgrapefruit.org` | **Academy / school** | The Academy (`/academy/*`) |
-| `recyclopedia.cc` | **Recyclopedia only** — the database, search engine, item-recognition app | What is today the "Lookup" tab |
+| `lettucebeetgrapefruit.com` | **Umbrella / parent brand + non-profit community storefront** — sibling of absolutelyplausible.com | LBG landing (`/lbg` today), event/meetup calendars, electronics-repair workshops |
+| `lettucebeetgrapefruit.org` | **LBG Academy (LBGA)** — teaching & school web application | The Academy (`/academy/*` today), rebranded |
+| `recyclopedia.cc` | **Recyclopedia engine only** — the Trickle-Down Tier Reasoning algorithm (human input → barcode → YOLO-class vision → material ID → local disposal plan) | What is today the "Lookup" tab |
 | `absolutelyplausible.com` | Company / storefront (the mothership) | Existing AP site — unchanged |
 
 Single Cloudflare Pages project (`recyclopedia`) can serve all three via **custom domains**

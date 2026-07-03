@@ -4,6 +4,17 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## Brand architecture locked — 2026-07-03 (Mac mini, Claude Code)
+
+- Luiz defined the canonical three-domain LBG architecture. **Read
+  `docs/LBG_BRAND_ARCHITECTURE.md` before touching anything LBG/Academy/Lookup.**
+- Short version: `recyclopedia.cc` = Trickle-Down Tier Reasoning engine ONLY
+  (human input → barcode → YOLO-class vision → material ID → local disposal
+  plan of action); `.org` = LBG Academy, its own school webapp, absorbs
+  `/academy`; `.com` = umbrella + non-profit storefront with meetup calendars
+  and donated-electronics repair workshops, all ages.
+- Work proceeds **one property at a time**, directed by Luiz.
+
 ## Recovery — 2026-07-03 (Mac mini, Claude Code)
 
 - The four Mac-only files flagged in the 2026-06-29 sync audit are recovered and
