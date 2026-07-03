@@ -1,7 +1,8 @@
 # Lettuce Beet Grapefruit — Brand & Product Architecture
 
-> **Status:** CANONICAL — defined by Luiz 2026-07-03. This document is the source of
-> truth for what lives on which domain. The DNS runbook
+> **Status:** CANONICAL — defined by Luiz 2026-07-03 (amended same day: Wikipedia
+> model, shared research foundation, Creative Commons). This document is the source
+> of truth for what lives on which domain. The DNS runbook
 > ([LBG_DNS_WIRING.md](LBG_DNS_WIRING.md)) is the *execution* checklist; when the two
 > disagree, this file wins.
 
@@ -30,6 +31,22 @@ properly disposed of, and return an **immediate plan of action**.
 Everything that is not this engine (Academy, general education content) moves off
 this domain.
 
+**Operating model (amended 2026-07-03):**
+
+- **Dual presence:** Recyclopedia is a **standalone solo product** on its own
+  domain *and* surfaces inside `lettucebeetgrapefruit.org` / `.com` (embedded or
+  deep-linked — mechanics TBD per property).
+- **Wikipedia model — literally:** run recyclopedia.cc as an open, encyclopedia-
+  style public knowledge project. Open-source the project; community contribution
+  mechanics TBD.
+- **Donations:** accept donations to help build Recyclopedia as an open-source
+  project (candidate rails: the existing `ap-stripe-worker` / `shop-api` Stripe
+  infrastructure).
+- **Shared research foundation:** the research behind the Trickle-Down Tier
+  engine (ongoing — more to come) **is the foundation of LBGA's courses**. One
+  knowledge base, two surfaces: the engine cites it, the school teaches it. Keep
+  research sourced and citable so both properties can draw on it.
+
 ## 2. `lettucebeetgrapefruit.org` — LBG Academy (LBGA)
 
 The **teaching and school web application** — its own product, its own domain.
@@ -50,6 +67,22 @@ The parent-brand home over LBGA, and the **non-profit-focused storefront**:
 
 ---
 
+## Licensing — Creative Commons + open source (amended 2026-07-03)
+
+Luiz's direction: put "a bunch of our stuff" under **Creative Commons, including
+all current LBG/Recyclopedia work**. Mechanics to know:
+
+- CC licenses are **applied, not registered** — you pick a license, state it on
+  the work (site footer, doc headers, LICENSE file), and it's in force. No
+  submission step.
+- **Content** (encyclopedia entries, Academy modules, whitepaper, research):
+  recommend **CC BY-SA 4.0** — the license Wikipedia itself uses; share-alike
+  keeps derivatives open. **[decide with Luiz]**
+- **Code**: CC is not designed for code — pick an OSS license (MIT or GPL-family)
+  for the repo when it goes public. **[decide with Luiz]**
+- Repo is currently **PRIVATE with no license**; history has no committed env
+  files, but run a full secret scan before flipping public.
+
 ## Open items (decide with Luiz, in order of dependency)
 
 1. **Donate Electronics intake** (currently on recyclopedia.cc) — likely moves to
@@ -62,7 +95,14 @@ The parent-brand home over LBGA, and the **non-profit-focused storefront**:
    candidate base for the `.com` storefront.
 4. **Whitepaper & audio** — the internal whitepaper draft and the
    "Ending the trash illusion with AI" audio live uncommitted on the Mac; decide
-   their home (likely LBGA or the `.com` brand site).
+   their home (likely LBGA or the `.com` brand site). Note: the whitepaper is part
+   of the shared research foundation — once cleared for release it's a CC
+   candidate.
+5. **License choices** — CC license for content (recommended CC BY-SA 4.0) + OSS
+   license for code, then secret-scan and flip the repo public.
+6. **Donation rails** — wire donations through existing Stripe infra
+   (`ap-stripe-worker`/`shop-api`) vs. a non-profit-specific processor; depends on
+   the non-profit entity question for LBG.
 
 ## Owner-gated prerequisite
 

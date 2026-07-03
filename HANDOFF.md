@@ -14,6 +14,11 @@ every session.
   `/academy`; `.com` = umbrella + non-profit storefront with meetup calendars
   and donated-electronics repair workshops, all ages.
 - Work proceeds **one property at a time**, directed by Luiz.
+- Same-day amendments: Recyclopedia = standalone product AND embedded in the
+  LBG properties; run it **like Wikipedia** — open-source, donation-supported;
+  the engine research is the **foundation of LBGA's courses** (one knowledge
+  base, two surfaces); put content under **Creative Commons** (CC BY-SA 4.0
+  recommended, license choices pending). Details in the architecture doc.
 
 ## Recovery — 2026-07-03 (Mac mini, Claude Code)
 
