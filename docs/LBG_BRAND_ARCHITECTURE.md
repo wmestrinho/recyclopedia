@@ -36,12 +36,15 @@ this domain.
 - **Dual presence:** Recyclopedia is a **standalone solo product** on its own
   domain *and* surfaces inside `lettucebeetgrapefruit.org` / `.com` (embedded or
   deep-linked — mechanics TBD per property).
-- **Wikipedia model — literally:** run recyclopedia.cc as an open, encyclopedia-
-  style public knowledge project. Open-source the project; community contribution
-  mechanics TBD.
-- **Donations:** accept donations to help build Recyclopedia as an open-source
-  project (candidate rails: the existing `ap-stripe-worker` / `shop-api` Stripe
-  infrastructure).
+- **Wikipedia model — literally, with in-house editing (DECIDED 2026-07-03):**
+  run recyclopedia.cc as an open, encyclopedia-style public knowledge project —
+  open-source, but **editing stays in-house for now and probably a long time**.
+  Luiz's framing: *Bitcoin is open-source, but that doesn't mean it's open to
+  the public to change* — open license and visible source ≠ open write access.
+  Contributions, if ever, come later and gated.
+- **Donations (DECIDED 2026-07-03):** accept donations to help build
+  Recyclopedia as an open-source project, **via the existing
+  `ap-stripe-worker` / `shop-api` Stripe rails**.
 - **Shared research foundation:** the research behind the Trickle-Down Tier
   engine (ongoing — more to come) **is the foundation of LBGA's courses**. One
   knowledge base, two surfaces: the engine cites it, the school teaches it. Keep
@@ -75,13 +78,16 @@ all current LBG/Recyclopedia work**. Mechanics to know:
 - CC licenses are **applied, not registered** — you pick a license, state it on
   the work (site footer, doc headers, LICENSE file), and it's in force. No
   submission step.
-- **Content** (encyclopedia entries, Academy modules, whitepaper, research):
-  recommend **CC BY-SA 4.0** — the license Wikipedia itself uses; share-alike
-  keeps derivatives open. **[decide with Luiz]**
-- **Code**: CC is not designed for code — pick an OSS license (MIT or GPL-family)
-  for the repo when it goes public. **[decide with Luiz]**
-- Repo is currently **PRIVATE with no license**; history has no committed env
-  files, but run a full secret scan before flipping public.
+- **Content license (DECIDED 2026-07-03): CC BY-NC-SA 4.0** — deliberately
+  aggressive and anti-corporation: **NO COMMERCIAL USE ALLOWED** (NC), and
+  share-alike (SA) keeps derivatives open. Applied to all four site footers in
+  v0.1.7 alpha, alongside the required quote **"EDUCATIONAL PURPOSES ONLY"**
+  (`.footer-license` slot per the workspace footer standard).
+- **Code**: CC is not designed for code — pick an OSS license for the repo when
+  it goes public. Given the anti-corporate stance, a copyleft license
+  (**AGPL-3.0** or GPL-3.0) fits better than MIT. **[decide with Luiz]**
+- Repo is currently **PRIVATE with no license file**; history has no committed
+  env files, but run a full secret scan before flipping public.
 
 ## Open items (decide with Luiz, in order of dependency)
 
@@ -98,11 +104,12 @@ all current LBG/Recyclopedia work**. Mechanics to know:
    their home (likely LBGA or the `.com` brand site). Note: the whitepaper is part
    of the shared research foundation — once cleared for release it's a CC
    candidate.
-5. **License choices** — CC license for content (recommended CC BY-SA 4.0) + OSS
-   license for code, then secret-scan and flip the repo public.
-6. **Donation rails** — wire donations through existing Stripe infra
-   (`ap-stripe-worker`/`shop-api`) vs. a non-profit-specific processor; depends on
-   the non-profit entity question for LBG.
+5. **Code license** — content is decided (CC BY-NC-SA 4.0, applied); pick the
+   OSS license for code (AGPL-3.0 suggested), then secret-scan and flip the repo
+   public.
+6. **Donation rails** — decided: existing Stripe infra
+   (`ap-stripe-worker`/`shop-api`). Remaining: the non-profit entity question for
+   LBG (affects how donations are framed/receipted on the `.com` storefront).
 
 ## Owner-gated prerequisite
 

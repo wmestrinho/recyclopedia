@@ -1136,11 +1136,18 @@ table {
   background: var(--bg);
 }
 
+.footer-license {
+  flex-basis: 100%;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
 .site-footer__inner {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 1rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;

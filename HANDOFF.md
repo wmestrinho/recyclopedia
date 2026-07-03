@@ -17,8 +17,16 @@ every session.
 - Same-day amendments: Recyclopedia = standalone product AND embedded in the
   LBG properties; run it **like Wikipedia** — open-source, donation-supported;
   the engine research is the **foundation of LBGA's courses** (one knowledge
-  base, two surfaces); put content under **Creative Commons** (CC BY-SA 4.0
-  recommended, license choices pending). Details in the architecture doc.
+  base, two surfaces); put content under **Creative Commons**.
+- Session close (2026-07-03): three decisions locked — content license
+  **CC BY-NC-SA 4.0, NO commercial use**, applied to all four footers with
+  "EDUCATIONAL PURPOSES ONLY" (v0.1.7 alpha); Wikipedia model with **in-house
+  editing** (open-source ≠ open write access); donations via **existing Stripe
+  rails** (`ap-stripe-worker`/`shop-api`). Still open: code OSS license
+  (AGPL-3.0 suggested) → secret scan → repo public.
+- **Recommended next move (awaiting Luiz's go):** trim recyclopedia.cc to the
+  engine (move Academy out of nav, restructure around the trickle-down tiers)
+  as the first one-at-a-time property.
 
 ## Recovery — 2026-07-03 (Mac mini, Claude Code)
 
