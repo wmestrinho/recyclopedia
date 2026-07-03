@@ -139,6 +139,39 @@ export const QUIZZES: Record<string, Quiz> = {
     ],
   },
 
+  academy_1_3_a: {
+    quiz_id: 'academy_1_3_a',
+    title: 'Mastering Home Micro-Habits',
+    questions: [
+      {
+        id: 'q1',
+        question:
+          "What is the primary operational benefit of leaving vegetables loose ('naked') during grocery shopping?",
+        options: {
+          A: 'It allows the store cashier to scan the barcodes faster.',
+          B: 'It stops thin-film plastics from entering waste streams, where they easily tangle and jam industrial sorting machinery.',
+          C: 'It helps the vegetables absorb more ambient oxygen on the way home.',
+        },
+        correct: 'B',
+        explanation:
+          'Thin plastic produce bags are a nightmare for sorting plants. They wrap around mechanical rotating axles and force expensive facility shutdowns.',
+      },
+      {
+        id: 'q2',
+        question:
+          "Why does setting up a simple '2-Tray System' on your kitchen counter have an exponential positive impact?",
+        options: {
+          A: 'It acts as a physical reminder to isolate organic waste from oxygen-depleted landfills.',
+          B: 'It changes the color of the final agricultural compost mix.',
+          C: 'It reduces the amount of household tap water used during cooking.',
+        },
+        correct: 'A',
+        explanation:
+          'Keeping organic materials separate from the start ensures they can be cleanly routed to composting — preventing the creation of landfill methane gas.',
+      },
+    ],
+  },
+
   academy_5_a: {
     quiz_id: 'academy_5_a',
     title: 'Myth-Busting Check',

@@ -1,0 +1,220 @@
+---
+// Lettuce Beet Grapefruit — the parent-brand umbrella ("Let us be grateful").
+// Sibling/partner to Absolutely Plausible (absolutelyplausible.com).
+// Houses two properties:
+//   · Recyclopedia — the database + search engine + item-recognition app (recyclopedia.cc)
+//   · Academy — the online school / civic-training platform (lettucebeetgrapefruit.org)
+// This page is the future root of lettucebeetgrapefruit.com. Previewable now at /lbg.
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lettuce Beet Grapefruit — Let us be grateful.</title>
+  <meta name="description" content="Lettuce Beet Grapefruit (Let us be grateful) — a family of tools and learning for a zero-waste planet. Home to Recyclopedia and the Academy. A sibling project of Absolutely Plausible Solutions." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🥬%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* ── LBG-specific accents (scoped to the umbrella landing) ──────────── */
+    .lbg-wordmark {
+      display: grid;
+      gap: 0.35rem;
+      margin: 0 0 1.25rem;
+    }
+    .lbg-wordmark__line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.6ch;
+      font-size: clamp(1.8rem, 6vw, 3.1rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+    .lbg-wordmark__produce { color: var(--text); font-weight: 700; }
+    .lbg-wordmark__gloss {
+      color: var(--accent);
+      font-size: 0.42em;
+      letter-spacing: 0.04em;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+    .lbg-gloss-full {
+      margin: 0;
+      color: var(--accent-deep);
+      font-size: clamp(1rem, 3.2vw, 1.4rem);
+      letter-spacing: 0.02em;
+    }
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .property-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .property-card__tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .property-card__icon { font-size: 1.8rem; }
+    .property-card h3 { margin: 0.15rem 0 0; }
+    .property-card p { color: var(--muted); margin: 0; flex: 1; }
+    .property-card__domain {
+      font-size: 0.78rem;
+      color: var(--accent-mid);
+      letter-spacing: 0.03em;
+    }
+    .property-card__cta { margin-top: 0.75rem; }
+    .lbg-family {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1.25rem;
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#lbg-top">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="brand">
+        <span class="brand__mark">🥬</span>
+        <span class="brand__copy">
+          <a class="brand__title" href="/lbg" aria-label="Lettuce Beet Grapefruit home"><strong>Lettuce Beet Grapefruit</strong></a>
+          <small>sibling of <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a></small>
+        </span>
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/lbg" class="is-active">Home</a>
+        <a href="https://recyclopedia.cc">Recyclopedia</a>
+        <a href="/academy">Academy</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="button button--solid" href="https://recyclopedia.cc">Open Recyclopedia</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-shell">
+
+    <!-- ── HERO ──────────────────────────────────────────────── -->
+    <section class="page is-active" id="lbg-top" aria-labelledby="lbg-title">
+      <div class="section-heading">
+        <p class="section-kicker">Lettuce Beet Grapefruit</p>
+
+        <div class="lbg-wordmark" aria-hidden="true">
+          <span class="lbg-wordmark__line">
+            <span class="lbg-wordmark__produce">Lettuce</span>
+            <span class="lbg-wordmark__gloss">/ let&nbsp;us</span>
+          </span>
+          <span class="lbg-wordmark__line">
+            <span class="lbg-wordmark__produce">Beet</span>
+            <span class="lbg-wordmark__gloss">/ be</span>
+          </span>
+          <span class="lbg-wordmark__line">
+            <span class="lbg-wordmark__produce">Grapefruit</span>
+            <span class="lbg-wordmark__gloss">/ grateful</span>
+          </span>
+        </div>
+
+        <h1 id="lbg-title" class="lbg-gloss-full">Let us be grateful.</h1>
+        <p class="lede">
+          A small family of free, open-source tools and learning for a zero-waste planet.
+          Everything we make starts from one idea: every object deserves gratitude — the most
+          grateful possible end, instead of a landfill. We build the way to get there.
+        </p>
+        <div class="cta-row">
+          <a class="button button--solid" href="https://recyclopedia.cc">Open Recyclopedia</a>
+          <a class="button button--ghost" href="/academy">Enter the Academy</a>
+        </div>
+      </div>
+
+      <!-- ── PROPERTIES ──────────────────────────────────────── -->
+      <div class="section-block">
+        <div class="section-heading">
+          <p class="section-kicker">The family</p>
+          <h2>Two properties. One purpose.</h2>
+        </div>
+        <div class="property-grid">
+          <article class="property-card">
+            <span class="property-card__icon" aria-hidden="true">🔍</span>
+            <span class="property-card__tag">The tool</span>
+            <h3>Recyclopedia</h3>
+            <p>The encyclopedia of recycling — a searchable database, search engine, and item-recognition app. Look up anything and learn its most grateful disposition.</p>
+            <span class="property-card__domain">recyclopedia.cc</span>
+            <a class="button button--solid property-card__cta" href="https://recyclopedia.cc">Open Recyclopedia →</a>
+          </article>
+          <article class="property-card">
+            <span class="property-card__icon" aria-hidden="true">🎓</span>
+            <span class="property-card__tag">The school</span>
+            <h3>Academy</h3>
+            <p>A free, mobile-first online school for everyday citizens. Zero-waste micro-habits, honest recycling guides, and certified operations training — no greenwashing.</p>
+            <span class="property-card__domain">lettucebeetgrapefruit.org</span>
+            <a class="button button--ghost property-card__cta" href="/academy">Enter the Academy →</a>
+          </article>
+        </div>
+      </div>
+
+      <!-- ── ABOUT ───────────────────────────────────────────── -->
+      <div class="section-block" id="about">
+        <div class="section-heading">
+          <p class="section-kicker">What this is</p>
+          <h2>A sibling project, not a corporation.</h2>
+        </div>
+        <div class="split-layout">
+          <article class="panel-card panel-card--accent">
+            <h3>The name is the mission</h3>
+            <p><strong>Lettuce Beet Grapefruit</strong> reads as <strong>"Let us be grateful"</strong> — and every word is produce, because the whole point is the food-cycle: nothing wasted, everything returned. It's a quiet, stubborn kind of gratitude for the things we already have.</p>
+            <p style="margin-top:0.75rem;">Under this umbrella, Recyclopedia answers <em>"what do I do with this?"</em> and the Academy answers <em>"why, and how do I live this way?"</em></p>
+          </article>
+          <article class="panel-card">
+            <h3>Family ties</h3>
+            <p>LBG is the sibling and collaborator to <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> — the Orlando-based studio that builds it. Same zero-waste, open-source, $0-lock-in standard; different front door.</p>
+            <div class="lbg-family">
+              <span>🥬 lettucebeetgrapefruit.com</span>
+              <span>♻ recyclopedia.cc</span>
+              <span>🛠 absolutelyplausible.com</span>
+            </div>
+            <p style="margin-top:1rem;"><a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Meet Absolutely Plausible →</a></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="cta-band">
+        <div>
+          <p class="section-kicker">Start where you are</p>
+          <h3>Look something up, or learn the habits. Both are free, forever.</h3>
+        </div>
+        <a class="button button--solid" href="https://recyclopedia.cc">Open Recyclopedia</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>Let us be grateful. A <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> sibling project.</p>
+      <p class="footer-version">Lettuce Beet Grapefruit · v0.1</p>
+    </div>
+  </footer>
+</body>
+</html>

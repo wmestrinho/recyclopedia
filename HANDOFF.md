@@ -4,6 +4,19 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## Recovery — 2026-07-03 (Mac mini, Claude Code)
+
+- The four Mac-only files flagged in the 2026-06-29 sync audit are recovered and
+  pushed in this commit: `src/pages/lbg/index.astro`, Academy Module 1.3
+  (`src/content/academy/zero-waste-habits.md`), its quiz in `src/data/quizzes.ts`
+  (`academy_1_3_a`), and `docs/LBG_DNS_WIRING.md`.
+- Deliberately **not** committed (still local on the Mac): the whitepaper draft
+  (`recyclopedia whitepaper v1 2.md`, marked internal-review-only) and a 36 MB
+  audio file (`Ending_the_trash_illusion_with_AI.m4a`). Decide their home with
+  Luiz before adding either to the repo.
+- Next owner-gated action unchanged: point the two LBG domains' registrar
+  nameservers at Cloudflare (see `docs/LBG_DNS_WIRING.md`).
+
 ## Sync audit — 2026-06-29 (Windows Codex)
 
 - Fetched GitHub and fast-forwarded local `main` to `08d5492`; the working tree
