@@ -4,6 +4,16 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ OPEN-SOURCED — 2026-07-03 (Mac mini, Claude Code)
+
+- **Code license: AGPL-3.0** (confirmed by Luiz) — `LICENSE` + `package.json`
+  `"license": "AGPL-3.0-only"`. Content remains CC BY-NC-SA 4.0; the dual split
+  is documented in README's License section.
+- **Full-history secret scan: CLEAN** (48 commits; Stripe/AWS/GitHub/Google/
+  Slack/JWT/private-key/generic patterns + filename sweep — zero hits).
+- **Repo flipped PUBLIC** on GitHub. From now on: never commit anything secret
+  or client-private here; the whitepaper draft and audio stay out until cleared.
+
 ## ✅ Site trimmed to the engine — 2026-07-03 (Mac mini, Claude Code) — v0.2.0 alpha
 
 First one-at-a-time property move, authorized by Luiz ("recyclopedia is all

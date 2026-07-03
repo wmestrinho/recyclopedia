@@ -1,10 +1,21 @@
 # Recyclopedia
 
-**Status:** In development — v0.1.6 alpha
+**Status:** In development — v0.2.0 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
-A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
+A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com), part of
+the [Lettuce Beet Grapefruit](https://recyclopedia.cc/lbg) family. Open source,
+donation-supported, run like an encyclopedia: open to read, edited in-house.
+
+## License
+
+- **Code:** [GNU AGPL-3.0](LICENSE). If you run a modified version of this software —
+  including as a network service — you must make your modified source available under
+  the same license.
+- **Content** (encyclopedia entries, lessons, quizzes, research):
+  [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) —
+  attribution required, **no commercial use**, share-alike. Educational purposes only.
 
 ## Purpose
 
