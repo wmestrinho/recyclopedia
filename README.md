@@ -19,19 +19,22 @@ donation-supported, run like an encyclopedia: open to read, edited in-house.
 
 ## Purpose
 
-The world's most complete recycling education platform.
+An item-identification and local-action reasoning engine.
 
-- **Academy** — Learning modules covering recycling basics, e-waste, hazardous materials, zero-waste living, myth-busting, and local regulations. Lessons are an Astro **content collection** (`src/content/academy/*.md`) rendered at `/academy` and `/academy/<slug>`, with interactive quiz islands (`src/components/Quiz.svelte`, data in `src/data/quizzes.ts`). Schema in `src/content.config.ts`.
-- **Lookup** — Searchable database of 60+ items with exact recycling instructions, prep steps, and drop-off locations (the core of the Recyclopedia)
-- **Donate Electronics** — Intake form for electronics donations (working or not); searchable dropdown from 200+ item list. ⚠️ Placeholder during development — AP is not yet accepting donations.
+- **Human input (live)** — Searchable knowledge base of 60+ items with preparation guidance and ranked paths through the Gratitude Hierarchy.
+- **Barcode recognition (in development)** — Product-code identification feeding the same item and material knowledge.
+- **AI vision + material ID (researching)** — A last-resort recognition tier, not a committed model choice.
+- **Local resolution (planned)** — Combine the identified item with district rules and available facilities to return an immediate plan of action.
+- **Donate Electronics (temporary location)** — Intake remains on this site while its move to the LBG `.com` property is unresolved. ⚠️ AP is not yet accepting donations.
+
+Academy content is retained in the repository during migration, but it is no longer part of the Recyclopedia homepage or primary navigation. It belongs to the future Lettuce Beet Grapefruit Academy at `lettucebeetgrapefruit.org`.
 
 ## Framework (shared vocabulary)
 
-Everything in Recyclopedia is one of **four decision ladders** (Recognition · Gratitude
-Hierarchy · Confidence · Where), one of **three knowledge backbones** (**Lookup** = items,
-**Atlas** = geography + provenance, **Academy** = the "why"), or a **surface** that
-presents them (Search · Lens · The Map · Donate · Academy). The full model is canon in
-[VISION.md](VISION.md).
+The engine combines recognition, ranked respectful paths, confidence, and local
+resolution. Its research foundation is shared with the separate LBG Academy product,
+but `recyclopedia.cc` remains the action engine. The domain boundary is canon in
+[docs/LBG_BRAND_ARCHITECTURE.md](docs/LBG_BRAND_ARCHITECTURE.md).
 
 ## Stack
 
@@ -54,7 +57,7 @@ Domain: `recyclopedia.cc`
 
 ## Version
 
-See `VERSION` file. Current: `v0.1.6 alpha`
+See `VERSION` file. Current: `v0.2.0 alpha`
 
 ## Validation
 
@@ -65,7 +68,7 @@ python3 scripts/validate_agent_baseline.py
 
 ## Roadmap
 
-- **Phase 1 (current):** Homepage, searchable database (60+ items), Academy myths module, Electronics donation form
-- **Phase 2:** Expand to 500+ items, Supabase backend, state/municipality regulations database
-- **Phase 3:** Full Academy course content, interactive quizzes, and the **Atlas** — a layered registry + map of US disposition endpoints (all rungs, not recycling-only), jurisdictions/local rules, and the organizations/sources provenance graph (the searchable "where" + "who" behind every recommendation)
-- **Phase 4 — Recyclopedia Lens (camera):** Point a phone camera at an object → recognize it → open the right page of the Recyclopedia with a ranked, locally-aware path down the Gratitude Hierarchy (reuse → repair → repurpose → donate → recycle → compost → dispose). PWA first (native later). Recognition Ladder: barcode → visual AI (Workers AI for MVP / YOLO later) → manual search → ask-a-human — **provisional, pending a research dive**. See [VISION.md](VISION.md), grounded in the [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_POLICY.md) and [AP Guidelines](AP_GUIDELINES.md).
+- **Phase 1 (current):** Human-input identification, 60+ item knowledge base, ranked paths
+- **Phase 2:** 500+ items plus district rules and nearby-facility resolution
+- **Phase 3:** Barcode recognition
+- **Phase 4:** AI vision and material identification after explicit model research

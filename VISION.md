@@ -3,6 +3,12 @@
 > The north-star document for Recyclopedia. Product and roadmap decisions should
 > trace back to this. The site (`recyclopedia.cc`) **is** the Recyclopedia; this
 > file describes where it is going.
+>
+> **Domain boundary (2026-07-03):** `recyclopedia.cc` is the identification and
+> local-action engine only. Academy is a separate LBG product at
+> `lettucebeetgrapefruit.org`. The two share a sourced research foundation, but
+> education pages are not a Recyclopedia surface. See
+> [LBG Brand & Product Architecture](docs/LBG_BRAND_ARCHITECTURE.md).
 
 A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
 
@@ -10,13 +16,14 @@ A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com).
 
 ## The core idea
 
-Today a person *types* an item into **Lookup** to learn how to deal with it.
+Today a person *types* an item into the human-input tier to learn how to deal with it.
 The ultimate Recyclopedia lets them **point a phone camera at the object** and
 have the right page open automatically.
 
-**The camera is the fastest front door to the Recyclopedia — not a separate
-product.** It unifies the three areas we already have (Academy, Lookup, Donate)
-into a single gesture: *point → understand → act.*
+**Machine recognition is an escalating front door to the Recyclopedia — not a
+separate product.** Human input comes first, then barcode recognition, then
+last-resort AI vision and material identification. Every tier ends in the same
+gesture: *identify → understand → act.*
 
 ## The differentiator
 
@@ -41,8 +48,9 @@ Reuse  →  Repair  →  Repurpose  →  Donate  →  Recycle  →  Compost  →
 hierarchy is the Absolutely Plausible philosophy made tangible, and it is
 defined canonically in the [Environmental Respect Policy](ENVIRONMENTAL_RESPECT_POLICY.md).
 
-> Note: **Donate** is already a path we have built (Donate Electronics). The
-> camera unifies it with Lookup and Academy.
+> Note: **Donate** is a path in the Gratitude Hierarchy. The current electronics
+> intake remains on this site temporarily; its destination in the LBG `.com`
+> property is still an owner decision.
 
 ## The framework — four ladders, three backbones, surfaces
 
@@ -57,7 +65,7 @@ Each ladder is *ordered*: try the top first, fall to the next only when the one
 above can't answer confidently.
 
 1. **Recognition Ladder** — *how do we figure out what the object is?*
-   `barcode → visual AI → manual search (Lookup) → ask-a-human ("not sure")`.
+   `human input → barcode → AI vision + material identification`.
 2. **Gratitude Hierarchy** — *what should they do with it?* (the **trickledown**)
    `reuse → repair → repurpose → donate → recycle → compost → dispose` — always show
    the **highest *available*** rung. (Canonical in the
@@ -163,10 +171,9 @@ camera north star:
   using the browser camera — one codebase, no app stores, on the current
   pure-HTML / Cloudflare Pages stack. Wrap/port to native once usage justifies it.
 
-- **Recognition: the Recognition Ladder (provisional).** Try a barcode/label for an
-  exact product match first; fall to **visual AI** for loose objects; fall to **manual
-  search (Lookup)**, which is always available; and finally to **ask-a-human ("not
-  sure")** below the confidence floor. For rung 2 (visual AI), the working plan is
+- **Recognition: the Recognition Ladder.** Start with **human input**, then try a
+  barcode for an exact product match, then use **visual AI plus material
+  identification** only as the last resort. For the vision tier, the working plan is
   **Cloudflare Workers AI open-vocabulary vision for the MVP** (zero training, broad
   coverage, same platform we deploy to), with **YOLO / on-device custom models as a
   later optimization** for cost and offline use once we have labeled data.
@@ -184,7 +191,7 @@ camera north star:
 ## Open questions (to revisit with deeper research)
 
 - **Recognition engine — REVISIT.** The Recognition Ladder order is adopted, but the
-  rung-2 visual-AI engine is *not* a settled decision. **Workers AI for MVP / YOLO
+  Tier 3 visual-AI engine is *not* a settled decision. **Workers AI for MVP / YOLO
   later** is the working plan; a founder's Drive proposal favored **YOLO + TrashNet** as
   primary — but TrashNet alone is too coarse (~6 material buckets, not item-level), so it
   can fine-tune, not power, recognition. Needs a deeper research dive: accuracy of vision
@@ -211,6 +218,5 @@ camera north star:
 
 ## Status
 
-- This is a **forward-looking vision**, not yet built. Current shipped product is
-  v0.1.4 alpha (Academy, Lookup, Donate Electronics) — see `README.md`.
-- The camera feature is tracked as **Phase 4** on the roadmap.
+- Human-input identification and ranked paths are live in v0.2.0 alpha.
+- Barcode, vision/material identification, and local resolution are forward-looking.

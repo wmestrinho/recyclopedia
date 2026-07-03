@@ -4,13 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project Overview
 
-**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.1.5 alpha.
+**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.2.0 alpha.
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 
-A recycling education platform by Absolutely Plausible Solutions. The site **is** the Recyclopedia — a searchable encyclopedia of recycling. Three areas:
-1. **Academy** — Educational modules on recycling, e-waste, hazardous materials, myths
-2. **Lookup** — Searchable database of recyclable items (60+ items, Phase 2: 500+) — the core of the Recyclopedia
-3. **Donate Electronics** — Intake form with searchable electronics dropdown (200+ items)
+An item-identification and local-action reasoning engine by Absolutely Plausible Solutions:
+1. **Human input** — live search over 60+ items and ranked respectful paths
+2. **Barcode recognition** — in development
+3. **AI vision + material identification** — last-resort tier under research
+4. **Local resolution** — planned district-rule and nearby-facility action layer
+
+Academy content remains in the repo only while it migrates to
+`lettucebeetgrapefruit.org`; it is not part of the `recyclopedia.cc` product boundary.
+Donate Electronics remains temporarily pending an owner decision about moving it to
+the LBG `.com` property.
 
 **Stack:** Astro + Svelte islands · TypeScript · Cloudflare Pages · Font: Share Tech Mono
 **Design:** AP design system, green-shifted accent palette (`--accent: #3d9c6b`)
@@ -38,7 +44,7 @@ Domain: `recyclopedia.cc`
 ## Version Rule
 
 - Single source of truth: `VERSION`
-- Current version: `v0.1.5 alpha`
+- Current version: `v0.2.0 alpha`
 
 ## Before Committing
 

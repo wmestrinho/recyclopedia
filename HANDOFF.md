@@ -31,6 +31,8 @@ yours"). Per `docs/LBG_BRAND_ARCHITECTURE.md`:
 - Donate Electronics stays on the site until its home is decided (likely .com).
 - `v0.1.7 → v0.2.0 alpha` (VERSION + 3 page footers). Build verified: 7 pages,
   no `/academy` links left on the homepage.
+- Windows follow-up synchronized `README.md`, `VISION.md`, agent guidance, and
+  npm package metadata with the v0.2.0 engine boundary; no UI code was changed.
 
 ## Brand architecture locked — 2026-07-03 (Mac mini, Claude Code)
 
