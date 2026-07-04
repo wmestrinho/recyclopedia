@@ -4,9 +4,9 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
-## ⏳ LBG warm sites ready for domain cutover — 2026-07-04 (Windows Codex)
+## ⏳ LBG warm sites deployed; custom domains pending — 2026-07-04 (Windows Codex)
 
-- Implemented the full Claude Design handoff on branch `codex/lbg-warm-sites`,
+- Implemented the full Claude Design handoff in `25fe402` and pushed to `main`,
   scoped only to `/academy` and `/lbg`; Recyclopedia root styling is unchanged.
 - LBGA now uses approved "The Menu" naming, four live courses, warm
   Newsreader/Hanken theme, and upgraded Taste Tests with progress, streak,
@@ -19,9 +19,12 @@ every session.
 - `v0.2.0 → v0.3.0 alpha`. Astro build: 7 routes green; baseline, diff, route
   isolation, canonical-domain, responsive-nav, Taste Test, middleware, and
   Wrangler function compilation checks green.
+- Cloudflare production deploy succeeded (`bf00dc48`); verified HTTP 200 and
+  expected v0.3.0 content at `recyclopedia.cc/`, `/academy/`, and `/lbg/`.
 - Both zones already use Cloudflare nameservers. Remaining launch gate:
   attach apex + `www` custom domains to Pages project `recyclopedia`; this
-  Windows machine has no Wrangler authentication.
+  Windows machine has no Wrangler authentication and two OAuth attempts timed
+  out without browser approval.
 
 ## ✅ OPEN-SOURCED — 2026-07-03 (Mac mini, Claude Code)
 
