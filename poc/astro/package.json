@@ -1,0 +1,19 @@
+{
+  "name": "recyclopedia-astro-poc",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "latest",
+    "astro": "latest",
+    "svelte": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest"
+  }
+}
