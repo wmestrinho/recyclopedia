@@ -1,6 +1,6 @@
 # Recyclopedia
 
-**Status:** In development — v0.3.0 alpha
+**Status:** In development — v0.3.1 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
@@ -73,7 +73,7 @@ Domains: `recyclopedia.cc`, `lettucebeetgrapefruit.org`, and
 
 ## Version
 
-See `VERSION` file. Current: `v0.3.0 alpha`
+See `VERSION` file. Current: `v0.3.1 alpha`
 
 ## Validation
 

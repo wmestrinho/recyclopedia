@@ -378,14 +378,6 @@ body.lbg-site {
   line-height: 0.95;
 }
 
-.lbg-wordmark__gloss {
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .lbg-status {
   display: inline-flex;
   align-items: center;

@@ -118,8 +118,8 @@ yours"). Per `docs/LBG_BRAND_ARCHITECTURE.md`:
 Two things Luiz lined up for next time:
 
 1. **New domain / brand kickoff.** Luiz will have the **Lettuce Beet Grapefruit** domain
-   ready ("Let us be grateful" — the parent brand; recyclopedia.cc becomes a property under
-   it). When it's in hand: plan the rebrand — parent-brand landing/identity, where recyclopedia
+   ready (the parent brand; recyclopedia.cc becomes a property under it). When it's in
+   hand: plan the rebrand — parent-brand landing/identity, where recyclopedia
    sits under LBG, DNS/Cloudflare wiring, and how AP visual identity carries over. Until the
    domain exists, **do not rename** files/UI/strings. See the rebrand memory + `docs/academy/PROVENANCE.md`.
 2. **New content modules from Gemini.** Luiz will drop fresh drafts into the Drive
@@ -153,8 +153,8 @@ Details of what shipped are in the two sub-sections below.
   with new `academy_5_a` quiz in `src/data/quizzes.ts`. Homepage: "See all 10 myths →" and the
   Module 05 card now link to `/academy/myths`; the inline 10-myth block was removed from
   `index.astro` (4-myth home teaser kept). Catalog now lists 3 lessons.
-- **Rebrand (recorded, not executed):** parent brand will be **Lettuce Beet Grapefruit**
-  ("Let us be grateful"); recyclopedia.cc becomes a property under it. No rename yet.
+- **Rebrand (recorded, not executed):** parent brand will be **Lettuce Beet Grapefruit**;
+  recyclopedia.cc becomes a property under it. No rename yet.
 - Final border pass: outer card containers + header bottom line + footer top line all **3px**
   (inner inputs/chips stay 1px); committed in `7acb301`. Build green (5 pages). **Shipped & live.**
 

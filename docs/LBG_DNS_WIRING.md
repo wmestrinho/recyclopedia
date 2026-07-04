@@ -1,7 +1,7 @@
 # LBG / DNS + Cloudflare Wiring Runbook
 
-Brand & domain architecture for the **Lettuce Beet Grapefruit** ("Let us be grateful")
-umbrella. This is the execution checklist — steps that need your registrar login or a
+Brand & domain architecture for the **Lettuce Beet Grapefruit** umbrella. This
+is the execution checklist — steps that need your registrar login or a
 credentialed `wrangler` session are marked **[you]**; everything else is already done in-repo.
 
 ## Target architecture

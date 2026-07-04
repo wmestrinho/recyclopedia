@@ -14,7 +14,7 @@ layer that both stands alone as a school *and* feeds contextual micro-lessons
 into the Recyclopedia engine (Lookup today, Lens later). Moving domains does
 not break the backbone contract.
 
-**Voice:** gratitude over guilt — "Let us be grateful," literally.
+**Voice:** gratitude over guilt.
 
 ## Naming pass (decided)
 

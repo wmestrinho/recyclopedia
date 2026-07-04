@@ -6,9 +6,9 @@
 > ([LBG_DNS_WIRING.md](LBG_DNS_WIRING.md)) is the *execution* checklist; when the two
 > disagree, this file wins.
 
-**Lettuce Beet Grapefruit** ("Let us be grateful" — LBG) is the parent brand,
-sibling of Absolutely Plausible (absolutelyplausible.com). It umbrellas three
-distinct products on three domains:
+**Lettuce Beet Grapefruit** (LBG) is the parent brand, sibling of Absolutely
+Plausible (absolutelyplausible.com). It umbrellas three distinct products on
+three domains:
 
 ---
 
