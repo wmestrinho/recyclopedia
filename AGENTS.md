@@ -17,7 +17,7 @@ Required baseline for AI agents
 
 Version rule
 - Single source of truth: `VERSION`
-- Current baseline version: `v0.2.0 alpha`
+- Current baseline version: `v0.3.0 alpha`
 - Bump version for any meaningful change.
 
 Deployment

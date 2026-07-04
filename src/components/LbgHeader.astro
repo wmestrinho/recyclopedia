@@ -1,0 +1,68 @@
+---
+interface Props {
+  surface: 'academy' | 'community';
+}
+
+const { surface } = Astro.props;
+const isAcademy = surface === 'academy';
+const home = isAcademy
+  ? 'https://lettucebeetgrapefruit.org/'
+  : 'https://lettucebeetgrapefruit.com/';
+const links = isAcademy
+  ? [
+      { href: `${home}#menu`, label: 'The Menu' },
+      { href: `${home}#philosophy`, label: 'Philosophy' },
+      { href: `${home}#library`, label: 'Library' },
+      { href: `${home}#about`, label: 'About' },
+    ]
+  : [
+      { href: `${home}#workshops`, label: 'Workshops' },
+      { href: `${home}#events`, label: 'Events' },
+      { href: `${home}#donate-tech`, label: 'Donate Tech' },
+      { href: `${home}#family`, label: 'The Family' },
+    ];
+---
+
+<header class="site-header lbg-header">
+  <div class="site-header__inner">
+    <a class="lbg-brand" href={home} aria-label={`${isAcademy ? 'LBG Academy' : 'Lettuce Beet Grapefruit'} home`}>
+      <span class="lbg-brand__dots" aria-hidden="true">
+        <span class="lbg-dot lbg-dot--lettuce"></span>
+        <span class="lbg-dot lbg-dot--beet"></span>
+        <span class="lbg-dot lbg-dot--grapefruit"></span>
+      </span>
+      <span class="lbg-brand__copy">
+        <strong>{isAcademy ? 'LBG Academy' : 'Lettuce Beet Grapefruit'}</strong>
+        <small>{isAcademy ? 'Everyone is welcome at the table' : 'Let us be grateful'}</small>
+      </span>
+    </a>
+
+    <nav class="site-nav lbg-nav" aria-label="Primary" data-lbg-nav>
+      <a href={home}>Home</a>
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="header-actions">
+      <a
+        class="button button--solid"
+        href={isAcademy ? `${home}#menu` : `${home}#events`}
+      >
+        {isAcademy ? 'Choose a course' : 'See what is happening'}
+      </a>
+    </div>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      data-lbg-menu-toggle
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<script is:inline src="/js/lbg-nav.js"></script>

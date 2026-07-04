@@ -20,7 +20,7 @@ Single Cloudflare Pages project (`recyclopedia`) can serve all three via **custo
 + routing, OR split into separate projects later. Recommended first step: **one project, three
 custom domains**, no code split yet. Cheapest, reversible, zero downtime.
 
-## Step 1 — Bring both domains into Cloudflare **[you]**
+## Step 1 — Bring both domains into Cloudflare ✅
 
 For each of `lettucebeetgrapefruit.com` and `.org`:
 
@@ -30,8 +30,9 @@ For each of `lettucebeetgrapefruit.com` and `.org`:
    Cloudflare's. (Propagation: minutes to a few hours.)
 4. Wait for Cloudflare to show the zone as **Active**.
 
-> Until nameservers point at Cloudflare, no DNS/Pages wiring below will take effect. This is
-> the one gate I can't do for you — it needs the registrar login.
+Verified 2026-07-04: both zones delegate to `guy.ns.cloudflare.com` and
+`kara.ns.cloudflare.com`. Apex and `www` host records are not present until the
+Pages custom domains in Step 2 are attached.
 
 ## Step 2 — Attach custom domains to the Pages project **[you, or me next session]**
 
@@ -47,31 +48,18 @@ npx wrangler pages domain add lettucebeetgrapefruit.com --project-name recyclope
 npx wrangler pages domain add lettucebeetgrapefruit.org --project-name recyclopedia
 ```
 
-## Step 3 — Route each domain to the right page
+## Step 3 — Route each domain to the right page ✅
 
-Because Pages serves one `dist/` for all domains, route by host. Two options:
+Because Pages serves one `dist/` for all domains, route by host.
 
-- **Simple (now):** `lettucebeetgrapefruit.com` → its visitors land on `/` of the build. We can
-  add a tiny redirect/rewrite in `public/_redirects` or a Pages Function so:
-  - `lettucebeetgrapefruit.com/` → serves the LBG landing (`/lbg`)
-  - `lettucebeetgrapefruit.org/` → serves `/academy`
-  - `recyclopedia.cc/` → serves `/` (the current site, eventually trimmed to Lookup-only)
-- **Clean (later):** split into separate Pages projects / repos per property.
+`functions/_middleware.js` now performs internal root rewrites:
 
-Draft `public/_redirects` host rules (apply once domains resolve):
+- `lettucebeetgrapefruit.com/` → `/lbg/`
+- `lettucebeetgrapefruit.org/` → `/academy/`
+- `recyclopedia.cc/` → unchanged
 
-```
-# Umbrella root → LBG landing
-https://lettucebeetgrapefruit.com/  /lbg  200
-https://www.lettucebeetgrapefruit.com/  /lbg  200
-# Academy domain root → Academy
-https://lettucebeetgrapefruit.org/  /academy  200
-https://www.lettucebeetgrapefruit.org/  /academy  200
-```
-
-> NOTE: verify `_redirects` host-based matching behaviour on Pages before relying on it; a Pages
-> Function (`functions/_middleware.ts`) keying off `request.headers.get('host')` is the robust
-> fallback. Not committed yet — pending Step 1 so we can test against a live zone.
+Both apex and `www` hosts are covered. The middleware compiles successfully with
+Wrangler and has local host-routing tests.
 
 ## Step 4 — `.org` redirect decision
 
@@ -82,11 +70,12 @@ redirect to `.com`; it is the school's own front door.)
 
 - ✅ LBG umbrella landing page built → `src/pages/lbg/index.astro` (preview: `npm run dev` → `/lbg`)
 - ✅ Academy Module 1.3 "Zero-Waste Micro-Habits" added → live in `/academy`
+- ✅ Warm LBG theme, The Menu, upgraded Taste Tests, and responsive navigation
+- ✅ Host routing middleware
 - ✅ Build verified clean (7 routes, baseline OK)
 
 ## Not yet done (needs you / next session)
 
-- ⬜ Steps 1–2 above (registrar nameservers + custom-domain attach) — **needs your logins**
-- ⬜ Host-based routing (`_redirects` or middleware) — build + test once a zone is live
-- ⬜ Eventual content split: trim `recyclopedia.cc` to Lookup-only; move Academy nav under LBG
-- ⬜ Brand assets: LBG favicon/wordmark (currently using 🥬 emoji placeholder)
+- ⬜ Step 2 custom-domain attach — requires Cloudflare authentication
+- ⬜ Verify apex + `www` HTTPS and host rewrites after SSL provisions
+- ⬜ Decide whether to split repositories after the shared-project launch

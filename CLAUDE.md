@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project Overview
 
-**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.2.0 alpha.
+**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.3.0 alpha.
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 
 An item-identification and local-action reasoning engine by Absolutely Plausible Solutions:
@@ -20,6 +20,10 @@ the LBG `.com` property.
 
 **Stack:** Astro + Svelte islands · TypeScript · Cloudflare Pages · Font: Share Tech Mono
 **Design:** AP design system, green-shifted accent palette (`--accent: #3d9c6b`)
+
+LBG routes (`/academy` and `/lbg`) intentionally use their own scoped warm theme
+(`public/css/lbg-theme.css`): Newsreader + Hanken Grotesk with oat, lettuce,
+beet, and grapefruit tokens. Do not load that stylesheet on the Recyclopedia root.
 
 ## Deployment
 
@@ -44,7 +48,7 @@ Domain: `recyclopedia.cc`
 ## Version Rule
 
 - Single source of truth: `VERSION`
-- Current version: `v0.2.0 alpha`
+- Current version: `v0.3.0 alpha`
 
 ## Before Committing
 

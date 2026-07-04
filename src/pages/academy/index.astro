@@ -1,9 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import LbgFooter from '../../components/LbgFooter.astro';
+import LbgHeader from '../../components/LbgHeader.astro';
 
 const lessons = (await getCollection('academy', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const starter = lessons[0];
 ---
 
 <!DOCTYPE html>
@@ -11,70 +14,168 @@ const lessons = (await getCollection('academy', ({ data }) => !data.draft)).sort
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Academy | Recyclopedia</title>
-  <meta name="description" content="Recyclopedia Academy — free, honest, mobile-first lessons on how recycling actually works. No greenwashing, no corporate spin." />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <title>LBG Academy — Everyone Is Welcome at the Table</title>
+  <meta
+    name="description"
+    content="Lettuce Beet Grapefruit Academy is a free, open school for practical environmental learning, honest recycling education, and everyday zero-waste action."
+  />
+  <link rel="canonical" href="https://lettucebeetgrapefruit.org/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/lbg-theme.css" />
 </head>
-<body>
+<body class="lbg-site lbg-academy">
   <a class="skip-link" href="#academy-top">Skip to content</a>
+  <LbgHeader surface="academy" />
 
-  <header class="site-header">
-    <div class="site-header__inner">
-      <div class="brand">
-        <span class="brand__mark">♻</span>
-        <span class="brand__copy">
-          <a class="brand__title" href="/" aria-label="Recyclopedia home"><strong>Recyclopedia</strong></a>
-          <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a></small>
-        </span>
+  <main class="site-shell" id="academy-top">
+    <section class="lbg-hero" aria-labelledby="academy-title">
+      <div class="lbg-hero__copy">
+        <p class="lbg-kicker">Lettuce Beet Grapefruit Academy</p>
+        <h1 id="academy-title">Everyone is welcome at the table.</h1>
+        <p class="lede">
+          A free, open school for understanding what we own, where it goes, and how
+          small informed choices keep useful materials in motion. No greenwashing.
+          No guilt. Just clear lessons and practical action.
+        </p>
+        <div class="cta-row">
+          <a class="button button--solid" href="#menu">Explore The Menu</a>
+          {starter && (
+            <a class="button button--ghost" href={`/academy/${starter.id}`}>
+              Start the first course
+            </a>
+          )}
+        </div>
       </div>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/academy" class="is-active">Academy</a>
-        <a href="/#recyclopedia">Lookup</a>
-        <a href="/#donate">Donate</a>
-        <a href="/#about">About</a>
-      </nav>
-      <div class="header-actions">
-        <a class="button button--solid" href="/#donate">Donate Electronics</a>
-      </div>
-    </div>
-  </header>
+      <aside class="lbg-hero__aside">
+        <div>
+          <div class="lbg-trio" aria-hidden="true">
+            <span class="lbg-dot lbg-dot--lettuce"></span>
+            <span class="lbg-dot lbg-dot--beet"></span>
+            <span class="lbg-dot lbg-dot--grapefruit"></span>
+          </div>
+          <h2 style="margin-top: 1.25rem;">Learn the why. Practice the how.</h2>
+          <p>
+            Courses draw from the same sourced research that powers Recyclopedia,
+            presented here for learners of every age.
+          </p>
+        </div>
+        <span class="lbg-status">Four courses live</span>
+      </aside>
+    </section>
 
-  <main class="site-shell">
-    <section class="page is-active" id="academy-top" aria-labelledby="academy-title">
-      <article class="panel-card panel-card--accent" style="margin-bottom: 1.5rem;">
-        <h3>🥬 The Academy is becoming Lettuce Beet Grapefruit Academy</h3>
-        <p>The school is getting its own home at <strong>lettucebeetgrapefruit.org</strong> — new name, same free and open teaching, part of the <a href="/lbg">Lettuce Beet Grapefruit</a> family. Recyclopedia itself is focusing on what it does best: telling you exactly what to do with any item. Nothing disappears during the move.</p>
-      </article>
-      <div class="section-heading">
-        <p class="section-kicker">Academy</p>
-        <h1 id="academy-title">The most complete recycling education on the internet.</h1>
-        <p class="lede">Free, honest, mobile-first lessons. No greenwashing, no corporate spin — just what to do with the things you own, and why.</p>
+    <section class="lbg-section" id="menu" aria-labelledby="menu-title">
+      <div class="lbg-section__heading">
+        <p class="lbg-kicker">The Menu</p>
+        <h2 id="menu-title">Choose what you are hungry to understand.</h2>
+        <p>
+          Start with a zero-prerequisite course, move through the core curriculum,
+          and finish each lesson with an interactive Taste Test.
+        </p>
       </div>
 
+      {starter && (
+        <div class="lbg-band" style="margin-bottom: 1rem;">
+          <div>
+            <p class="lbg-kicker" style="color: #d9e8c5;">Starter</p>
+            <h3>{starter.data.title}</h3>
+            <p>{starter.data.summary}</p>
+          </div>
+          <a class="button button--ghost" href={`/academy/${starter.id}`}>Begin here</a>
+        </div>
+      )}
+
+      <p class="lbg-card__label" style="margin: 1.5rem 0 0.75rem;">Mains · Core curriculum</p>
       <div class="module-grid">
         {lessons.map((lesson) => (
           <a class="module-card module-card--link" href={`/academy/${lesson.id}`}>
-            <p class="module-card__number">Module {lesson.data.module}</p>
+            <p class="module-card__number">
+              Course {lesson.data.module} · {lesson.data.track}
+            </p>
             <h3>{lesson.data.title}</h3>
             <p>{lesson.data.summary}</p>
-            <p class="module-card__status module-card__status--live">Read lesson →</p>
+            <p class="module-card__status module-card__status--live">
+              Course live · Taste Test inside
+            </p>
           </a>
         ))}
       </div>
     </section>
+
+    <section class="lbg-section" id="philosophy" aria-labelledby="philosophy-title">
+      <div class="lbg-section__heading">
+        <p class="lbg-kicker">Philosophy</p>
+        <h2 id="philosophy-title">Gratitude before disposal.</h2>
+        <p>
+          The Gratitude Hierarchy asks for the highest respectful path that is
+          actually available: reuse, repair, repurpose, donate, recycle, compost,
+          and responsible disposal only as the last resort.
+        </p>
+      </div>
+      <div class="lbg-card-grid">
+        <article class="lbg-card">
+          <span class="lbg-card__label">Principle one</span>
+          <h3>Gratitude over guilt</h3>
+          <p>We thank people for caring and give them a useful next action.</p>
+        </article>
+        <article class="lbg-card">
+          <span class="lbg-card__label">Principle two</span>
+          <h3>Never guess into a landfill</h3>
+          <p>When evidence is incomplete, we say so and point to local truth.</p>
+        </article>
+        <article class="lbg-card">
+          <span class="lbg-card__label">Principle three</span>
+          <h3>Recycling is one rung</h3>
+          <p>Keeping an object whole and useful usually beats breaking it down.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="lbg-section" id="library" aria-labelledby="library-title">
+      <div class="lbg-section__heading">
+        <p class="lbg-kicker">Research Library</p>
+        <h2 id="library-title">One knowledge base, two surfaces.</h2>
+        <p>
+          LBGA teaches from the sourced environmental and material research behind
+          the Recyclopedia engine. The public library will expand as reviewed
+          papers and provenance records are cleared for release.
+        </p>
+      </div>
+      <div class="lbg-empty-state">
+        <h3>The shelves are being cataloged.</h3>
+        <p>
+          Course sources are already reviewed in-house. Public research volumes
+          will appear here only after editorial and Creative Commons clearance.
+        </p>
+        <a class="button button--ghost" href="https://recyclopedia.cc">
+          Open Recyclopedia
+        </a>
+      </div>
+    </section>
+
+    <section class="lbg-section" id="about" aria-labelledby="about-title">
+      <div class="lbg-band">
+        <div>
+          <p class="lbg-kicker" style="color: #d9e8c5;">About the school</p>
+          <h2 id="about-title">Free to learn. Open to every age.</h2>
+          <p>
+            LBGA is part of the Lettuce Beet Grapefruit family and is built by
+            Absolutely Plausible Solutions. Content is shared for educational,
+            non-commercial use under CC BY-NC-SA 4.0.
+          </p>
+        </div>
+        <a class="button button--ghost" href="https://lettucebeetgrapefruit.com/">
+          Meet the whole family
+        </a>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="site-footer__inner">
-      <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
-      <p class="footer-license">EDUCATIONAL PURPOSES ONLY · Content © 2026 Recyclopedia — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (no commercial use)</p>
-      <p class="footer-version">v0.2.0 alpha</p>
-    </div>
-  </footer>
+  <LbgFooter surface="academy" />
 </body>
 </html>

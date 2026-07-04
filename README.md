@@ -1,6 +1,6 @@
 # Recyclopedia
 
-**Status:** In development — v0.2.0 alpha
+**Status:** In development — v0.3.0 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
@@ -29,6 +29,19 @@ An item-identification and local-action reasoning engine.
 
 Academy content is retained in the repository during migration, but it is no longer part of the Recyclopedia homepage or primary navigation. It belongs to the future Lettuce Beet Grapefruit Academy at `lettucebeetgrapefruit.org`.
 
+## LBG webapps
+
+The same Astro build currently serves two isolated LBG surfaces without changing
+the Recyclopedia engine theme:
+
+- `lettucebeetgrapefruit.org` → LBG Academy (`/academy` internally): The Menu,
+  four live courses, lesson readers, and interactive Taste Tests.
+- `lettucebeetgrapefruit.com` → LBG community (`/lbg` internally): workshops,
+  events, technology-donation coordination, and family links.
+
+Both use the route-scoped warm LBG theme in `public/css/lbg-theme.css`. Host-based
+root rewrites live in `functions/_middleware.js`.
+
 ## Framework (shared vocabulary)
 
 The engine combines recognition, ranked respectful paths, confidence, and local
@@ -53,11 +66,12 @@ npm run build
 npx wrangler pages deploy dist --project-name=recyclopedia --branch=main
 ```
 
-Domain: `recyclopedia.cc`
+Domains: `recyclopedia.cc`, `lettucebeetgrapefruit.org`, and
+`lettucebeetgrapefruit.com`
 
 ## Version
 
-See `VERSION` file. Current: `v0.2.0 alpha`
+See `VERSION` file. Current: `v0.3.0 alpha`
 
 ## Validation
 

@@ -1,0 +1,35 @@
+---
+import versionSource from '../../VERSION?raw';
+
+interface Props {
+  surface: 'academy' | 'community';
+}
+
+const { surface } = Astro.props;
+const isAcademy = surface === 'academy';
+const version = versionSource.trim();
+---
+
+<footer class="site-footer lbg-footer">
+  <div class="site-footer__inner">
+    <p>
+      Let us be grateful. An
+      <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">
+        Absolutely Plausible Solutions
+      </a>
+      sibling project.
+    </p>
+    <p class="footer-license">
+      EDUCATIONAL PURPOSES ONLY · Content © 2026 {isAcademy ? 'LBG Academy' : 'Lettuce Beet Grapefruit'} —
+      <a
+        href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        target="_blank"
+        rel="noopener"
+      >
+        CC BY-NC-SA 4.0
+      </a>
+      (no commercial use)
+    </p>
+    <p class="footer-version">{version}</p>
+  </div>
+</footer>
