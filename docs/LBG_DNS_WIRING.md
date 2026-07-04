@@ -34,9 +34,9 @@ Verified 2026-07-04: both zones delegate to `guy.ns.cloudflare.com` and
 `kara.ns.cloudflare.com`. Apex and `www` host records are not present until the
 Pages custom domains in Step 2 are attached.
 
-## Step 2 — Attach custom domains to the Pages project **[you, or me next session]**
+## Step 2 — Attach custom domains to the Pages project ✅
 
-Once both zones are **Active**, in **Pages → `recyclopedia` project → Custom domains**:
+Attached to Pages project `recyclopedia` on 2026-07-04:
 
 - Add `lettucebeetgrapefruit.com` and `www.lettucebeetgrapefruit.com`
 - Add `lettucebeetgrapefruit.org` and `www.lettucebeetgrapefruit.org`
@@ -74,8 +74,15 @@ redirect to `.com`; it is the school's own front door.)
 - ✅ Host routing middleware
 - ✅ Build verified clean (7 routes, baseline OK)
 
-## Not yet done (needs you / next session)
+## Launch verification — 2026-07-04
 
-- ⬜ Step 2 custom-domain attach — requires Cloudflare authentication
-- ⬜ Verify apex + `www` HTTPS and host rewrites after SSL provisions
-- ⬜ Decide whether to split repositories after the shared-project launch
+- ✅ `https://lettucebeetgrapefruit.com/` → LBG community, HTTP 200
+- ✅ `https://www.lettucebeetgrapefruit.com/` → LBG community, HTTP 200
+- ✅ `https://lettucebeetgrapefruit.org/` → LBG Academy, HTTP 200
+- ✅ `https://www.lettucebeetgrapefruit.org/` → LBG Academy, HTTP 200
+- ✅ All four Pages domains show verification, certificate validation, and
+  overall status `active`
+- ✅ `https://recyclopedia.cc/` still serves the engine unchanged
+
+Remaining architectural option: decide whether to split repositories after the
+shared-project launch. This is not a launch blocker.

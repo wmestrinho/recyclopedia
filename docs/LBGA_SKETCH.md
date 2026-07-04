@@ -96,8 +96,8 @@ Donate Electronics does **not** move here — it goes to the `.com` storefront
 
 1. **A — Scaffold: DONE.** Warm-theme Academy landing + The Menu.
 2. **B — Migrate: DONE.** Four live lessons + upgraded Taste Tests.
-3. **C — Cutover: IN PROGRESS.** Host middleware is built; custom domains and
-   SSL must be attached to the existing Pages project.
+3. **C — Cutover: DONE.** Host middleware, apex + `www` custom domains, DNS,
+   SSL, and live content verification completed 2026-07-04.
 4. **D — Library**: whitepaper volumes + provenance infographic (needs Luiz's
    content clearance).
 5. **E — School features**: progress, printable certificates, workshop

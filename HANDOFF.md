@@ -4,7 +4,7 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
-## ⏳ LBG warm sites deployed; custom domains pending — 2026-07-04 (Windows Codex)
+## ✅ LBG `.com` + Academy `.org` LIVE — 2026-07-04 (Windows Codex)
 
 - Implemented the full Claude Design handoff in `25fe402` and pushed to `main`,
   scoped only to `/academy` and `/lbg`; Recyclopedia root styling is unchanged.
@@ -21,10 +21,12 @@ every session.
   Wrangler function compilation checks green.
 - Cloudflare production deploy succeeded (`bf00dc48`); verified HTTP 200 and
   expected v0.3.0 content at `recyclopedia.cc/`, `/academy/`, and `/lbg/`.
-- Both zones already use Cloudflare nameservers. Remaining launch gate:
-  attach apex + `www` custom domains to Pages project `recyclopedia`; this
-  Windows machine has no Wrangler authentication and two OAuth attempts timed
-  out without browser approval.
+- Attached apex + `www` for both zones to Pages project `recyclopedia`, added
+  proxied CNAMEs to `recyclopedia.pages.dev`, and waited for certificate
+  validation. All six project domains now show `active`.
+- Live verification: both `.com` hosts serve the community site, both `.org`
+  hosts serve LBGA, all return HTTPS 200 with expected content, and
+  `recyclopedia.cc` still serves the engine unchanged.
 
 ## ✅ OPEN-SOURCED — 2026-07-03 (Mac mini, Claude Code)
 

@@ -5,7 +5,7 @@
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
 A project by [Absolutely Plausible Solutions](https://absolutelyplausible.com), part of
-the [Lettuce Beet Grapefruit](https://recyclopedia.cc/lbg) family. Open source,
+the [Lettuce Beet Grapefruit](https://lettucebeetgrapefruit.com) family. Open source,
 donation-supported, run like an encyclopedia: open to read, edited in-house.
 
 ## License
@@ -27,7 +27,9 @@ An item-identification and local-action reasoning engine.
 - **Local resolution (planned)** — Combine the identified item with district rules and available facilities to return an immediate plan of action.
 - **Donate Electronics (temporary location)** — Intake remains on this site while its move to the LBG `.com` property is unresolved. ⚠️ AP is not yet accepting donations.
 
-Academy content is retained in the repository during migration, but it is no longer part of the Recyclopedia homepage or primary navigation. It belongs to the future Lettuce Beet Grapefruit Academy at `lettucebeetgrapefruit.org`.
+Academy content is retained in this shared repository, but it is no longer part
+of the Recyclopedia homepage or primary navigation. It is live as Lettuce Beet
+Grapefruit Academy at [lettucebeetgrapefruit.org](https://lettucebeetgrapefruit.org).
 
 ## LBG webapps
 
