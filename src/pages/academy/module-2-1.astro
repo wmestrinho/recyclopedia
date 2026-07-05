@@ -3,6 +3,7 @@
 // "Module 2.1.dc.html" (Claude Design project "Interactive School Modules",
 // Track 2 plum accent). Knowledge check rendered by QuizLbga.svelte.
 import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaBriefing from '../../components/LbgaBriefing.astro';
 import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
 import QuizLbga from '../../components/QuizLbga.svelte';
 
@@ -49,14 +50,7 @@ const briefings = [
   storageKey="lbga_m2_1_done"
 >
   {briefings.map((b, i) => (
-    <section class={`briefing ${i === briefings.length - 1 ? 'briefing--last' : ''}`}>
-      <div class="briefing__head">
-        <div class="briefing__title">{b.title}</div>
-        <span class="briefing__tag">{b.tag}</span>
-      </div>
-      <p class="briefing__body" set:html={b.body} />
-      <div class="briefing__callout" set:html={b.callout} />
-    </section>
+    <LbgaBriefing title={b.title} tag={b.tag} body={b.body} callout={b.callout} last={i === briefings.length - 1} />
   ))}
 
   <section aria-label="Knowledge check">
@@ -77,16 +71,3 @@ const briefings = [
     chipBorder="rgba(138,36,80,.5)"
   />
 </LbgaModule>
-
-<style>
-  .briefing { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 22px; margin-bottom: 14px; }
-  .briefing--last { margin-bottom: 28px; }
-  .briefing__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-  .briefing__title { font-family: 'Newsreader', serif; font-size: 20px; font-weight: 500; }
-  .briefing__tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #77705F; }
-  .briefing__body { font-size: 13.5px; color: #5b5445; line-height: 1.6; margin: 0 0 12px; }
-  .briefing__callout {
-    background: #F5EAEF; border-left: 3px solid #8A2450; border-radius: 8px;
-    padding: 10px 13px; font-size: 13px; color: #6d1a3d;
-  }
-</style>

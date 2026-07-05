@@ -1,0 +1,35 @@
+---
+// Track 2 briefing card — the plum-accented lesson card grammar established
+// by "Module 2.1.dc.html" (title + mono tag, body, callout strip). Body and
+// callout may carry inline emphasis so they render as HTML.
+interface Props {
+  title: string;
+  tag: string;
+  body: string;
+  callout: string;
+  last?: boolean;
+}
+const { title, tag, body, callout, last = false } = Astro.props;
+---
+
+<section class:list={['brf', { 'brf--last': last }]}>
+  <div class="brf__head">
+    <div class="brf__title">{title}</div>
+    <span class="brf__tag">{tag}</span>
+  </div>
+  <p class="brf__body" set:html={body} />
+  <div class="brf__callout" set:html={callout} />
+</section>
+
+<style>
+  .brf { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 22px; margin-bottom: 14px; }
+  .brf--last { margin-bottom: 28px; }
+  .brf__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .brf__title { font-family: 'Newsreader', serif; font-size: 20px; font-weight: 500; }
+  .brf__tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #77705F; }
+  .brf__body { font-size: 13.5px; color: #5b5445; line-height: 1.6; margin: 0 0 12px; }
+  .brf__callout {
+    background: #F5EAEF; border-left: 3px solid #8A2450; border-radius: 8px;
+    padding: 10px 13px; font-size: 13px; color: #6d1a3d;
+  }
+</style>

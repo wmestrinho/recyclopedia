@@ -1,0 +1,73 @@
+---
+// Module 2.4 · RCRA & Regulatory Compliance — new Track 2 module in the
+// Module 2.1 system. Content built from the fact-checked academy_2_4_a quiz:
+// Subtitle D vs Subtitle C, and the four hazardous-waste characteristics.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaBriefing from '../../components/LbgaBriefing.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const briefings = [
+  {
+    title: 'Briefing 1 · Subtitle D, the municipal rulebook',
+    tag: 'solid waste',
+    body: `RCRA — the Resource Conservation and Recovery Act of 1976 — splits American waste law in two. <strong>Subtitle D</strong> governs everyday, non-hazardous municipal solid waste: it is why a modern landfill must have <strong>composite liners, leachate collection, daily cover, groundwater monitoring wells</strong>, and funded post-closure care for decades after the last truck.`,
+    callout: `<strong>Where the record lives:</strong> your state environmental agency publishes each landfill's permit, inspection history, and violations — public documents an operator should be able to pull on demand.`,
+  },
+  {
+    title: 'Briefing 2 · Subtitle C, cradle to grave',
+    tag: 'hazardous',
+    body: `<strong>Subtitle C</strong> is the stricter book: hazardous waste is tracked <strong>"cradle to grave"</strong> — from the generator, through every transporter, to a permitted treatment/storage/disposal facility — with a signed <strong>manifest</strong> at each handoff. Households are exempt from the manifests, which is exactly why community <strong>HHW (household hazardous waste)</strong> programs exist to bridge the gap.`,
+    callout: `<strong>Operator's read:</strong> the manifest is the chain of custody. A gap in the paper trail is not an oversight — it is the violation.`,
+  },
+  {
+    title: 'Briefing 3 · The ICRT test',
+    tag: 'the gate',
+    body: `A waste is legally hazardous if it shows any of four characteristics — <strong>Ignitable, Corrosive, Reactive, or Toxic</strong>. Run the test on a garage shelf and it lights up: solvents and fuels (ignitable), drain cleaners and pool acid (corrosive), many batteries (reactive), pesticides and heavy-metal paints (toxic). None of it ever belongs in the landfill bin.`,
+    callout: `<strong>The route:</strong> HHW collection events and permanent depots take the ICRT items a household generates — the certified operator knows the local schedule by heart.`,
+  },
+];
+---
+
+<LbgaModule
+  title="Module 2.4 · RCRA & Regulatory Compliance"
+  description="RCRA 1976 turned open dumps into engineered, monitored systems. Learn the two rulebooks — Subtitle D for municipal waste, Subtitle C's cradle-to-grave manifests for hazardous — and the ICRT test that decides which applies. Track 2: Professional Operations."
+  trackLabel="Track 2: Professional Operations"
+  badgeLabel="Module 2.4 · Certification"
+  badgeDot="#8A2450"
+  badgeColor="#E7A9C0"
+  stripe="rgba(138,36,80,.13)"
+  kicker="Module 2.4 · RCRA &amp; Compliance"
+  kickerColor="#E7A9C0"
+  heading="The law under the landfill"
+  lede="Every liner, monitoring well, and manifest exists because a 1976 law demanded it. The certified operator knows which of RCRA's two rulebooks applies to a given waste — and can run the four-letter test that decides in seconds."
+  pills={[
+    { text: '3 briefings' },
+    { text: '1 knowledge check' },
+    { text: 'Certification tier', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.6);color:#F0C4D5' },
+  ]}
+  accent="#8A2450"
+  storageKey="lbga_m2_4_done"
+>
+  {briefings.map((b, i) => (
+    <LbgaBriefing title={b.title} tag={b.tag} body={b.body} callout={b.callout} last={i === briefings.length - 1} />
+  ))}
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · RCRA &amp; compliance</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_2_4_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Field brief"
+    kickerColor="#E7A9C0"
+    title="Pull the permit"
+    body="Look up your landfill's Subtitle D permit on the state environmental agency's site and skim the latest inspection. Then find your county's HHW options — the next collection event or the permanent depot — and flag one ICRT item in your own home that should go there."
+    chips={['① Pull the landfill permit', '② List the HHW options', '③ Flag one ICRT item']}
+    chipColor="#F0C4D5"
+    chipBg="rgba(138,36,80,.22)"
+    chipBorder="rgba(138,36,80,.5)"
+  />
+</LbgaModule>

@@ -1,0 +1,73 @@
+---
+// Module 2.3 · Inside the Material Recovery Facility — new Track 2 module in
+// the Module 2.1 system. Content built from the fact-checked academy_2_3_a
+// quiz: NIR optical sorting (and why black plastic fails) and tanglers.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaBriefing from '../../components/LbgaBriefing.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const briefings = [
+  {
+    title: 'Briefing 1 · The mechanical cascade',
+    tag: 'the line',
+    body: `From the tipping floor, single-stream material rides a conveyor through a cascade of machines that sort by shape and physics. <strong>Spinning disc screens</strong> bounce flat 2D fiber (paper, cardboard) up and over while 3D containers fall through. <strong>Magnets</strong> pull steel off the line; an <strong>eddy-current separator</strong> flips the field and physically repels aluminum into its own bunker.`,
+    callout: `<strong>What to watch:</strong> the screen gaps decide everything — items smaller than ~2 inches (shredded paper, loose caps) fall through the machinery and are lost as residue.`,
+  },
+  {
+    title: 'Briefing 2 · Near-infrared eyes',
+    tag: 'the sort',
+    body: `Plastics are separated by <strong>near-infrared (NIR) optical sorters</strong>: each resin reflects a distinct infrared signature, and when the sensor recognizes a target — a PET bottle, an HDPE jug — a precisely timed <strong>jet of air</strong> fires and ejects it into its bin at line speed. This is also why <strong>black plastic fails</strong>: carbon-black pigment absorbs the infrared light, so the sensor sees nothing to sort.`,
+    callout: `<strong>Design consequence:</strong> black takeout containers are functionally invisible to the line — many programs landfill them by default, whatever the resin number says.`,
+  },
+  {
+    title: 'Briefing 3 · Tanglers and shutdowns',
+    tag: 'the enemy',
+    body: `The MRF's worst enemy is not dirt — it is <strong>film and flexible items</strong>. Plastic bags, cords, hoses, and Christmas lights wrap around the rotating shafts of the disc screens until the line jams, and workers must stop everything and <strong>cut them free by hand</strong>. A few minutes of tangler downtime costs more than a whole day of ordinary contamination.`,
+    callout: `<strong>Why the rule exists:</strong> this is the machine-side reason plastic bags are banned curbside almost everywhere — film belongs in store drop-off programs, never the bin.`,
+  },
+];
+---
+
+<LbgaModule
+  title="Module 2.3 · Inside the Material Recovery Facility"
+  description="Follow a bottle down the line: disc screens, magnets, eddy currents, and the near-infrared sorters that fire air jets at line speed — plus why black plastic is invisible and tanglers stop everything. Track 2: Professional Operations."
+  trackLabel="Track 2: Professional Operations"
+  badgeLabel="Module 2.3 · Certification"
+  badgeDot="#8A2450"
+  badgeColor="#E7A9C0"
+  stripe="rgba(138,36,80,.13)"
+  kicker="Module 2.3 · Inside the MRF"
+  kickerColor="#E7A9C0"
+  heading="Follow a bottle down the line"
+  lede="A material recovery facility turns a mixed truckload into clean commodity bales in minutes — with spinning screens, magnets, eddy currents, and infrared eyes. Understand the machines and every curbside rule you've ever read suddenly makes sense."
+  pills={[
+    { text: '3 briefings' },
+    { text: '1 knowledge check' },
+    { text: 'Certification tier', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.6);color:#F0C4D5' },
+  ]}
+  accent="#8A2450"
+  storageKey="lbga_m2_3_done"
+>
+  {briefings.map((b, i) => (
+    <LbgaBriefing title={b.title} tag={b.tag} body={b.body} callout={b.callout} last={i === briefings.length - 1} />
+  ))}
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Inside the MRF</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_2_3_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Field brief"
+    kickerColor="#E7A9C0"
+    title="Book the tour"
+    body="Most MRFs run public tours — book one. Watch the pre-sort cabin where workers pull tanglers, find the NIR sorter and listen for the air jets, and ask the operator what their single most expensive contaminant is. Write down the answer; it becomes your community's next education target."
+    chips={['① Book a MRF tour', '② Spot the NIR sorter', '③ Ask the top contaminant']}
+    chipColor="#F0C4D5"
+    chipBg="rgba(138,36,80,.22)"
+    chipBorder="rgba(138,36,80,.5)"
+  />
+</LbgaModule>

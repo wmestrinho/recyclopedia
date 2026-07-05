@@ -1,0 +1,74 @@
+---
+// Module 2.6 · Designing Community Sorting Infrastructure — new Track 2
+// module in the Module 2.1 system. Content built from the fact-checked
+// academy_2_6_a quiz: the single- vs multi-stream trade-off and
+// container-deposit return rates.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaBriefing from '../../components/LbgaBriefing.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const briefings = [
+  {
+    title: 'Briefing 1 · Stream architecture',
+    tag: 'the trade-off',
+    body: `The first design decision is how many bins a citizen faces. <strong>Single-stream</strong> (everything in one bin) lifts participation because it asks almost nothing — and pays for it with higher contamination mixed into every commodity. <strong>Dual- and multi-stream</strong> systems keep bales cleaner but shift sorting effort onto residents. There is no free option, only a trade-off tuned to your MRF's capability and your buyers' specs.`,
+    callout: `<strong>Design rule:</strong> choose the stream count your processing line and commodity buyers can actually absorb — not the one that looks best in a brochure.`,
+  },
+  {
+    title: 'Briefing 2 · The financial nudge',
+    tag: 'incentives',
+    body: `Where behavior must change at scale, price beats persuasion. <strong>Container-deposit schemes (bottle bills)</strong> attach a small refundable value to each beverage container and routinely achieve <strong>80%+ return rates</strong> — clean, sorted material that never touches the curbside stream. <strong>Pay-as-you-throw</strong> pricing does the same upstream, charging households by the trash they generate rather than a flat fee.`,
+    callout: `<strong>Operator's read:</strong> a refundable dime outperforms any sign ever printed. Design the incentive first, the poster second.`,
+  },
+  {
+    title: 'Briefing 3 · Design the ideal path',
+    tag: 'the details',
+    body: `At the bin itself, the details do the sorting. <strong>Shaped apertures</strong> — a round hole for bottles and cans, a slot for paper — physically reject the wrong item. <strong>Consistent colors</strong> across the whole city build habit; <strong>photo-based signage</strong> of actual local items beats text and icons; and every recycling bin needs a <strong>paired trash bin</strong> beside it, or it becomes the trash bin.`,
+    callout: `<strong>The one-second rule:</strong> every extra second of decision at the bin raises contamination. Good infrastructure design removes the decision entirely.`,
+  },
+];
+---
+
+<LbgaModule
+  title="Module 2.6 · Designing Community Sorting Infrastructure"
+  description="Single-stream vs multi-stream, bottle bills that hit 80%+ returns, and the bin-level details — apertures, colors, photo signage, pairing — that quietly do the sorting for you. The Track 2 capstone. Track 2: Professional Operations."
+  trackLabel="Track 2: Professional Operations"
+  badgeLabel="Module 2.6 · Certification"
+  badgeDot="#8A2450"
+  badgeColor="#E7A9C0"
+  stripe="rgba(138,36,80,.13)"
+  kicker="Module 2.6 · Community Infrastructure"
+  kickerColor="#E7A9C0"
+  heading="Design the bin, shape the behavior"
+  lede="By the time a citizen stands in front of a bin, most of the outcome is already decided — by stream architecture, incentives, and the shape of the hole in the lid. The Track 2 capstone: design infrastructure so the right choice is the easy one."
+  pills={[
+    { text: '3 briefings' },
+    { text: '1 knowledge check' },
+    { text: 'Certification capstone', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.6);color:#F0C4D5' },
+  ]}
+  accent="#8A2450"
+  storageKey="lbga_m2_6_done"
+>
+  {briefings.map((b, i) => (
+    <LbgaBriefing title={b.title} tag={b.tag} body={b.body} callout={b.callout} last={i === briefings.length - 1} />
+  ))}
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Community infrastructure</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_2_6_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Field brief"
+    kickerColor="#E7A9C0"
+    title="Redesign one station"
+    body="Pick one public sorting station — a park, a campus, a transit stop. Audit it: apertures, colors, signage, and whether a trash bin is paired alongside. Note where people actually fail, then sketch one concrete improvement. That sketch is your first infrastructure memo — and your Track 2 capstone artifact."
+    chips={['① Audit a station', '② Note the failure points', '③ Sketch the fix']}
+    chipColor="#F0C4D5"
+    chipBg="rgba(138,36,80,.22)"
+    chipBorder="rgba(138,36,80,.5)"
+  />
+</LbgaModule>

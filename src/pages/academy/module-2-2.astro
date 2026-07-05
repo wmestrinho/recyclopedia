@@ -1,0 +1,75 @@
+---
+// Module 2.2 · Biopolymer Engineering — new Track 2 module designed in the
+// system established by "Module 2.1.dc.html" (00_SHARED_SPEC.md anatomy,
+// plum certification accent). Content built from the fact-checked
+// academy_2_2_a quiz: PLA needs industrial compost heat; PHA is grown by
+// microbes. Per the spec, no "green-stripe/PHA stamp" sorting is taught.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaBriefing from '../../components/LbgaBriefing.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const briefings = [
+  {
+    title: 'Briefing 1 · PLA, the fermented workhorse',
+    tag: 'the material',
+    body: `<strong>PLA (polylactic acid)</strong> is made by fermenting plant starch into lactic acid and polymerizing it into a clear, stiff plastic — the material behind most "compostable" cups and clamshells. The catch is in the fine print: PLA only breaks down under <strong>sustained industrial-compost conditions (~58°C with controlled humidity)</strong>. In a backyard pile or a landfill it behaves like conventional plastic.`,
+    callout: `<strong>Routing rule:</strong> PLA belongs in industrial composting where a program accepts it — never in the recycling bin (it contaminates PET bales) and never counted on to vanish in a backyard bin.`,
+  },
+  {
+    title: 'Briefing 2 · PHA, grown by bacteria',
+    tag: 'the frontier',
+    body: `<strong>PHA (polyhydroxyalkanoates)</strong> is not chemically polymerized at all — it is <strong>synthesized inside bacteria</strong> that store it as an energy reserve when fed plant oils or sugars, then harvested from the cells. That biological origin is why many PHAs degrade in soil and even marine environments without special facilities. The trade-off: PHA costs more and is far rarer than PLA.`,
+    callout: `<strong>Operator's read:</strong> PHA's superpower is degradation without infrastructure; its constraint is supply. Watch it for films, coatings, and marine-risk applications first.`,
+  },
+  {
+    title: 'Briefing 3 · The certification gate',
+    tag: 'the gate',
+    body: `A "compostable" or "biodegradable" claim means nothing by itself. The gate is <strong>third-party certification</strong> — BPI in the US, TÜV Austria's OK compost marks in Europe — which tests that a product actually breaks down in the claimed environment. Uncertified "biodegradable" plastic is often conventional plastic engineered to fragment, shedding microplastics as it goes.`,
+    callout: `<strong>Where to verify:</strong> the BPI certified-products database, the TÜV OK compost registry, and — decisive for routing — your local composter's accepted-materials list.`,
+  },
+];
+---
+
+<LbgaModule
+  title="Module 2.2 · Biopolymer Engineering"
+  description="PLA is fermented from plant starch and needs industrial-compost heat; PHA is grown inside bacteria and can degrade in soil and sea. Learn what the certification marks actually guarantee — and how to route each material. Track 2: Professional Operations."
+  trackLabel="Track 2: Professional Operations"
+  badgeLabel="Module 2.2 · Certification"
+  badgeDot="#8A2450"
+  badgeColor="#E7A9C0"
+  stripe="rgba(138,36,80,.13)"
+  kicker="Module 2.2 · Biopolymer Engineering"
+  kickerColor="#E7A9C0"
+  heading="Plastic grown, not drilled"
+  lede="A new class of materials is fermented from plants or grown inside bacteria instead of refined from crude oil. The certified operator's job is to know which claims are chemistry and which are marketing — and to route each material where it actually breaks down."
+  pills={[
+    { text: '3 briefings' },
+    { text: '1 knowledge check' },
+    { text: 'Certification tier', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.6);color:#F0C4D5' },
+  ]}
+  accent="#8A2450"
+  storageKey="lbga_m2_2_done"
+>
+  {briefings.map((b, i) => (
+    <LbgaBriefing title={b.title} tag={b.tag} body={b.body} callout={b.callout} last={i === briefings.length - 1} />
+  ))}
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Biopolymer engineering</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_2_2_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Field brief"
+    kickerColor="#E7A9C0"
+    title="Trace one cup"
+    body='Find one item stamped "compostable" — a cup, clamshell, or bag. Locate its certification mark (or note the absence of one), then check whether your local industrial composting program actually accepts it. The gap between the stamp and the route is the whole lesson.'
+    chips={['① Find a compostable item', '② Verify the cert mark', '③ Confirm a local route']}
+    chipColor="#F0C4D5"
+    chipBg="rgba(138,36,80,.22)"
+    chipBorder="rgba(138,36,80,.5)"
+  />
+</LbgaModule>

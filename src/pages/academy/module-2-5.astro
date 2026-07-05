@@ -1,0 +1,74 @@
+---
+// Module 2.5 · The Financial ROI of Circularity — new Track 2 module in the
+// Module 2.1 system. Content built from the fact-checked academy_2_5_a quiz:
+// the two-sided ledger (avoided tipping fees + commodity revenue) and
+// aluminum's cross-subsidy of the line.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaBriefing from '../../components/LbgaBriefing.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const briefings = [
+  {
+    title: 'Briefing 1 · Side one, avoided cost',
+    tag: 'the savings',
+    body: `Every ton a program diverts is a ton the city does <strong>not</strong> pay to bury. At tipping fees of <strong>$50–$100+ per ton</strong>, avoided disposal is the quiet half of the ledger — and it compounds: diverted tonnage also preserves <strong>landfill airspace</strong>, an asset that costs tens of millions to replace when a site closes early.`,
+    callout: `<strong>The baseline math:</strong> tons diverted × your tipping fee = the floor of what the program saves before a single bale is sold.`,
+  },
+  {
+    title: 'Briefing 2 · Side two, commodity revenue',
+    tag: 'the sales',
+    body: `The loud half of the ledger is the <strong>bale market</strong>. Sorted commodities — OCC cardboard, PET, HDPE, steel, aluminum — sell to mills and reclaimers at published index prices that swing with the economy. <strong>Aluminum commands the highest price per bale</strong>, often 10–20× glass, which in many markets costs more to handle than it returns.`,
+    callout: `<strong>Together:</strong> avoided tipping fees plus bale revenue are the financial case for recycling and reuse — two flows, one ledger.`,
+  },
+  {
+    title: 'Briefing 3 · The cross-subsidy',
+    tag: 'the balance',
+    body: `Lines rarely profit on every material — <strong>aluminum revenue frequently subsidizes the recovery of low-value streams</strong> like glass and mixed paper, keeping the whole operation viable. That makes <strong>bale quality</strong> a revenue decision: contamination downgrades a bale's spec, and a downgraded bale sells for less or not at all.`,
+    callout: `<strong>Operator's read:</strong> protecting bale quality is not housekeeping — it is the margin. Every education campaign that cuts contamination shows up on the ledger.`,
+  },
+];
+---
+
+<LbgaModule
+  title="Module 2.5 · The Financial ROI of Circularity"
+  description="Recovered materials earn twice: the tipping fee you don't pay, and the bale you sell. Learn the two-sided ledger and why aluminum's revenue keeps whole recycling lines profitable. Track 2: Professional Operations."
+  trackLabel="Track 2: Professional Operations"
+  badgeLabel="Module 2.5 · Certification"
+  badgeDot="#8A2450"
+  badgeColor="#E7A9C0"
+  stripe="rgba(138,36,80,.13)"
+  kicker="Module 2.5 · The ROI of Circularity"
+  kickerColor="#E7A9C0"
+  heading="Every diverted ton earns twice"
+  lede="Circularity isn't charity — it's a ledger with two sides. Each recovered ton avoids a tipping fee and can be sold as a commodity. The certified operator can price both flows and knows which material quietly pays for all the others."
+  pills={[
+    { text: '3 briefings' },
+    { text: '1 knowledge check' },
+    { text: 'Certification tier', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.6);color:#F0C4D5' },
+  ]}
+  accent="#8A2450"
+  storageKey="lbga_m2_5_done"
+>
+  {briefings.map((b, i) => (
+    <LbgaBriefing title={b.title} tag={b.tag} body={b.body} callout={b.callout} last={i === briefings.length - 1} />
+  ))}
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · The ROI of circularity</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_2_5_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Field brief"
+    kickerColor="#E7A9C0"
+    title="Price a truckload"
+    body="Find current bale prices for OCC, PET, and aluminum (published commodity indices or your MRF's buyer sheets). Price out one collection truck's typical load, then set it against the tipping fee the same tonnage would have cost to bury. That single comparison is the business case in one page."
+    chips={['① Find bale prices', '② Value one truckload', '③ Compare vs tipping fee']}
+    chipColor="#F0C4D5"
+    chipBg="rgba(138,36,80,.22)"
+    chipBorder="rgba(138,36,80,.5)"
+  />
+</LbgaModule>

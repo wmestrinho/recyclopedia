@@ -1,55 +1,60 @@
 ---
-import LbgFooter from '../../components/LbgFooter.astro';
-import LbgHeader from '../../components/LbgHeader.astro';
+// Recyclopedia Academy home — implementation of "Academy Home.dc.html"
+// (Claude Design project "Interactive School Modules"): course dashboard with
+// per-module done states read from the modules' localStorage keys and an
+// overall progress bar. Extended beyond the design with the Track 2 ·
+// Professional Operations group (the design predates Track 2).
 
-// Track 1 course catalog — the LBGA-designed module pages (src/pages/academy/
-// module-*.astro), which supersede the markdown lessons in src/content/academy/
-// (those routes stay live but are no longer listed here).
-const modules = [
+interface Course {
+  num: string;
+  title: string;
+  sub: string;
+  href: string;
+  key: string; // localStorage key; "pallet" = the DIY course's array key
+  accent: string; // done-state chip color
+  foot?: string; // foot label override
+  footColor?: string;
+  capstone?: boolean;
+}
+
+const groups: { label: string; cards: Course[] }[] = [
   {
-    slug: 'module-1-1',
-    module: '1.1',
-    title: 'The Hidden History of Your Trash',
-    summary: 'How we went from open pits to engineered landfills — and why a landfill is a tomb, not a compost heap.',
+    label: 'Weeks 1–2 · Foundations',
+    cards: [
+      { num: '1.1', title: 'The Hidden History of Your Trash', sub: 'From ancient pits to the modern landfill capsule.', href: '/academy/module-1-1', key: 'lbga_m1_1_done', accent: '#6B9A3A' },
+      { num: '1.2', title: 'The Smartphone Sorting Guide', sub: 'Read the label, not the myth. Resin codes decoded.', href: '/academy/module-1-2', key: 'lbga_m1_2_done', accent: '#6B9A3A' },
+      { num: '1.3', title: 'Zero-Waste Micro-Habits', sub: 'Four 60-second shifts that compound for a lifetime.', href: '/academy/module-1-3', key: 'lbga_m1_3_done', accent: '#6B9A3A' },
+      { num: '★', title: 'DIY Pallet Workshop', sub: 'Final hands-on project — build real furniture from reclaimed pallets.', href: '/diy/pallet-guide', key: 'pallet', accent: '#E4562E', capstone: true, foot: 'Open the workshop' },
+    ],
   },
   {
-    slug: 'module-1-2',
-    module: '1.2',
-    title: 'The Smartphone Sorting Guide',
-    summary: 'How to actually sort an item in your hand — resin codes, the local list, and the one rule that matters most.',
+    label: 'Going deeper · Maker track',
+    cards: [
+      { num: '1.4', title: 'The Upcycling Masterclass', sub: 'Be your own micro-processing facility — 3 blueprints.', href: '/academy/module-1-4', key: 'lbga_m1_4_done', accent: '#6B9A3A' },
+      { num: '1.5', title: 'The Zero-Waste Shopping Matrix', sub: 'Stop the trash before you buy it — the 4-tier filter.', href: '/academy/module-1-5', key: 'lbga_m1_5_done', accent: '#6B9A3A' },
+      { num: '1.6', title: 'The Circular Wardrobe', sub: 'Fiber literacy, microplastics, and the repair mindset.', href: '/academy/module-1-6', key: 'lbga_m1_6_done', accent: '#6B9A3A' },
+    ],
   },
   {
-    slug: 'module-1-3',
-    module: '1.3',
-    title: 'Zero-Waste Micro-Habits',
-    summary: 'Four 60-second home habits that quietly keep hundreds of pounds of trash out of the landfill over a lifetime.',
+    label: 'Final check',
+    cards: [
+      { num: '5', title: 'The Myth-Busting Check', sub: 'Bust the three big myths and lock in the Gratitude Hierarchy.', href: '/academy/module-5', key: 'lbga_m5_done', accent: '#E4562E' },
+    ],
   },
   {
-    slug: 'module-1-4',
-    module: '1.4',
-    title: 'The Upcycling Masterclass',
-    summary: 'Three low-tech blueprints that turn discarded bottles, textiles, and peels into higher-value tools — no workshop required.',
-  },
-  {
-    slug: 'module-1-5',
-    module: '1.5',
-    title: 'The Zero-Waste Shopping Matrix',
-    summary: 'A four-tier mental filter you run on packaging in the aisle — stop the trash before you buy it.',
-  },
-  {
-    slug: 'module-1-6',
-    module: '1.6',
-    title: 'The Circular Wardrobe',
-    summary: 'Read one label and keep fibers in a loop of care, wear, and repair — your closet is a waste stream.',
-  },
-  {
-    slug: 'module-5',
-    module: '5',
-    title: 'The Myth-Busting Check',
-    summary: 'The Track 1 capstone — bust the three sticky myths behind most bad recycling habits.',
+    label: 'Track 2 · Professional Operations',
+    cards: [
+      { num: '2.1', title: 'The Circular Economy Dashboard', sub: 'Read your city like a balance sheet — the three numbers that matter.', href: '/academy/module-2-1', key: 'lbga_m2_1_done', accent: '#8A2450', footColor: '#8A2450' },
+      { num: '2.2', title: 'Biopolymer Engineering', sub: 'PLA vs PHA — chemistry, certification marks, and correct routing.', href: '/academy/module-2-2', key: 'lbga_m2_2_done', accent: '#8A2450', footColor: '#8A2450' },
+      { num: '2.3', title: 'Inside the MRF', sub: 'Disc screens, magnets, and the infrared eyes that sort at line speed.', href: '/academy/module-2-3', key: 'lbga_m2_3_done', accent: '#8A2450', footColor: '#8A2450' },
+      { num: '2.4', title: 'RCRA & Regulatory Compliance', sub: 'Subtitle D, Subtitle C, and the four-letter test for hazardous waste.', href: '/academy/module-2-4', key: 'lbga_m2_4_done', accent: '#8A2450', footColor: '#8A2450' },
+      { num: '2.5', title: 'The Financial ROI of Circularity', sub: 'The two-sided ledger — avoided fees plus commodity revenue.', href: '/academy/module-2-5', key: 'lbga_m2_5_done', accent: '#8A2450', footColor: '#8A2450' },
+      { num: '2.6', title: 'Community Sorting Infrastructure', sub: 'Streams, incentives, and bin design — the certification capstone.', href: '/academy/module-2-6', key: 'lbga_m2_6_done', accent: '#8A2450', footColor: '#8A2450' },
+    ],
   },
 ];
-const starter = modules[0];
+
+const totalModules = groups.reduce((n, g) => n + g.cards.length, 0);
 ---
 
 <!DOCTYPE html>
@@ -57,183 +62,241 @@ const starter = modules[0];
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LBG Academy — Everyone Is Welcome at the Table</title>
-  <meta
-    name="description"
-    content="Lettuce Beet Grapefruit Academy is a free, open school for practical environmental learning, honest recycling education, and everyday zero-waste action."
-  />
-  <link rel="canonical" href="https://lettucebeetgrapefruit.org/" />
+  <title>Recyclopedia Academy · LBGA Online School</title>
+  <meta name="description" content="The LBGA Online School — Track 1: Citizen Science & Action for everyone with a smartphone, and Track 2: Professional Operations for those who want to run the system. Free, interactive, gratitude over guilt." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/lbg-theme.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 </head>
-<body class="lbg-site lbg-academy">
-  <a class="skip-link" href="#academy-top">Skip to content</a>
-  <LbgHeader surface="academy" />
+<body>
 
-  <main class="site-shell" id="academy-top">
-    <section class="lbg-hero" aria-labelledby="academy-title">
-      <div class="lbg-hero__copy">
-        <p class="lbg-kicker">Lettuce Beet Grapefruit Academy</p>
-        <h1 id="academy-title">Everyone is welcome at the table.</h1>
-        <p class="lede">
-          A free, open school for understanding what we own, where it goes, and how
-          small informed choices keep useful materials in motion. No greenwashing.
-          No guilt. Just clear lessons and practical action.
-        </p>
-        <div class="cta-row">
-          <a class="button button--solid" href="#menu">Explore The Menu</a>
-          <a class="button button--ghost" href={`/academy/${starter.slug}`}>
-            Start the first course
-          </a>
-        </div>
+<header class="hero">
+  <div class="hero__stripes" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <div class="hero__brand">
+      <span class="hero__dot" style="background:#6B9A3A"></span>
+      <span class="hero__dot" style="background:#8A2450"></span>
+      <span class="hero__dot" style="background:#E4562E"></span>
+      <span class="hero__brand-label">Recyclopedia Academy · recyclopedia.cc</span>
+    </div>
+    <h1>From citizen science to professional operations</h1>
+    <p class="hero__lede">Everything a citizen with a smartphone needs to cut waste for good — then the budgets, machines, and laws for those who want to run the system. Gratitude over guilt, one module at a time.</p>
+  </div>
+</header>
+
+<main class="content">
+
+  <div class="progress">
+    <div class="progress__main">
+      <div class="progress__headline" id="progress-headline">Start with Module 1.1</div>
+      <div class="progress__track"><div class="progress__fill" id="progress-fill"></div></div>
+      <div class="progress__sub" id="progress-sub">0 of {totalModules} modules complete</div>
+    </div>
+    <div class="progress__pct" id="progress-pct">0%</div>
+  </div>
+
+  {groups.map((g) => (
+    <section class="group" aria-label={g.label}>
+      <div class="group__head">
+        <span class="group__label">{g.label}</span>
+        <span class="group__rule"></span>
       </div>
-      <aside class="lbg-hero__aside">
-        <div>
-          <div class="lbg-trio" aria-hidden="true">
-            <span class="lbg-dot lbg-dot--lettuce"></span>
-            <span class="lbg-dot lbg-dot--beet"></span>
-            <span class="lbg-dot lbg-dot--grapefruit"></span>
-          </div>
-          <h2 style="margin-top: 1.25rem;">Learn the why. Practice the how.</h2>
-          <p>
-            Courses draw from the same sourced research that powers Recyclopedia,
-            presented here for learners of every age.
-          </p>
-        </div>
-        <span class="lbg-status">Eight courses live</span>
-      </aside>
-    </section>
-
-    <section class="lbg-section" id="menu" aria-labelledby="menu-title">
-      <div class="lbg-section__heading">
-        <p class="lbg-kicker">The Menu</p>
-        <h2 id="menu-title">Choose what you are hungry to understand.</h2>
-        <p>
-          Start with a zero-prerequisite course, move through the core curriculum,
-          and finish each lesson with an interactive Taste Test.
-        </p>
-      </div>
-
-      <div class="lbg-band" style="margin-bottom: 1rem;">
-        <div>
-          <p class="lbg-kicker" style="color: #d9e8c5;">Starter</p>
-          <h3>{starter.title}</h3>
-          <p>{starter.summary}</p>
-        </div>
-        <a class="button button--ghost" href={`/academy/${starter.slug}`}>Begin here</a>
-      </div>
-
-      <p class="lbg-card__label" style="margin: 1.5rem 0 0.75rem;">Mains · Core curriculum</p>
-      <div class="module-grid">
-        {modules.map((m) => (
-          <a class="module-card module-card--link" href={`/academy/${m.slug}`}>
-            <p class="module-card__number">
-              Course {m.module} · Citizen Science &amp; Action
-            </p>
-            <h3>{m.title}</h3>
-            <p>{m.summary}</p>
-            <p class="module-card__status module-card__status--live">
-              Course live · Taste Test inside
-            </p>
+      <div class="group__grid">
+        {g.cards.map((c) => (
+          <a
+            href={c.href}
+            class:list={['card', { 'card--capstone': c.capstone }]}
+            data-key={c.key}
+            style={`--card-accent:${c.accent}`}
+          >
+            <div class="card__row">
+              <div class="card__num">{c.num}</div>
+              <div class="card__copy">
+                <div class="card__title">{c.title}</div>
+                <div class="card__sub">{c.sub}</div>
+              </div>
+              <span class="card__pill" data-pill>{c.capstone ? 'Capstone' : 'Start'}</span>
+            </div>
+            <div class="card__foot" style={c.footColor ? `color:${c.footColor}` : undefined}>
+              {c.foot ?? 'Open module'} <span class="card__arrow">→</span>
+            </div>
           </a>
         ))}
       </div>
-
-      <p class="lbg-card__label" style="margin: 2rem 0 0.75rem;">
-        Certification · Track 2: Professional Operations
-      </p>
-      <div class="module-grid">
-        <a class="module-card module-card--link" href="/academy/module-2-1">
-          <p class="module-card__number" style="color: var(--beet);">
-            Module 2.1 · Certification tier
-          </p>
-          <h3>The Circular Economy Dashboard</h3>
-          <p>
-            Read your city like a balance sheet — pull the municipal waste budget,
-            read the three numbers that matter, and audit the landfill they pay for.
-          </p>
-          <p class="module-card__status module-card__status--live">
-            Course live · Knowledge check inside
-          </p>
-        </a>
-      </div>
     </section>
+  ))}
 
-    <section class="lbg-section" id="philosophy" aria-labelledby="philosophy-title">
-      <div class="lbg-section__heading">
-        <p class="lbg-kicker">Philosophy</p>
-        <h2 id="philosophy-title">Gratitude before disposal.</h2>
-        <p>
-          The Gratitude Hierarchy asks for the highest respectful path that is
-          actually available: reuse, repair, repurpose, donate, recycle, compost,
-          and responsible disposal only as the last resort.
-        </p>
-      </div>
-      <div class="lbg-card-grid">
-        <article class="lbg-card">
-          <span class="lbg-card__label">Principle one</span>
-          <h3>Gratitude over guilt</h3>
-          <p>We thank people for caring and give them a useful next action.</p>
-        </article>
-        <article class="lbg-card">
-          <span class="lbg-card__label">Principle two</span>
-          <h3>Never guess into a landfill</h3>
-          <p>When evidence is incomplete, we say so and point to local truth.</p>
-        </article>
-        <article class="lbg-card">
-          <span class="lbg-card__label">Principle three</span>
-          <h3>Recycling is one rung</h3>
-          <p>Keeping an object whole and useful usually beats breaking it down.</p>
-        </article>
-      </div>
-    </section>
+  <footer class="home-footer">
+    <div class="home-footer__left">Recyclopedia Academy · <strong>LBGA Online School</strong></div>
+    <div class="home-footer__right">recyclopedia.cc/#academy · CC BY-NC 4.0</div>
+  </footer>
 
-    <section class="lbg-section" id="library" aria-labelledby="library-title">
-      <div class="lbg-section__heading">
-        <p class="lbg-kicker">Research Library</p>
-        <h2 id="library-title">One knowledge base, two surfaces.</h2>
-        <p>
-          LBGA teaches from the sourced environmental and material research behind
-          the Recyclopedia engine. The public library will expand as reviewed
-          papers and provenance records are cleared for release.
-        </p>
-      </div>
-      <div class="lbg-empty-state">
-        <h3>The shelves are being cataloged.</h3>
-        <p>
-          Course sources are already reviewed in-house. Public research volumes
-          will appear here only after editorial and Creative Commons clearance.
-        </p>
-        <a class="button button--ghost" href="https://recyclopedia.cc">
-          Open Recyclopedia
-        </a>
-      </div>
-    </section>
+</main>
 
-    <section class="lbg-section" id="about" aria-labelledby="about-title">
-      <div class="lbg-band">
-        <div>
-          <p class="lbg-kicker" style="color: #d9e8c5;">About the school</p>
-          <h2 id="about-title">Free to learn. Open to every age.</h2>
-          <p>
-            LBGA is part of the Lettuce Beet Grapefruit family and is built by
-            Absolutely Plausible Solutions. Content is shared for educational,
-            non-commercial use under CC BY-NC-SA 4.0.
-          </p>
-        </div>
-        <a class="button button--ghost" href="https://lettucebeetgrapefruit.com/">
-          Meet the whole family
-        </a>
-      </div>
-    </section>
-  </main>
+<script>
+  // Done states — read each module's completion key (same keys the module
+  // pages write). The DIY capstone predates the key convention: the pallet
+  // course stores a JSON array of completed steps.
+  function isDone(key: string): boolean {
+    try {
+      if (key === 'pallet') {
+        const a = JSON.parse(localStorage.getItem('pallet_course_done') || '[]');
+        return Array.isArray(a) && a.length >= 5;
+      }
+      return localStorage.getItem(key) === '1';
+    } catch {
+      return false;
+    }
+  }
 
-  <LbgFooter surface="academy" />
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-key]'));
+  let doneCount = 0;
+  for (const card of cards) {
+    if (isDone(card.dataset.key!)) {
+      doneCount += 1;
+      card.classList.add('card--done');
+      card.querySelector('[data-pill]')!.textContent = '✓ Done';
+    }
+  }
+
+  const total = cards.length;
+  const pct = total ? Math.round((doneCount / total) * 100) : 0;
+  const headline = document.getElementById('progress-headline')!;
+  const fill = document.getElementById('progress-fill')!;
+
+  headline.textContent =
+    doneCount === 0 ? 'Start with Module 1.1'
+    : doneCount === total ? 'Academy complete 🎉'
+    : 'Your Academy progress';
+  fill.style.width = `${pct}%`;
+  if (doneCount === total && total > 0) fill.style.background = '#E4562E';
+  document.getElementById('progress-sub')!.textContent = `${doneCount} of ${total} modules complete`;
+  document.getElementById('progress-pct')!.textContent = `${pct}%`;
+</script>
+
+<style>
+  /* LBGA warm theme — Academy Home.dc.html palette */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100%;
+    background: #EFE9DB;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    color: #26241E;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; background: #26241E; }
+  .hero__stripes {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(135deg, rgba(107,154,58,.08) 0 16px, rgba(107,154,58,0) 16px 32px);
+  }
+  .hero__inner { position: relative; max-width: 960px; margin: 0 auto; padding: 56px 40px 46px; }
+  .hero__brand { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .hero__dot { width: 11px; height: 11px; border-radius: 50%; }
+  .hero__brand-label {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: .22em;
+    text-transform: uppercase; color: #DDD5C4; margin-left: 4px;
+  }
+  .hero h1 {
+    font-family: 'Newsreader', Georgia, serif; font-size: clamp(40px, 6vw, 60px);
+    font-weight: 500; line-height: 1.02; letter-spacing: -.02em; color: #FCFAF4;
+    margin: 0 0 16px; max-width: 16ch;
+  }
+  .hero__lede { font-size: 17px; line-height: 1.6; color: #E7E0CF; max-width: 56ch; margin: 0; }
+
+  /* Content column */
+  .content { max-width: 960px; margin: 0 auto; padding: 36px 40px 80px; }
+
+  /* Overall progress */
+  .progress {
+    background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 18px;
+    padding: 22px 24px; margin-bottom: 32px;
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  }
+  .progress__main { flex: 1; min-width: 220px; }
+  .progress__headline {
+    font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: #77705F; font-weight: 600; margin-bottom: 8px;
+  }
+  .progress__track { height: 10px; border-radius: 999px; background: #E7E0CF; overflow: hidden; }
+  .progress__fill {
+    width: 0%; height: 100%; background: #6B9A3A; border-radius: 999px;
+    transition: width .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .progress__sub { font-size: 12.5px; color: #77705F; margin-top: 9px; }
+  .progress__pct { font-family: 'Newsreader', serif; font-size: 40px; font-weight: 500; color: #6B9A3A; line-height: 1; }
+
+  /* Groups */
+  .group { margin-bottom: 30px; }
+  .group__head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .group__label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #77705F; font-weight: 700; }
+  .group__rule { height: 1px; flex: 1; background: #E4DDCC; }
+  .group__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* Course cards */
+  .card {
+    display: block; text-decoration: none; color: #26241E;
+    background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px;
+    padding: 18px 20px; transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px -14px rgba(40,36,30,.35); }
+  .card__row { display: flex; align-items: flex-start; gap: 14px; }
+  .card__num {
+    flex: 0 0 auto; width: 40px; height: 40px; border-radius: 11px;
+    display: grid; place-items: center;
+    font-family: 'Share Tech Mono', monospace; font-size: 14px; font-weight: 700;
+    background: #F1ECDF; color: #77705F;
+  }
+  .card__copy { flex: 1; min-width: 0; }
+  .card__title { font-family: 'Newsreader', serif; font-size: 18px; font-weight: 500; line-height: 1.2; }
+  .card__sub { font-size: 12.5px; color: #77705F; margin-top: 4px; line-height: 1.45; }
+  .card__pill {
+    flex: 0 0 auto; padding: 5px 11px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    background: #F4EFE4; color: #77705F;
+  }
+  .card__foot {
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid #E4DDCC;
+    font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+    font-weight: 600; color: #57862F;
+  }
+  .card__arrow { opacity: .6; }
+
+  .card--done { border-color: #CFE0B4; }
+  .card--done .card__num { background: var(--card-accent); color: #fff; }
+  .card--done .card__pill { background: #ECF1E0; color: #57862F; }
+
+  /* Capstone (dark) card */
+  .card--capstone { background: #26241E; border-color: #3a362d; }
+  .card--capstone .card__num { background: #E4562E; color: #fff; }
+  .card--capstone .card__title { color: #FCFAF4; }
+  .card--capstone .card__sub { color: #C9C0AC; }
+  .card--capstone .card__pill { background: rgba(228,86,46,.2); color: #F6C9B8; }
+  .card--capstone .card__foot { border-top-color: #3a362d; color: #E9A98E; }
+  .card--capstone.card--done { border-color: #3a362d; }
+  .card--capstone.card--done .card__pill { background: #ECF1E0; color: #57862F; }
+
+  /* Footer */
+  .home-footer {
+    border-top: 1px solid #E4DDCC; margin-top: 14px; padding-top: 22px;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between;
+  }
+  .home-footer__left { font-size: 12.5px; color: #77705F; }
+  .home-footer__left strong { color: #26241E; }
+  .home-footer__right { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #9a927f; letter-spacing: .04em; }
+
+  @media (max-width: 700px) {
+    .group__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .hero__inner { padding: 44px 20px 36px; }
+    .content { padding: 28px 20px 64px; }
+  }
+</style>
+
 </body>
 </html>
