@@ -4,7 +4,7 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
-## LBG family skin applied to Recyclopedia — 2026-07-04 (Windows Codex)
+## ✅ LBG family skin LIVE on Recyclopedia — 2026-07-04 (Windows Codex)
 
 - Recyclopedia now shares the warm Newsreader/Hanken theme already used by the
   LBG `.com` and `.org` surfaces: oat paper, lettuce primary, beet contrast, and
@@ -13,6 +13,9 @@ every session.
   paths, Donate flow, navigation model, and host routing remain intact.
 - Root-specific component overrides live in `public/css/lbg-theme.css`.
 - Version bumped to `v0.4.0 alpha`.
+- Release commit `62e82ff` deployed through Cloudflare Pages production
+  deployment `c2512009`; live checks passed on `recyclopedia.cc`,
+  `lettucebeetgrapefruit.org`, and `lettucebeetgrapefruit.com`.
 
 ## ✅ LBG `.com` + Academy `.org` LIVE — 2026-07-04 (Windows Codex)
 
