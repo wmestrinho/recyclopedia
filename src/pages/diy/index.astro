@@ -1,0 +1,127 @@
+---
+// /diy — tiny index for the DIY section: field guides and real-build logs.
+// Same LBGA warm-theme document sheet as the pages it links to.
+const img = (name: string) => `/images/diy/${name}.jpeg`;
+
+const pages = [
+  {
+    href: '/diy/pallet-guide', img: 'cover-free-pallets',
+    alt: 'A wall of free reclaimed pallets',
+    badge: 'Field guide', badgeTone: 'green',
+    title: 'Build Real Things from Pallet Wood',
+    body: 'Sourcing, the safety decision flow, tools, wood prep, the 9-step process, and the quick-start checklist. Where every pallet build should start.',
+  },
+  {
+    href: '/diy/dj-pallet-table', img: 'build-dj-pallet-table',
+    alt: 'The finished DJ Pallet Table — a mobile pallet booth on casters',
+    badge: 'Build log', badgeTone: 'rust',
+    title: 'The DJ Pallet Table',
+    body: "The guide's nine steps run on a real build — a mobile DJ booth, photographed across nine sessions from first truckload to finished booth.",
+  },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIY — field guides & build logs | Recyclopedia</title>
+  <meta name="description" content="Recyclopedia DIY: practical field guides and photographed real-build logs for turning discarded materials into useful things. Zero-waste, 100% upcycled." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<main class="sheet">
+
+  <section class="cover">
+    <div class="kicker-brand">Absolutely Plausible</div>
+    <h1>DIY</h1>
+    <p class="lede">Field guides and real-build logs for turning discarded materials into useful things — documented honestly, boring parts included.</p>
+    <div class="cover-tagline">Zero-waste · 100% upcycled · free to use</div>
+  </section>
+
+  <section>
+    {pages.map((p) => (
+      <a class="entry" href={p.href}>
+        <img src={img(p.img)} alt={p.alt} loading="lazy" />
+        <div>
+          <span class={`entry__badge entry__badge--${p.badgeTone}`}>{p.badge}</span>
+          <div class="entry__title">{p.title}</div>
+          <div class="entry__body">{p.body}</div>
+        </div>
+      </a>
+    ))}
+  </section>
+
+  <footer class="doc-footer">
+    <span>ABSOLUTELY PLAUSIBLE · DIY</span>
+    <span>recyclopedia.cc/diy · CC BY-NC 4.0</span>
+  </footer>
+
+</main>
+
+<style>
+  /* LBGA warm theme tokens (design_handoff_lbga_theme/theme-tokens.css) */
+  :root {
+    --surface: #FCFAF4;
+    --surface-alt: #F4EFE4;
+    --line: #E4DDCC;
+    --text: #26241E;
+    --soft: #544e42;
+    --muted: #77705F;
+    --accent: #6B9A3A;
+    --accent-mid: #57862F;
+    --grapefruit: #E4562E;
+    --status-hazard: #C0532A;
+    --font: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-mono: 'Share Tech Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #3a362d; font-family: var(--font); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+  .sheet {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--surface);
+    padding: clamp(24px, 6vw, 68px);
+    min-height: 60vh;
+  }
+  @media (min-width: 900px) {
+    .sheet { margin: 40px auto; border-radius: 6px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  }
+
+  section { margin-top: 34px; }
+  section:first-child { margin-top: 0; }
+
+  h1 { font-family: var(--font-display); font-size: clamp(34px, 7vw, 52px); font-weight: 500; line-height: 1.02; letter-spacing: -.02em; margin: 0 0 14px; }
+  .kicker-brand { font-family: var(--font-mono); font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: var(--status-hazard); margin-bottom: 16px; }
+  .lede { font-size: 16px; line-height: 1.55; color: var(--soft); margin: 0 0 8px; max-width: 52ch; }
+  .cover-tagline { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+  .entry { display: flex; gap: 16px; align-items: center; background: var(--surface-alt); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 14px; text-decoration: none; color: inherit; transition: border-color .15s ease; }
+  .entry:hover { border-color: var(--muted); }
+  .entry:first-child { margin-top: 0; }
+  .entry img { width: 170px; height: 122px; object-fit: cover; object-position: center 40%; border-radius: 10px; flex: 0 0 auto; }
+  .entry__badge { display: inline-block; padding: 3px 10px; border-radius: 999px; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+  .entry__badge--green { background: var(--accent-mid); }
+  .entry__badge--rust { background: var(--grapefruit); }
+  .entry__title { font-family: var(--font-display); font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .entry__body { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  .doc-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .06em; color: #9a927f; padding-top: 6px; border-top: 1px solid var(--line); margin-top: 44px; }
+
+  @media (max-width: 640px) {
+    .entry { flex-direction: column; align-items: flex-start; }
+    .entry img { width: 100%; height: 170px; }
+  }
+</style>
+
+</body>
+</html>
