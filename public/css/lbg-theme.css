@@ -1,6 +1,6 @@
 /*
  * Lettuce Beet Grapefruit warm theme v1.
- * Scoped to body.lbg-site so recyclopedia.cc keeps its own visual system.
+ * Shared by the LBG family, Recyclopedia, and DIY Recyclopedia.
  * Design handoff: 2026-07-04 · CC BY-NC-SA 4.0 content.
  */
 
@@ -448,6 +448,148 @@ body.lbg-site {
   margin-top: 2rem;
   background: var(--surface-alt);
   border-top: 1px solid var(--line);
+}
+
+/* Recyclopedia engine: preserve its information architecture and behavior
+   while using the same family-level visual language. */
+.lbg-engine-site .site-shell {
+  padding-top: clamp(1.5rem, 4vw, 3rem);
+}
+
+.lbg-engine-site .brand {
+  color: var(--text);
+  text-shadow: none;
+}
+
+.lbg-engine-site .brand__mark {
+  color: var(--accent);
+}
+
+.lbg-engine-site .brand__copy strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.lbg-engine-site .hero-copy,
+.lbg-engine-site .hero-panel,
+.lbg-engine-site .panel-card,
+.lbg-engine-site .feature-card,
+.lbg-engine-site .support-card,
+.lbg-engine-site .metric-card,
+.lbg-engine-site .module-card,
+.lbg-engine-site .pillar-card,
+.lbg-engine-site .myth-card,
+.lbg-engine-site .cta-band,
+.lbg-engine-site .form-wrap,
+.lbg-engine-site .recycle-card {
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+
+.lbg-engine-site .hero-copy,
+.lbg-engine-site .hero-panel {
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+.lbg-engine-site .hero-copy h1 {
+  max-width: 12ch;
+  font-size: clamp(2.8rem, 6vw, 5.4rem);
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.lbg-engine-site .eyebrow,
+.lbg-engine-site .section-kicker,
+.lbg-engine-site .module-card__number,
+.lbg-engine-site .module-card__status,
+.lbg-engine-site .form-label,
+.lbg-engine-site .recycle-card__cat,
+.lbg-engine-site .recycle-card__best-label {
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+.lbg-engine-site .hero-panel__frame {
+  min-height: 340px;
+  border: 1px solid var(--line);
+  background: var(--surface-alt);
+}
+
+.lbg-engine-site .hero-recycle-symbol {
+  color: var(--accent);
+  text-shadow: none;
+}
+
+.lbg-engine-site .metric-card {
+  background: var(--surface-alt);
+}
+
+.lbg-engine-site .metric-card strong {
+  color: var(--accent-deep);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.lbg-engine-site .section-heading h2 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+.lbg-engine-site .module-card h3,
+.lbg-engine-site .panel-card h3,
+.lbg-engine-site .feature-card h3 {
+  letter-spacing: -0.01em;
+}
+
+.lbg-engine-site .cta-band {
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  background: var(--surface-alt);
+}
+
+.lbg-engine-site .cta-band:last-child {
+  background: var(--accent-deep);
+  color: #fff;
+}
+
+.lbg-engine-site .cta-band:last-child .section-kicker,
+.lbg-engine-site .cta-band:last-child h3 {
+  color: inherit;
+}
+
+.lbg-engine-site .search-input,
+.lbg-engine-site .pill,
+.lbg-engine-site .form-input,
+.lbg-engine-site .form-select,
+.lbg-engine-site .form-textarea {
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.lbg-engine-site .pill.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.lbg-engine-site .recycle-card__name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.lbg-engine-site .recycle-card__best,
+.lbg-engine-site .recycle-card__detail {
+  border-color: var(--line);
+}
+
+.lbg-engine-site .site-footer {
+  margin-top: 3rem;
 }
 
 .lbg-site .footer-license {

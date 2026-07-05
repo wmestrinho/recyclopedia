@@ -1,6 +1,6 @@
 # Recyclopedia
 
-**Status:** In development — v0.3.1 alpha
+**Status:** In development — v0.4.0 alpha
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 **Project name:** Recyclopedia (display name) · repo slug: recyclopedia
 
@@ -57,7 +57,7 @@ but `recyclopedia.cc` remains the action engine. The domain boundary is canon in
 - Svelte island for the interactive Lookup
 - Existing CSS and browser JS preserved under `public/`
 - Cloudflare Pages — `$0/month` hosting
-- Font: Share Tech Mono (Google Fonts)
+- Type: Newsreader display, Hanken Grotesk body/UI, Share Tech Mono for technical labels
 - Database (Phase 2): Supabase
 
 ## Deployment
@@ -73,7 +73,7 @@ Domains: `recyclopedia.cc`, `lettucebeetgrapefruit.org`, and
 
 ## Version
 
-See `VERSION` file. Current: `v0.3.1 alpha`
+See `VERSION` file. Current: `v0.4.0 alpha`
 
 ## Validation
 

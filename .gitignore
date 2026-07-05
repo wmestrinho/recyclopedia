@@ -14,3 +14,7 @@ site/
 
 # Editor artifacts
 .vscode/
+
+# Local Product Design QA captures
+qa-*.png
+qa-comparison.html
