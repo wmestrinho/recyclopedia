@@ -1,5 +1,8 @@
 ---
 import Lookup from '../components/Lookup.svelte';
+import versionSource from '../../VERSION?raw';
+
+const version = versionSource.trim();
 ---
 
 <!DOCTYPE html>
@@ -367,7 +370,7 @@ import Lookup from '../components/Lookup.svelte';
       <!-- "since 1993": the founder's personal origin of the mission (growing up in Brazil). Intentionally distinct from AP's 2008 founding date in the About section — do not "reconcile" them. -->
       <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
       <p class="footer-license">EDUCATIONAL PURPOSES ONLY · Content © 2026 Recyclopedia — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (no commercial use)</p>
-      <p class="footer-version">v0.4.0 alpha</p>
+      <p class="footer-version">{version}</p>
     </div>
   </footer>
 

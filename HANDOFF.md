@@ -4,6 +4,24 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ DIY section + Track 2 quiz fix LIVE — 2026-07-05 (Mac Claude Code)
+
+- New DIY section, all cross-linked and live on `recyclopedia.cc`:
+  `/diy` index (`e7a741b`), `/diy/pallet-guide` field guide (`337d4c8`), and
+  `/diy/dj-pallet-table` build log (`a031347`) — 12 photos curated from the
+  raw HEIC set (9 sessions, Apr 15–May 13). The `diy.recyclopedia.cc`
+  subdomain idea is retired; footers now say `recyclopedia.cc/diy`.
+- Fixed live Academy Track 2 knowledge checks (`c3c6398`): quizzes
+  `academy_2_2_a`–`academy_2_6_a` existed only in the design project's
+  `quizzes.js`, so modules 2.2–2.6 rendered 'Quiz … not found'. Ported the
+  fact-checked set into `src/data/quizzes.ts`; verified live on module 2.6.
+- Modules 2.2–2.6 authored back into the Claude Design project
+  ("Interactive School Modules") as `Module 2.x.dc.html`, byte-consistent
+  with the Module 2.1 template.
+- Version bumped to `v0.5.0 alpha`; root footer now reads it from `VERSION`
+  (was hardcoded) — `LbgFooter.astro` already did. All deploys through
+  Cloudflare Pages auto-build; live checks passed on `recyclopedia.cc`.
+
 ## ✅ LBG family skin LIVE on Recyclopedia — 2026-07-04 (Windows Codex)
 
 - Recyclopedia now shares the warm Newsreader/Hanken theme already used by the
