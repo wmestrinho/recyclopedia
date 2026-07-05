@@ -14,6 +14,8 @@ export interface QuizQuestion {
 export interface Quiz {
   quiz_id: string;
   title: string;
+  track?: string;
+  module?: string;
   questions: QuizQuestion[];
 }
 
@@ -211,6 +213,41 @@ export const QUIZZES: Record<string, Quiz> = {
         correct: 'B',
         explanation:
           'Refuse → Reduce → Reuse → Repair → Recycle → Rot → Dispose. Recycling uses energy and water; keeping things in use beats it — the heart of the Gratitude Hierarchy.',
+      },
+    ],
+  },
+
+  // ── Track 2 · Professional Operations Certification ──────────────
+
+  academy_2_1_a: {
+    quiz_id: 'academy_2_1_a',
+    title: 'Reading the Circular Economy Dashboard',
+    track: 'Professional Operations Certification',
+    module: '2.1',
+    questions: [
+      {
+        id: 'q1',
+        question: 'A city reports a "diversion rate" of 45%. What does that number describe?',
+        options: {
+          A: 'The share of residents who own a recycling bin.',
+          B: 'The share of total waste kept out of landfill and incineration through recycling, composting, and reuse.',
+          C: 'The percentage of the waste budget spent on trucks.',
+        },
+        correct: 'B',
+        explanation:
+          'Diversion rate is the headline metric of a municipal waste program: total tons diverted ÷ total tons generated. The US national average sits around 32%; strong programs clear 50%.',
+      },
+      {
+        id: 'q2',
+        question: 'Which figure tells you the direct cost your city pays every time a ton of trash is buried?',
+        options: {
+          A: 'The tipping fee (gate fee) charged per ton at the landfill.',
+          B: 'The property tax rate.',
+          C: 'The diversion rate.',
+        },
+        correct: 'A',
+        explanation:
+          'The tipping fee is the per-ton charge to dump at the landfill or transfer station — often $50–$100+. Multiplying it by tons landfilled reveals the money a diversion program can save.',
       },
     ],
   },
