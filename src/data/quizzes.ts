@@ -360,4 +360,169 @@ export const QUIZZES: Record<string, Quiz> = {
       },
     ],
   },
+
+  academy_2_2_a: {
+    quiz_id: 'academy_2_2_a',
+    title: 'Biopolymer Engineering: PLA vs PHA',
+    track: 'Professional Operations Certification',
+    module: '2.2',
+    questions: [
+      {
+        id: 'q1',
+        question: 'A cup is stamped "compostable PLA." What is the correct disposal route for it?',
+        options: {
+          A: 'Any backyard compost pile — it breaks down like a banana peel.',
+          B: 'An industrial composting facility, which reaches ~58°C with controlled humidity; PLA will not break down in a backyard bin or landfill.',
+          C: 'Curbside plastic recycling with PET bottles.',
+        },
+        correct: 'B',
+        explanation:
+          'PLA (polylactic acid) is made by fermenting plant starch into lactic acid and polymerizing it. It only degrades under sustained industrial-compost heat — in a landfill or backyard it behaves like conventional plastic.',
+      },
+      {
+        id: 'q2',
+        question: 'What makes PHA different from PLA in how it is produced?',
+        options: {
+          A: 'PHA is synthesized directly inside bacteria that store it as an energy reserve from plant oils or sugars.',
+          B: 'PHA is distilled from crude petroleum like conventional plastics.',
+          C: 'PHA is pressed from recycled aluminum.',
+        },
+        correct: 'A',
+        explanation:
+          'PHA (polyhydroxyalkanoates) is grown by microbes rather than chemically polymerized. That biological origin makes many PHAs soil- and marine-degradable, though they cost more and are rarer than PLA.',
+      },
+    ],
+  },
+
+  academy_2_3_a: {
+    quiz_id: 'academy_2_3_a',
+    title: 'Inside the Material Recovery Facility',
+    track: 'Professional Operations Certification',
+    module: '2.3',
+    questions: [
+      {
+        id: 'q1',
+        question: 'How does a near-infrared (NIR) optical sorter identify and separate different plastic resins?',
+        options: {
+          A: 'It weighs each item and sorts by density.',
+          B: 'It reads the infrared signature each resin reflects, then fires a jet of air to eject the target into its bin.',
+          C: 'It uses a strong magnet to pull the plastics apart.',
+        },
+        correct: 'B',
+        explanation:
+          'NIR sensors read the molecular fingerprint of each resin under infrared light and trigger a precisely-timed air jet. This is also why black plastic fails — carbon black absorbs IR, so the sensor sees nothing to sort.',
+      },
+      {
+        id: 'q2',
+        question: 'Why are plastic bags, cords, and hoses ("tanglers") banned from most curbside recycling?',
+        options: {
+          A: 'They are too valuable to recycle with household waste.',
+          B: 'They wrap around the rotating shafts of the sorting screens, jamming the line and forcing costly shutdowns for manual cutting.',
+          C: 'They melt and change the color of glass bales.',
+        },
+        correct: 'B',
+        explanation:
+          "Film and long flexible items are the MRF's worst enemy: they tangle spinning disc screens and axles, halting the entire line while workers cut them free by hand.",
+      },
+    ],
+  },
+
+  academy_2_4_a: {
+    quiz_id: 'academy_2_4_a',
+    title: 'RCRA & Regulatory Compliance',
+    track: 'Professional Operations Certification',
+    module: '2.4',
+    questions: [
+      {
+        id: 'q1',
+        question: 'Under RCRA, what is the difference between Subtitle D and Subtitle C waste?',
+        options: {
+          A: 'Subtitle D is liquid waste; Subtitle C is solid waste.',
+          B: 'Subtitle D governs non-hazardous municipal solid waste (landfills, liners, cover); Subtitle C governs hazardous waste cradle-to-grave with manifests.',
+          C: 'Subtitle D is for businesses; Subtitle C is for households.',
+        },
+        correct: 'B',
+        explanation:
+          'RCRA (1976) splits waste in two: Subtitle D sets the standards for everyday municipal solid waste and its landfills, while Subtitle C tracks hazardous waste from generation to disposal.',
+      },
+      {
+        id: 'q2',
+        question: 'A waste is legally "hazardous" if it shows any of four characteristics. Which set is correct?',
+        options: {
+          A: 'Ignitability, Corrosivity, Reactivity, Toxicity.',
+          B: 'Weight, Color, Odor, Volume.',
+          C: 'Recyclability, Compostability, Density, Cost.',
+        },
+        correct: 'A',
+        explanation:
+          'The "ICRT" test: a waste is hazardous if it is Ignitable, Corrosive, Reactive, or Toxic. Solvents, many batteries, and strong cleaners qualify — which is why they never belong in a landfill bin.',
+      },
+    ],
+  },
+
+  academy_2_5_a: {
+    quiz_id: 'academy_2_5_a',
+    title: 'The Financial ROI of Circularity',
+    track: 'Professional Operations Certification',
+    module: '2.5',
+    questions: [
+      {
+        id: 'q1',
+        question: 'Recovered materials create value on a two-sided ledger. What are the two sides?',
+        options: {
+          A: 'Property taxes collected and fines issued.',
+          B: 'Avoided tipping fees (cost not paid to landfill) plus revenue from selling baled commodities.',
+          C: 'Truck fuel saved and driver wages.',
+        },
+        correct: 'B',
+        explanation:
+          'Every diverted ton both avoids a tipping fee and, once baled, can be sold on the commodity market. Together those two flows are the financial case for recycling and reuse.',
+      },
+      {
+        id: 'q2',
+        question: 'Why is aluminum so important to the economics of a recycling line?',
+        options: {
+          A: 'It is the heaviest material, so it fills bales fastest.',
+          B: 'A bale of aluminum is worth many times a bale of glass, so aluminum revenue often subsidizes the recovery of low-value materials.',
+          C: 'It is the only material a MRF is legally required to collect.',
+        },
+        correct: 'B',
+        explanation:
+          'Aluminum is infinitely recyclable and commands the highest price per bale — often 10–20× glass, which can cost more to handle than it returns. Aluminum revenue frequently keeps the whole line profitable.',
+      },
+    ],
+  },
+
+  academy_2_6_a: {
+    quiz_id: 'academy_2_6_a',
+    title: 'Designing Community Sorting Infrastructure',
+    track: 'Professional Operations Certification',
+    module: '2.6',
+    questions: [
+      {
+        id: 'q1',
+        question: 'What is the core trade-off between single-stream and dual/multi-stream collection?',
+        options: {
+          A: 'Single-stream is cheaper to print signs for.',
+          B: 'Single-stream (one bin) lifts participation but raises contamination; dual/multi-stream keeps commodities cleaner but asks more effort of citizens.',
+          C: 'Dual-stream is illegal in most municipalities.',
+        },
+        correct: 'B',
+        explanation:
+          'Putting everything in one bin makes it easy to participate but mixes contaminants into commodities. Separating streams protects material value at the cost of asking residents to do the sorting.',
+      },
+      {
+        id: 'q2',
+        question: 'Which intervention most reliably drives high return rates for beverage containers?',
+        options: {
+          A: 'A container-deposit (bottle-bill) scheme that refunds a deposit on return.',
+          B: 'Printing "please recycle" on the label.',
+          C: 'Adding more colors to the bin lids.',
+        },
+        correct: 'A',
+        explanation:
+          'Container-deposit programs attach a small refundable value to each container and routinely achieve 80%+ return rates — a financial nudge that clear signage alone cannot match.',
+      },
+    ],
+  },
 };
