@@ -1,0 +1,92 @@
+---
+// Module 1.4 · The Upcycling Masterclass — implementation of
+// "Module 1.4.dc.html" (Claude Design project "Interactive School Modules",
+// grapefruit accent).
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const blueprints = [
+  {
+    title: 'Blueprint 1 · Self-watering planter',
+    tag: 'from a PET bottle',
+    body: 'Cut a 2-litre bottle in half. Invert the top into the base like a funnel, thread a cotton string through the neck so it dangles into the basin, fill the funnel with soil and the basin with water.',
+    why: '<strong>Why it works:</strong> the string wicks water up to the roots on demand — no evaporation, no over-watering. A dead bottle becomes a multi-year growing tool.',
+  },
+  {
+    title: 'Blueprint 2 · High-tensile utility rope',
+    tag: 'from old textiles',
+    body: 'Cut worn t-shirts or sheets into continuous 2–3 cm strips. Tie three together, anchor them, and braid with a tight reverse-twist (over-under-twist).',
+    why: '<strong>Why it works:</strong> braiding multiplies tensile strength. Zero-value fabric scraps become durable cordage for the garden, workshop, or camping.',
+  },
+  {
+    title: 'Blueprint 3 · Enzyme cleaner spray',
+    tag: 'from citrus peels',
+    body: 'Pack a glass jar with citrus peels, water, and sugar at a <strong>3 : 10 : 1</strong> ratio. Seal it in a dark cupboard for 2–3 months, burping the gas every few days early on. Strain.',
+    why: '<strong>Why it works:</strong> fermentation extracts d-limonene and enzymes — a potent, non-toxic cleaner and insect deterrent that replaces plastic-bottled chemical solvents.',
+  },
+];
+---
+
+<LbgaModule
+  title="Module 1.4 · The Upcycling Masterclass"
+  description="Recycling melts things down and ships them away. Upcycling intercepts a discarded item exactly as it is and turns it into something of higher value — three low-tech blueprints, no workshop required. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 1.4 · Makers"
+  badgeDot="#E4562E"
+  badgeColor="#F6C9B8"
+  stripe="rgba(228,86,46,.09)"
+  kicker="Module 1.4 · The Upcycling Masterclass"
+  kickerColor="#E9A98E"
+  heading="Be your own micro-processing facility"
+  lede="Recycling melts things down and ships them away. Upcycling intercepts a discarded item exactly as it is and turns it into something of higher value — right in your kitchen. Three low-tech blueprints, no workshop required."
+  pills={[
+    { text: '3 blueprints' },
+    { text: '1 knowledge check' },
+    { text: 'Build project', style: 'background:rgba(228,86,46,.2);border-color:rgba(228,86,46,.5);color:#F6C9B8' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m1_4_done"
+>
+  {blueprints.map((b, i) => (
+    <div class={`bp-card ${i === blueprints.length - 1 ? 'bp-card--last' : ''}`}>
+      <div class="bp-card__head">
+        <div class="bp-card__title">{b.title}</div>
+        <span class="bp-card__tag">{b.tag}</span>
+      </div>
+      <p class="bp-card__body" set:html={b.body} />
+      <div class="bp-card__why" set:html={b.why} />
+    </div>
+  ))}
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Upcycling</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_4_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Ongoing build project"
+    kickerColor="#F6C9B8"
+    title="Build one, document it"
+    body='Pick one blueprint and actually build it this week. Photograph the waste input before and the finished object after. Note what problem it now solves in your home — that "before &amp; after" is your proof of a working micro-processing facility.'
+    chips={['① Pick a blueprint', '② Build it', '③ Before & after photo']}
+    chipColor="#F6C9B8"
+    chipBg="rgba(228,86,46,.16)"
+    chipBorder="rgba(228,86,46,.4)"
+  />
+</LbgaModule>
+
+<style>
+  .bp-card { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 22px; margin-bottom: 14px; }
+  .bp-card--last { margin-bottom: 28px; }
+  .bp-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .bp-card__title { font-family: 'Newsreader', serif; font-size: 20px; font-weight: 500; }
+  .bp-card__tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #77705F; }
+  .bp-card__body { font-size: 13.5px; color: #5b5445; line-height: 1.6; margin: 0 0 12px; }
+  .bp-card__why {
+    background: #F4EFE4; border-left: 3px solid #6B9A3A; border-radius: 8px;
+    padding: 10px 13px; font-size: 13px; color: #2f4d1c;
+  }
+</style>

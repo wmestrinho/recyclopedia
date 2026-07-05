@@ -1,0 +1,100 @@
+---
+// Module 1.5 · The Zero-Waste Shopping Matrix — implementation of
+// "Module 1.5.dc.html" (Claude Design project "Interactive School Modules").
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const tiers = [
+  {
+    n: 1, tone: 'yes',
+    title: 'Package-free / naked refills',
+    body: 'Loose produce, solid shampoo bars, bulk-bin dry goods in your own jars. Zero packaging — eliminates 100% of packaging logistics.',
+  },
+  {
+    n: 2, tone: 'drop',
+    title: 'Infinitely recyclable materials',
+    body: 'Glass jars, aluminum cans, steel tins. Unlike plastic, melting glass and metal keeps pure structural integrity — loop-locked in production forever.',
+  },
+  {
+    n: 3, tone: 'hazard',
+    title: 'Transitional certified compostables',
+    body: 'Un-waxed cardboard, bagasse trays, <strong>certified</strong> compostable bioplastics. <span style="color:#A33143">The trap:</span> reject "biodegradable" with no BPI/TÜV certification — it\'s often plastic that sheds microplastics.',
+  },
+  {
+    n: 4, tone: 'no',
+    title: 'Landfill bound — avoid completely',
+    body: 'Squeeze pouches, chip bags (plastic fused with foil), blister packs, black takeout plastic. Structurally impossible to separate — dead-ends engineered for the landfill.',
+  },
+];
+---
+
+<LbgaModule
+  title="Module 1.5 · The Zero-Waste Shopping Matrix"
+  description="Every item in a landfill was once on a store shelf. A four-tier mental filter you run on packaging while standing in the aisle — always reach for the highest tier available. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 1.5 · Shopping"
+  badgeDot="#6B9A3A"
+  badgeColor="#CFE3B4"
+  stripe="rgba(107,154,58,.09)"
+  kicker="Module 1.5 · The Zero-Waste Shopping Matrix"
+  kickerColor="#CFE3B4"
+  heading="Stop the trash before you buy it"
+  lede="Every item in a landfill was once on a store shelf. Upstream prevention is the ultimate move — a four-tier mental filter you run on packaging while standing in the aisle. Always reach for the highest tier available."
+  pills={[
+    { text: '4-tier matrix' },
+    { text: '1 knowledge check' },
+    { text: 'Aisle audit', style: 'background:rgba(107,154,58,.22);border-color:rgba(107,154,58,.5);color:#CFE3B4' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m1_5_done"
+>
+  <div class="tiers">
+    {tiers.map((t) => (
+      <div class={`tier tier--${t.tone}`}>
+        <div class={`tier__chip tier__chip--${t.tone}`}>TIER<br />{t.n}</div>
+        <div>
+          <div class="tier__title">{t.title}</div>
+          <div class="tier__body" set:html={t.body} />
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Shopping matrix</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_5_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Ongoing field project"
+    kickerColor="#CFE3B4"
+    title="The Aisle Audit"
+    body="On your next shop, tier every item in your basket before checkout. Swap at least one Tier-4 product for a Tier-1 or Tier-2 alternative. Snap a photo of the swap and note the packaging you kept out of a landfill."
+    chips={['① Tier your basket', '② Swap one Tier-4', '③ Photograph the swap']}
+    chipColor="#CFE3B4"
+    chipBg="rgba(107,154,58,.18)"
+    chipBorder="rgba(107,154,58,.4)"
+  />
+</LbgaModule>
+
+<style>
+  .tiers { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .tier { border-radius: 16px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; }
+  .tier--yes { background: #ECF1E0; border: 1px solid #CFE0B4; }
+  .tier--drop { background: #F6ECD6; border: 1px solid #E8D5A8; }
+  .tier--hazard { background: #F4EFE4; border: 1px solid #E8CDB8; }
+  .tier--no { background: #F6E6EA; border: 1px solid #E8C2CC; }
+  .tier__chip {
+    flex: 0 0 auto; font-family: 'Share Tech Mono', monospace; font-size: 12px; font-weight: 700;
+    color: #fff; border-radius: 8px; padding: 8px 10px; text-align: center; line-height: 1.2; width: 58px;
+  }
+  .tier__chip--yes { background: #57862F; }
+  .tier__chip--drop { background: #B07A1E; }
+  .tier__chip--hazard { background: #C0532A; }
+  .tier__chip--no { background: #A33143; }
+  .tier__title { font-family: 'Newsreader', serif; font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .tier__body { font-size: 13.5px; color: #3d3a32; line-height: 1.55; }
+</style>

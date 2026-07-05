@@ -1,0 +1,231 @@
+---
+// Shared skeleton for LBGA Online School module pages — the common anatomy of
+// the "Module *.dc.html" designs (Claude Design project "Interactive School
+// Modules"): context strip → striped hero → progress card → lesson content
+// (slot) → mark-complete CTA → module footer. Per-module accents arrive as
+// props; module completion persists in localStorage under `storageKey`.
+
+export interface Pill {
+  text: string;
+  style?: string; // inline overrides for the accent pill (bg/border/color)
+}
+
+interface Props {
+  title: string; // <title> text before " | Recyclopedia Academy"
+  description: string;
+  trackLabel: string; // e.g. "Track 1: Citizen Science & Action"
+  badgeLabel: string; // topbar right, e.g. "Module 1.1 · Foundations"
+  badgeDot: string; // topbar dot color
+  badgeColor: string; // topbar badge text color
+  stripe: string; // hero stripe color, e.g. "rgba(228,86,46,.07)"
+  kicker: string; // hero eyebrow
+  kickerColor: string;
+  heading: string;
+  lede: string;
+  pills: Pill[];
+  accent: string; // progress number/bar + CTA color
+  storageKey: string; // e.g. "lbga_m1_1_done"
+}
+
+const {
+  title, description, trackLabel, badgeLabel, badgeDot, badgeColor,
+  stripe, kicker, kickerColor, heading, lede, pills, accent, storageKey,
+} = Astro.props;
+
+const stripeOff = stripe.replace(/,\s*[\d.]+\)\s*$/, ',0)');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Recyclopedia Academy</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body style={`--m-accent:${accent}`}>
+
+<div class="lm-topbar">
+  <div class="lm-topbar__inner">
+    <span class="lm-topbar__school">LBGA Online School · {trackLabel}</span>
+    <span class="lm-topbar__module">
+      <span class="lm-topbar__dot" style={`background:${badgeDot}`}></span>
+      <span style={`color:${badgeColor}`}>{badgeLabel}</span>
+    </span>
+  </div>
+</div>
+
+<header class="lm-hero">
+  <div class="lm-hero__stripes" aria-hidden="true" style={`background-image:repeating-linear-gradient(135deg,${stripe} 0 14px,${stripeOff} 14px 28px)`}></div>
+  <div class="lm-hero__inner">
+    <div class="lm-hero__kicker" style={`color:${kickerColor}`}>{kicker}</div>
+    <h1>{heading}</h1>
+    <p class="lm-hero__lede" set:html={lede} />
+    <div class="lm-hero__pills">
+      {pills.map((p) => <span class="lm-pill" style={p.style}>{p.text}</span>)}
+    </div>
+  </div>
+</header>
+
+<main class="lm-content">
+
+  <div class="lm-progress">
+    <div class="lm-progress__main">
+      <div class="lm-progress__label" id="progress-label">In progress</div>
+      <div class="lm-progress__track"><div class="lm-progress__fill" id="progress-fill"></div></div>
+    </div>
+    <div class="lm-progress__pct" id="progress-pct">0%</div>
+  </div>
+
+  <slot />
+
+  <button type="button" class="lm-cta" id="mark-done" data-key={storageKey}>Mark module complete</button>
+
+  <footer class="lm-footer">
+    <div class="lm-footer__left">Recyclopedia Academy · <strong>{trackLabel}</strong></div>
+    <div class="lm-footer__right">recyclopedia.cc/#academy · CC BY-NC 4.0</div>
+  </footer>
+
+</main>
+
+<script>
+  // Module completion — same semantics as the design's DCLogic: the bar sits
+  // at a 6% hint until complete; the localStorage key comes from the layout.
+  const btn = document.getElementById('mark-done') as HTMLButtonElement;
+  const key = btn.dataset.key!;
+  const label = document.getElementById('progress-label')!;
+  const fill = document.getElementById('progress-fill')!;
+  const pct = document.getElementById('progress-pct')!;
+
+  function load(): boolean {
+    try { return localStorage.getItem(key) === '1'; } catch { return false; }
+  }
+
+  function render(done: boolean) {
+    label.textContent = done ? 'Module complete' : 'In progress';
+    fill.style.width = done ? '100%' : '6%';
+    pct.textContent = done ? '100%' : '0%';
+    btn.textContent = done ? '✓ Module complete — click to reset' : 'Mark module complete';
+    btn.classList.toggle('lm-cta--done', done);
+  }
+
+  let done = load();
+  render(done);
+
+  btn.addEventListener('click', () => {
+    done = !done;
+    try { localStorage.setItem(key, done ? '1' : '0'); } catch { /* private mode */ }
+    render(done);
+  });
+</script>
+
+<style is:global>
+  /* LBGA warm theme — shared module skeleton (00_SHARED_SPEC.md tokens):
+     page #EFE9DB · ink #26241E · card #FCFAF4 · line #E4DDCC · muted #77705F
+     accent (progress/CTA) per module via --m-accent */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100%;
+    background: #EFE9DB;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    color: #26241E;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Context strip */
+  .lm-topbar { background: #26241E; color: #EAE4D6; font-family: 'Share Tech Mono', monospace; }
+  .lm-topbar__inner {
+    max-width: 900px; margin: 0 auto; padding: 11px 40px;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between;
+    font-size: 11px; letter-spacing: .08em;
+  }
+  .lm-topbar__school { text-transform: uppercase; color: #9a927f; }
+  .lm-topbar__module { display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
+  .lm-topbar__dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+
+  /* Hero */
+  .lm-hero { position: relative; overflow: hidden; background: #26241E; }
+  .lm-hero__stripes { position: absolute; inset: 0; }
+  .lm-hero__inner { position: relative; max-width: 900px; margin: 0 auto; padding: 60px 40px 52px; }
+  .lm-hero__kicker {
+    font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: .3em;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .lm-hero h1 {
+    font-family: 'Newsreader', Georgia, serif; font-size: clamp(38px, 5.6vw, 58px);
+    font-weight: 500; line-height: 1.03; letter-spacing: -.02em; color: #FCFAF4;
+    margin: 0 0 18px; max-width: 18ch;
+  }
+  .lm-hero__lede { font-size: 17px; line-height: 1.6; color: #E7E0CF; max-width: 58ch; margin: 0 0 28px; }
+  .lm-hero__pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .lm-pill {
+    display: inline-flex; padding: 8px 15px; border-radius: 999px;
+    background: rgba(252,250,244,.12); border: 1px solid rgba(252,250,244,.24);
+    color: #FCFAF4; font-size: 12.5px; font-weight: 600;
+  }
+
+  /* Content column */
+  .lm-content { max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; }
+
+  /* Progress card */
+  .lm-progress {
+    background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 18px;
+    padding: 20px 24px; margin-bottom: 30px; display: flex; align-items: center; gap: 18px;
+  }
+  .lm-progress__main { flex: 1; }
+  .lm-progress__label {
+    font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: #77705F; font-weight: 600; margin-bottom: 8px;
+  }
+  .lm-progress__track { height: 9px; border-radius: 999px; background: #E7E0CF; overflow: hidden; }
+  .lm-progress__fill {
+    width: 6%; height: 100%; background: var(--m-accent); border-radius: 999px;
+    transition: width .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .lm-progress__pct { font-family: 'Newsreader', serif; font-size: 26px; font-weight: 500; color: var(--m-accent); }
+
+  /* Knowledge check frame (used inside the slot by every module) */
+  .lm-check-kicker {
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: #77705F; font-weight: 700; margin-bottom: 12px;
+  }
+  .lm-quiz-frame {
+    height: 600px; border: 1px solid #E4DDCC; border-radius: 18px;
+    overflow: hidden; background: #F4EFE4; margin-bottom: 40px;
+  }
+
+  /* Mark-complete CTA */
+  .lm-cta {
+    display: inline-flex; align-items: center; gap: 8px; border: none; border-radius: 999px;
+    background: var(--m-accent); color: #fff; font-family: inherit; font-size: 13px; font-weight: 700;
+    letter-spacing: .03em; text-transform: uppercase; padding: 12px 22px; cursor: pointer;
+  }
+  .lm-cta--done {
+    border: 1.5px solid #E4DDCC; background: #F4EFE4; color: #77705F;
+    font-weight: 600; letter-spacing: normal; text-transform: none; padding: 11px 20px;
+  }
+
+  /* Module footer */
+  .lm-footer {
+    border-top: 1px solid #E4DDCC; margin-top: 32px; padding-top: 22px;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between;
+  }
+  .lm-footer__left { font-size: 12.5px; color: #77705F; }
+  .lm-footer__left strong { color: #26241E; }
+  .lm-footer__right { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #9a927f; letter-spacing: .04em; }
+
+  @media (max-width: 560px) {
+    .lm-topbar__inner { padding: 11px 20px; }
+    .lm-hero__inner { padding: 48px 20px 40px; }
+    .lm-content { padding: 32px 20px 64px; }
+  }
+</style>
+
+</body>
+</html>

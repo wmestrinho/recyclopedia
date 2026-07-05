@@ -1,0 +1,125 @@
+---
+// Module 1.2 · The Smartphone Sorting Guide — implementation of
+// "Module 1.2.dc.html" (Claude Design project "Interactive School Modules").
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const moves = [
+  { title: 'Empty & rinse', body: 'A dirty container can contaminate a whole batch. Empty it, give it a quick rinse.' },
+  { title: 'Check the local list', body: 'Your municipality publishes exactly what it takes. That list — not the triangle — is the real answer.' },
+  { title: 'When in doubt, leave it out', body: '"Wish-cycling" one wrong item can send a whole load to landfill. Unsure? Keep it out of recycling.' },
+];
+---
+
+<LbgaModule
+  title="Module 1.2 · The Smartphone Sorting Guide"
+  description="The chasing-arrows number is a resin code, not a recycling promise. Decode what a package really is, check the local list, and stop guessing. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 1.2 · Sorting"
+  badgeDot="#6B9A3A"
+  badgeColor="#CFE3B4"
+  stripe="rgba(107,154,58,.09)"
+  kicker="Module 1.2 · The Smartphone Sorting Guide"
+  kickerColor="#CFE3B4"
+  heading="Read the label, not the myth"
+  lede="The most powerful recycling tool on Earth is the smartphone in your pocket. Standing in front of a bin, you can decode what a package really is — and stop guessing. But first you have to unlearn the biggest myth in recycling."
+  pills={[
+    { text: '1 lesson' },
+    { text: '1 knowledge check' },
+    { text: 'Field project', style: 'background:rgba(107,154,58,.22);border-color:rgba(107,154,58,.5);color:#CFE3B4' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m1_2_done"
+>
+  <div class="myth-card">
+    <span class="tag tag--myth">Myth</span>
+    <div class="myth-card__quote">"If it has the chasing-arrows triangle with a number, it gets recycled."</div>
+    <span class="tag tag--truth">Truth</span>
+    <div class="myth-card__truth">That number (1–7) is a <strong>resin identification code</strong> — it tells you what the plastic is made of, <em>not</em> that your local program accepts it. It's a materials label, not a recycling promise.</div>
+  </div>
+
+  <div class="lm-check-kicker">What the number actually means</div>
+  <div class="resin-table">
+    <div class="resin-row resin-row--yes">
+      <span class="resin-row__code">#1</span>
+      <span class="resin-row__desc">PET — clear drink bottles</span>
+      <span class="resin-row__badge resin-row__badge--green">Widely accepted</span>
+    </div>
+    <div class="resin-row">
+      <span class="resin-row__code">#2</span>
+      <span class="resin-row__desc">HDPE — milk jugs, detergent bottles</span>
+      <span class="resin-row__badge resin-row__badge--green">Widely accepted</span>
+    </div>
+    <div class="resin-row resin-row--last">
+      <span class="resin-row__code resin-row__code--amber">#3–7</span>
+      <span class="resin-row__desc">PVC, LDPE, PP, PS, other</span>
+      <span class="resin-row__badge resin-row__badge--amber">Varies locally</span>
+    </div>
+  </div>
+
+  <div class="moves">
+    {moves.map((m) => (
+      <div class="move-card">
+        <div class="move-card__title">{m.title}</div>
+        <div class="move-card__body">{m.body}</div>
+      </div>
+    ))}
+  </div>
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Smart sorting</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_2_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Ongoing field project"
+    kickerColor="#CFE3B4"
+    title="The Sort Audit"
+    body="Pull up your city's official accepted-materials list on your phone. Line up 10 items from your recycling bin and check each one against the list. Count how many you got wrong out of habit — that number is your personal contamination rate."
+    chips={['① Open the local list', '② Check 10 items', '③ Find your contamination rate']}
+    chipColor="#CFE3B4"
+    chipBg="rgba(107,154,58,.18)"
+    chipBorder="rgba(107,154,58,.4)"
+  />
+</LbgaModule>
+
+<style>
+  .myth-card { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 22px; margin-bottom: 26px; }
+  .tag {
+    display: inline-flex; padding: 4px 11px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .tag--myth { background: #F6E6EA; color: #A33143; }
+  .tag--truth { background: #ECF1E0; color: #57862F; }
+  .myth-card__quote {
+    font-family: 'Newsreader', serif; font-style: italic; font-size: 19px;
+    margin: 12px 0 16px; line-height: 1.4;
+  }
+  .myth-card__truth { font-size: 14.5px; color: #3d3a32; margin-top: 12px; line-height: 1.6; }
+
+  .resin-table { border: 1px solid #E4DDCC; border-radius: 14px; overflow: hidden; margin-bottom: 26px; }
+  .resin-row {
+    display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center;
+    padding: 12px 16px; background: #FCFAF4; border-bottom: 1px solid #E4DDCC;
+  }
+  .resin-row--yes { background: #ECF1E0; }
+  .resin-row--last { border-bottom: none; }
+  .resin-row__code { font-family: 'Share Tech Mono', monospace; font-weight: 700; font-size: 14px; }
+  .resin-row__code--amber { color: #B07A1E; }
+  .resin-row__desc { font-size: 13.5px; color: #3d3a32; }
+  .resin-row__badge { padding: 4px 11px; border-radius: 999px; color: #fff; font-size: 11px; font-weight: 700; }
+  .resin-row__badge--green { background: #57862F; }
+  .resin-row__badge--amber { background: #B07A1E; }
+
+  .moves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .move-card { background: #F4EFE4; border: 1px solid #E4DDCC; border-radius: 14px; padding: 16px; }
+  .move-card__title { font-family: 'Newsreader', serif; font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+  .move-card__body { font-size: 13px; color: #77705F; line-height: 1.5; }
+
+  @media (max-width: 640px) {
+    .moves { grid-template-columns: 1fr; }
+  }
+</style>

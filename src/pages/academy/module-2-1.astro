@@ -1,8 +1,9 @@
 ---
 // Module 2.1 · The Circular Economy Dashboard — implementation of
 // "Module 2.1.dc.html" (Claude Design project "Interactive School Modules",
-// LBGA warm theme, Track 2 plum accent). Knowledge check rendered by
-// QuizLbga.svelte; module completion persists in localStorage.
+// Track 2 plum accent). Knowledge check rendered by QuizLbga.svelte.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
 import QuizLbga from '../../components/QuizLbga.svelte';
 
 const briefings = [
@@ -25,57 +26,30 @@ const briefings = [
     callout: `<strong>Operator's read:</strong> the biggest stream, not the loudest material, is where a diversion program earns its money back first.`,
   },
 ];
-
-const fieldSteps = ['① Find the MSW report', '② Record the 3 numbers', '③ Benchmark a neighbor'];
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 2.1 · The Circular Economy Dashboard | Recyclopedia Academy</title>
-  <meta name="description" content="Read your city like a balance sheet. Pull the municipal waste budget, read the three numbers that matter — diversion rate, tipping fee, cost per household — and audit the landfill they pay for. Track 2: Professional Operations." />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-</head>
-<body>
-
-<div class="topbar">
-  <div class="topbar__inner">
-    <span class="topbar__school">LBGA Online School · Track 2: Professional Operations</span>
-    <span class="topbar__module"><span class="topbar__dot"></span><span class="topbar__cert">Module 2.1 · Certification</span></span>
-  </div>
-</div>
-
-<header class="hero">
-  <div class="hero__stripes" aria-hidden="true"></div>
-  <div class="hero__inner">
-    <div class="hero__kicker">Module 2.1 · The Circular Economy Dashboard</div>
-    <h1>Read your city like a balance sheet</h1>
-    <p class="hero__lede">Every municipality runs a waste budget whether it publishes one or not. The certified operator's first skill is to pull that budget, read the three numbers that actually matter, and audit the landfill those numbers pay for.</p>
-    <div class="hero__pills">
-      <span class="hero-pill">3 briefings</span>
-      <span class="hero-pill">1 knowledge check</span>
-      <span class="hero-pill hero-pill--cert">Certification tier</span>
-    </div>
-  </div>
-</header>
-
-<main class="content">
-
-  <div class="progress-card">
-    <div class="progress-card__main">
-      <div class="progress-card__label" id="progress-label">In progress</div>
-      <div class="progress-card__track"><div class="progress-card__fill" id="progress-fill"></div></div>
-    </div>
-    <div class="progress-card__pct" id="progress-pct">0%</div>
-  </div>
-
-  {briefings.map((b) => (
-    <section class="briefing">
+<LbgaModule
+  title="Module 2.1 · The Circular Economy Dashboard"
+  description="Read your city like a balance sheet. Pull the municipal waste budget, read the three numbers that matter — diversion rate, tipping fee, cost per household — and audit the landfill they pay for. Track 2: Professional Operations."
+  trackLabel="Track 2: Professional Operations"
+  badgeLabel="Module 2.1 · Certification"
+  badgeDot="#8A2450"
+  badgeColor="#E7A9C0"
+  stripe="rgba(138,36,80,.13)"
+  kicker="Module 2.1 · The Circular Economy Dashboard"
+  kickerColor="#E7A9C0"
+  heading="Read your city like a balance sheet"
+  lede="Every municipality runs a waste budget whether it publishes one or not. The certified operator's first skill is to pull that budget, read the three numbers that actually matter, and audit the landfill those numbers pay for."
+  pills={[
+    { text: '3 briefings' },
+    { text: '1 knowledge check' },
+    { text: 'Certification tier', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.6);color:#F0C4D5' },
+  ]}
+  accent="#8A2450"
+  storageKey="lbga_m2_1_done"
+>
+  {briefings.map((b, i) => (
+    <section class={`briefing ${i === briefings.length - 1 ? 'briefing--last' : ''}`}>
       <div class="briefing__head">
         <div class="briefing__title">{b.title}</div>
         <span class="briefing__tag">{b.tag}</span>
@@ -86,136 +60,27 @@ const fieldSteps = ['① Find the MSW report', '② Record the 3 numbers', '③ 
   ))}
 
   <section aria-label="Knowledge check">
-    <div class="quiz-kicker">Knowledge check · Circular Economy Dashboard</div>
-    <div class="quiz-frame">
+    <div class="lm-check-kicker">Knowledge check · Circular Economy Dashboard</div>
+    <div class="lm-quiz-frame">
       <QuizLbga client:visible quizId="academy_2_1_a" />
     </div>
   </section>
 
-  <section class="field-brief">
-    <div class="field-brief__head"><span class="field-brief__kicker">Field brief</span><span class="field-brief__rule"></span></div>
-    <div class="field-brief__title">Pull your city's numbers</div>
-    <div class="field-brief__body">Find your municipality's latest MSW report and record the three numbers — diversion rate, tipping fee, cost per household. Then compare all three against a neighboring town. The gaps you find are your first operator's memo.</div>
-    <div class="field-brief__steps">
-      {fieldSteps.map((s) => <span class="field-brief__chip">{s}</span>)}
-    </div>
-  </section>
-
-  <button type="button" class="cta" id="mark-done">Mark module complete</button>
-
-  <footer class="module-footer">
-    <div class="module-footer__left">Recyclopedia Academy · <strong>Track 2: Professional Operations</strong></div>
-    <div class="module-footer__right">recyclopedia.cc/#academy · CC BY-NC 4.0</div>
-  </footer>
-
-</main>
-
-<script>
-  // Module completion — same key and semantics as the design's DCLogic
-  // (lbga_m2_1_done, bar sits at a 6% hint until complete).
-  const KEY = 'lbga_m2_1_done';
-  const btn = document.getElementById('mark-done')!;
-  const label = document.getElementById('progress-label')!;
-  const fill = document.getElementById('progress-fill')!;
-  const pct = document.getElementById('progress-pct')!;
-
-  function load(): boolean {
-    try { return localStorage.getItem(KEY) === '1'; } catch { return false; }
-  }
-
-  function render(done: boolean) {
-    label.textContent = done ? 'Module complete' : 'In progress';
-    fill.style.width = done ? '100%' : '6%';
-    pct.textContent = done ? '100%' : '0%';
-    btn.textContent = done ? '✓ Module complete — click to reset' : 'Mark module complete';
-    btn.classList.toggle('cta--done', done);
-  }
-
-  let done = load();
-  render(done);
-
-  btn.addEventListener('click', () => {
-    done = !done;
-    try { localStorage.setItem(KEY, done ? '1' : '0'); } catch { /* private mode */ }
-    render(done);
-  });
-</script>
+  <LbgaFieldBrief
+    kicker="Field brief"
+    kickerColor="#E7A9C0"
+    title="Pull your city's numbers"
+    body="Find your municipality's latest MSW report and record the three numbers — diversion rate, tipping fee, cost per household. Then compare all three against a neighboring town. The gaps you find are your first operator's memo."
+    chips={['① Find the MSW report', '② Record the 3 numbers', '③ Benchmark a neighbor']}
+    chipColor="#F0C4D5"
+    chipBg="rgba(138,36,80,.22)"
+    chipBorder="rgba(138,36,80,.5)"
+  />
+</LbgaModule>
 
 <style>
-  /* LBGA warm theme, Track 2 plum accent — Module 2.1.dc.html palette:
-     page #EFE9DB · ink #26241E · card #FCFAF4 · line #E4DDCC · muted #77705F
-     plum #8A2450 · pink #E7A9C0 / #F0C4D5 · dark-surface text #EAE4D6 */
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    min-height: 100%;
-    background: #EFE9DB;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
-    color: #26241E;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Top strip */
-  .topbar { background: #26241E; color: #EAE4D6; font-family: 'Share Tech Mono', monospace; }
-  .topbar__inner {
-    max-width: 900px; margin: 0 auto; padding: 11px 40px;
-    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between;
-    font-size: 11px; letter-spacing: .08em;
-  }
-  .topbar__school { text-transform: uppercase; color: #9a927f; }
-  .topbar__module { display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
-  .topbar__dot { width: 7px; height: 7px; border-radius: 50%; background: #8A2450; display: inline-block; }
-  .topbar__cert { color: #E7A9C0; }
-
-  /* Hero */
-  .hero { position: relative; overflow: hidden; background: #26241E; }
-  .hero__stripes {
-    position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(135deg, rgba(138,36,80,.13) 0 14px, rgba(138,36,80,0) 14px 28px);
-  }
-  .hero__inner { position: relative; max-width: 900px; margin: 0 auto; padding: 60px 40px 52px; }
-  .hero__kicker {
-    font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: .3em;
-    text-transform: uppercase; color: #E7A9C0; margin-bottom: 14px;
-  }
-  .hero h1 {
-    font-family: 'Newsreader', Georgia, serif; font-size: clamp(38px, 5.6vw, 58px);
-    font-weight: 500; line-height: 1.03; letter-spacing: -.02em; color: #FCFAF4;
-    margin: 0 0 18px; max-width: 18ch;
-  }
-  .hero__lede { font-size: 17px; line-height: 1.6; color: #E7E0CF; max-width: 58ch; margin: 0 0 28px; }
-  .hero__pills { display: flex; flex-wrap: wrap; gap: 10px; }
-  .hero-pill {
-    display: inline-flex; padding: 8px 15px; border-radius: 999px;
-    background: rgba(252,250,244,.12); border: 1px solid rgba(252,250,244,.24);
-    color: #FCFAF4; font-size: 12.5px; font-weight: 600;
-  }
-  .hero-pill--cert { background: rgba(138,36,80,.28); border-color: rgba(138,36,80,.6); color: #F0C4D5; }
-
-  /* Content column */
-  .content { max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; }
-
-  /* Progress card */
-  .progress-card {
-    background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 18px;
-    padding: 20px 24px; margin-bottom: 30px; display: flex; align-items: center; gap: 18px;
-  }
-  .progress-card__main { flex: 1; }
-  .progress-card__label {
-    font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
-    color: #77705F; font-weight: 600; margin-bottom: 8px;
-  }
-  .progress-card__track { height: 9px; border-radius: 999px; background: #E7E0CF; overflow: hidden; }
-  .progress-card__fill {
-    width: 6%; height: 100%; background: #8A2450; border-radius: 999px;
-    transition: width .5s cubic-bezier(.2,.8,.2,1);
-  }
-  .progress-card__pct { font-family: 'Newsreader', serif; font-size: 26px; font-weight: 500; color: #8A2450; }
-
-  /* Briefings */
   .briefing { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 22px; margin-bottom: 14px; }
-  .briefing:last-of-type { margin-bottom: 28px; }
+  .briefing--last { margin-bottom: 28px; }
   .briefing__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
   .briefing__title { font-family: 'Newsreader', serif; font-size: 20px; font-weight: 500; }
   .briefing__tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #77705F; }
@@ -224,60 +89,4 @@ const fieldSteps = ['① Find the MSW report', '② Record the 3 numbers', '③ 
     background: #F5EAEF; border-left: 3px solid #8A2450; border-radius: 8px;
     padding: 10px 13px; font-size: 13px; color: #6d1a3d;
   }
-
-  /* Knowledge check */
-  .quiz-kicker {
-    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-    color: #77705F; font-weight: 700; margin-bottom: 12px;
-  }
-  .quiz-frame {
-    height: 600px; border: 1px solid #E4DDCC; border-radius: 18px;
-    overflow: hidden; background: #F4EFE4; margin-bottom: 40px;
-  }
-
-  /* Field brief */
-  .field-brief { background: #26241E; border-radius: 18px; padding: 26px; margin-bottom: 32px; color: #EAE4D6; }
-  .field-brief__head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .field-brief__kicker {
-    font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: .16em;
-    text-transform: uppercase; color: #E7A9C0;
-  }
-  .field-brief__rule { height: 1px; flex: 1; background: #3a362d; }
-  .field-brief__title { font-family: 'Newsreader', serif; font-size: 22px; font-weight: 500; color: #FCFAF4; margin-bottom: 10px; }
-  .field-brief__body { font-size: 14px; line-height: 1.65; color: #C9C0AC; margin-bottom: 16px; max-width: 64ch; }
-  .field-brief__steps { display: flex; flex-wrap: wrap; gap: 8px; }
-  .field-brief__chip {
-    font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #F0C4D5;
-    background: rgba(138,36,80,.22); border: 1px solid rgba(138,36,80,.5);
-    border-radius: 999px; padding: 6px 12px;
-  }
-
-  /* Mark-complete CTA */
-  .cta {
-    display: inline-flex; align-items: center; gap: 8px; border: none; border-radius: 999px;
-    background: #8A2450; color: #fff; font-family: inherit; font-size: 13px; font-weight: 700;
-    letter-spacing: .03em; text-transform: uppercase; padding: 12px 22px; cursor: pointer;
-  }
-  .cta--done {
-    border: 1.5px solid #E4DDCC; background: #F4EFE4; color: #77705F;
-    font-weight: 600; letter-spacing: normal; text-transform: none; padding: 11px 20px;
-  }
-
-  /* Module footer */
-  .module-footer {
-    border-top: 1px solid #E4DDCC; margin-top: 32px; padding-top: 22px;
-    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between;
-  }
-  .module-footer__left { font-size: 12.5px; color: #77705F; }
-  .module-footer__left strong { color: #26241E; }
-  .module-footer__right { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #9a927f; letter-spacing: .04em; }
-
-  @media (max-width: 560px) {
-    .topbar__inner { padding: 11px 20px; }
-    .hero__inner { padding: 48px 20px 40px; }
-    .content { padding: 32px 20px 64px; }
-  }
 </style>
-
-</body>
-</html>

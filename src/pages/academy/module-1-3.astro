@@ -1,0 +1,90 @@
+---
+// Module 1.3 · Zero-Waste Micro-Habits — implementation of
+// "Module 1.3.dc.html" (Claude Design project "Interactive School Modules").
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const habits = [
+  {
+    kicker: 'HABIT 01 · KITCHEN', title: 'The 2-Tray System',
+    body: 'Put an open bowl beside your trash can. Drop food scraps and certified-compostable packaging there instead of the bin. Separating organics at the counter stops methane at the source.',
+  },
+  {
+    kicker: 'HABIT 02 · SINK', title: 'Solid blocks, not bottles',
+    body: 'Liquid soaps are mostly water wrapped in plastic. Switch to bar soap and concentrated dish blocks — you eliminate single-use bottles and keep microplastics out of wastewater.',
+  },
+  {
+    kicker: 'HABIT 03 · GROCERY', title: 'The "Naked Veggie" rule',
+    body: 'Skip the thin produce bags — go loose or use washable cloth. Thin-film plastics tangle and jam sorting-facility machinery, causing catastrophic line failures.',
+  },
+  {
+    kicker: 'HABIT 04 · COUNTER', title: 'The immediate refusal',
+    body: '"No bag, napkins, or utensils, thank you." Said <em>before</em> they pack your order, it breaks the demand cycle — the item stays in inventory instead of your trash.',
+  },
+];
+---
+
+<LbgaModule
+  title="Module 1.3 · Zero-Waste Micro-Habits"
+  description="Four home habits that take under 60 seconds each but stop hundreds of pounds of trash over a lifetime — the 2-tray system, solid blocks, naked veggies, and the immediate refusal. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 1.3 · Home Habits"
+  badgeDot="#6B9A3A"
+  badgeColor="#CFE3B4"
+  stripe="rgba(107,154,58,.09)"
+  kicker="Module 1.3 · Zero-Waste Micro-Habits"
+  kickerColor="#CFE3B4"
+  heading="Small actions, exponential impact"
+  lede="Zero-waste isn't a handful of people doing it perfectly — it's millions of citizens doing it <em>imperfectly</em>. A micro-habit takes under 60 seconds but stops hundreds of pounds of trash over a lifetime. Here are four."
+  pills={[
+    { text: '1 lesson · 4 habits' },
+    { text: '1 knowledge check' },
+    { text: '4-week challenge', style: 'background:rgba(107,154,58,.22);border-color:rgba(107,154,58,.5);color:#CFE3B4' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m1_3_done"
+>
+  <div class="habits">
+    {habits.map((h) => (
+      <div class="habit-card">
+        <div class="habit-card__kicker">{h.kicker}</div>
+        <div class="habit-card__title">{h.title}</div>
+        <div class="habit-card__body" set:html={h.body} />
+      </div>
+    ))}
+  </div>
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Home micro-habits</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_3_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Ongoing field project"
+    kickerColor="#CFE3B4"
+    title="The 4-Week Swap Challenge"
+    body="Adopt one micro-habit per week. Week 1: set up the 2-tray system. Week 2: swap one liquid soap for a solid block. Week 3: shop naked-veggie once. Week 4: refuse extras every time. Photograph your trash bin at week 0 and week 4 and compare."
+    chips={['W1 · 2-tray', 'W2 · solid soap', 'W3 · naked veggie', 'W4 · refuse extras']}
+    chipColor="#CFE3B4"
+    chipBg="rgba(107,154,58,.18)"
+    chipBorder="rgba(107,154,58,.4)"
+  />
+</LbgaModule>
+
+<style>
+  .habits { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .habit-card { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 20px; }
+  .habit-card__kicker {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #6B9A3A;
+    letter-spacing: .1em; margin-bottom: 8px;
+  }
+  .habit-card__title { font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500; margin-bottom: 8px; }
+  .habit-card__body { font-size: 13.5px; color: #5b5445; line-height: 1.55; }
+
+  @media (max-width: 640px) {
+    .habits { grid-template-columns: 1fr; }
+  }
+</style>

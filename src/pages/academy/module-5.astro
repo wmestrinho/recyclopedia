@@ -1,0 +1,118 @@
+---
+// Module 5 · The Myth-Busting Check — implementation of "Module 5.dc.html"
+// (Claude Design project "Interactive School Modules", grapefruit accent).
+// Track 1 capstone: Gratitude Hierarchy ladder + three myth/truth cards.
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const ladder = [
+  { n: 1, label: 'Refuse', tone: 'yes', width: '100%', max: 560 },
+  { n: 2, label: 'Reduce', tone: 'yes', width: '94%', max: 526 },
+  { n: 3, label: 'Reuse', tone: 'compost', width: '88%', max: 492 },
+  { n: 4, label: 'Repair', tone: 'compost', width: '82%', max: 458 },
+  { n: 5, label: 'Recycle', tone: 'drop', width: '76%', max: 424 },
+  { n: 6, label: 'Rot (compost)', tone: 'drop', width: '70%', max: 390 },
+  { n: 7, label: 'Dispose', tone: 'no', width: '64%', max: 356 },
+];
+
+const myths = [
+  {
+    n: 1,
+    quote: '"A number in the triangle means it\'s recyclable in my bin."',
+    truth: "it's a resin code. Only #1 PET and #2 HDPE are widely accepted curbside; #3–7 vary by city. Check your local list.",
+  },
+  {
+    n: 2,
+    quote: '"When unsure, toss it in recycling just in case — it can\'t hurt."',
+    truth: 'wish-cycling is the most destructive myth. One wrong item can contaminate a whole load. <strong>When in doubt, leave it out.</strong>',
+  },
+  {
+    n: 3,
+    quote: '"Recycling is always the best thing I can do."',
+    truth: 'recycling sits near the <em>bottom</em> of the hierarchy — it uses energy and water. Refuse, reduce, reuse, and repair beat it every time.',
+  },
+];
+---
+
+<LbgaModule
+  title="Module 5 · The Myth-Busting Check"
+  description="A consolidation check for everything so far. Most bad recycling habits come from three sticky myths — bust them here, and the Gratitude Hierarchy becomes second nature. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 5 · Myth-Busting"
+  badgeDot="#E4562E"
+  badgeColor="#F6C9B8"
+  stripe="rgba(228,86,46,.09)"
+  kicker="Module 5 · The Myth-Busting Check"
+  kickerColor="#E9A98E"
+  heading="Unlearn the three big myths"
+  lede="A consolidation check for everything so far. Most bad recycling habits come from three sticky myths. Bust them here, and the Gratitude Hierarchy becomes second nature."
+  pills={[
+    { text: '3 myths busted' },
+    { text: 'Capstone check' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m5_done"
+>
+  <div class="lm-check-kicker">The Gratitude Hierarchy — best at the top</div>
+  <div class="ladder">
+    {ladder.map((r) => (
+      <div class={`rung rung--${r.tone}`} style={`width:${r.width};max-width:${r.max}px`}>
+        <span class={`rung__n rung__n--${r.tone}`}>{r.n}</span>
+        <span class={`rung__label rung__label--${r.tone}`}>{r.label}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="myths">
+    {myths.map((m) => (
+      <div class="myth">
+        <span class="myth__tag">Myth {m.n}</span>
+        <div class="myth__quote">{m.quote}</div>
+        <div class="myth__truth"><strong class="myth__truth-label">Truth:</strong> <span set:html={m.truth} /></div>
+      </div>
+    ))}
+  </div>
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Myth-busting</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_5_a" />
+    </div>
+  </section>
+</LbgaModule>
+
+<style>
+  .ladder { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+  .rung {
+    border-radius: 11px; padding: 11px 16px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .rung--yes { background: #ECF1E0; border: 1px solid #CFE0B4; }
+  .rung--compost { background: #EDF0DF; border: 1px solid #CFE0B4; }
+  .rung--drop { background: #F6ECD6; border: 1px solid #E8D5A8; }
+  .rung--no { background: #F6E6EA; border: 1px solid #E8C2CC; }
+  .rung__n { font-family: 'Share Tech Mono', monospace; font-size: 11px; width: 20px; }
+  .rung__n--yes { color: #3C5E2C; }
+  .rung__n--compost { color: #5B7A2E; }
+  .rung__n--drop { color: #B07A1E; }
+  .rung__n--no { color: #A33143; }
+  .rung__label { font-weight: 600; }
+  .rung__label--yes { color: #2f4d1c; }
+  .rung__label--compost { color: #3d5420; }
+  .rung__label--drop { color: #6b511a; }
+  .rung__label--no { color: #7a2536; }
+
+  .myths { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .myth { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 20px; }
+  .myth__tag {
+    display: inline-flex; padding: 4px 11px; border-radius: 999px;
+    background: #F6E6EA; color: #A33143; font-size: 10.5px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+  .myth__quote {
+    font-family: 'Newsreader', serif; font-style: italic; font-size: 16.5px;
+    margin: 11px 0 12px; line-height: 1.4;
+  }
+  .myth__truth { font-size: 13.5px; color: #3d3a32; line-height: 1.55; }
+  .myth__truth-label { color: #57862F; }
+</style>

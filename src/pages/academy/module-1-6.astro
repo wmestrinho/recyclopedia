@@ -1,0 +1,98 @@
+---
+// Module 1.6 · The Circular Wardrobe — implementation of
+// "Module 1.6.dc.html" (Claude Design project "Interactive School Modules",
+// beet/plum accent within Track 1).
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+---
+
+<LbgaModule
+  title="Module 1.6 · The Circular Wardrobe"
+  description="Fast fashion makes textiles one of the world's worst polluters. Read one label, keep fibers in a loop of care, wear, and repair, and bypass heavy manufacturing. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 1.6 · Wardrobe"
+  badgeDot="#8A2450"
+  badgeColor="#E6B8C8"
+  stripe="rgba(138,36,80,.12)"
+  kicker="Module 1.6 · The Circular Wardrobe"
+  kickerColor="#E6B8C8"
+  heading="Your closet is a waste stream"
+  lede="Fast fashion makes the textile industry one of the world's worst polluters. A circular wardrobe keeps fibers moving through a loop of care, wear, and repair — bypassing heavy manufacturing. It starts with reading one label."
+  pills={[
+    { text: 'Fiber literacy' },
+    { text: '1 knowledge check' },
+    { text: 'Repair project', style: 'background:rgba(138,36,80,.28);border-color:rgba(138,36,80,.55);color:#E6B8C8' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m1_6_done"
+>
+  <div class="lm-check-kicker">Check the inner label</div>
+  <div class="fibers">
+    <div class="fiber-card fiber-card--avoid">
+      <div class="fiber-card__kicker fiber-card__kicker--avoid">SYNTHETIC · AVOID</div>
+      <div class="fiber-card__title">Polyester · Nylon · Acrylic</div>
+      <div class="fiber-card__body">These aren't fabrics — they're flexible petroleum plastics. Every wash sheds millions of microfibers that slip past water treatment into rivers, oceans, and the food chain.</div>
+    </div>
+    <div class="fiber-card fiber-card--choose">
+      <div class="fiber-card__kicker fiber-card__kicker--choose">NATURAL · CHOOSE</div>
+      <div class="fiber-card__title">Cotton · Wool · Linen · Hemp</div>
+      <div class="fiber-card__body">Fibers that grow from the earth can return to it. Un-dyed or vegetable-dyed, pure natural textiles can be shredded into an industrial compost pile at end-of-life.</div>
+    </div>
+  </div>
+
+  <div class="mindset">
+    <div class="mindset__title">The repair &amp; rotate mindset</div>
+    <div class="mindset__cols">
+      <div class="mindset__col">
+        <div class="mindset__label">Mend</div>
+        <div class="mindset__body">Basic hand-stitching or sashiko repair extends a garment's life by 2–3 years.</div>
+      </div>
+      <div class="mindset__col">
+        <div class="mindset__label">Repurpose</div>
+        <div class="mindset__body">Worn past repair, natural fabric becomes kitchen rags, workshop towels, or rope inputs (see Module 1.4).</div>
+      </div>
+    </div>
+  </div>
+
+  <section aria-label="Knowledge check">
+    <div class="lm-check-kicker">Knowledge check · Circular wardrobe</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_6_a" />
+    </div>
+  </section>
+
+  <LbgaFieldBrief
+    kicker="Ongoing repair project"
+    kickerColor="#E6B8C8"
+    title="Read your closet · Mend one thing"
+    body="Check the inner labels of 10 garments and tally synthetic vs natural. Then rescue one item you'd have thrown out — mend a hole, patch a knee, or cut a ruined shirt into rags. Photograph the save."
+    chips={['① Tally 10 labels', '② Mend or repurpose one', '③ Photograph the save']}
+    chipColor="#E6B8C8"
+    chipBg="rgba(138,36,80,.2)"
+    chipBorder="rgba(138,36,80,.45)"
+  />
+</LbgaModule>
+
+<style>
+  .fibers { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+  .fiber-card { border-radius: 16px; padding: 20px; }
+  .fiber-card--avoid { background: #F6E6EA; border: 1px solid #E8C2CC; }
+  .fiber-card--choose { background: #ECF1E0; border: 1px solid #CFE0B4; }
+  .fiber-card__kicker { font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: .1em; margin-bottom: 8px; }
+  .fiber-card__kicker--avoid { color: #A33143; }
+  .fiber-card__kicker--choose { color: #57862F; }
+  .fiber-card__title { font-family: 'Newsreader', serif; font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+  .fiber-card__body { font-size: 13.5px; color: #3d3a32; line-height: 1.55; }
+
+  .mindset { background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px; padding: 20px; margin-bottom: 28px; }
+  .mindset__title { font-family: 'Newsreader', serif; font-size: 18px; font-weight: 500; margin-bottom: 10px; }
+  .mindset__cols { display: flex; flex-wrap: wrap; gap: 12px; }
+  .mindset__col { flex: 1; min-width: 220px; }
+  .mindset__label { font-size: 13px; font-weight: 700; color: #57862F; margin-bottom: 3px; }
+  .mindset__body { font-size: 13px; color: #77705F; line-height: 1.5; }
+
+  @media (max-width: 640px) {
+    .fibers { grid-template-columns: 1fr; }
+  }
+</style>

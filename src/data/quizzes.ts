@@ -23,6 +23,8 @@ export const QUIZZES: Record<string, Quiz> = {
   academy_1_1_a: {
     quiz_id: 'academy_1_1_a',
     title: 'Understanding the Evolution of Trash',
+    track: 'Citizen Science & Action',
+    module: '1.1',
     questions: [
       {
         id: 'q1',
@@ -66,6 +68,8 @@ export const QUIZZES: Record<string, Quiz> = {
   academy_1_1_b: {
     quiz_id: 'academy_1_1_b',
     title: 'The Impact of Modern Landfill Laws',
+    track: 'Citizen Science & Action',
+    module: '1.1',
     questions: [
       {
         id: 'q4',
@@ -99,6 +103,8 @@ export const QUIZZES: Record<string, Quiz> = {
   academy_1_2_a: {
     quiz_id: 'academy_1_2_a',
     title: 'Smart Sorting in the Real World',
+    track: 'Citizen Science & Action',
+    module: '1.2',
     questions: [
       {
         id: 'q1',
@@ -144,6 +150,8 @@ export const QUIZZES: Record<string, Quiz> = {
   academy_1_3_a: {
     quiz_id: 'academy_1_3_a',
     title: 'Mastering Home Micro-Habits',
+    track: 'Citizen Science & Action',
+    module: '1.3',
     questions: [
       {
         id: 'q1',
@@ -177,6 +185,8 @@ export const QUIZZES: Record<string, Quiz> = {
   academy_5_a: {
     quiz_id: 'academy_5_a',
     title: 'Myth-Busting Check',
+    track: 'Citizen Science & Action',
+    module: '5',
     questions: [
       {
         id: 'q1',
@@ -213,6 +223,105 @@ export const QUIZZES: Record<string, Quiz> = {
         correct: 'B',
         explanation:
           'Refuse → Reduce → Reuse → Repair → Recycle → Rot → Dispose. Recycling uses energy and water; keeping things in use beats it — the heart of the Gratitude Hierarchy.',
+      },
+    ],
+  },
+
+  academy_1_4_a: {
+    quiz_id: 'academy_1_4_a',
+    title: 'The Upcycling Masterclass',
+    track: 'Citizen Science & Action',
+    module: '1.4',
+    questions: [
+      {
+        id: 'q1',
+        question: 'What is the primary difference between standard industrial recycling and localized upcycling?',
+        options: {
+          A: 'Recycling is done for profit, while upcycling can only be done as a hobby.',
+          B: 'Upcycling transforms materials in their current state into higher-value items, skipping energy-heavy industrial melting.',
+          C: 'Recycling requires plant-based bioplastics, while upcycling only works on scrap metal.',
+        },
+        correct: 'B',
+        explanation:
+          "Upcycling bypasses the entire municipal shipping, processing, and re-manufacturing pipeline by using creative design to extend an item's functional life right where it is.",
+      },
+      {
+        id: 'q2',
+        question: 'Why is a capillary wick (cotton string) essential in a Self-Watering Sub-Irrigation Planter?',
+        options: {
+          A: 'It filters out microplastics from the soil matrix.',
+          B: 'It automatically draws water upward from the lower basin to the roots, preventing evaporation and water waste.',
+          C: 'It chemically breaks down the plastic bottle inside the planter.',
+        },
+        correct: 'B',
+        explanation:
+          'The wick uses natural capillary forces to keep soil moist without over-watering, turning an old plastic bottle into an efficient agricultural system.',
+      },
+    ],
+  },
+
+  academy_1_5_a: {
+    quiz_id: 'academy_1_5_a',
+    title: 'The Zero-Waste Shopping Matrix',
+    track: 'Citizen Science & Action',
+    module: '1.5',
+    questions: [
+      {
+        id: 'q1',
+        question: 'Why is an aluminum can ranked higher in the matrix than a plastic beverage bottle?',
+        options: {
+          A: 'Aluminum protects the liquid flavor better over time.',
+          B: 'Aluminum can be recycled infinitely without degrading, while plastic degrades and downcycles after one or two uses.',
+          C: 'Aluminum is a plant-based material that dissolves in the rain.',
+        },
+        correct: 'B',
+        explanation:
+          'Aluminum is infinitely recyclable. Plastics lose structural integrity when melted down, so they quickly end up in a landfill regardless of recycling efforts.',
+      },
+      {
+        id: 'q2',
+        question: 'What makes multi-layer packaging (like baby-food squeeze pouches or chip bags) Tier 4, landfill-bound?',
+        options: {
+          A: 'They are too lightweight for sorting sensors to detect.',
+          B: 'They fuse different materials together (plastic and aluminum foil), making them impossible to separate and recycle.',
+          C: 'They are coated with standard industrial wax.',
+        },
+        correct: 'B',
+        explanation:
+          'Fused multi-layer plastics cannot be separated. They are impossible to process through recycling infrastructure and are designed exclusively for the trash.',
+      },
+    ],
+  },
+
+  academy_1_6_a: {
+    quiz_id: 'academy_1_6_a',
+    title: 'The Circular Wardrobe',
+    track: 'Citizen Science & Action',
+    module: '1.6',
+    questions: [
+      {
+        id: 'q1',
+        question: 'What ecological threat do synthetic fabrics like polyester and nylon present when washed?',
+        options: {
+          A: 'They consume three times more water than cotton towels.',
+          B: 'They shed plastic microfibers that wash directly into rivers, oceans, and marine food chains.',
+          C: 'They cause rust to build up inside municipal water treatment infrastructure.',
+        },
+        correct: 'B',
+        explanation:
+          'Polyester and nylon are plastics. Laundering them releases microplastics into wastewater streams, bypassing municipal filtration systems.',
+      },
+      {
+        id: 'q2',
+        question: 'What is the ultimate environmental advantage of choosing 100% natural fibers like cotton, hemp, or linen?',
+        options: {
+          A: 'They are completely fireproof in everyday conditions.',
+          B: 'They can be broken down completely in compost systems at end-of-life, leaving no toxic plastic residue.',
+          C: 'They weigh significantly less than synthetic clothes.',
+        },
+        correct: 'B',
+        explanation:
+          'Pure un-blended natural fibers are organic matter. Once worn out, they can safely rot down into nutrient-rich soil, unlike oil-based plastics.',
       },
     ],
   },

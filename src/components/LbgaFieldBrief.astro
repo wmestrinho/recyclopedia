@@ -1,0 +1,47 @@
+---
+// The dark "ongoing field/build/repair project" card shared by the LBGA
+// module designs. Kicker and chip colors vary per module; body may carry
+// inline emphasis so it renders as HTML.
+interface Props {
+  kicker: string; // e.g. "Ongoing field project"
+  kickerColor: string;
+  title: string;
+  body: string;
+  chips: string[];
+  chipColor: string;
+  chipBg: string;
+  chipBorder: string;
+}
+const { kicker, kickerColor, title, body, chips, chipColor, chipBg, chipBorder } = Astro.props;
+---
+
+<section class="fb">
+  <div class="fb__head">
+    <span class="fb__kicker" style={`color:${kickerColor}`}>{kicker}</span>
+    <span class="fb__rule"></span>
+  </div>
+  <div class="fb__title">{title}</div>
+  <div class="fb__body" set:html={body} />
+  <div class="fb__chips">
+    {chips.map((c) => (
+      <span class="fb__chip" style={`color:${chipColor};background:${chipBg};border-color:${chipBorder}`}>{c}</span>
+    ))}
+  </div>
+</section>
+
+<style>
+  .fb { background: #26241E; border-radius: 18px; padding: 26px; margin-bottom: 32px; color: #EAE4D6; }
+  .fb__head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .fb__kicker {
+    font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .fb__rule { height: 1px; flex: 1; background: #3a362d; }
+  .fb__title { font-family: 'Newsreader', serif; font-size: 22px; font-weight: 500; color: #FCFAF4; margin-bottom: 10px; }
+  .fb__body { font-size: 14px; line-height: 1.65; color: #C9C0AC; margin-bottom: 16px; max-width: 64ch; }
+  .fb__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fb__chip {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px;
+    border: 1px solid; border-radius: 999px; padding: 6px 12px;
+  }
+</style>
