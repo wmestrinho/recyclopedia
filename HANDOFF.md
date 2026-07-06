@@ -4,6 +4,24 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ LBG painted brand graphics LIVE — 2026-07-05 (Mac Claude Code)
+
+- New hand-painted LBG brand art (four style sets) sourced from Drive
+  `RandDRecyclopedia/lbg-blobs` (example-01…04, 32 PNGs), optimized to WebP
+  in `public/images/lbg/` (~330 KB total vs 15 MB+ source; sips + cwebp q82).
+- Each set has a distinct purpose:
+  - example-01 veggie trio → `/lbg` hero wordmark art (srcset 600/1200w).
+  - example-03 painted dabs → `LbgHeader` brand dots (`.lbg-dot--painted`),
+    inherited by `/lbg` and all Academy pages; also the new `/lbg` favicon.
+  - example-02 watercolor solos → homepage engine-tier card washes
+    (`.module-card--wash-{lettuce,beet,grapefruit}` = Tier 1/2/3).
+  - example-04 swirl → homepage hero panel art (`.hero-swirl`), replacing
+    the ♻ emoji frame; Recyclopedia keeps ♻ in its own header brand.
+- CSS added in `lbg-theme.css` (dabs, wordmark art) and `style.css` (swirl,
+  card washes); removed the now-unused `.hero-recycle-symbol` rule.
+- Version `v0.5.0 → v0.6.0 alpha`. Build 23 routes green; visual checks on
+  `/` and `/lbg/` via local preview passed.
+
 ## ✅ DIY section + Track 2 quiz fix LIVE — 2026-07-05 (Mac Claude Code)
 
 - New DIY section, all cross-linked and live on `recyclopedia.cc`:

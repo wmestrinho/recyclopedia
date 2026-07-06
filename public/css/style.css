@@ -475,12 +475,10 @@ table {
   background: var(--surface-alt);
 }
 
-.hero-recycle-symbol {
-  font-size: 9rem;
-  line-height: 1;
-  opacity: 0.35;
-  color: var(--accent);
-  text-shadow: var(--glow-accent);
+/* Painted LBG swirl (lbg-blobs example-04) — materials in motion. */
+.hero-swirl {
+  width: min(100%, 440px);
+  height: auto;
   user-select: none;
 }
 
@@ -637,6 +635,30 @@ table {
 .module-card__status--live {
   color: var(--accent);
 }
+
+/* Watercolor washes (lbg-blobs example-02) — one per engine tier. */
+.module-card--wash {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.module-card--wash::before {
+  content: "";
+  position: absolute;
+  top: -12%;
+  right: -10%;
+  width: 48%;
+  aspect-ratio: 1;
+  z-index: -1;
+  background: center / contain no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.module-card--wash-lettuce::before { background-image: url("/images/lbg/lbg-wash-lettuce.webp"); }
+.module-card--wash-beet::before { background-image: url("/images/lbg/lbg-wash-beet.webp"); }
+.module-card--wash-grapefruit::before { background-image: url("/images/lbg/lbg-wash-grapefruit.webp"); }
 
 /* ── MYTH CARDS ────────────────────────────────────────────── */
 .myth-grid {

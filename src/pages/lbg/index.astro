@@ -23,6 +23,7 @@ const donationBody = encodeURIComponent(
     content="Lettuce Beet Grapefruit brings people together through practical sustainability workshops, community technology events, open learning, and respectful reuse."
   />
   <link rel="canonical" href="https://lettucebeetgrapefruit.com/" />
+  <link rel="icon" type="image/png" href="/images/lbg/lbg-favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -54,16 +55,17 @@ const donationBody = encodeURIComponent(
         </div>
       </div>
       <aside class="lbg-hero__aside">
-        <div class="lbg-wordmark" aria-label="Lettuce Beet Grapefruit">
-          <span class="lbg-wordmark__line">
-            <span class="lbg-wordmark__produce">Lettuce</span>
-          </span>
-          <span class="lbg-wordmark__line">
-            <span class="lbg-wordmark__produce">Beet</span>
-          </span>
-          <span class="lbg-wordmark__line">
-            <span class="lbg-wordmark__produce">Grapefruit</span>
-          </span>
+        <div class="lbg-wordmark">
+          <img
+            class="lbg-wordmark__art"
+            src="/images/lbg/lbg-trio-mark.webp"
+            srcset="/images/lbg/lbg-trio-mark-600.webp 600w, /images/lbg/lbg-trio-mark.webp 1200w"
+            sizes="(max-width: 860px) 90vw, 460px"
+            width="1200"
+            height="800"
+            alt="Hand-painted lettuce leaf, beet, and grapefruit — the Lettuce Beet Grapefruit mark"
+            fetchpriority="high"
+          />
         </div>
         <p>Nothing wasted. Everything returned. Everyone welcome.</p>
       </aside>

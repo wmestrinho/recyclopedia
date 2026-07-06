@@ -115,6 +115,14 @@ body.lbg-site {
 .lbg-dot--beet { background: var(--beet); }
 .lbg-dot--grapefruit { background: var(--grapefruit); }
 
+/* Hand-painted brand dabs (lbg-blobs example-03) replace the flat dots. */
+.lbg-dot--painted {
+  width: 0.85rem;
+  height: auto;
+  border-radius: 0;
+  background: none;
+}
+
 .lbg-brand__copy {
   display: grid;
   gap: 0.1rem;
@@ -376,6 +384,13 @@ body.lbg-site {
   font-size: clamp(2.2rem, 6vw, 4.8rem);
   font-weight: 500;
   line-height: 0.95;
+}
+
+/* The painted trio (lbg-blobs example-01) as the hero wordmark. */
+.lbg-wordmark__art {
+  display: block;
+  width: min(100%, 460px);
+  height: auto;
 }
 
 .lbg-status {
