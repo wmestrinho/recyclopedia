@@ -525,4 +525,92 @@ export const QUIZZES: Record<string, Quiz> = {
       },
     ],
   },
+  academy_1_7_a: {
+    quiz_id: 'academy_1_7_a',
+    title: 'The Decision Chain',
+    track: 'Citizen Science & Action',
+    module: '1.7',
+    questions: [
+      {
+        id: 'q1',
+        question: 'Before you ever touch a manufactured object, what does it already carry?',
+        options: {
+          A: 'Nothing — its story starts at the checkout counter.',
+          B: 'The mines, forests, wells, water, and energy it took to make it.',
+          C: 'Only the cost of its packaging.',
+        },
+        correct: 'B',
+        explanation:
+          'Every object embodies extraction — raw materials and energy spent long before purchase. That embodied cost is why reuse and repair outrank recycling in the Gratitude Hierarchy.',
+      },
+      {
+        id: 'q2',
+        question: 'At what point is most of an item’s waste actually "decided"?',
+        options: {
+          A: 'At the design table, before the item is ever manufactured.',
+          B: 'At the bin, when you choose where to drop it.',
+          C: 'At the landfill, when it fails to decompose.',
+        },
+        correct: 'A',
+        explanation:
+          'Design and packaging choices — materials, glues, mixed layers, labels — determine what can be reused, repaired, or recycled long before the bin. Trash is a design output, not a natural fact.',
+      },
+      {
+        id: 'q3',
+        question: 'Who typically pays for household waste collection?',
+        options: {
+          A: 'The manufacturers of the products that become waste.',
+          B: 'Communities, through municipal taxes and fees.',
+          C: 'No one — collection is free infrastructure.',
+        },
+        correct: 'B',
+        explanation:
+          'Collection is mostly funded by cities and residents — which is exactly why extended producer responsibility (EPR) policies exist: to shift part of the cost back to the design table.',
+      },
+    ],
+  },
+  academy_1_7_b: {
+    quiz_id: 'academy_1_7_b',
+    title: 'Where the System Strains',
+    track: 'Citizen Science & Action',
+    module: '1.7',
+    questions: [
+      {
+        id: 'q1',
+        question: 'Under current policies, how much of global plastic waste is actually recycled (OECD Global Plastics Outlook)?',
+        options: {
+          A: 'Less than one-fifth.',
+          B: 'About half.',
+          C: 'Nearly all of it — recycling has solved plastics.',
+        },
+        correct: 'A',
+        explanation:
+          'The OECD projects plastic use and waste could almost triple by 2060, with less than one-fifth recycled and about half still landfilled. Recycling is real — and structurally limited.',
+      },
+      {
+        id: 'q2',
+        question: 'Of the 62 million tonnes of e-waste generated in 2022, how much was documented as properly collected and recycled (Global E-waste Monitor 2024)?',
+        options: {
+          A: 'About 80% — electronics are the best-recycled stream.',
+          B: 'Just 22.3%.',
+          C: 'Effectively zero.',
+        },
+        correct: 'B',
+        explanation:
+          'Only 22.3% of 2022’s e-waste was documented as properly handled, and generation is projected to reach 82 million tonnes by 2030 — which is why donation, repair, and certified drop-off matter so much.',
+      },
+      {
+        id: 'q3',
+        question: 'Why is sending food scraps to a landfill worse than composting them?',
+        options: {
+          A: 'Landfilled organics take up more space than compost.',
+          B: 'Compressed, oxygen-starved organics in a landfill produce methane instead of returning nutrients to soil.',
+          C: 'It makes the landfill smell worse for the neighbors.',
+        },
+        correct: 'B',
+        explanation:
+          'The landfill is a tomb (Module 1.1): starved of oxygen, buried organics decompose anaerobically and emit methane — a potent greenhouse gas. Composting turns the same scraps into living soil.',
+      },
+    ],
+  },
 };

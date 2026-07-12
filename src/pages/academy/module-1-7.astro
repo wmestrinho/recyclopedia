@@ -1,0 +1,190 @@
+---
+// Module 1.7 · Why Do We Have Trash At All? — the nine-stage "why trash exists"
+// learning path from the 2026-07-12 LBG directory seed research
+// (docs/research/2026-07-12-lbg-directory-seed.md). Headline stats trace to
+// SOURCES in src/data/organizations.ts (gwmo-2024, oecd-plastics-outlook, gem-2024).
+import LbgaModule from '../../layouts/LbgaModule.astro';
+import LbgaFieldBrief from '../../components/LbgaFieldBrief.astro';
+import QuizLbga from '../../components/QuizLbga.svelte';
+
+const chain = [
+  {
+    stage: 'STAGE<br>1', tone: 'hazard',
+    title: 'Extraction',
+    body: 'Every object begins as a hole in the ground, a felled tree, or a barrel of oil. Before you ever touch a thing, it carries the mines, wells, water, and energy it took to make — an <strong>embodied cost</strong> that no bin can refund.',
+  },
+  {
+    stage: 'STAGE<br>2', tone: 'teal',
+    title: 'Design & packaging',
+    body: 'Most waste is decided at the design table. Fused mixed materials, glued labels, single-use formats — these choices determine what can be reused, repaired, or recycled <strong>years before the bin</strong>. Trash is a design output, not a natural fact.',
+  },
+  {
+    stage: 'STAGE<br>3', tone: 'green',
+    title: 'Consumption',
+    body: 'The moment of purchase is the most powerful vote in the whole chain. Choosing durable, refillable, repairable things — or not buying at all — cancels stages 4 through 8 entirely. That’s why <em>reduce</em> sits above everything else.',
+  },
+  {
+    stage: 'STAGE<br>4', tone: 'green-deep',
+    title: 'Collection',
+    body: 'Trucks, routes, transfer stations — mostly paid for by communities through taxes and fees, not by the producers who designed the waste. <strong>Extended producer responsibility (EPR)</strong> policies exist to push part of that bill back upstream.',
+  },
+];
+
+const strains = [
+  {
+    tone: 'teal', title: 'Stage 5 · Sorting',
+    body: 'Materials recovery facilities sort at line speed with screens, magnets, and infrared eyes (Module 2.3) — but they can only sort what design made sortable and what citizens routed correctly. Contamination downgrades whole batches.',
+  },
+  {
+    tone: 'hazard', title: 'Stage 6 · Recycling limits',
+    body: 'Recycling is real, and structurally limited. Under current policies the OECD projects plastic use and waste to <strong>almost triple by 2060</strong>, with <strong>less than one-fifth of plastic waste recycled</strong> and about half still landfilled <span class="stat-cite">(OECD Global Plastics Outlook)</span>. E-waste tells the same story: of <strong>62 million tonnes</strong> generated in 2022, only <strong>22.3%</strong> was documented as properly collected and recycled <span class="stat-cite">(Global E-waste Monitor 2024)</span>.',
+  },
+  {
+    tone: 'green', title: 'Stage 7 · Compost & organics',
+    body: 'The one loop nature already runs. Organics routed to composting return as living soil; the same scraps buried in a landfill become methane. This is the highest-leverage sorting decision most households make every single day.',
+  },
+  {
+    tone: 'dark', title: 'Stage 8 · Landfill, incineration, dumping',
+    body: 'The end of the line — the tomb from Module 1.1. The world generated <strong>2.1 billion tonnes</strong> of municipal solid waste in 2023, heading for <strong>3.8 billion tonnes by 2050</strong>; managing it already costs <strong>USD 252 billion a year</strong>, rising toward <strong>USD 640 billion</strong> without urgent action <span class="stat-cite">(UNEP/ISWA Global Waste Management Outlook 2024)</span>.',
+  },
+];
+---
+
+<LbgaModule
+  title="Module 1.7 · Why Do We Have Trash At All?"
+  description="Nine stages from the mine to the landfill — and the redesign lever. Follow one object through extraction, design, consumption, collection, sorting, recycling limits, compost, and disposal, then meet the policy stage where trash gets designed out. Track 1: Citizen Science & Action."
+  trackLabel="Track 1: Citizen Science & Action"
+  badgeLabel="Module 1.7 · Systems View"
+  badgeDot="#6B9A3A"
+  badgeColor="#CFE3B4"
+  stripe="rgba(228,86,46,.07)"
+  kicker="Module 1.7 · Why Do We Have Trash At All?"
+  kickerColor="#E9A98E"
+  heading="Trash is a design output, not a natural fact"
+  lede="Nature has no landfills — every output is some other process's input. So why do we? Follow one object through the nine stages of the waste chain and you'll find that trash isn't inevitable: it's decided, stage by stage, by choices that can be made differently."
+  pills={[
+    { text: '2 lessons' },
+    { text: '2 knowledge checks' },
+    { text: 'Field project', style: 'background:rgba(107,154,58,.22);border-color:rgba(107,154,58,.5);color:#CFE3B4' },
+  ]}
+  accent="#6B9A3A"
+  storageKey="lbga_m1_7_done"
+>
+  <div class="lesson-kicker">Lesson 1</div>
+  <h2 class="lesson-title">A thing is a decision chain</h2>
+  <p class="lesson-intro">Long before anything reaches your bin, four stages have already shaped its fate. Each one is a decision someone made — which means each one can be made differently.</p>
+
+  <div class="timeline">
+    {chain.map((c) => (
+      <div class="tl-card">
+        <div class={`tl-card__year tl-card__year--${c.tone}`} set:html={c.stage} />
+        <div>
+          <div class="tl-card__title">{c.title}</div>
+          <div class="tl-card__body" set:html={c.body} />
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <section aria-label="Knowledge check — the decision chain">
+    <div class="lm-check-kicker">Knowledge check · The decision chain</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_7_a" />
+    </div>
+  </section>
+
+  <div class="lesson-kicker">Lesson 2</div>
+  <h2 class="lesson-title">Where the system strains</h2>
+  <p class="lesson-intro">After the bin, four more stages carry the load — and each has a hard limit that no amount of good sorting can fix alone. Every number below traces to a source you can visit in the <a href="/academy/directory" class="inline-link">World Directory</a>.</p>
+
+  <div class="strains">
+    {strains.map((s) => (
+      <div class={`callout callout--${s.tone}`}>
+        <div>
+          <div class="callout__title">{s.title}</div>
+          <div set:html={s.body} />
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <section aria-label="Knowledge check — system limits">
+    <div class="lm-check-kicker">Knowledge check · System limits</div>
+    <div class="lm-quiz-frame">
+      <QuizLbga client:visible quizId="academy_1_7_b" />
+    </div>
+  </section>
+
+  <div class="lesson-kicker">The ninth stage</div>
+  <h2 class="lesson-title">Policy, producer responsibility &amp; circular redesign</h2>
+  <p class="lesson-intro">The last stage isn't a place — it's a lever. Deposit-return schemes, EPR laws, right-to-repair rules, and circular design standards attack trash where it's actually created: at the design table and in policy.</p>
+
+  <div class="callout callout--green">
+    <div>
+      <strong>Your move.</strong> Treaties like the Basel Convention, agencies in nearly every country, zero-waste city networks, repair movements, and waste picker unions are all working different stages of this same chain. Find the people working on your question in the
+      <a href="/academy/directory" class="inline-link">World Directory</a> — every claim in this module traces back to a source listed there.
+    </div>
+  </div>
+
+  <LbgaFieldBrief
+    kicker="Ongoing field project"
+    kickerColor="#E9A98E"
+    title="The School Waste Audit"
+    body="Run the nine stages on your own school or home. For one week, tally what lands in each bin and note which stage created it (design? consumption? missing compost?). Then pick one lever: start a compost pilot for the organics you found, or host a repair day for the items that only failed at stage 6."
+    chips={['① One-week bin audit', '② Compost pilot', '③ Repair day']}
+    chipColor="#CFE3B4"
+    chipBg="rgba(107,154,58,.18)"
+    chipBorder="rgba(107,154,58,.4)"
+  />
+</LbgaModule>
+
+<style>
+  .lesson-kicker {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: #57862F; font-weight: 700; margin-bottom: 8px;
+  }
+  .lesson-title { font-family: 'Newsreader', serif; font-size: 28px; font-weight: 500; margin: 0 0 8px; line-height: 1.12; }
+  .lesson-intro { font-size: 15px; line-height: 1.65; color: #3d3a32; margin: 0 0 22px; max-width: 66ch; }
+
+  .timeline { display: flex; flex-direction: column; gap: 12px; margin-bottom: 26px; }
+  .tl-card {
+    background: #FCFAF4; border: 1px solid #E4DDCC; border-radius: 16px;
+    padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .tl-card__year {
+    flex: 0 0 auto; font-family: 'Share Tech Mono', monospace; font-size: 12px; font-weight: 700;
+    border-radius: 8px; padding: 6px 9px; text-align: center; line-height: 1.3; width: 66px;
+  }
+  .tl-card__year--green { color: #6B9A3A; background: #ECF1E0; }
+  .tl-card__year--green-deep { color: #57862F; background: #ECF1E0; }
+  .tl-card__year--hazard { color: #C0532A; background: #FBE7DE; }
+  .tl-card__year--teal { color: #3E7E86; background: #E1EFF0; }
+  .tl-card__title { font-family: 'Newsreader', serif; font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .tl-card__body { font-size: 13.5px; color: #5b5445; line-height: 1.55; }
+
+  .strains { display: flex; flex-direction: column; gap: 12px; margin-bottom: 26px; }
+  .callout {
+    display: flex; gap: 16px; border-radius: 16px; padding: 18px 20px;
+    font-size: 14px; line-height: 1.6;
+  }
+  .callout__title { font-family: 'Newsreader', serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; }
+  .callout--teal {
+    background: #F4EFE4; border: 1px solid #E4DDCC; border-left: 4px solid #3E7E86;
+    color: #2b5257;
+  }
+  .callout--hazard {
+    background: #FBE7DE; border: 1px solid #EFCDBB; border-left: 4px solid #C0532A;
+    color: #6d3018;
+  }
+  .callout--green {
+    background: #ECF1E0; border: 1px solid #CFE0B4; border-left: 4px solid #6B9A3A;
+    color: #2f4d1c; margin-bottom: 28px;
+  }
+  .callout--dark {
+    background: #2E2B24; border: 1px solid #4a463c; border-left: 4px solid #E4562E;
+    color: #EFE9DB;
+  }
+  .callout--dark :global(.stat-cite) { color: #B7AF9C; }
+  .callout :global(.stat-cite) { font-size: 12px; color: #77705f; white-space: nowrap; }
+  .inline-link { color: #57862F; font-weight: 600; }
+</style>
