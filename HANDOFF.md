@@ -4,6 +4,38 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ World Directory + Module 1.7 + whitepaper v1.3 — 2026-07-12 (Mac Claude Code)
+
+- **Research ingested** (two 2026-07-12 notes: global waste datasets + ~200-org
+  LBG directory seed), archived verbatim in `docs/research/` with a provenance
+  index. This was the "source-gathering research dive" that
+  `REFERENCE_ORGANIZATIONS.md` had been waiting for.
+- **`src/data/organizations.ts`** — new Atlas org layer: 246 typed organizations
+  (9 thematic categories + 121 national/regional agencies) + 12 `SOURCES`
+  citations with headline stats and baseline/stream-monitor/lead quality tiers.
+  `org_role_t` unchanged; directory facets documented in `DATA_SCHEMA.md`
+  "Organization directory extension (2026-07)". Known flaws carried honestly as
+  `needs-review` (Argentina tourism-URL, ASMC/SACEP http-only, Indonesia/Vietnam
+  post-merger portals). 6-month agency re-verification rule in `DATA_STRATEGY.md`.
+- **`/academy/directory`** — public World Directory: `Directory.svelte` island
+  (search, category pills, region select, tag chips, verified-only toggle,
+  verification badges) + Key Datasets strip from `SOURCES`. Nav link added to
+  the LbgHeader academy surface only (deliberately NOT an academy-index card —
+  `data-key` cards feed the progress bar).
+- **Module 1.7 "Why Do We Have Trash At All?"** — the seed note's nine-stage
+  learning path as a Track 1 module; quizzes `academy_1_7_a/b` shipped in the
+  same commit (2.2–2.6 quiz-mismatch lesson applied). Progress denominator
+  14 → 15 (existing users' % drops one step — cosmetic, expected).
+- **Whitepaper → v1.3** (`recyclopedia whitepaper v1 2.md`, now tracked in git;
+  the filename intentionally lags — the internal CHANGE LOG is the version
+  record): global MSW refreshed to GWMO 2024 (2.1B t 2023 → 3.8B by 2050, costs
+  USD 252B → 640.3B), Global-MSW flag resolved. `.m4a`/`.zip` working files
+  gitignored.
+- **Follow-up unblocked:** `SOURCES` ids can now populate the empty
+  `Disposition.source` field in `items.ts` (Atlas provenance chain).
+- Version `v0.6.0 → v0.7.0 alpha` (VERSION + package.json, which had drifted at
+  0.4.0-alpha). Build 25 routes green; validator green.
+
 ## ✅ LBG painted brand graphics LIVE — 2026-07-05 (Mac Claude Code)
 
 - New hand-painted LBG brand art (four style sets) sourced from Drive
