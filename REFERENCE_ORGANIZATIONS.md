@@ -11,9 +11,14 @@ recycling knowledge base.
 
 > Each organization below is a **typed node in the Atlas provenance graph** (see
 > [DATA_SCHEMA.md](DATA_SCHEMA.md) `organization`): it has a `role` and is wired to the
-> layer(s) it feeds. This list is the seed for both the public credibility infographic
-> and our internal provenance map. Growing it well is a dedicated follow-up — the
-> **source-gathering research dive**.
+> layer(s) it feeds.
+>
+> **The source-gathering research dive landed 2026-07-12.** The machine-readable
+> canon now lives in [`src/data/organizations.ts`](src/data/organizations.ts)
+> (~200 orgs + citable SOURCES), publicly browsable at `/academy/directory`;
+> raw research is archived in [`docs/research/`](docs/research/). This file
+> remains the **outreach/contacts sheet** (addresses, phones, emails — which the
+> data file deliberately doesn't carry).
 
 ## World Bank
 - **Role:** Global waste generation and management practices (e.g. *What a Waste* research).

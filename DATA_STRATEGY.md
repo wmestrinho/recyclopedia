@@ -81,6 +81,33 @@ than an honest "check local." This is a feature of the ethic, not a gap.
 - **Scraping** any of the above violates ToS — partnerships/APIs are the clean,
   business-safe path. No scraping.
 
+### Global / macro datasets (researched 2026-07-12)
+
+Layer-4 / Academy / credibility sources from the 2026-07-12 research dive (raw
+notes archived in `docs/research/`; machine-readable canon in
+`src/data/organizations.ts` `SOURCES`, surfaced publicly at `/academy/directory`).
+
+**The tiering rule** (definitions and reporting vary by country — pick sources
+by job, not by fame):
+
+- **Baselines** — use for country/city comparisons and headline claims:
+  **World Bank What a Waste** (217 countries / 262 cities, CC BY 3.0 IGO),
+  **UNEP/ISWA Global Waste Management Outlook 2024** (2.1B t MSW 2023 → 3.8B t
+  2050; costs USD 252B 2020 → 640.3B 2050), **OECD municipal waste indicator**,
+  **Basel Convention national reporting** (hazardous-waste trade).
+- **Stream monitors** — supplement per waste stream: **Global E-waste Monitor
+  2024** (62 Mt in 2022, 22.3% properly recycled, 82 Mt by 2030), **UNEP/WRAP
+  Food Waste Index 2024**, **OECD Global Plastics Outlook** (plastics ~triple by
+  2060, <1/5 recycled).
+- **Leads** — investigate, never cite as official counts: **Global Plastic
+  Watch** (satellite+AI site mapping), **Waste Atlas** (some data older than
+  WB/UNEP — cross-check), **Our World in Data**, **Circularity Gap Report**,
+  **Basel Action Network** (watchdog, not neutral baseline).
+
+**Maintenance rule:** re-verify national agency names/URLs in
+`src/data/organizations.ts` every **6 months** — ministries get renamed often.
+Archive dead links (`verification_status: 'archived'`) instead of deleting.
+
 ### Recognition datasets (Phase 4 — informs, doesn't power)
 - **TrashNet** (6 categories), **TACO** (60 litter categories, in-the-wild),
   **OpenLitterMap** — small and *litter*-focused. They classify trash *categories*,
@@ -103,6 +130,9 @@ than an honest "check local." This is a feature of the ethic, not a gap.
    "license now" or "defer behind check-local." See HANDOFF.
 3. **Prototype EPA FRS ingestion** into the facility schema (layer 3) once the
    schema exists.
+4. **Wire item citations:** `SOURCES` ids in `src/data/organizations.ts` now
+   unblock populating `Disposition.source` in `src/data/items.ts` (the Atlas
+   provenance hook, currently empty).
 
 ---
 *Reference org contacts: [REFERENCE_ORGANIZATIONS.md](REFERENCE_ORGANIZATIONS.md).*

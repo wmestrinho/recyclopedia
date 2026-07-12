@@ -215,6 +215,46 @@ create table source (
   retrieved_at    date
 );
 
+### Organization directory extension (2026-07)
+
+The 2026-07-12 source-gathering research dive (see `docs/research/`) seeded the
+organization graph with ~200 entries and a public directory (`/academy/directory`).
+It adds directory facets **without touching the locked `org_role_t` enum** — the
+seed note's `category` taxonomy is a UI facet, not a role. Static-TS stage lives in
+`src/data/organizations.ts` (same Step-2 → Step-3 migration path as `items.ts`).
+
+```sql
+create type directory_category_t as enum
+  ('treaties-governance','data-hubs','earth-observation','research-institutes',
+   'school-platforms','zero-waste-plastics','circular-repair',
+   'environmental-justice','waste-pickers','national-agencies');
+create type authority_level_t as enum
+  ('treaty','intergovernmental','national','academic','ngo','grassroots','private-sector');
+create type verification_status_t as enum
+  ('verified-official','needs-review','community-submitted','archived');
+
+alter table organization
+  add column category            directory_category_t,
+  add column geography           text,          -- display scope: 'Global', 'Brazil', 'European Union'
+  add column focus_tags          text[] not null default '{}',
+  add column authority_level     authority_level_t,
+  add column data_available      boolean not null default false,
+  add column verification_status verification_status_t not null default 'needs-review',
+  add column last_checked        date;          -- re-verify every 6 months (agencies get renamed)
+
+alter table source
+  add column headline_stats text[] not null default '{}',
+  add column quality_tier   text check (quality_tier in ('baseline','stream-monitor','lead'));
+```
+
+Mapping decisions: convention secretariats → `governing_body`; UN bodies / WMO /
+World Bank / OECD / Copernicus → `intergovernmental`; IPCC / GCOS / UNSD / SEEA /
+IRP → `standards_body` (per REFERENCE_ORGANIZATIONS.md precedent); NASA / NOAA /
+national agencies → `gov_agency`; universities and research institutes →
+`university`; data platforms **and dataset-shaped companies (e.g. iFixit — its
+repair guides are a dataset)** → `data_provider`; everything civil-society → `ngo`.
+`archived` keeps dead-link entries visible as institutional history (never delete).
+
 -- items --------------------------------------------------------------------
 create table item (
   id             uuid primary key default gen_random_uuid(),
