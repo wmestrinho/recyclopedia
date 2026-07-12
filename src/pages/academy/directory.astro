@@ -1,0 +1,162 @@
+---
+import Directory from '../../components/Directory.svelte';
+import LbgFooter from '../../components/LbgFooter.astro';
+import LbgHeader from '../../components/LbgHeader.astro';
+import { ORGANIZATIONS, SOURCES } from '../../data/organizations';
+
+const TIER_LABELS: Record<string, string> = {
+  baseline: 'Baseline',
+  'stream-monitor': 'Stream monitor',
+  lead: 'Lead',
+};
+
+const countryCount = new Set(
+  ORGANIZATIONS.filter((org) => org.category === 'national-agencies').map((org) => org.geography),
+).size;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The World Directory | LBG Academy</title>
+  <meta
+    name="description"
+    content="A living directory of the treaties, agencies, datasets, schools, and community organizations working on waste — every claim traceable to its source."
+  />
+  <link rel="canonical" href="https://lettucebeetgrapefruit.org/academy/directory" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/lbg-theme.css" />
+</head>
+<body class="lbg-site lbg-academy">
+  <a class="skip-link" href="#directory-top">Skip to content</a>
+  <LbgHeader surface="academy" />
+
+  <main class="site-shell">
+    <article class="page is-active lesson" id="directory-top">
+      <p class="lesson__crumb">
+        <a href="/academy/">← Academy Home</a>
+        · Reference
+      </p>
+      <p class="section-kicker">The World Directory</p>
+      <h1 class="lesson__title">Sources &amp; organizations, all in one place.</h1>
+      <p class="lede" style="margin-bottom: 1rem;">
+        {ORGANIZATIONS.length} treaties, agencies, data hubs, research institutes, school
+        platforms, and community networks across {countryCount}+ countries and regions —
+        the first layer of a living directory. Every number on this site should trace back
+        to a source you can visit yourself; this is where those sources live.
+      </p>
+      <p class="lede" style="margin-bottom: 2rem; font-size: 0.95rem;">
+        Entries marked <strong>✓ verified official</strong> point to official government,
+        treaty, UN, university, or organization domains. <strong>⚠ Needs review</strong>
+        entries are kept visible rather than hidden — knowing what still needs checking is
+        part of honest data.
+      </p>
+
+      <section class="dir-sources" aria-labelledby="key-datasets-title">
+        <div class="lbg-section__heading">
+          <p class="lbg-kicker">Key datasets</p>
+          <h2 id="key-datasets-title">Where the numbers come from.</h2>
+          <p>
+            <strong>Baselines</strong> for country comparisons, <strong>stream monitors</strong>
+            per waste stream, and <strong>leads</strong> to investigate — never to cite as
+            official counts.
+          </p>
+        </div>
+        <div class="dir-sources__grid">
+          {SOURCES.map((source) => (
+            <article class={`dir-source dir-source--${source.quality_tier}`}>
+              <p class="dir-source__tier">{TIER_LABELS[source.quality_tier]}</p>
+              <h3 class="dir-source__name">
+                <a href={source.url} target="_blank" rel="noopener noreferrer">{source.name} ↗</a>
+              </h3>
+              {source.headline_stats && (
+                <ul class="dir-source__stats">
+                  {source.headline_stats.map((stat) => <li>{stat}</li>)}
+                </ul>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="directory-browse-title" style="margin-top: 3rem;">
+        <div class="lbg-section__heading" style="margin-bottom: 1.5rem;">
+          <p class="lbg-kicker">Browse</p>
+          <h2 id="directory-browse-title">Find the people working on your question.</h2>
+        </div>
+        <Directory client:load />
+      </section>
+
+      <p class="lesson__crumb lesson__crumb--end">
+        <a href="/academy/">← Back to Academy Home</a>
+      </p>
+    </article>
+  </main>
+
+  <LbgFooter surface="academy" />
+
+  <style>
+    .dir-sources__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .dir-source {
+      background: var(--surface, #fcfaf4);
+      border: 1px solid var(--border, #d8d0bc);
+      border-left: 4px solid var(--line, #e4ddcc);
+      border-radius: var(--radius, 10px);
+      padding: 0.9rem 1rem;
+    }
+    .dir-source--baseline {
+      border-left-color: var(--accent, #6b9a3a);
+    }
+    .dir-source--stream-monitor {
+      border-left-color: var(--beet, #8a2450);
+    }
+    .dir-source--lead {
+      border-left-color: var(--grapefruit, #e4562e);
+    }
+    .dir-source__tier {
+      margin: 0 0 0.3rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted, #77705f);
+    }
+    .dir-source__name {
+      margin: 0 0 0.4rem;
+      font-family: var(--font-display, 'Newsreader', serif);
+      font-size: 1.02rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .dir-source__name a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .dir-source__name a:hover {
+      text-decoration: underline;
+    }
+    .dir-source__stats {
+      margin: 0;
+      padding-left: 1.05rem;
+      font-size: 0.82rem;
+      color: var(--muted, #77705f);
+      line-height: 1.45;
+    }
+    .dir-source__stats li + li {
+      margin-top: 0.2rem;
+    }
+  </style>
+</body>
+</html>
