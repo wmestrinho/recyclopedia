@@ -89,6 +89,13 @@ export const SOURCES: Source[] = [
     headline_stats: ['Watchdog reporting on toxic trade, e-waste exports, shipbreaking'],
   },
 
+  {
+    id: 'epa-frs', name: 'EPA Facility Registry Service (FRS)', organization_id: 'us-epa', short_label: 'US EPA',
+    url: 'https://www.epa.gov/frs',
+    retrieved_at: '2026-07-14', quality_tier: 'baseline',
+    headline_stats: ['Federal registry of regulated facilities incl. landfills, transfer stations, MRFs', 'Free state combined CSV downloads — layer-3 backbone (scripts/frs_ingest.py)'],
+  },
+
   // ── Item-handling guidance (Disposition.source provenance, 2026-07-13) ──
   // Every URL below returned 200 with a matching page title on 2026-07-13,
   // and was checked for the specific claims it backs in items.ts.

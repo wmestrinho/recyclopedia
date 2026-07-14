@@ -1,0 +1,2003 @@
+{
+  "generated": "2026-07-14",
+  "source": "epa-frs",
+  "query": {
+    "state": "FL",
+    "county": "ORANGE",
+    "naics": [
+      "423930",
+      "562111",
+      "562112",
+      "562119",
+      "562211",
+      "562212",
+      "562213",
+      "562219",
+      "562920"
+    ]
+  },
+  "caveats": [
+    "FRS is regulatory-flavored: permits and reporters, not consumer drop-off points.",
+    "NAICS-based floor — facilities without waste NAICS codes are missing.",
+    "Not field-verified; verified_at stays null until a human or partner confirms.",
+    "562219 mixes compost with other non-hazardous treatment — FRS can't split it."
+  ],
+  "counts": {
+    "hazardous_collection": 12,
+    "hazardous_treatment": 6,
+    "incinerator": 1,
+    "landfill": 11,
+    "mrf": 4,
+    "scrap_yard": 40,
+    "waste_collection": 20,
+    "waste_treatment_other": 3
+  },
+  "total": 97,
+  "facilities": [
+    {
+      "registry_id": "110005662933",
+      "name": "BIO WASTE INDUSTRIES INC",
+      "facility_type": "hazardous_collection",
+      "address": "10600 S ORANGE AVE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328247723",
+      "geo": {
+        "lat": 28.416137,
+        "lng": -81.372781
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005662933",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071138931",
+      "name": "CARLSON ENVIRONMENTAL CONSULTANTS PC",
+      "facility_type": "hazardous_collection",
+      "address": "5229 YOUNG PINE RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32829-7414",
+      "geo": {
+        "lat": 28.487378,
+        "lng": -81.230394
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071138931",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110024251094",
+      "name": "CENTRAL HAULING & EXCAVATING",
+      "facility_type": "hazardous_collection",
+      "address": "1215 CROWN PARK CIR",
+      "city": "WINTER GARDEN",
+      "state": "FL",
+      "zip": "347872417",
+      "geo": {
+        "lat": 28.5779,
+        "lng": -81.56788
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110024251094",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110043173026",
+      "name": "CLEAN EARTH SPECIALTY WASTE SYSTEMS INC",
+      "facility_type": "hazardous_collection",
+      "address": "314 W LANDSTREET RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-7858",
+      "geo": {
+        "lat": 28.4361,
+        "lng": -81.38057
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110043173026",
+      "notes": "NAICS 562112,562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110072099933",
+      "name": "CRYSTAL CLEAN LLC",
+      "facility_type": "hazardous_collection",
+      "address": "603 CENTRAL FLORIDA PKWY",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-8563",
+      "geo": {
+        "lat": 28.40768,
+        "lng": -81.38381
+      },
+      "accepts": [
+        "hazardous_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110072099933",
+      "notes": "NAICS 562112",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110024250317",
+      "name": "FECC INC",
+      "facility_type": "hazardous_collection",
+      "address": "2418 SILVER STAR RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328043312",
+      "geo": {
+        "lat": 28.577735,
+        "lng": -81.4131
+      },
+      "accepts": [
+        "hazardous_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110024250317",
+      "notes": "NAICS 562112",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005637917",
+      "name": "J N MALCOLM & SONS EXCAVATING INC",
+      "facility_type": "hazardous_collection",
+      "address": "390 N HUDSON ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328351159",
+      "geo": {
+        "lat": 28.54731,
+        "lng": -81.4614
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005637917",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005631628",
+      "name": "LUMINAIRE RECYCLERS INC",
+      "facility_type": "hazardous_collection",
+      "address": "1018 36TH ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328057124",
+      "geo": {
+        "lat": 28.5064,
+        "lng": -81.39359
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005631628",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110072043911",
+      "name": "MBSS INC",
+      "facility_type": "hazardous_collection",
+      "address": "8302 EARLWOOD AVE",
+      "city": "MOUNT DORA",
+      "state": "FL",
+      "zip": "32757-7139",
+      "geo": {
+        "lat": 28.76165,
+        "lng": -81.64968
+      },
+      "accepts": [
+        "hazardous_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110072043911",
+      "notes": "NAICS 562112",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110022308117",
+      "name": "SHELLEY S SEPTIC TANKS RMF",
+      "facility_type": "hazardous_collection",
+      "address": "6505 W JONES AVE",
+      "city": "ZELLWOOD",
+      "state": "FL",
+      "zip": "32798",
+      "geo": {
+        "lat": 28.731004,
+        "lng": -81.599198
+      },
+      "accepts": [
+        "hazardous_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110022308117",
+      "notes": "NAICS 562112",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110016729762",
+      "name": "VIDYA BOODRAM & CO INC",
+      "facility_type": "hazardous_collection",
+      "address": "2800 HANSROB RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328043344",
+      "geo": {
+        "lat": 28.581614,
+        "lng": -81.4157
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110016729762",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005654504",
+      "name": "WALGREEN CO",
+      "facility_type": "hazardous_collection",
+      "address": "7475 CHANCELLOR DR",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328096241",
+      "geo": {
+        "lat": 28.45835,
+        "lng": -81.411864
+      },
+      "accepts": [
+        "hazardous_collection",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005654504",
+      "notes": "NAICS 562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110054813207",
+      "name": "CLEAN EARTH SPECIALTY WASTE SOLUTIONS INC",
+      "facility_type": "hazardous_treatment",
+      "address": "314 W LANDSTREET RD # B",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328247803",
+      "geo": {
+        "lat": 28.435873,
+        "lng": -81.380592
+      },
+      "accepts": [
+        "hazardous_collection",
+        "hazardous_treatment",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110054813207",
+      "notes": "NAICS 562211,562112,562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110031365252",
+      "name": "FLORIDA DEP DSCP # D168-599501107",
+      "facility_type": "hazardous_treatment",
+      "address": "5401 LAKE HOWELL RD - DC",
+      "city": "WINTER PARK",
+      "state": "FL",
+      "zip": "32792-1000",
+      "geo": {
+        "lat": 28.622371,
+        "lng": -81.324402
+      },
+      "accepts": [
+        "hazardous_treatment"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110031365252",
+      "notes": "NAICS 562211",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110037927063",
+      "name": "FLORIDA DEP DSCP D322 #489503059",
+      "facility_type": "hazardous_treatment",
+      "address": "901 W FAIRBANKS AVE - DC",
+      "city": "WINTER PARK",
+      "state": "FL",
+      "zip": "32789-4716",
+      "geo": {
+        "lat": 28.593507,
+        "lng": -81.36108
+      },
+      "accepts": [
+        "hazardous_treatment"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110037927063",
+      "notes": "NAICS 562211",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110031344588",
+      "name": "FLORIDA DEP DSCP D323 #489502021",
+      "facility_type": "hazardous_treatment",
+      "address": "4424 CURRY FORD RD - DC",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32812-2709",
+      "geo": {
+        "lat": 28.522136,
+        "lng": -81.328963
+      },
+      "accepts": [
+        "hazardous_treatment"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110031344588",
+      "notes": "NAICS 562211",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110031344579",
+      "name": "FLORIDA DEP DSCP D327 #489500705",
+      "facility_type": "hazardous_treatment",
+      "address": "4450 CURRY FORD RD - DC",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32812-2702",
+      "geo": {
+        "lat": 28.52422,
+        "lng": -81.32939
+      },
+      "accepts": [
+        "hazardous_treatment"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110031344579",
+      "notes": "NAICS 562211",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110002538727",
+      "name": "MEDIGREEN WASTE SERVICES LLC",
+      "facility_type": "hazardous_treatment",
+      "address": "1920 PREMIER ROW",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328096206",
+      "geo": {
+        "lat": 28.46061,
+        "lng": -81.40351
+      },
+      "accepts": [
+        "hazardous_collection",
+        "hazardous_treatment"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110002538727",
+      "notes": "NAICS 562211,562112",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110031338069",
+      "name": "TOTAL ENVIRO SERVICES INC",
+      "facility_type": "incinerator",
+      "address": "3003 40TH ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328398624",
+      "geo": {
+        "lat": 28.502611,
+        "lng": -81.418392
+      },
+      "accepts": [
+        "incinerator"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110031338069",
+      "notes": "NAICS 562213",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110043163634",
+      "name": "BAY LAKE CLASS III LANDFILL",
+      "facility_type": "landfill",
+      "address": "5901 MAPLE RD",
+      "city": "BAY LAKE",
+      "state": "FL",
+      "zip": "32821",
+      "geo": {
+        "lat": 28.42168,
+        "lng": -81.5975
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110043163634",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110014017526",
+      "name": "BAY LAKE CONSTRUCTION DEBRIS LF",
+      "facility_type": "landfill",
+      "address": "1.5 MI W MAGIC KINGDOM PARK",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32825",
+      "geo": {
+        "lat": 28.566433,
+        "lng": -81.261122
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110014017526",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110013931709",
+      "name": "CLARK'S LANDFILL",
+      "facility_type": "landfill",
+      "address": "5327 LAKE SPARLING RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32810",
+      "geo": {
+        "lat": 28.608976,
+        "lng": -81.459673
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110013931709",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110056991000",
+      "name": "GOLDEN GEM RD LANDFILL",
+      "facility_type": "landfill",
+      "address": "3608 PLANCK RD",
+      "city": "PLYMOUTH",
+      "state": "FL",
+      "zip": "32768",
+      "geo": {
+        "lat": 28.7311,
+        "lng": -81.5741
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110056991000",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110013931665",
+      "name": "MARTIN MARIETTA CORP / SAND LK",
+      "facility_type": "landfill",
+      "address": "SAND LAKE RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32818",
+      "geo": {
+        "lat": 28.566433,
+        "lng": -81.261122
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110013931665",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110014017535",
+      "name": "ORANGE COUNTY HIGHWAY / AVALON C&D FACIL",
+      "facility_type": "landfill",
+      "address": "DANBURY AVE. & PHIL C PETER RD",
+      "city": "WINTER GARDEN",
+      "state": "FL",
+      "zip": "00000",
+      "geo": {
+        "lat": 28.566433,
+        "lng": -81.261122
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110014017535",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110041184697",
+      "name": "ORANGE COUNTY LANDFILL",
+      "facility_type": "landfill",
+      "address": "5901 YOUNG PINE RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32829",
+      "geo": {
+        "lat": 28.48079,
+        "lng": -81.21875
+      },
+      "accepts": [
+        "hazardous_treatment",
+        "landfill",
+        "waste_collection",
+        "waste_treatment_other"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110041184697",
+      "notes": "NAICS 562212,562211,562219,562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110000748344",
+      "name": "PERMA FIX OF ORLANDO",
+      "facility_type": "landfill",
+      "address": "10100 ROCKET BLVD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-8565",
+      "geo": {
+        "lat": 28.41775,
+        "lng": -81.38601
+      },
+      "accepts": [
+        "hazardous_collection",
+        "hazardous_treatment",
+        "landfill",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110000748344",
+      "notes": "NAICS 562212,562211,562112,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110013940851",
+      "name": "PINE HILLS ROAD TRASH SITE",
+      "facility_type": "landfill",
+      "address": "N END PINE HILLS RD",
+      "city": "WEST ORLANDO",
+      "state": "FL",
+      "zip": "00000",
+      "geo": {
+        "lat": 28.566433,
+        "lng": -81.261122
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110013940851",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110013931763",
+      "name": "PINE RIDGE RECYCLING &AMP; DISPOSAL",
+      "facility_type": "landfill",
+      "address": "5400 REX DR",
+      "city": "WINTER GARDEN",
+      "state": "FL",
+      "zip": "34787",
+      "geo": {
+        "lat": 28.487325,
+        "lng": -81.651813
+      },
+      "accepts": [
+        "landfill"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110013931763",
+      "notes": "NAICS 562212",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110041527666",
+      "name": "WASTE MANAGEMENT INC. OF FLORIDA",
+      "facility_type": "landfill",
+      "address": "255 W KEENE RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-7923",
+      "geo": {
+        "lat": 28.642944,
+        "lng": -81.516306
+      },
+      "accepts": [
+        "landfill",
+        "waste_treatment_other"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110041527666",
+      "notes": "NAICS 562212,562219",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110009076640",
+      "name": "BUDGET AUTO PARTS OF ORLANDO",
+      "facility_type": "mrf",
+      "address": "881 S 9TH ST",
+      "city": "WINTER GARDEN",
+      "state": "FL",
+      "zip": "34787-4011",
+      "geo": {
+        "lat": 28.55352,
+        "lng": -81.57521
+      },
+      "accepts": [
+        "mrf",
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110009076640",
+      "notes": "NAICS 562920,423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110009084383",
+      "name": "RECYCLE AMERICA OF ORANGE CO",
+      "facility_type": "mrf",
+      "address": "12100 YOUNG PINE ROAD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32829-7501",
+      "geo": {
+        "lat": 28.48103,
+        "lng": -81.20882
+      },
+      "accepts": [
+        "mrf",
+        "scrap_yard",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110009084383",
+      "notes": "NAICS 562920,562111,423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110012325340",
+      "name": "TAFT RECYCING",
+      "facility_type": "mrf",
+      "address": "375 W 7TH ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.425179,
+        "lng": -81.380833
+      },
+      "accepts": [
+        "mrf",
+        "scrap_yard",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110012325340",
+      "notes": "NAICS 562920,562111,423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110037314830",
+      "name": "TRC AMERICA INC",
+      "facility_type": "mrf",
+      "address": "5701 CARDER RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328104742",
+      "geo": {
+        "lat": 28.61017,
+        "lng": -81.41898
+      },
+      "accepts": [
+        "mrf"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110037314830",
+      "notes": "NAICS 562920",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110015626946",
+      "name": "A TO Z AUTO PARTS TWO INC.",
+      "facility_type": "scrap_yard",
+      "address": "3116 OVERLAND ROAD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-9471",
+      "geo": {
+        "lat": 28.63032,
+        "lng": -81.45959
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110015626946",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110024468609",
+      "name": "AARD WOLF INC",
+      "facility_type": "scrap_yard",
+      "address": "2213 CORAL HILLS RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32712",
+      "geo": {
+        "lat": 28.644601,
+        "lng": -81.504684
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110024468609",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110035662529",
+      "name": "ABC USED AUTO PARTS",
+      "facility_type": "scrap_yard",
+      "address": "18609 E COLONIAL DR",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328203002",
+      "geo": {
+        "lat": 28.5517,
+        "lng": -81.1009
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110035662529",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110015626937",
+      "name": "BIG MIKE'S AUTO INC",
+      "facility_type": "scrap_yard",
+      "address": "2450 VULCAN RD.",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703",
+      "geo": {
+        "lat": 28.640936,
+        "lng": -81.464232
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110015626937",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110016727719",
+      "name": "BROTHERS SCRAP METALS INC",
+      "facility_type": "scrap_yard",
+      "address": "420 S NORTON AVE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328052425",
+      "geo": {
+        "lat": 28.538031,
+        "lng": -81.398367
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110016727719",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110016743005",
+      "name": "C & S SALVAGE & RECYCLING INC",
+      "facility_type": "scrap_yard",
+      "address": "8808 FLORIDA ROCK RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.441867,
+        "lng": -81.371461
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110016743005",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070264691",
+      "name": "CAPITAL TRADERS AND INVESTMENT, LLC",
+      "facility_type": "scrap_yard",
+      "address": "1912 ELLMAN ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32804-4202",
+      "geo": {
+        "lat": 28.57638,
+        "lng": -81.407258
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070264691",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110006391617",
+      "name": "CENTRAL FLORIDA USED OIL SERVICE",
+      "facility_type": "scrap_yard",
+      "address": "700 S HERMIT RD",
+      "city": "PLYMOUTH",
+      "state": "FL",
+      "zip": "32768",
+      "geo": {
+        "lat": 28.693611,
+        "lng": -81.566944
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110006391617",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110011351562",
+      "name": "CMC RECYCLING",
+      "facility_type": "scrap_yard",
+      "address": "3000 GAMSON RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-9448",
+      "geo": {
+        "lat": 28.63277,
+        "lng": -81.46696
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110011351562",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005641350",
+      "name": "COMMERCIAL CONDREY ENTERPRISES",
+      "facility_type": "scrap_yard",
+      "address": "7301 OVERLAND RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328103409",
+      "geo": {
+        "lat": 28.62365,
+        "lng": -81.44924
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005641350",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110000362964",
+      "name": "CROWN CORK AND SEAL",
+      "facility_type": "scrap_yard",
+      "address": "851 EAST MAPLE STREET",
+      "city": "WINTER GARDEN",
+      "state": "FL",
+      "zip": "34787-3724",
+      "geo": {
+        "lat": 28.56211,
+        "lng": -81.57111
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110000362964",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005646765",
+      "name": "E & H CAR CRUSHING COMPANY",
+      "facility_type": "scrap_yard",
+      "address": "106 GLOUCESTER ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328333367",
+      "geo": {
+        "lat": 28.548399,
+        "lng": -81.096582
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005646765",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110020068594",
+      "name": "E & H STEEL PROCESSING",
+      "facility_type": "scrap_yard",
+      "address": "356 N 5TH ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32833",
+      "geo": {
+        "lat": 28.55235,
+        "lng": -81.10778
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110020068594",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005630415",
+      "name": "ELITE COOLANT RECLAIMERS OF AMERICA INC",
+      "facility_type": "scrap_yard",
+      "address": "5610 CARDER RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328100",
+      "geo": {
+        "lat": 28.608872,
+        "lng": -81.419613
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005630415",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110064405219",
+      "name": "ENERGY AUTO DISMANTLING",
+      "facility_type": "scrap_yard",
+      "address": "356 N 5TH ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32833-3307",
+      "geo": {
+        "lat": 28.55235,
+        "lng": -81.10778
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110064405219",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110044938538",
+      "name": "FCC ENVIRONMENTAL LLC",
+      "facility_type": "scrap_yard",
+      "address": "233 CENTRAL FLORIDA PKWY",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328247602",
+      "geo": {
+        "lat": 28.407706,
+        "lng": -81.378072
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110044938538",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070264713",
+      "name": "FOSTER'S AUTO CRUSHING, INC",
+      "facility_type": "scrap_yard",
+      "address": "312 N ORTMAN DR",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32805-1034",
+      "geo": {
+        "lat": 28.545723,
+        "lng": -81.43034
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070264713",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071656873",
+      "name": "GLE SCRAP METAL PROCESSING INC",
+      "facility_type": "scrap_yard",
+      "address": "922 N LAKEWOOD AVE",
+      "city": "OCOEE",
+      "state": "FL",
+      "zip": "34761-1710",
+      "geo": {
+        "lat": 28.58309,
+        "lng": -81.544454
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071656873",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005654942",
+      "name": "HOBBIE USED AUTO PARTS",
+      "facility_type": "scrap_yard",
+      "address": "18285 OLD CHENEY HWY",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32820",
+      "geo": {
+        "lat": 28.555611,
+        "lng": -81.107285
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005654942",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110012541614",
+      "name": "HYDROCARBON RECOVERY SERVICES",
+      "facility_type": "scrap_yard",
+      "address": "223 CENTRAL FLORIDA PKWY",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328247602",
+      "geo": {
+        "lat": 28.4077,
+        "lng": -81.37882
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110012541614",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110072195843",
+      "name": "INDEPENDENCE RECYCLING OF FLORIDA",
+      "facility_type": "scrap_yard",
+      "address": "9800 RECYCLE CENTER RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-8150",
+      "geo": {
+        "lat": 28.42354,
+        "lng": -81.37996
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110072195843",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005637935",
+      "name": "JERRY'S AUTO RECYCLING DBA HARSCH, INC.",
+      "facility_type": "scrap_yard",
+      "address": "312 N ORTMAN DR",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328051034",
+      "geo": {
+        "lat": 28.545723,
+        "lng": -81.43034
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005637935",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110015626848",
+      "name": "LANDERS RECYCLING",
+      "facility_type": "scrap_yard",
+      "address": "3024 APOPKA BOULEVARD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-9318",
+      "geo": {
+        "lat": 28.632661,
+        "lng": -81.452165
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110015626848",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071239464",
+      "name": "MID FLORIDA MATERIALS RECYCLING FACILITY",
+      "facility_type": "scrap_yard",
+      "address": "320 ENTERPRISE ST",
+      "city": "OCOEE",
+      "state": "FL",
+      "zip": "34761-3002",
+      "geo": {
+        "lat": 28.56197,
+        "lng": -81.55021
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071239464",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110024528199",
+      "name": "MIKE'S TOWING",
+      "facility_type": "scrap_yard",
+      "address": "3141 SHARPE RD (B)",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-2104",
+      "geo": {
+        "lat": 28.630148,
+        "lng": -81.455497
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110024528199",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071279567",
+      "name": "PGM OF TEXAS, LLC",
+      "facility_type": "scrap_yard",
+      "address": "9180 BOGGY CREEK RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-7733",
+      "geo": {
+        "lat": 28.43306,
+        "lng": -81.350431
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071279567",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070596595",
+      "name": "PRO-DEMO AGGREGATE CONCRETE PROCESSING FACILITY",
+      "facility_type": "scrap_yard",
+      "address": "6306 SEMINOLE AVE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32822-4901",
+      "geo": {
+        "lat": 28.47702,
+        "lng": -81.29874
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070596595",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110064406806",
+      "name": "PY METAL INC",
+      "facility_type": "scrap_yard",
+      "address": "7904 N ORANGE BLOSSOM TRL",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32810-2639",
+      "geo": {
+        "lat": 28.62914,
+        "lng": -81.44942
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110064406806",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070937992",
+      "name": "Q1, LLC",
+      "facility_type": "scrap_yard",
+      "address": "7651 SOUTHLAND BLVD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32809-6959",
+      "geo": {
+        "lat": 28.45477,
+        "lng": -81.40621
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070937992",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070390336",
+      "name": "ROBERT WALLICK ASSOCIATES, INC",
+      "facility_type": "scrap_yard",
+      "address": "531 SUSAN B BRITT CT",
+      "city": "WINTER GARDEN",
+      "state": "FL",
+      "zip": "34787-1902",
+      "geo": {
+        "lat": 28.57738,
+        "lng": -81.56424
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070390336",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005658608",
+      "name": "RUBY F MCDOWELL",
+      "facility_type": "scrap_yard",
+      "address": "356 N 5TH ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328333307",
+      "geo": {
+        "lat": 28.552628,
+        "lng": -81.108187
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005658608",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110064754145",
+      "name": "SCRAP METAL TRADING CORP",
+      "facility_type": "scrap_yard",
+      "address": "3041 N FORSYTH RD",
+      "city": "WINTER PARK",
+      "state": "FL",
+      "zip": "32792",
+      "geo": {
+        "lat": 28.58893,
+        "lng": -81.2947
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110064754145",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110055485336",
+      "name": "SCRAP SYSTEMS INC.",
+      "facility_type": "scrap_yard",
+      "address": "2600 OLD WINTER GARDEN RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32804",
+      "geo": {
+        "lat": 28.54515,
+        "lng": -81.41154
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110055485336",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110043731646",
+      "name": "SONOCO RECYLING - ORLANDO",
+      "facility_type": "scrap_yard",
+      "address": "1417 ATLANTA AVE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32806",
+      "geo": {
+        "lat": 28.52475,
+        "lng": -81.38313
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110043731646",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110015627062",
+      "name": "SPORTY AUTO",
+      "facility_type": "scrap_yard",
+      "address": "250 STORY PARTIN ROAD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32833-3101",
+      "geo": {
+        "lat": 28.548828,
+        "lng": -81.127883
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110015627062",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110020175120",
+      "name": "TRADEMARK METALS RECYCLING LLC",
+      "facility_type": "scrap_yard",
+      "address": "51 E LANDSTREET RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.438346,
+        "lng": -81.374911
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110020175120",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110020175111",
+      "name": "TRADEMARK METALS RECYCLING RECYCLING LLC-KALEY",
+      "facility_type": "scrap_yard",
+      "address": "317 W KALEY AVE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32806-3940",
+      "geo": {
+        "lat": 28.52017,
+        "lng": -81.382389
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110020175111",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071239039",
+      "name": "TRC AMERICA DEMOLITION SERVICES, LLC",
+      "facility_type": "scrap_yard",
+      "address": "5551 W PONKAN RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32712",
+      "geo": {
+        "lat": 28.728,
+        "lng": -81.603972
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071239039",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110031438353",
+      "name": "U-PULL-&-PAY LLC-ORLANDO",
+      "facility_type": "scrap_yard",
+      "address": "1157 JETSTREAM DR",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328247100",
+      "geo": {
+        "lat": 28.40191,
+        "lng": -81.36169
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110031438353",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110040134280",
+      "name": "V&L RECYCLING LLC DBA 888 RECYCLING",
+      "facility_type": "scrap_yard",
+      "address": "6895 HANGING MOSS RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32807-5326",
+      "geo": {
+        "lat": 28.57904,
+        "lng": -81.29611
+      },
+      "accepts": [
+        "scrap_yard"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110040134280",
+      "notes": "NAICS 423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070387473",
+      "name": "ADS-PINE HILLS COLLECTIONS",
+      "facility_type": "waste_collection",
+      "address": "5722 N PINE HILLS RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32810-3210",
+      "geo": {
+        "lat": 28.619739,
+        "lng": -81.45174
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070387473",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110058277350",
+      "name": "APOPKA REPAIR FACILITY",
+      "facility_type": "waste_collection",
+      "address": "3445 OVERLAND RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-9443",
+      "geo": {
+        "lat": 28.62655,
+        "lng": -81.45464
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110058277350",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110054827960",
+      "name": "DANIELS SHARPSMART INC",
+      "facility_type": "waste_collection",
+      "address": "10705 ROCKET BLVD STE 111",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-8500",
+      "geo": {
+        "lat": 28.410782,
+        "lng": -81.390012
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110054827960",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110006156890",
+      "name": "DIAL ENVIRONMENTAL SERVICES",
+      "facility_type": "waste_collection",
+      "address": "6845 NARCOOSSEE RD STE 58",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328225559",
+      "geo": {
+        "lat": 28.468226,
+        "lng": -81.275227
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110006156890",
+      "notes": "NAICS 562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110044968586",
+      "name": "DIVERSIFIED ASSET RECOVERY LLC/DIVERSIFIED RECYCLING LLC",
+      "facility_type": "waste_collection",
+      "address": "2700 HAZELHURST AVE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32804-2718",
+      "geo": {
+        "lat": 28.58357,
+        "lng": -81.41492
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110044968586",
+      "notes": "NAICS 562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110069480537",
+      "name": "FCC ENVIRONMENTAL SERVICES OF FLORIDA LLC",
+      "facility_type": "waste_collection",
+      "address": "6760 MUSKOGEE ST",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32807-5287",
+      "geo": {
+        "lat": 28.569984,
+        "lng": -81.296875
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110069480537",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071862945",
+      "name": "GFL - ORLANDO HAULING",
+      "facility_type": "waste_collection",
+      "address": "1263 W LANDSTREET RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-8033",
+      "geo": {
+        "lat": 28.436033,
+        "lng": -81.394422
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071862945",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005644071",
+      "name": "L B MCLEOD TRANSFER STATION",
+      "facility_type": "waste_collection",
+      "address": "5000 L B MCLEOD RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "328116612",
+      "geo": {
+        "lat": 28.50477,
+        "lng": -81.44697
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005644071",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071238789",
+      "name": "MID FLORIDA MATERIALS MAINTENANCE FACILITY",
+      "facility_type": "waste_collection",
+      "address": "450 ENTERPRISE ST",
+      "city": "OCOEE",
+      "state": "FL",
+      "zip": "34761-3003",
+      "geo": {
+        "lat": 28.561876,
+        "lng": -81.555741
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071238789",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110012677790",
+      "name": "ORLANDO TRANSFER STATION",
+      "facility_type": "waste_collection",
+      "address": "4986 L.B. MCLEOD ROAD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32811-6400",
+      "geo": {
+        "lat": 28.504833,
+        "lng": -81.445456
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110012677790",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110025347925",
+      "name": "REPUBLIC SERVICES OF FLORIDA LP",
+      "facility_type": "waste_collection",
+      "address": "11255 ROCKET BLVD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.4041,
+        "lng": -81.39076
+      },
+      "accepts": [
+        "scrap_yard",
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110025347925",
+      "notes": "NAICS 562111,562119,423930",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110071228560",
+      "name": "REPUBLIC SERVICES OF FLORIDA LP",
+      "facility_type": "waste_collection",
+      "address": "3445 OVERLAND RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-9443",
+      "geo": {
+        "lat": 28.62655,
+        "lng": -81.45464
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110071228560",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070265371",
+      "name": "RUSSO AND SONS, LLC",
+      "facility_type": "waste_collection",
+      "address": "450 ENTERPRISE ST",
+      "city": "OCOEE",
+      "state": "FL",
+      "zip": "34761-3003",
+      "geo": {
+        "lat": 28.56247,
+        "lng": -81.55564
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070265371",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110070265962",
+      "name": "RUSSO WASTE SERVICES, INC.",
+      "facility_type": "waste_collection",
+      "address": "320 ENTERPRISE ST",
+      "city": "OCOEE",
+      "state": "FL",
+      "zip": "34761-3002",
+      "geo": {
+        "lat": 28.56257,
+        "lng": -81.55021
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110070265962",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110032964184",
+      "name": "SECURE WASTE DISPOSAL INC",
+      "facility_type": "waste_collection",
+      "address": "6357 ALL AMERICAN BLVD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32810",
+      "geo": {
+        "lat": 28.616511,
+        "lng": -81.417411
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110032964184",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110037314439",
+      "name": "SUNSHINE RECYCLING",
+      "facility_type": "waste_collection",
+      "address": "1263 LANDSTREET RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.43621,
+        "lng": -81.361166
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110037314439",
+      "notes": "NAICS 562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110072195839",
+      "name": "TRIUMVIRATE ENVIRONMENTAL SERVICES LLC",
+      "facility_type": "waste_collection",
+      "address": "10100 ROCKET BLVD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824-8565",
+      "geo": {
+        "lat": 28.41775,
+        "lng": -81.38601
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110072195839",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110046329157",
+      "name": "VEOLIA ES SOLID WASTE, SOUTHEAST, INC.",
+      "facility_type": "waste_collection",
+      "address": "1964 S ORANGE BLOSSOM TRL",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32703-7758",
+      "geo": {
+        "lat": 28.64832,
+        "lng": -81.46385
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110046329157",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110009075124",
+      "name": "WM OF ORLANDO - GOLDENROD",
+      "facility_type": "waste_collection",
+      "address": "1334 N GOLDENROD RD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32807",
+      "geo": {
+        "lat": 28.56258,
+        "lng": -81.28604
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110009075124",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110005663004",
+      "name": "WM OF ORLANDO - RIO VISTA",
+      "facility_type": "waste_collection",
+      "address": "3510 RIO VISTA AVENUE",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32805-6605",
+      "geo": {
+        "lat": 28.506279,
+        "lng": -81.424182
+      },
+      "accepts": [
+        "waste_collection"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110005663004",
+      "notes": "NAICS 562111",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110040492133",
+      "name": "FLORIDA BIO-COMPLIANCE, INC.",
+      "facility_type": "waste_treatment_other",
+      "address": "436 LANDSTREET ROAD",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.43608,
+        "lng": -81.3836
+      },
+      "accepts": [
+        "waste_treatment_other"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110040492133",
+      "notes": "NAICS 562219",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110009076114",
+      "name": "PERMA-FIX OF ORLANDO INC",
+      "facility_type": "waste_treatment_other",
+      "address": "10225 GENERAL DR",
+      "city": "ORLANDO",
+      "state": "FL",
+      "zip": "32824",
+      "geo": {
+        "lat": 28.418189,
+        "lng": -81.38783
+      },
+      "accepts": [
+        "waste_collection",
+        "waste_treatment_other"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110009076114",
+      "notes": "NAICS 562219,562111,562119",
+      "source_id": "epa-frs",
+      "verified_at": null
+    },
+    {
+      "registry_id": "110069637101",
+      "name": "THETA AMERICA GROUP LLC",
+      "facility_type": "waste_treatment_other",
+      "address": "5551 W PONKAN RD",
+      "city": "APOPKA",
+      "state": "FL",
+      "zip": "32712-0000",
+      "geo": {
+        "lat": 28.72727,
+        "lng": -81.60368
+      },
+      "accepts": [
+        "waste_treatment_other"
+      ],
+      "url": "https://ofmpub.epa.gov/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=110069637101",
+      "notes": "NAICS 562219",
+      "source_id": "epa-frs",
+      "verified_at": null
+    }
+  ]
+}

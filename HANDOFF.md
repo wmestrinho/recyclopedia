@@ -4,6 +4,37 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Phase 2 kickoff: EPA FRS ingestion prototype + outreach guide — 2026-07-14 (Mac Claude Code)
+
+- **Owner outreach guide created in Drive** (repo is PUBLIC — negotiation
+  playbooks don't get committed): "Recyclopedia Data Outreach Guide —
+  Earth911 & The Recycling Partnership" in `RandDRecyclopedia`. Sequenced
+  plays (Earth911 first), draft emails, question checklists, decision tree,
+  red lines, outcome log. Outreach outcome gates layer 2.
+- **Cloudflare cleanup TODO is DONE** (verified via `wrangler pages project
+  list` 2026-07-14): only `recyclopedia` (all 4 apex/www domains incl. LBG
+  .com/.org), `diy-pallet-guide`, and two unrelated projects remain — the old
+  pre-recyclopedia.cc project no longer exists. Check it off.
+- **DATA_STRATEGY next-step #3 prototyped — `scripts/frs_ingest.py`:**
+  ingests EPA FRS "state combined CSV" bundles (state_combined_fl.zip,
+  refreshed by EPA 2026-07-08, 69 MB). Findings that shape layer 3:
+  - Envirofacts efservice single-table queries work, but **cross-table joins
+    500 server-side** → bulk CSV is the reliable path.
+  - FRS `INTEREST_TYPE` is permit-program noise (NPDES/AIR/…); **NAICS 562xx
+    + 423930 is the honest facility classifier** (FL: 785 landfills, 1,106
+    recyclable-material wholesalers, 106 MRFs, 608 collection…).
+  - Excluded as noise: 562910 remediation, 562991 septic, 562998 misc.
+- **Pilot output committed:** `docs/research/2026-07-14-frs-orange-county-fl.json`
+  — 97 Orange County facilities (40 scrap yards, 11 landfills incl. the real
+  Orange County Landfill, 4 MRFs…), 97/97 geocoded, caveats embedded
+  (regulatory floor, not consumer drop-off points; `verified_at` stays null).
+- **`epa-frs` added to SOURCES** (baseline tier) — renders in the directory's
+  Key Datasets strip.
+- Version `v0.7.4 → v0.7.5 alpha`.
+- **Owner asks outstanding:** send the two outreach emails (guide in Drive);
+  enable GitHub Actions at account level if CI is wanted; Supabase account
+  creation is owner-only when layer 3 goes live.
+
 ## ✅ Smoke-detector correction + EPA RadTown source — 2026-07-13 (Mac Claude Code)
 
 - Chasing the last uncited hazardous item exposed **stale facts on the card**:
