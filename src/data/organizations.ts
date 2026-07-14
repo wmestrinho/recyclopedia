@@ -52,7 +52,9 @@ export interface Organization {
 // A citable dataset/report, traceable to an organization ("no greenwashing").
 // quality_tier per the 2026-07-12 dataset note: baselines (World Bank / UN /
 // OECD), stream-specific monitors, and leads (satellite/NGO — investigate,
-// don't treat as official counts).
+// don't treat as official counts). 'guidance' (2026-07-13) = item-handling
+// guidance pages cited by Disposition.source in items.ts — advice provenance,
+// not statistics; excluded from the directory's "Key datasets" strip.
 export interface Source {
   id: string;                 // 'gwmo-2024', 'wb-what-a-waste'
   name: string;
@@ -61,7 +63,7 @@ export interface Source {
   license?: string;
   retrieved_at: string;
   headline_stats?: string[];
-  quality_tier: 'baseline' | 'stream-monitor' | 'lead';
+  quality_tier: 'baseline' | 'stream-monitor' | 'lead' | 'guidance';
 }
 
 export const CATEGORY_LABELS: Record<DirectoryCategory, string> = {
@@ -917,6 +919,22 @@ export const ORGANIZATIONS: Organization[] = [
     verification_status: 'verified-official', last_checked: '2026-07-12',
     notes: 'Cities and regions for sustainable resource management.',
   },
+  {
+    id: 'call2recycle', name: 'Call2Recycle (The Battery Network)', role: 'ngo',
+    category: 'circular-repair', geography: 'United States & Canada', region: 'americas',
+    focus_tags: ['batteries', 'product-stewardship', 'takeback'],
+    authority_level: 'ngo', data_available: true, url: 'https://www.call2recycle.org/',
+    verification_status: 'verified-official', last_checked: '2026-07-13', feeds: ['item', 'facility'],
+    notes: 'Battery take-back stewardship network with a public drop-off locator. Rebrand to "The Battery Network" observed 2026-07-13; same domain.',
+  },
+  {
+    id: 'paintcare', name: 'PaintCare', role: 'ngo',
+    category: 'circular-repair', geography: 'United States (stewardship states)', region: 'americas',
+    focus_tags: ['paint', 'product-stewardship', 'takeback'],
+    authority_level: 'ngo', data_available: true, url: 'https://www.paintcare.org/',
+    verification_status: 'verified-official', last_checked: '2026-07-13', feeds: ['item', 'facility'],
+    notes: 'American Coatings Association paint-stewardship program; drop-off sites only in participating states — local variance applies.',
+  },
 
   // ── Pollution, toxics, law & environmental justice ────────────────────
   {
@@ -1104,6 +1122,11 @@ export const ORGANIZATIONS: Organization[] = [
     authority_level: 'national', data_available: true, url: 'https://www.epa.gov/',
     verification_status: 'verified-official', last_checked: '2026-07-12', feeds: ['facility', 'macro'],
     notes: 'Pollution, waste, recycling, hazardous waste, climate programs, enforcement. FRS/Envirofacts feed layer 3.' },
+  { id: 'us-fda', name: 'US Food and Drug Administration', role: 'gov_agency', category: 'national-agencies',
+    geography: 'United States', region: 'americas', focus_tags: ['medications', 'consumer-safety'],
+    authority_level: 'national', data_available: true, url: 'https://www.fda.gov/',
+    verification_status: 'verified-official', last_checked: '2026-07-13', feeds: ['item'],
+    notes: 'Cited for medicine-disposal guidance (take-back first; flush only FDA flush-list drugs).' },
   { id: 'ca-eccc', name: 'Environment and Climate Change Canada', role: 'gov_agency', category: 'national-agencies',
     geography: 'Canada', region: 'americas', focus_tags: ['climate', 'water', 'waste'],
     authority_level: 'national', data_available: true, url: 'https://www.canada.ca/en/environment-climate-change.html',
@@ -1788,5 +1811,63 @@ export const SOURCES: Source[] = [
     id: 'ban-watch', name: 'Basel Action Network investigations', organization_id: 'ban',
     url: 'https://www.ban.org/', retrieved_at: '2026-07-12', quality_tier: 'lead',
     headline_stats: ['Watchdog reporting on toxic trade, e-waste exports, shipbreaking'],
+  },
+
+  // ── Item-handling guidance (Disposition.source provenance, 2026-07-13) ──
+  // Every URL below returned 200 with a matching page title on 2026-07-13,
+  // and was checked for the specific claims it backs in items.ts.
+  {
+    id: 'epa-household-batteries', name: 'Used Household Batteries (US EPA)', organization_id: 'us-epa',
+    url: 'https://www.epa.gov/recycle/used-household-batteries',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['Handling and drop-off guidance for alkaline, button/coin, zinc-air, and lead-acid household batteries'],
+  },
+  {
+    id: 'epa-lithium-batteries', name: 'Used Lithium-Ion Batteries (US EPA)', organization_id: 'us-epa',
+    url: 'https://www.epa.gov/recycle/used-lithium-ion-batteries',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['Never in trash or curbside; tape terminals; battery drop-off or HHW', 'Covers phones, laptops, power banks, and e-cigarettes'],
+  },
+  {
+    id: 'epa-electronics', name: 'Electronics Donation and Recycling (US EPA)', organization_id: 'us-epa',
+    url: 'https://www.epa.gov/recycle/electronics-donation-and-recycling',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['Donate working electronics; recycle the rest through certified electronics recyclers'],
+  },
+  {
+    id: 'epa-used-oil', name: 'Managing, Reusing, and Recycling Used Oil (US EPA)', organization_id: 'us-epa',
+    url: 'https://www.epa.gov/recycle/managing-reusing-and-recycling-used-oil',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['Used motor oil is re-refinable; never pour it down drains or on the ground'],
+  },
+  {
+    id: 'epa-hhw', name: 'Household Hazardous Waste (US EPA)', organization_id: 'us-epa',
+    url: 'https://www.epa.gov/hw/household-hazardous-waste',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['HHW facilities and collection events for oil-based paint, pesticides, and other corrosive/toxic/flammable household waste'],
+  },
+  {
+    id: 'epa-cfl', name: 'Recycling and Disposal of CFLs and Other Bulbs that Contain Mercury (US EPA)', organization_id: 'us-epa',
+    url: 'https://www.epa.gov/cfl/recycling-and-disposal-cfls',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['CFLs contain mercury — retail take-back or HHW; includes broken-bulb cleanup steps'],
+  },
+  {
+    id: 'fda-drug-disposal', name: 'Disposal of Unused Medicines: What You Should Know (US FDA)', organization_id: 'us-fda',
+    url: 'https://www.fda.gov/drugs/safe-disposal-medicines/disposal-unused-medicines-what-you-should-know',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['Drug take-back first; flushing only for FDA flush-list medicines'],
+  },
+  {
+    id: 'call2recycle-locator', name: 'Battery drop-off locator (Call2Recycle / The Battery Network)', organization_id: 'call2recycle',
+    url: 'https://www.call2recycle.org/locator/',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['ZIP-code locator for battery drop-off sites across the US and Canada'],
+  },
+  {
+    id: 'paintcare-dropoff', name: 'PaintCare drop-off sites', organization_id: 'paintcare',
+    url: 'https://www.paintcare.org/',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['Paint drop-off locations in paint-stewardship states; availability varies by state'],
   },
 ];

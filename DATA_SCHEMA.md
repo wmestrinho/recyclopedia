@@ -244,8 +244,18 @@ alter table organization
 
 alter table source
   add column headline_stats text[] not null default '{}',
-  add column quality_tier   text check (quality_tier in ('baseline','stream-monitor','lead'));
+  add column quality_tier   text check (quality_tier in ('baseline','stream-monitor','lead','guidance'));
 ```
+
+**`quality_tier = 'guidance'` (2026-07-13):** item-handling guidance pages
+(EPA, FDA, Call2Recycle, PaintCare) cited by `Disposition.source` in
+`items.ts` — advice provenance, not statistics. The three dataset tiers back
+the *numbers*; `guidance` backs the *instructions*. Guidance sources are
+excluded from the directory's "Key datasets" strip. Rule: a disposition only
+cites a source verified to support that specific instruction — never a stats
+report to make advice look sourced (that's why `antifreeze-coolant`,
+`led-bulb`, and `smoke-detector-ionization-type` remain uncited: no verified
+authority page found yet).
 
 Mapping decisions: convention secretariats → `governing_body`; UN bodies / WMO /
 World Bank / OECD / Copernicus → `intergovernmental`; IPCC / GCOS / UNSD / SEEA /

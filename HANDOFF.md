@@ -4,6 +4,35 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Item-advice provenance, hazardous-first — 2026-07-13 (Mac Claude Code)
+
+- **Corrects the v0.7.0 "unblocked" note:** the 12 dataset SOURCES (GWMO, GEM,
+  Plastics Outlook…) back the *numbers*, not item instructions — stamping them
+  onto `Disposition.source` would be fabricated provenance. Item advice needs
+  item-guidance authorities.
+- **New `quality_tier: 'guidance'`** on `Source` (organizations.ts +
+  DATA_SCHEMA.md): advice provenance vs. statistics. Guidance sources are
+  filtered OUT of the directory's "Key datasets" strip (directory.astro).
+- **9 guidance sources added** (all URLs curl-verified 200 + title-matched +
+  content-checked for the specific claims, 2026-07-13): EPA household
+  batteries / li-ion batteries / electronics / used oil / HHW / CFL-mercury,
+  FDA drug disposal, Call2Recycle locator, PaintCare. **3 new orgs:** `us-fda`,
+  `call2recycle`, `paintcare` (directory 246 → 249).
+- **42 citations inserted into `items.ts`** (script keyed by slug + disposition
+  label, one-match-or-abort): all 9 battery items, motor oil, both paints, CFL,
+  meds, pesticides, and 16 electronics items (recycle + donate rungs; power
+  bank & earbuds cite the li-ion page as the closer fit).
+- **Honestly left uncited** (no verified authority page yet): antifreeze (EPA
+  HHW page doesn't mention it), LED bulb (CFL page is mercury-bulbs only),
+  ionization smoke detector (needs an NRC source + org — future pass).
+- **Heads-up:** Call2Recycle appears to be rebranding to **"The Battery
+  Network"** (site titles, same domain, observed 2026-07-13). Item copy still
+  says "Call2Recycle" — fine for now, revisit if the old name disappears.
+- **Field is data-only for now** — `Lookup.svelte` doesn't render
+  `Disposition.source` yet. Rendering "Source: EPA ↗" on disposition rows is
+  the natural next step.
+- Version `v0.7.1 → v0.7.2 alpha`.
+
 ## ✅ Privacy Notice at /privacy — 2026-07-13 (Mac Claude Code)
 
 - **Context:** compliance review found the site collects nothing server-side

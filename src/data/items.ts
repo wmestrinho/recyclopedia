@@ -1184,6 +1184,7 @@ export const ITEMS: Item[] = [
         "rank": 4,
         "channel": "donation_center",
         "label": "it still works",
+        "source": "epa-electronics",
         "is_recommended": true
       },
       {
@@ -1191,6 +1192,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "recover the metals (certified e-waste)",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       },
       {
@@ -1230,6 +1232,7 @@ export const ITEMS: Item[] = [
         "rank": 4,
         "channel": "donation_center",
         "label": "it still works",
+        "source": "epa-electronics",
         "is_recommended": true
       },
       {
@@ -1237,6 +1240,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "wipe and recycle the metals",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       }
     ]
@@ -1257,6 +1261,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "certified e-waste facility only",
+        "source": "epa-electronics",
         "facility_type": "ewaste",
         "hazard": true,
         "is_recommended": true
@@ -1284,13 +1289,15 @@ export const ITEMS: Item[] = [
         "rung": "donate",
         "rank": 4,
         "channel": "donation_center",
-        "label": "donate if it still works"
+        "label": "donate if it still works",
+        "source": "epa-electronics"
       },
       {
         "rung": "recycle",
         "rank": 5,
         "channel": "drop_off",
         "label": "certified e-waste recycler",
+        "source": "epa-electronics",
         "facility_type": "ewaste",
         "is_recommended": true
       }
@@ -1311,13 +1318,15 @@ export const ITEMS: Item[] = [
         "rung": "donate",
         "rank": 4,
         "channel": "donation_center",
-        "label": "donate if it still prints"
+        "label": "donate if it still prints",
+        "source": "epa-electronics"
       },
       {
         "rung": "recycle",
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste (cartridges removed)",
+        "source": "epa-electronics",
         "facility_type": "ewaste",
         "is_recommended": true
       }
@@ -1371,6 +1380,7 @@ export const ITEMS: Item[] = [
         "rank": 4,
         "channel": "donation_center",
         "label": "it still works",
+        "source": "epa-electronics",
         "is_recommended": true
       },
       {
@@ -1378,6 +1388,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "take-back even if it is dead",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       }
     ]
@@ -1410,6 +1421,7 @@ export const ITEMS: Item[] = [
         "rank": 4,
         "channel": "donation_center",
         "label": "donate if it still runs",
+        "source": "epa-electronics",
         "is_recommended": true
       },
       {
@@ -1417,6 +1429,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "certified e-waste (wiped)",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       }
     ]
@@ -1442,13 +1455,15 @@ export const ITEMS: Item[] = [
         "rung": "donate",
         "rank": 4,
         "channel": "donation_center",
-        "label": "donate if it works"
+        "label": "donate if it works",
+        "source": "epa-electronics"
       },
       {
         "rung": "recycle",
         "rank": 5,
         "channel": "drop_off",
         "label": "certified e-waste recycler",
+        "source": "epa-electronics",
         "is_recommended": true,
         "facility_type": "ewaste"
       }
@@ -1474,13 +1489,15 @@ export const ITEMS: Item[] = [
         "rung": "donate",
         "rank": 4,
         "channel": "donation_center",
-        "label": "donate working peripherals"
+        "label": "donate working peripherals",
+        "source": "epa-electronics"
       },
       {
         "rung": "recycle",
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste drop-off",
+        "source": "epa-electronics",
         "is_recommended": true,
         "facility_type": "ewaste"
       }
@@ -1516,6 +1533,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste or scrap yard (copper)",
+        "source": "epa-electronics",
         "is_recommended": true,
         "facility_type": "ewaste"
       }
@@ -1544,6 +1562,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "battery / e-waste drop-off",
+        "source": "epa-lithium-batteries",
         "is_recommended": true,
         "facility_type": "ewaste",
         "hazard": true
@@ -1572,6 +1591,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "battery / e-waste drop-off",
+        "source": "epa-lithium-batteries",
         "is_recommended": true,
         "facility_type": "ewaste",
         "hazard": true
@@ -1607,6 +1627,7 @@ export const ITEMS: Item[] = [
         "rank": 4,
         "channel": "donation_center",
         "label": "donate if it works",
+        "source": "epa-electronics",
         "is_recommended": true
       },
       {
@@ -1614,6 +1635,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste if dead",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       }
     ]
@@ -1648,6 +1670,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste if you own it",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       }
     ]
@@ -1676,6 +1699,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste drop-off (wiped)",
+        "source": "epa-electronics",
         "is_recommended": true,
         "facility_type": "ewaste"
       }
@@ -1710,6 +1734,7 @@ export const ITEMS: Item[] = [
         "rank": 4,
         "channel": "donation_center",
         "label": "donate if it works",
+        "source": "epa-electronics",
         "is_recommended": true
       },
       {
@@ -1717,6 +1742,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste if dead",
+        "source": "epa-electronics",
         "facility_type": "ewaste"
       }
     ]
@@ -1737,6 +1763,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "at a battery drop-off",
+        "source": "epa-household-batteries",
         "is_recommended": true
       }
     ]
@@ -1757,6 +1784,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "Call2Recycle drop-off",
+        "source": "call2recycle-locator",
         "is_recommended": true
       }
     ]
@@ -1777,6 +1805,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "certified e-waste, terminals taped",
+        "source": "epa-lithium-batteries",
         "facility_type": "ewaste",
         "hazard": true,
         "is_recommended": true
@@ -1799,6 +1828,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "retail_takeback",
         "label": "auto parts store (core refund)",
+        "source": "epa-household-batteries",
         "is_recommended": true
       }
     ]
@@ -1819,6 +1849,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "e-waste, terminals taped",
+        "source": "epa-lithium-batteries",
         "facility_type": "ewaste",
         "hazard": true,
         "is_recommended": true
@@ -1847,6 +1878,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "battery drop-off (taped)",
+        "source": "epa-household-batteries",
         "is_recommended": true
       }
     ]
@@ -1874,6 +1906,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "Call2Recycle / retailer drop-off",
+        "source": "call2recycle-locator",
         "is_recommended": true,
         "hazard": true
       }
@@ -1902,6 +1935,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "vape-shop or e-waste take-back where it exists",
+        "source": "epa-lithium-batteries",
         "facility_type": "ewaste",
         "hazard": true
       },
@@ -1910,6 +1944,7 @@ export const ITEMS: Item[] = [
         "rank": 7,
         "channel": "hhw",
         "label": "HHW facility",
+        "source": "epa-lithium-batteries",
         "is_recommended": true,
         "hazard": true
       }
@@ -1937,6 +1972,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "battery drop-off or audiologist",
+        "source": "epa-household-batteries",
         "is_recommended": true
       }
     ]
@@ -1957,6 +1993,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "auto store or HHW (re-refined)",
+        "source": "epa-used-oil",
         "is_recommended": true
       }
     ]
@@ -1977,6 +2014,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "drop_off",
         "label": "PaintCare drop-off",
+        "source": "paintcare-dropoff",
         "is_recommended": true
       }
     ]
@@ -1997,6 +2035,7 @@ export const ITEMS: Item[] = [
         "rank": 7,
         "channel": "hhw",
         "label": "HHW event only",
+        "source": "epa-hhw",
         "facility_type": "hhw",
         "hazard": true,
         "is_recommended": true
@@ -2019,6 +2058,7 @@ export const ITEMS: Item[] = [
         "rank": 5,
         "channel": "retail_takeback",
         "label": "hardware store take-back",
+        "source": "epa-cfl",
         "hazard": true,
         "is_recommended": true
       }
@@ -2060,6 +2100,7 @@ export const ITEMS: Item[] = [
         "rank": 7,
         "channel": "drop_off",
         "label": "pharmacy take-back — never flush",
+        "source": "fda-drug-disposal",
         "hazard": true,
         "is_recommended": true
       }
@@ -2081,6 +2122,7 @@ export const ITEMS: Item[] = [
         "rank": 7,
         "channel": "hhw",
         "label": "HHW facility only",
+        "source": "epa-hhw",
         "facility_type": "hhw",
         "hazard": true,
         "is_recommended": true

@@ -71,7 +71,7 @@ const countryCount = new Set(
           </p>
         </div>
         <div class="dir-sources__grid">
-          {SOURCES.map((source) => (
+          {SOURCES.filter((source) => source.quality_tier !== 'guidance').map((source) => (
             <article class={`dir-source dir-source--${source.quality_tier}`}>
               <p class="dir-source__tier">{TIER_LABELS[source.quality_tier]}</p>
               <h3 class="dir-source__name">
