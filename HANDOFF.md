@@ -4,6 +4,30 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Privacy Notice at /privacy — 2026-07-13 (Mac Claude Code)
+
+- **Context:** compliance review found the site collects nothing server-side
+  (static, no analytics, no cookies; localStorage progress only), but the
+  Donate Electronics flow puts names/addresses/pickup details into the AP
+  inbox via mailto — the one item of personal data actually handled. A
+  privacy notice was the single currently-due compliance item.
+- **`/privacy`** — standalone page (deliberately NOT a hash-route section;
+  privacy notices need a stable URL). Root-surface styling, no `main.js`
+  (its SPA router would break plain-anchor nav on subpages). Covers: zero
+  collection while browsing, localStorage progress scope, how the mailto
+  donation form works, what we receive/retain/delete for donations, the
+  data-wiping policy for donated devices, Cloudflare + Google Fonts
+  disclosure, children, change policy. Effective date 2026-07-13.
+- **Links in:** root footer + `LbgFooter` (`· Privacy` after the CC license),
+  and the Donate "Data security" panel now states the wipe-before-recycle
+  policy and links the notice.
+- **Future compliance gates noted in session (feature-triggered, not due now):**
+  location layer → privacy design decision (client vs server) + policy update;
+  analytics → choose cookieless; Earth911/TRP → ToS review at outreach;
+  Academy student accounts (if ever) → COPPA; Lens → privacy-by-design pass.
+- Version `v0.7.0 → v0.7.1 alpha` (VERSION + package.json + CLAUDE.md strings,
+  which had drifted at 0.6.0).
+
 ## ✅ World Directory + Module 1.7 + whitepaper v1.3 — 2026-07-12 (Mac Claude Code)
 
 - **Research ingested** (two 2026-07-12 notes: global waste datasets + ~200-org

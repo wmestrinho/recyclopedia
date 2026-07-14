@@ -1,0 +1,205 @@
+---
+// /privacy — standalone privacy notice for recyclopedia.cc.
+// Deliberately NOT part of the hash-routed home page: privacy notices need a
+// stable, linkable URL. Reuses the root surface's classes but skips main.js,
+// so the header links here are plain anchors back into the SPA sections.
+import versionSource from '../../VERSION?raw';
+
+const version = versionSource.trim();
+const effectiveDate = 'July 13, 2026';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Notice | Recyclopedia</title>
+  <meta name="description" content="What Recyclopedia collects (almost nothing), what happens to electronics-donation details, and how donated devices are wiped. No accounts, no analytics, no cookies." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/lbg-theme.css" />
+</head>
+<body class="lbg-site lbg-engine-site">
+  <a class="skip-link" href="#privacy">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="brand">
+        <span class="brand__mark">♻</span>
+        <span class="brand__copy">
+          <a class="brand__title" href="/" aria-label="Recyclopedia home"><strong>Recyclopedia</strong></a>
+          <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a></small>
+        </span>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/#home">Home</a>
+        <a href="/#recyclopedia">Lookup</a>
+        <a href="/#donate">Donate</a>
+        <a href="/#about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="button button--solid" href="/#donate">Donate Electronics</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page is-active" id="privacy" aria-labelledby="privacy-title">
+      <div class="section-heading">
+        <p class="section-kicker">Privacy Notice</p>
+        <h2 id="privacy-title">We collect almost nothing. Here's the "almost".</h2>
+        <p class="lede">
+          Recyclopedia is a static site: no accounts, no analytics, no ad trackers,
+          no cookies set by us, no database of visitors. The only personal
+          information we ever handle is what you choose to email us when donating
+          electronics. This page explains exactly that — in plain language, because
+          there's not much to explain.
+        </p>
+      </div>
+
+      <div class="split-layout" style="align-items: start;">
+        <article class="panel-card panel-card--accent">
+          <h3>What this site collects: nothing</h3>
+          <p>Browsing Recyclopedia — searching the Lookup, reading Academy or DIY pages, using the World Directory — sends no personal data to us. We run:</p>
+          <ul class="bullet-list">
+            <li>No visitor accounts or sign-ups</li>
+            <li>No analytics or tracking scripts</li>
+            <li>No advertising or third-party trackers</li>
+            <li>No cookies set by this site</li>
+            <li>No server-side database of visitors</li>
+          </ul>
+        </article>
+
+        <article class="panel-card">
+          <h3>Storage on your device</h3>
+          <p>
+            Academy and DIY pages remember your module and quiz progress in your
+            browser's <code>localStorage</code>. That data never leaves your device,
+            is never transmitted to us, and disappears if you clear your browser
+            data. That's its entire life cycle.
+          </p>
+        </article>
+      </div>
+
+      <div class="section-block">
+        <div class="section-heading">
+          <p class="section-kicker">Donate Electronics</p>
+          <h2>The one place personal information is involved.</h2>
+        </div>
+
+        <div class="split-layout" style="align-items: start;">
+          <div style="display: grid; gap: 1rem;">
+            <article class="panel-card">
+              <h3>How the donation form works</h3>
+              <p>
+                The donation form does not submit anything to a server. When you press
+                Submit, it opens <em>your own email app</em> with a pre-filled message —
+                you review it and choose whether to send. Nothing is stored on our side
+                unless and until that email arrives in our inbox.
+              </p>
+            </article>
+            <article class="panel-card">
+              <h3>What we receive and why</h3>
+              <p>If you send the email, we receive what the form pre-filled:</p>
+              <ul class="bullet-list">
+                <li>Your name and email address</li>
+                <li>Phone and ZIP code, if you provided them</li>
+                <li>The item, its condition, quantity, and your notes</li>
+              </ul>
+              <p style="margin-top: 0.75rem;">
+                We use it for exactly one thing: coordinating your drop-off or pickup.
+                We never sell it, share it, or add it to any marketing list.
+              </p>
+            </article>
+            <article class="panel-card">
+              <h3>How long we keep it</h3>
+              <p>
+                Donation emails stay in our inbox while we coordinate the donation
+                and are deleted once it's complete. Want yours gone sooner — or want
+                to know what we have? Email
+                <a href="mailto:contact@absolutelyplausible.com">contact@absolutelyplausible.com</a>
+                and we'll delete it and confirm.
+              </p>
+            </article>
+          </div>
+
+          <article class="panel-card panel-card--accent">
+            <h3>Data on donated devices</h3>
+            <p>
+              Your device's contents matter more than the form. Our standing policy
+              for every phone, laptop, drive, or gadget we take in:
+            </p>
+            <ul class="bullet-list">
+              <li>Please back up and factory-reset your device before donating.</li>
+              <li>Can't reset it? Tell us in the form — we perform secure data destruction at no charge.</li>
+              <li>Every data-bearing device is wiped (or its storage physically destroyed) <em>before</em> refurbishment, resale, donation, or recycling.</li>
+              <li>We never browse, copy, or recover the contents of donated devices. Ever.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-heading">
+          <p class="section-kicker">The fine print</p>
+          <h2>Third parties, kids, and changes.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Infrastructure we rely on</h3>
+            <p>
+              The site is served by <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare Pages</a>,
+              which processes standard request logs (like IP addresses) to deliver and protect the site.
+              Fonts load from <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Fonts</a>,
+              so your browser requests font files from Google's servers. Neither happens on our behalf for tracking, and we receive no visitor data from either.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>Children</h3>
+            <p>
+              Recyclopedia and the Academy are informational and collect no personal
+              data from anyone — including children. We do not knowingly accept
+              electronics-donation emails from children under 13; a parent or
+              guardian should coordinate the donation.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>Changes to this notice</h3>
+            <p>
+              If the site ever starts collecting more than described here — for
+              example, a facility locator that uses your location — we'll update this
+              page before that feature ships, and the effective date below will change.
+            </p>
+          </article>
+        </div>
+      </div>
+
+      <div class="cta-band">
+        <div>
+          <p class="section-kicker">Questions about your data</p>
+          <h3>One inbox, one human, straight answers.</h3>
+        </div>
+        <a class="button button--ghost" href="mailto:contact@absolutelyplausible.com">contact@absolutelyplausible.com</a>
+      </div>
+
+      <p class="footer-license" style="margin-top: 2rem;">
+        Effective {effectiveDate} · Recyclopedia, an Absolutely Plausible Solutions initiative · Orlando, FL
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> initiative.</p>
+      <p class="footer-license">EDUCATIONAL PURPOSES ONLY · Content © 2026 Recyclopedia — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (no commercial use) · <a href="/privacy">Privacy</a></p>
+      <p class="footer-version">{version}</p>
+    </div>
+  </footer>
+</body>
+</html>
