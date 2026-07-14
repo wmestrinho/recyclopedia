@@ -7,6 +7,15 @@
     type Disposition,
     type Status,
   } from '../data/items';
+  import { SOURCES } from '../data/sources';
+
+  // Disposition.source id -> citation (Atlas provenance). Only dispositions
+  // whose backing page was verified cite a source — no source, no chip.
+  const SOURCE_BY_ID = new Map(SOURCES.map((s) => [s.id, s]));
+
+  function citation(disposition: Disposition) {
+    return disposition.source ? SOURCE_BY_ID.get(disposition.source) : undefined;
+  }
 
   let query = $state('');
   let activeFilter = $state('All');
@@ -97,9 +106,17 @@
         {/if}
 
         {#if best}
+          {@const bestSource = citation(best)}
           <p class="recycle-card__best">
             <span class="recycle-card__best-label">Best path</span>
-            <span class="recycle-card__best-val">{rungText(best)}</span>
+            <span class="recycle-card__best-val">
+              {rungText(best)}
+              {#if bestSource}
+                <a class="recycle-card__src" href={bestSource.url} target="_blank" rel="noopener noreferrer" title={bestSource.name}>
+                  src: {bestSource.short_label ?? bestSource.name} ↗
+                </a>
+              {/if}
+            </span>
           </p>
         {/if}
 
@@ -118,7 +135,15 @@
           <details class="recycle-card__paths">
             <summary>Other respectful paths</summary>
             {#each others as disposition}
-              <p class="recycle-card__rung">{rungText(disposition)}</p>
+              {@const rungSource = citation(disposition)}
+              <p class="recycle-card__rung">
+                {rungText(disposition)}
+                {#if rungSource}
+                  <a class="recycle-card__src" href={rungSource.url} target="_blank" rel="noopener noreferrer" title={rungSource.name}>
+                    src: {rungSource.short_label ?? rungSource.name} ↗
+                  </a>
+                {/if}
+              </p>
             {/each}
           </details>
         {/if}

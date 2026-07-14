@@ -4,6 +4,26 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Citation chips on Lookup cards + sources.ts split — 2026-07-13 (Mac Claude Code)
+
+- **`Disposition.source` now renders**: a small mono "SRC: US EPA ↗" chip on
+  the best-path line and on cited "Other respectful paths" rows
+  (`Lookup.svelte` + `.recycle-card__src` in `public/css/style.css`).
+  `title` = full source name; uncited rows show nothing (no source, no chip).
+- **New `Source.short_label`** ('US EPA', 'US FDA', 'Call2Recycle',
+  'PaintCare') for the chip text; falls back to `name`.
+- **Bundle-split lesson:** importing SOURCES from `organizations.ts` made
+  Rollup hoist the whole 107 KB org module into a chunk the homepage loads.
+  Fix: `SOURCES` + `Source` moved to **`src/data/sources.ts`**;
+  `organizations.ts` re-exports them (existing imports unchanged). Lookup
+  chunk 54.1 → 61.6 KB (+7.4 KB of source data only); homepage no longer
+  touches the org array. If a future island needs org data, watch chunking.
+- **Verified in-browser** (astro preview + Chrome): lithium battery best path
+  shows the EPA chip; smartphone shows donate-chip + recycle-chip while
+  reuse/repair/dispose rows correctly stay uncited; links carry the full
+  source name.
+- Version `v0.7.2 → v0.7.3 alpha`.
+
 ## ✅ Item-advice provenance, hazardous-first — 2026-07-13 (Mac Claude Code)
 
 - **Corrects the v0.7.0 "unblocked" note:** the 12 dataset SOURCES (GWMO, GEM,

@@ -930,6 +930,25 @@ table {
   line-height: 1.45;
 }
 
+/* Citation chip on a disposition (Disposition.source — Atlas provenance) */
+.recycle-card__src {
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--muted);
+  white-space: nowrap;
+}
+
+.recycle-card__src:hover,
+.recycle-card__src:focus-visible {
+  color: var(--accent-mid);
+  border-bottom-color: var(--accent-mid);
+}
+
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
