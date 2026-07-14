@@ -2157,18 +2157,35 @@ export const ITEMS: Item[] = [
     "status": "drop-off",
     "hazard": true,
     "prep": "Do not disassemble.",
-    "where": "Manufacturer mail-back program (Kidde, First Alert) or HHW facility",
-    "note": "Contains trace amounts of Americium-241 (radioactive). Most manufacturers offer free mail-back.",
-    "gratitude_note": "A speck of radioactivity inside — most makers will take it back for free.",
+    "where": "First Alert take-back (its own brands, up to 4), HHW facility, or household trash (EPA: no special instructions)",
+    "note": "Contains a trace of Americium-241, sealed so it poses no radiation risk handled properly. EPA says household trash is allowed; First Alert still takes back its own-brand alarms (Kidde no longer accepts mail-ins — verified 2026-07-13).",
+    "gratitude_note": "A speck of radioactivity, sealed and safe — a take-back or HHW is still the kindest path.",
     "dispositions": [
       {
         "rung": "recycle",
         "rank": 5,
         "channel": "mail_back",
-        "label": "manufacturer mail-back",
+        "label": "First Alert take-back (own brands, up to 4)",
+        "conditions": "First Alert / BRK / Onelink brands only",
         "facility_type": "mail_back_program",
         "hazard": true,
         "is_recommended": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "hhw",
+        "label": "HHW facility (other brands)",
+        "facility_type": "hhw",
+        "hazard": true
+      },
+      {
+        "rung": "dispose",
+        "rank": 7,
+        "channel": "trash",
+        "label": "household trash — EPA: no special instructions",
+        "local_variance": true,
+        "source": "epa-smoke-detectors"
       }
     ]
   },

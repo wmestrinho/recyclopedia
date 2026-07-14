@@ -4,6 +4,23 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Smoke-detector correction + EPA RadTown source — 2026-07-13 (Mac Claude Code)
+
+- Chasing the last uncited hazardous item exposed **stale facts on the card**:
+  EPA's RadTown page (`americium-ionization-smoke-detectors`, verified 200 +
+  content-fetched 2026-07-13) says there are **no special disposal
+  instructions** — household trash or community recycling is allowed — and
+  never mentions mail-back. Web-verified separately: **Kidde no longer accepts
+  mail-ins** (recommends HHW); **First Alert takes back up to 4 of its own
+  brands** (First Alert/BRK/Family Gard/Onelink; fee beyond 4).
+- Item rewritten honestly: best path = First Alert take-back (with brand
+  `conditions`), then HHW, then a new trash rung citing `epa-smoke-detectors`
+  (`local_variance: true` — some states differ, e.g. Colorado). The take-back
+  rung stays **uncited**: manufacturer support pages aren't directory material,
+  so no First Alert org/source was added.
+- Remaining uncited: antifreeze, LED bulb (still no verified authority page).
+- Version `v0.7.3 → v0.7.4 alpha`.
+
 ## ✅ Citation chips on Lookup cards + sources.ts split — 2026-07-13 (Mac Claude Code)
 
 - **`Disposition.source` now renders**: a small mono "SRC: US EPA ↗" chip on

@@ -253,9 +253,11 @@ alter table source
 the *numbers*; `guidance` backs the *instructions*. Guidance sources are
 excluded from the directory's "Key datasets" strip. Rule: a disposition only
 cites a source verified to support that specific instruction — never a stats
-report to make advice look sourced (that's why `antifreeze-coolant`,
-`led-bulb`, and `smoke-detector-ionization-type` remain uncited: no verified
-authority page found yet).
+report to make advice look sourced (that's why `antifreeze-coolant` and
+`led-bulb` remain uncited: no verified authority page found yet;
+`smoke-detector-ionization-type`'s trash rung cites the EPA RadTown page,
+while its First Alert take-back rung stays uncited — manufacturer pages
+aren't directory material).
 
 Mapping decisions: convention secretariats → `governing_body`; UN bodies / WMO /
 World Bank / OECD / Copernicus → `intergovernmental`; IPCC / GCOS / UNSD / SEEA /

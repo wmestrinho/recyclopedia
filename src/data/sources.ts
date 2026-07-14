@@ -141,6 +141,12 @@ export const SOURCES: Source[] = [
     headline_stats: ['ZIP-code locator for battery drop-off sites across the US and Canada'],
   },
   {
+    id: 'epa-smoke-detectors', name: 'Americium in Ionization Smoke Detectors (US EPA)', organization_id: 'us-epa', short_label: 'US EPA',
+    url: 'https://www.epa.gov/radtown/americium-ionization-smoke-detectors',
+    retrieved_at: '2026-07-13', quality_tier: 'guidance',
+    headline_stats: ['No special disposal instructions — household garbage or a community recycling program; sealed Am-241 poses no radiation risk when handled properly'],
+  },
+  {
     id: 'paintcare-dropoff', name: 'PaintCare drop-off sites', organization_id: 'paintcare', short_label: 'PaintCare',
     url: 'https://www.paintcare.org/',
     retrieved_at: '2026-07-13', quality_tier: 'guidance',
