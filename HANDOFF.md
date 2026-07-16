@@ -4,6 +4,17 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Local source asset pack ignored — 2026-07-16 (Windows Codex)
+
+- The ThinkPad had an untracked `public/assets/` folder containing the raw LBG
+  source art pack (`lbg-blobs` PNGs + zip, ~41 MB). The optimized runtime assets
+  are already tracked under `public/images/lbg/`, so the raw source pack should
+  stay local and should not be swept into the public repo by the new
+  cross-machine asset sync workflow.
+- Added `public/assets/` to `.gitignore`. Verified from `ap-ops`:
+  `python scripts/sync_assets.py --repo recyclopedia --check` now reports
+  everything synced.
+
 ## ✅ Phase 2 kickoff: EPA FRS ingestion prototype + outreach guide — 2026-07-14 (Mac Claude Code)
 
 - **Owner outreach guide created in Drive** (repo is PUBLIC — negotiation
