@@ -1,6 +1,6 @@
 {
   "name": "recyclopedia",
-  "version": "0.7.5-alpha",
+  "version": "0.7.7-alpha.1",
   "license": "AGPL-3.0-only",
   "private": true,
   "type": "module",
@@ -10,6 +10,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
     "@astrojs/svelte": "8.1.2",
     "astro": "6.4.7",
     "svelte": "5.56.3"

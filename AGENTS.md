@@ -16,9 +16,7 @@ Required baseline for AI agents
 - Run validation before commit.
 
 Version rule
-- Single source of truth: `VERSION`
-- Current baseline version: `v0.4.0 alpha`
-- Bump version for any meaningful change.
+- Versioning, CHANGELOG, LICENSE, and CI conventions: see `ap-ops-workspace/PROJECT-RULES.md`.
 
 Deployment
 - Cloudflare Pages (project `recyclopedia`): `npx wrangler pages deploy . --project-name=recyclopedia --branch=main`

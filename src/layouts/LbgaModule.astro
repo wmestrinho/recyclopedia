@@ -33,6 +33,11 @@ const {
 } = Astro.props;
 
 const stripeOff = stripe.replace(/,\s*[\d.]+\)\s*$/, ',0)');
+
+// Social preview image — reuses the LBG family brand mark since modules have
+// no per-lesson photography of their own.
+const ogImage = 'https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp';
+const ogImageAlt = 'Hand-painted lettuce leaf, beet, and grapefruit — the Lettuce Beet Grapefruit mark';
 ---
 
 <!DOCTYPE html>
@@ -42,6 +47,17 @@ const stripeOff = stripe.replace(/,\s*[\d.]+\)\s*$/, ',0)');
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title} | Recyclopedia Academy</title>
   <meta name="description" content={description} />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Recyclopedia Academy" />
+  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:title" content={`${title} | Recyclopedia Academy`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:alt" content={ogImageAlt} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${title} | Recyclopedia Academy`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

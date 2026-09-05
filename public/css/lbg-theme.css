@@ -611,6 +611,27 @@ body.lbg-site {
   text-transform: none;
 }
 
+.lbg-site .footer-social {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lbg-site .footer-social a {
+  display: flex;
+  color: inherit;
+}
+
+.lbg-site .footer-social a:hover,
+.lbg-site .footer-social a:focus-visible {
+  color: var(--accent-deep);
+}
+
+.lbg-site .footer-social svg {
+  width: 32px;
+  height: 32px;
+}
+
 @media (max-width: 1100px) {
   .lbg-site .site-nav {
     top: 72px;

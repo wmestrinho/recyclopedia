@@ -27,6 +27,17 @@ const { Content } = await render(lesson);
     rel="canonical"
     href={`https://lettucebeetgrapefruit.org/academy/${lesson.id}`}
   />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LBG Academy" />
+  <meta property="og:url" content={`https://lettucebeetgrapefruit.org/academy/${lesson.id}`} />
+  <meta property="og:title" content={`${lesson.data.title} | LBG Academy`} />
+  <meta property="og:description" content={lesson.data.summary} />
+  <meta property="og:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
+  <meta property="og:image:alt" content="Hand-painted lettuce leaf, beet, and grapefruit — the Lettuce Beet Grapefruit mark" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${lesson.data.title} | LBG Academy`} />
+  <meta name="twitter:description" content={lesson.data.summary} />
+  <meta name="twitter:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link

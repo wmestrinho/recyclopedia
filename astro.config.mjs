@@ -2,9 +2,11 @@
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  integrations: [svelte()],
+  site: 'https://recyclopedia.cc',
+  integrations: [svelte(), sitemap()],
   vite: {
     resolve: {
       alias: {
