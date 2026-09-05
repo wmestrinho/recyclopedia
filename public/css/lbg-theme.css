@@ -44,10 +44,50 @@ body.lbg-site {
   --shadow: none;
   --glow-accent: none;
   --glow-mid: none;
+  --header-bg: rgba(252, 250, 244, 0.96);
 
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
+}
+
+/* Dark mode: follows the OS/browser preference automatically. Same token
+   names as the light theme above, hue-preserving variants of the real
+   lettuce/beet/grapefruit brand colors — nothing invented. */
+@media (prefers-color-scheme: dark) {
+  body.lbg-site {
+    --bg: #191610;
+    --surface: #221e16;
+    --surface-alt: #2a261d;
+    --surface-soft: #322e24;
+    --border: #4c4639;
+    --line: #3f3b31;
+    --text: #f2efe8;
+    --muted: #aaa392;
+
+    --accent: #9fcf6e;
+    --accent-mid: #87c851;
+    --accent-deep: #64a744;
+    --accent-hover: #b4d78e;
+    --accent-warm: #9fcf6e;
+    --accent-teal: #59b4c0;
+    --beet: #d34582;
+    --grapefruit: #ec7351;
+
+    --status-yes: #86c464;
+    --status-yes-bg: #2a3b21;
+    --status-compost: #91ba5e;
+    --status-compost-bg: #2f3b21;
+    --status-drop: #d3ac69;
+    --status-drop-bg: #3b3121;
+    --status-partial: #67b4c1;
+    --status-partial-bg: #21373b;
+    --status-hazard: #da8262;
+    --status-hazard-bg: #3b2821;
+    --status-no: #d16177;
+    --status-no-bg: #3b2126;
+    --header-bg: rgba(25, 22, 16, 0.94);
+  }
 }
 
 .lbg-site h1,
@@ -66,7 +106,7 @@ body.lbg-site {
 }
 
 .lbg-site .site-header {
-  background: rgba(252, 250, 244, 0.96);
+  background: var(--header-bg);
   border-bottom: 1px solid var(--line);
 }
 
@@ -192,7 +232,7 @@ body.lbg-site {
 }
 
 .lbg-hero__copy .lede {
-  color: #544e42;
+  color: var(--muted);
   font-size: clamp(1rem, 2vw, 1.12rem);
 }
 
