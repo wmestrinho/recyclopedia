@@ -16,10 +16,22 @@ Required baseline for AI agents
 - Run validation before commit.
 
 Version rule
-- Versioning, CHANGELOG, LICENSE, and CI conventions: see `ap-ops-workspace/PROJECT-RULES.md`.
+- Single source of truth: the `VERSION` file. Read it; never restate the number
+  in prose (it has drifted every time we have).
+- Format: `MAJOR.MINOR.PATCH[-alpha.N]`, no `v` prefix — enforced by
+  `scripts/validate_agent_baseline.py`.
+- Bump `VERSION` + `package.json` together and add a `CHANGELOG.md` entry for any
+  meaningful change. CI (`.github/workflows/version-check.yml`) fails a PR that
+  touches non-doc files without bumping `VERSION`.
+- Fuller conventions: `ap-ops-workspace/PROJECT-RULES.md` — **this file does not
+  exist yet** (checked 2026-09-15; the repo is `ap-ops`, and nothing named
+  PROJECT-RULES.md is in it). Treat the rules above as authoritative until it does.
 
 Deployment
-- Cloudflare Pages (project `recyclopedia`): `npx wrangler pages deploy . --project-name=recyclopedia --branch=main`
+- Cloudflare Pages (project `recyclopedia`): `npm run build && npx wrangler pages deploy dist --project-name=recyclopedia --branch=main`
+- Never deploy `.` — that ships the repo root instead of the build output. Normal
+  deploys are automatic: push to `main` and Pages builds. This command is the
+  manual fallback only.
 - Live: https://recyclopedia.pages.dev — see `HANDOFF.md` for domain status.
 
 Validation

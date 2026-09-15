@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project Overview
 
-**Recyclopedia** (repo slug: recyclopedia) — Active development, v0.7.6-alpha.1.
+**Recyclopedia** (repo slug: recyclopedia) — Active development; see `VERSION`.
 **Live site:** [recyclopedia.cc](https://recyclopedia.cc)
 
 An item-identification and local-action reasoning engine by Absolutely Plausible Solutions:

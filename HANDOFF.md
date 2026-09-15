@@ -4,6 +4,41 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Stale-handoff cleanup + version-drift fix — 2026-09-15 (Mac Claude Code)
+
+- **Closed GitHub issue #1** ("Handoff todo list for Codex agent") as stale, with
+  an item-by-item correction comment. It described the **pre-Astro** repo
+  (`index.html`/`js/main.js`, `psychicrecycle.absolutelyplausible.com`) and led
+  with a BLOCKER claiming the site had never been pushed — void, and actively
+  harmful: an agent reading it would refuse to touch `main`. Of its todos only
+  two survive (500+ items; Supabase), both already tracked below.
+- **Mac session had been working from a two-month-stale `main`** — the three
+  Codex pushes (asset-pack ignore, SEO/footer/versioning, dark mode) were not
+  fetched. Lesson for both machines: `git fetch` **before** auditing state, not
+  just before pushing.
+- **Version drift, fixed at the root cause.** `README.md` said `v0.4.0` in two
+  places and `HANDOFF.md` said `v0.1.4`, against a `VERSION` of `0.7.8-alpha.1`.
+  `CLAUDE.md` had drifted *again within two commits* (`0.7.6-alpha.1` vs
+  `0.7.8-alpha.1`). All four docs now point at `VERSION` and restate nothing.
+- **`AGENTS.md` version rule pointed at a file that does not exist.** The
+  2026-09-05 "versioning cleanup" replaced the inline rule with "see
+  `ap-ops-workspace/PROJECT-RULES.md`" — there is no such file anywhere: the
+  repo is `ap-ops`, and it contains nothing named PROJECT-RULES.md. The same
+  dangling pointer is in `ap-ops/AGENTS.md:38` and `ap-ops/CLAUDE.md:95`.
+  That is *why* CLAUDE.md drifted again — the rule pointed nowhere. AGENTS.md
+  now states the rule inline (VERSION + package.json + CHANGELOG, `N.N.N-alpha.N`
+  format, CI gate) and flags the pointer as unresolved.
+  **Owner ask: either create `PROJECT-RULES.md` in `ap-ops` or drop the pointer
+  from both repos.**
+- **`AGENTS.md` deploy command corrected:** it still said
+  `npx wrangler pages deploy .` — the repo root, not `dist`. That is exactly the
+  class of mistake that silently froze the live site for many commits (see the
+  history note in `CLAUDE.md`). Now build-then-deploy-`dist`, flagged as the
+  manual fallback only.
+- Checked off two TODOs done but never marked: the Mac folder rename, and the
+  old Cloudflare Pages project decommission.
+- Docs-only change; no `VERSION` bump (the CI version gate exempts `*.md`).
+
 ## ✅ Local source asset pack ignored — 2026-07-16 (Windows Codex)
 
 - The ThinkPad had an untracked `public/assets/` folder containing the raw LBG
@@ -526,13 +561,14 @@ Requires wrangler auth (`npx wrangler login`) with access to the Cloudflare acco
 python3 scripts/validate_agent_baseline.py
 git status --short --branch
 ```
-Single source of truth for version: the `VERSION` file (currently `v0.1.4 alpha`).
+Single source of truth for version: the `VERSION` file. (This line used to
+restate the number and drifted to `v0.1.4` — read the file, don't restate it.)
 
 ## TODO / next up (rough priority)
 
 **Manual, owner-only (Luiz's machine / Cloudflare dashboard — agents can't do these):**
-- [ ] **Rename the local folder on the primary Mac** to `recyclopedia` (cosmetic; the working dir is still under the old folder name): `mv ~/Workspace/Projects/psychicrecycle ~/Workspace/Projects/recyclopedia`
-- [ ] Decommission / clean up the previous (pre-`recyclopedia.cc`) Cloudflare Pages project + its interim subdomain, now that the new domain is live.
+- [x] **Rename the local folder on the primary Mac** to `recyclopedia` — done; the working dir is now `~/Workspace/Projects/recyclopedia`.
+- [x] Decommission / clean up the previous (pre-`recyclopedia.cc`) Cloudflare Pages project + its interim subdomain — done; verified 2026-07-14 via `wrangler pages project list`.
 - [ ] **Data partnership outreach (gates the "local rules" layer — see `DATA_STRATEGY.md`):**
   - [ ] **The Recycling Partnership** — Recycle Check / National Recycling Database (9,000+ community programs, real-time local rules). Ask about partnership/API/licensing terms. recyclingpartnership.org/recyclecheck
   - [ ] **Earth911** — Search API (350+ materials, ~800k listings); request a developer API key + terms. api.earth911.com
