@@ -129,7 +129,15 @@ Archive dead links (`verification_status: 'archived'`) instead of deleting.
    Partnership** for partnership/API terms — this decides whether layer 2 is
    "license now" or "defer behind check-local." See HANDOFF.
 3. **Prototype EPA FRS ingestion** into the facility schema (layer 3) once the
-   schema exists.
+   schema exists. ✅ `scripts/frs_ingest.py`; Florida statewide (1,700 sites,
+   95 counties, 98.6% geocoded) in `docs/research/`. **The finding that shapes
+   the rest of layer 3: NAICS classifies industry, not public access** — FRS
+   files consultancies and septic firms beside real HHW sites. Records now carry
+   a derived `public_access` (`likely`/`unknown`/`no`) with its basis; `likely`
+   is not `open`, and nothing may render it as such. See
+   `docs/research/README.md` § "EPA FRS facility ingestion".
+   **Next:** decide whether a "check local" surface ships on `unknown` data at
+   all, or waits for layer-2 outreach — this is a product call, not a data one.
 4. **Wire item citations:** `SOURCES` ids in `src/data/organizations.ts` now
    unblock populating `Disposition.source` in `src/data/items.ts` (the Atlas
    provenance hook, currently empty).

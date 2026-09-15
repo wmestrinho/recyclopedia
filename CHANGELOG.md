@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.7.9-alpha.1] - 2026-09-15
+### Changed
+- `scripts/frs_ingest.py` (layer 3, EPA FRS facilities): records now carry
+  `public_access` (`likely`/`unknown`/`no`) and `public_access_basis`, derived
+  from `facility_type` only. NAICS classifies industry, not public access —
+  the Orange County pilot filed an environmental consultancy and a septic-tank
+  company under the same "hazardous collection" heading as a real take-back.
+  `likely` is not `open`: anything rendered from this must pair with call-ahead
+  guidance, and `verified_at` stays null.
+- Fixed primary-type selection: `423930` (scrap) now outranks the loosely
+  assigned `562920` (MRF). Orange County MRFs 4 → 1.
+- New name-derived `transfer_station` type (54 in Florida) — the most
+  consumer-usable sites FRS holds, previously invisible across `562111` and
+  `423930`. Guarded so metal "recycling centers" stay scrap yards.
+- `naics_type` preserves the pre-heuristic NAICS reading on every record.
+
+### Added
+- `--county ALL` for statewide extraction.
+- `docs/research/2026-09-15-frs-florida-statewide.json` — 1,700 facilities,
+  95 counties, 98.6% geocoded; the reference dataset the classifier was
+  validated against.
+- Docs: `docs/research/README.md` § "EPA FRS facility ingestion (layer 3)".
+
+### Fixed
+- Doc drift: `README.md` (v0.4.0 ×2), `HANDOFF.md` (v0.1.4) and `CLAUDE.md`
+  (0.7.6-alpha.1) all restated stale versions. All four docs now point at
+  `VERSION`. `AGENTS.md` deploy command said `wrangler pages deploy .` — the
+  repo root, not `dist`.
+- `package-lock.json` was left at 0.7.7-alpha.1 by the previous bump.
+
 ## [0.7.8-alpha.1] - 2026-09-05
 ### Added
 - Automatic dark mode (follows OS/browser `prefers-color-scheme`) for the

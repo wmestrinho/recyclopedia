@@ -4,6 +4,40 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Layer 3: FRS classifier made honest about public access — 2026-09-15 (Mac Claude Code)
+
+- **Pipeline confirmed reproducible.** The 69 MB FL bundle was gone (never
+  committed); re-downloaded the current EPA edition (refreshed 2026-09-08) and
+  re-ran — reproduced the July pilot exactly, plus 2 new facilities.
+- **Scaled to statewide:** `--county ALL`. Florida = **1,700 facilities across
+  95 counties, 98.6% geocoded**, committed as the reference dataset at
+  `docs/research/2026-09-15-frs-florida-statewide.json`. Don't commit one per
+  state — 50 would be ~60 MB of generated data in a public repo.
+- **The finding, and it is the important one: NAICS says what industry a site is
+  in, never whether a person may walk in.** The pilot's "hazardous collection"
+  bucket held an environmental consultancy, a septic-tank company and a
+  Walgreens take-back, side by side. Shipping that raw sends someone to a
+  consultant's office with a box of paint.
+  → Every record now carries **`public_access`** (`likely`/`unknown`/`no`)
+  plus **`public_access_basis`**, derived from `facility_type` **only** — FRS
+  has no such field, so a per-record claim would be invented. FL: 957 / 347 /
+  396. **`likely` is not `open`:** nothing rendered from this may say "open to
+  the public", it must pair with call-ahead guidance, `verified_at` stays null.
+- **Two classifier bugs fixed, both found by reading the names:**
+  - `562920` (MRF) is over-assigned by FRS; 19 of 106 FL sites carrying it also
+    carry `423930`, and by name they're scrap/used-parts dealers. `423930` now
+    outranks it. Orange County MRFs 4 → 1, and BUDGET AUTO PARTS OF ORLANDO
+    stopped being a "materials recovery facility".
+  - Transfer stations — the *most* consumer-usable thing FRS holds — were
+    invisible, scattered across `562111` and `423930`. Name-matched into a new
+    `transfer_station` type (54 statewide, mostly real county drop-offs), with
+    a scrap-word guard so DOMINION METAL RECYCLING CENTER stays a scrap yard.
+  - `naics_type` preserves what NAICS alone said, pre-heuristic, on every record.
+- **Next is a product call, not a data one:** does a "check local" surface ship
+  on `unknown`-grade data at all, or wait for the Earth911 / Recycling
+  Partnership outreach (still owner-gated)? Nothing is wired into the site yet
+  and that was deliberate.
+
 ## ✅ Stale-handoff cleanup + version-drift fix — 2026-09-15 (Mac Claude Code)
 
 - **Closed GitHub issue #1** ("Handoff todo list for Codex agent") as stale, with
