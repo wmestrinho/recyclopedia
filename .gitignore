@@ -23,3 +23,6 @@ qa-comparison.html
 Ending_the_trash_illusion_with_AI.m4a
 Interactive School Modules.zip
 public/assets/
+
+# Self-hosted third-party binaries copied by scripts/copy-vendor.mjs at prebuild
+public/vendor/

@@ -137,12 +137,12 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
             <p>Type any item — pizza box, battery, old TV, motor oil. Instant answer: recyclable or not, how to prep it, and where to take it. {itemCount} items and growing.</p>
             <p class="module-card__status module-card__status--live">Live now →</p>
           </a>
-          <article class="module-card module-card--wash module-card--wash-beet">
+          <a class="module-card module-card--link module-card--wash module-card--wash-beet" href="#recyclopedia" data-page="recyclopedia">
             <p class="module-card__number">Tier 2 · Barcode</p>
             <h3>📷 Scan it</h3>
-            <p>Point your camera at any barcode for machine-exact item recognition — no typing, no guessing which name we filed it under.</p>
-            <p class="module-card__status">In development</p>
-          </article>
+            <p>Tap the camera on the search bar and point it at any barcode. We read it on your phone, then look up what the packaging is actually made of — no typing, no guessing which name we filed it under.</p>
+            <p class="module-card__status module-card__status--live">Live now →</p>
+          </a>
           <article class="module-card module-card--wash module-card--wash-grapefruit">
             <p class="module-card__number">Tier 3 · AI vision (last resort)</p>
             <h3>👁 Show it</h3>
@@ -358,8 +358,8 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
           </article>
           <article class="feature-card">
             <h3>Phase 2 — Camera on the search bar</h3>
-            <p>Tier 2 barcode scanning first — product and packaging facts from open data — then Tier 3 AI vision for anything without a name or a code. Uncertain scans show top-3 guesses, never a guess into the landfill.</p>
-            <div class="stack-tags" style="margin-top:0.75rem;"><span>In development</span></div>
+            <p>Tier 2 barcode scanning is live: read on your phone, packaging facts from open data. Tier 3 AI vision comes next, for anything without a name or a code — with top-3 guesses when it is unsure, never a guess into the landfill.</p>
+            <div class="stack-tags" style="margin-top:0.75rem;"><span style="background:var(--status-yes-bg);color:var(--status-yes);border-color:var(--status-yes);">◐ Barcode live</span></div>
           </article>
           <article class="feature-card">
             <h3>Phase 3 — Installable & material-first</h3>

@@ -6,6 +6,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.0-alpha.1] - 2026-09-15
+### Added
+- **Tier 2 is live: a camera on the search bar.** A 44px 📷 button in
+  `.search-wrap` mounts `src/components/Lens.svelte` through a dynamic
+  `import()`, so the homepage bundle never carries the barcode decoder.
+  The overlay is a focus-trapped dialog (Esc closes, focus returns to the
+  button) with states `idle → scanning → lookingUp → confirm | answer |
+  notsure | error`, a live ~5/s detection loop over `<video>` from
+  `getUserMedia({ facingMode: 'environment' })`, and a file-input fallback
+  (`capture="environment"`) when the camera is refused or absent.
+- `functions/api/barcode.js` — validates the GTIN (length + mod-10 check
+  digit), then queries Open Food Facts v2 across four flavours (food,
+  products, beauty, pet food) and both 12/13-digit spellings of a UPC-A,
+  with an 8 s budget. Maps each `packagings[]` component through
+  `materials.ts` to an item. Cached 24 h by GTIN in `caches.default`; the
+  GTIN is never logged.
+- `src/components/ItemCard.svelte` — the one answer card, shared by search
+  and Lens (`origin`, `productName`, `sourceLabel` props). Markup and
+  classes are byte-identical to the old inline card.
+- `barcode-detector@3.2.2` (exact) with the ZXing WASM reader **self-hosted**
+  at `/vendor/zxing_reader.wasm` (copied by a `prebuild` script, gitignored)
+  — no third-party CDN fetch, which is what lets the privacy line say frames
+  never leave the device.
+- Privacy notice: a "Camera & scanning" section (`/privacy#camera`), Open
+  Food Facts added to the third-party list, effective date updated.
+- `openfoodfacts` in `sources.ts` (guidance tier) so the provenance chip
+  renders through the existing citation path.
+- `film-other` material + a film-shape rule: a film component of a rigid
+  resin (a PP wrapper, a PET sleeve) no longer inherits that resin's
+  container item, which would have sent film to the curbside bin.
+
+### Changed
+- Homepage Tier 2 card → "Live now →"; Phase 2 roadmap card reflects it.
+- `.search-input` font-size 0.9rem → 1rem (16px): below 16px iOS Safari
+  zooms the viewport on focus and never zooms back.
+- `.feature-grid` and the Lens overlay follow the responsive contract
+  (44px targets, no sideways scroll at 320px, `env(safe-area-inset-*)`).
+
 ## [0.7.11-alpha.1] - 2026-09-15
 ### Added
 - `src/data/materials.ts` — the material-first knowledge layer (Lens master

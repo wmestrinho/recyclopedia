@@ -154,6 +154,11 @@ export const SOURCES: Source[] = [
     headline_stats: ['No special disposal instructions — household garbage or a community recycling program; sealed Am-241 poses no radiation risk when handled properly'],
   },
   {
+    id: 'openfoodfacts', name: 'Open Food Facts — product & packaging data (ODbL)', organization_id: 'open-food-facts',
+    url: 'https://world.openfoodfacts.org', license: 'ODbL 1.0',
+    retrieved_at: '2026-09-15', quality_tier: 'guidance', short_label: 'Open Food Facts',
+  },
+  {
     id: 'paintcare-dropoff', name: 'PaintCare drop-off sites', organization_id: 'paintcare', short_label: 'PaintCare',
     url: 'https://www.paintcare.org/',
     retrieved_at: '2026-07-13', quality_tier: 'guidance',

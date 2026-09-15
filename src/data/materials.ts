@@ -235,6 +235,14 @@ export const MATERIALS: Material[] = [
     ],
   },
   {
+    id: 'film-other', name: 'Plastic film (not polyethylene)', category: 'Plastic',
+    off_tags: [],
+    dispositions: [
+      { rung: 'reuse', rank: 1, channel: 'retail_takeback', label: 'use it again first' },
+      { rung: 'dispose', rank: 7, channel: 'trash', label: 'in the trash unless your program names this film (store bins take PE only)', local_variance: true, is_recommended: true },
+    ],
+  },
+  {
     id: 'metallised-film', name: 'Metallised / multi-layer film', category: 'Plastic',
     off_tags: ['en:pemet-metalized-polyethylene', 'en:petmet-metalized-polyethylene-terephthalate', 'en:plastic-aluminium'],
     default_item: 'chip-bag-snack-wrapper',
@@ -530,6 +538,9 @@ export const CATEGORY_DEFAULT_MATERIAL: Record<Category, string> = {
   'Bulky Goods': 'bulky',
 };
 
+/** OFF shapes that are film-like: a resin's rigid default item would be the wrong answer for these. */
+export const FILM_SHAPES = new Set(['en:film', 'en:wrapper', 'en:bag', 'en:individual-bag', 'en:carrying-bag', 'en:net', 'en:sleeve', 'en:sheet', 'en:bubble-wrap', 'en:packet']);
+
 const BY_ID = new Map(MATERIALS.map((m) => [m.id, m]));
 const BY_OFF_TAG = new Map<string, Material>();
 for (const m of MATERIALS) for (const tag of m.off_tags) BY_OFF_TAG.set(tag, m);
@@ -546,5 +557,19 @@ export function materialForOffTag(tag: string | undefined | null): Material | un
 /** Item slug for an OFF (material, shape) pair, or undefined when we honestly do not know. */
 export function itemSlugFor(material: Material | undefined, shape?: string | null): string | undefined {
   if (!material) return undefined;
-  return (shape && material.shape_overrides?.[shape]) || material.default_item;
+  const override = shape ? material.shape_overrides?.[shape] : undefined;
+  if (override) return override;
+  // A film-shaped component of a rigid resin (PP wrapper, PET sleeve) must not
+  // inherit the resin's container item — that would send film to the curbside bin.
+  if (shape && FILM_SHAPES.has(shape) && material.category === 'Plastic') return undefined;
+  return material.default_item;
+}
+
+/** Material that answers a component once the shape rule above has dropped the item. */
+export function materialForComponent(material: Material | undefined, shape?: string | null): Material | undefined {
+  if (!material) return undefined;
+  if (shape && FILM_SHAPES.has(shape) && material.category === 'Plastic' && !material.shape_overrides?.[shape] && material.id !== 'plastic-film' && material.id !== 'metallised-film') {
+    return BY_ID.get('film-other');
+  }
+  return material;
 }

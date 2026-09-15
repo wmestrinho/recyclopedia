@@ -1,44 +1,47 @@
 <script lang="ts">
-  import {
-    CATEGORIES,
-    ITEMS,
-    RUNG_BADGE,
-    RUNG_ORDER,
-    type Disposition,
-    type Status,
-  } from '../data/items';
-  import { SOURCES } from '../data/sources';
-
-  // Disposition.source id -> citation (Atlas provenance). Only dispositions
-  // whose backing page was verified cite a source — no source, no chip.
-  const SOURCE_BY_ID = new Map(SOURCES.map((s) => [s.id, s]));
-
-  function citation(disposition: Disposition) {
-    return disposition.source ? SOURCE_BY_ID.get(disposition.source) : undefined;
-  }
+  import { onMount } from 'svelte';
+  import { CATEGORIES, ITEMS } from '../data/items';
+  import ItemCard from './ItemCard.svelte';
 
   let query = $state('');
   let activeFilter = $state('All');
 
-  const STATUS_CONFIG: Record<Status, { label: string; cls: string }> = {
-    curbside: { label: '✓ Curbside', cls: 'status-badge--curbside' },
-    'drop-off': { label: '↗ Drop-off Only', cls: 'status-badge--drop-off' },
-    hazardous: { label: '⚠ Hazardous Waste', cls: 'status-badge--hazardous' },
-    no: { label: '✕ Not Recyclable', cls: 'status-badge--no' },
-    compost: { label: '⬡ Compost', cls: 'status-badge--compost' },
-    partial: { label: '◑ Check Local', cls: 'status-badge--partial' },
-  };
+  // ── Lens (camera on the search bar) ─────────────────────────────────────
+  // The overlay is a separate island loaded on demand so the homepage bundle
+  // never carries the barcode WASM. Hidden only where no capture path exists.
+  let canScan = $state(true);
+  let Lens = $state<typeof import('./Lens.svelte').default | null>(null);
+  let lensOpen = $state(false);
+  let lensLoading = $state(false);
+  let cameraButton: HTMLButtonElement | undefined = $state();
 
-  function byRank(a: Disposition, b: Disposition) {
-    return (a.rank ?? RUNG_ORDER[a.rung] ?? 99) - (b.rank ?? RUNG_ORDER[b.rung] ?? 99);
+  onMount(() => {
+    const hasMedia = !!navigator.mediaDevices?.getUserMedia;
+    const hasCapture = 'capture' in document.createElement('input');
+    canScan = hasMedia || hasCapture;
+  });
+
+  async function openLens() {
+    if (lensLoading) return;
+    lensLoading = true;
+    try {
+      if (!Lens) Lens = (await import('./Lens.svelte')).default;
+      lensOpen = true;
+    } finally {
+      lensLoading = false;
+    }
   }
 
-  function bestDisposition(dispositions: Disposition[]) {
-    return dispositions.find((d) => d.is_recommended) ?? [...dispositions].sort(byRank)[0];
+  function closeLens() {
+    lensOpen = false;
+    cameraButton?.focus();
   }
 
-  function rungText(disposition: Disposition) {
-    return `${RUNG_BADGE[disposition.rung] ?? disposition.rung} ${disposition.label}${disposition.local_variance ? ' (check local)' : ''}`;
+  function searchInstead(text: string) {
+    closeLens();
+    activeFilter = 'All';
+    query = text;
+    document.getElementById('recycle-search')?.focus();
   }
 
   const filteredItems = $derived(
@@ -69,7 +72,22 @@
     autocomplete="off"
     bind:value={query}
   />
+  {#if canScan}
+    <button
+      class="search-wrap__camera"
+      type="button"
+      aria-label="Scan a barcode or photo"
+      title="Scan a barcode or photo"
+      aria-busy={lensLoading}
+      bind:this={cameraButton}
+      onclick={openLens}
+    >📷</button>
+  {/if}
 </div>
+
+{#if lensOpen && Lens}
+  <Lens onclose={closeLens} onresult={searchInstead} />
+{/if}
 
 <div class="pill-group" id="recycle-pills" role="group" aria-label="Filter by category">
   {#each CATEGORIES as category}
@@ -90,66 +108,7 @@
     <div class="empty-state"><p>No items found. Try a different search term or category.</p></div>
   {:else}
     {#each filteredItems as item (item.name)}
-      {@const status = STATUS_CONFIG[item.status]}
-      {@const best = bestDisposition(item.dispositions)}
-      {@const others = [...item.dispositions].sort(byRank).filter((disposition) => disposition !== best)}
-
-      <article class="recycle-card">
-        <div>
-          <p class="recycle-card__cat">{item.cat}</p>
-          <h3 class="recycle-card__name">{item.name}</h3>
-        </div>
-        <span class={`status-badge ${status.cls}`}>{status.label}</span>
-
-        {#if item.gratitude_note}
-          <p class="recycle-card__gratitude">{item.gratitude_note}</p>
-        {/if}
-
-        {#if best}
-          {@const bestSource = citation(best)}
-          <p class="recycle-card__best">
-            <span class="recycle-card__best-label">Best path</span>
-            <span class="recycle-card__best-val">
-              {rungText(best)}
-              {#if bestSource}
-                <a class="recycle-card__src" href={bestSource.url} target="_blank" rel="noopener noreferrer" title={bestSource.name}>
-                  src: {bestSource.short_label ?? bestSource.name} ↗
-                </a>
-              {/if}
-            </span>
-          </p>
-        {/if}
-
-        <div class="recycle-card__detail">
-          <div class="recycle-card__row">
-            <span class="recycle-card__row-label">Prep</span>
-            <span class="recycle-card__row-val">{item.prep}</span>
-          </div>
-          <div class="recycle-card__row">
-            <span class="recycle-card__row-label">Where</span>
-            <span class="recycle-card__row-val">{item.where}</span>
-          </div>
-        </div>
-
-        {#if others.length}
-          <details class="recycle-card__paths">
-            <summary>Other respectful paths</summary>
-            {#each others as disposition}
-              {@const rungSource = citation(disposition)}
-              <p class="recycle-card__rung">
-                {rungText(disposition)}
-                {#if rungSource}
-                  <a class="recycle-card__src" href={rungSource.url} target="_blank" rel="noopener noreferrer" title={rungSource.name}>
-                    src: {rungSource.short_label ?? rungSource.name} ↗
-                  </a>
-                {/if}
-              </p>
-            {/each}
-          </details>
-        {/if}
-
-        <p class="recycle-card__note">{item.note}</p>
-      </article>
+      <ItemCard {item} />
     {/each}
   {/if}
 </div>

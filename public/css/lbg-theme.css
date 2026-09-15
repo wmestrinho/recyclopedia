@@ -616,6 +616,12 @@ body.lbg-site {
   color: inherit;
 }
 
+.lbg-engine-site .search-wrap__camera,
+.lbg-engine-site .lens__close,
+.lbg-engine-site .lens__bar,
+.lbg-engine-site .lens__view,
+.lbg-engine-site .lens__card,
+.lbg-engine-site .lens__hint,
 .lbg-engine-site .search-input,
 .lbg-engine-site .pill,
 .lbg-engine-site .form-input,

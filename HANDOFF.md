@@ -4,6 +4,44 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Cards B.1–B.5: Tier 2 LIVE — camera on the search bar — 2026-09-15 (Mac Claude Code, Fable 5.1 → Opus 5)
+
+- **The camera is live on `recyclopedia.cc`.** Tap 📷 in the search bar →
+  point at an EAN/UPC → the barcode is decoded **on the device** → only the
+  number goes to `/api/barcode` → Open Food Facts returns product + packaging
+  components → each component maps through `materials.ts` to an item card.
+- **Verified end-to-end, headless, on the real preview deployment**
+  (`lens-preview.recyclopedia.pages.dev`), Chromium 390 + 320 px and WebKit
+  390 px: camera button 44×44, Lens chunk **not** in the initial page load and
+  fetched only on tap, file-fallback path reads a printed EAN `5449000000996`
+  → Confirm ("Coca-Cola · Aluminium · drink can", Open Food Facts chip) →
+  Answer (Aluminum can, curbside, gratitude note), Snap disabled, Esc closes
+  and returns focus to the camera button, no sideways scroll in any state, no
+  console errors. Dark mode holds. `check_responsive.py` clean.
+- **API checks:** valid GTIN → `found: true` with one `aluminium` /
+  `en:drink-can` / `aluminum-can` component in ~0.9 s; bad check digit → 400;
+  valid-but-unknown GTIN → `found: false` in 2.5 s with a "help Open Food
+  Facts add it" link. A record with a shape but no material resolves to
+  **not-sure**, never a guessed material.
+- **Two deviations from the brief, both deliberate:**
+  1. The brief said import the barcode ponyfill's WASM from a CDN. It is
+     **self-hosted** at `/vendor/zxing_reader.wasm` (a `prebuild` script
+     copies it out of `node_modules`; the file is gitignored). A third-party
+     CDN fetch would have contradicted the privacy line on the viewfinder.
+  2. The function does **not** import `materials.json`; Wrangler bundles the
+     TypeScript module directly from `src/data/`, which is simpler and keeps
+     one source of truth.
+- **`ItemCard.svelte` extraction verified byte-for-byte:** the 84 rendered
+  cards in `dist/index.html` are identical to the pre-change snapshot once
+  Svelte's SSR comments are stripped; class sets match exactly.
+- Version `0.7.11-alpha.1 → 0.8.0-alpha.1`.
+- **Owner asks:** unchanged (auto-deploy repair, Card C.0 fixture photos).
+  Nothing new is needed for Tier 2.
+- **Still to do on a real phone:** the headless runs exercise the file path,
+  not a live camera stream. Open `https://recyclopedia.cc/#recyclopedia` on
+  an iPhone, tap 📷, allow the camera, and point it at a real can.
+- Next card: **C.0** (the vision benchmark — blocked on the fixture photos).
+
 ## ✅ Cards 0.5 + A.1–A.3: material-first data layer, tests wired — 2026-09-15 (Mac Claude Code, Fable 5.1)
 
 - **Card 0.5 — observed.** After the 0.7.10 push `gh run list --limit 3` is

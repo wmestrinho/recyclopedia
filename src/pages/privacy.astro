@@ -6,7 +6,7 @@
 import versionSource from '../../VERSION?raw';
 
 const version = `v${versionSource.trim()}`;
-const effectiveDate = 'July 13, 2026';
+const effectiveDate = 'September 15, 2026';
 ---
 
 <!DOCTYPE html>
@@ -98,6 +98,56 @@ const effectiveDate = 'July 13, 2026';
         </article>
       </div>
 
+      <div class="section-block" id="camera">
+        <div class="section-heading">
+          <p class="section-kicker">Camera &amp; scanning</p>
+          <h2>The camera never sends us a picture.</h2>
+          <p class="lede">
+            Tapping 📷 on the search bar opens your camera so you can scan a
+            barcode. Here is exactly what happens, and what does not.
+          </p>
+        </div>
+
+        <div class="split-layout" style="align-items: start;">
+          <article class="panel-card panel-card--accent">
+            <h3>Barcodes are read on your device</h3>
+            <p>
+              The camera preview never leaves your phone. Every frame is decoded
+              in your own browser — no video, no photo, and no frame is uploaded
+              anywhere. If your browser cannot decode barcodes itself, the page
+              loads a decoder we host on this site, so no third party sees your
+              camera either.
+            </p>
+            <p style="margin-top: 0.75rem;">
+              When a barcode is recognised, the only thing that leaves your
+              device is the number printed under it.
+            </p>
+          </article>
+
+          <article class="panel-card">
+            <h3>What we do with that number</h3>
+            <p>
+              The barcode number goes to our own function on Cloudflare, which
+              asks <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener">Open Food Facts</a>
+              what the product is and what its packaging is made of. That answer
+              is cached for a day so a popular product is not looked up over and
+              over.
+            </p>
+            <ul class="bullet-list">
+              <li>No image, video, or audio is ever transmitted</li>
+              <li>The barcode number is not logged or linked to you</li>
+              <li>No account, no cookie, nothing stored on your device</li>
+              <li>Camera access is asked for by your browser, and you can refuse — the scanner falls back to a photo you choose yourself, decoded the same way, on your device</li>
+            </ul>
+            <p style="margin-top: 0.75rem;">
+              Photo identification (pointing the camera at an object with no
+              barcode) is not live yet. When it ships, this notice will say
+              exactly what it sends before you can use it.
+            </p>
+          </article>
+        </div>
+      </div>
+
       <div class="section-block">
         <div class="section-heading">
           <p class="section-kicker">Donate Electronics</p>
@@ -168,7 +218,9 @@ const effectiveDate = 'July 13, 2026';
               The site is served by <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare Pages</a>,
               which processes standard request logs (like IP addresses) to deliver and protect the site.
               Fonts load from <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Fonts</a>,
-              so your browser requests font files from Google's servers. Neither happens on our behalf for tracking, and we receive no visitor data from either.
+              so your browser requests font files from Google's servers. When you scan a barcode, our
+              Cloudflare function asks <a href="https://world.openfoodfacts.org/cgi/privacy.pl" target="_blank" rel="noopener">Open Food Facts</a>
+              about that product number — your browser never contacts them directly. None of this happens on our behalf for tracking, and we receive no visitor data from any of them.
             </p>
           </article>
           <article class="feature-card">

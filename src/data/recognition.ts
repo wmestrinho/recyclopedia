@@ -10,6 +10,7 @@
 
 import { CATEGORIES, ITEMS, type Category, type Item } from './items';
 import { CATEGORY_DEFAULT_MATERIAL, materialById, type Material } from './materials';
+import type { Status } from './items';
 
 export interface VocabEntry {
   slug: string;      // item slug, or 'category:<lowercase-hyphenated>'
@@ -52,4 +53,32 @@ export function resolveCandidate(slug: string): Candidate | undefined {
 
 export function isVocabSlug(slug: string): boolean {
   return ITEM_BY_SLUG.has(slug) || CATEGORY_BY_SLUG.has(slug);
+}
+
+/**
+ * Present a material's category-default path through the item card. Used when a
+ * scan resolves to a material but no exact item (barcode components, vision
+ * category guesses). The card's status is derived from the recommended rung.
+ */
+export function itemFromMaterial(material: Material, label?: string): Item {
+  const best = material.dispositions.find((d) => d.is_recommended) ?? material.dispositions[0];
+  let status: Status = 'drop-off';
+  if (best.hazard || best.channel === 'hhw') status = 'hazardous';
+  else if (best.rung === 'compost') status = 'compost';
+  else if (best.channel === 'trash') status = 'no';
+  else if (best.local_variance) status = 'partial';
+  else if (best.channel === 'curbside') status = 'curbside';
+  return {
+    slug: `material:${material.id}`,
+    name: label ?? material.name,
+    cat: material.category,
+    status,
+    hazard: material.dispositions.some((d) => d.hazard) || status === 'hazardous',
+    prep: 'Empty it; rinse if it held food.',
+    where: best.label.charAt(0).toUpperCase() + best.label.slice(1),
+    note: `No exact item matched, so this is the general path for ${material.name.toLowerCase()} — the honest default, not a guess.`,
+    gratitude_note: '',
+    material_codes: material.resin_code ? [`${material.id.toUpperCase()}`] : [],
+    dispositions: material.dispositions,
+  };
 }

@@ -61,7 +61,7 @@ test('every material has a ranked path with exactly one recommended rung', () =>
 test('no material is recommended straight into the trash without saying why it varies', () => {
   // "Never guess someone into a landfill": a bare-category material may only
   // recommend `trash` when it is genuinely unrecyclable packaging we named.
-  const allowed = new Set(['metallised-film', 'adhesive-tape', 'paper-plastic']);
+  const allowed = new Set(['metallised-film', 'adhesive-tape', 'paper-plastic', 'film-other']);
   for (const m of MATERIALS) {
     const best = m.dispositions.find((d) => d.is_recommended);
     if (best.channel === 'trash') assert.ok(allowed.has(m.id), `${m.id} recommends trash`);
