@@ -4,6 +4,27 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Pit Board wired up — 2026-09-15 (Mac Claude Code)
+
+- **Recyclopedia gets no board of its own.** The workspace-wide **AP Ops board**
+  already covers every repo and already held a Recyclopedia item (`C`), so a
+  second board would have split the decisions in two. Recyclopedia also can't
+  host one honestly: it's a public, unauthenticated static site, so a board
+  served from it would be world-readable and world-writable.
+- `AGENTS.md` and `CLAUDE.md` now point at it (standard §3, §6.4) — a cold
+  session, on this machine or the ThinkPad, had no way to find the board before.
+  **Read it at session start:** `cd ../ap-ops && node scripts/pitboard.mjs read`;
+  Recyclopedia's items are tagged `repo: recyclopedia`.
+- **Filed six items** — `act4` (the two unsent outreach emails), `D` (does the
+  facility data ship at all), `E` (where Donate Electronics lives), `F` (does the
+  Academy still migrate), `G` (the dead PROJECT-RULES.md pointer, `repo: ap-ops`),
+  `H` (the version check that has never run).
+- **Closed `C`** — the stale issue #1 question — with an outcome line. Note it
+  was closed **without a stored answer**: Luiz authorised the work in session
+  rather than on the board, and the CLI warned accordingly. Its suggested option
+  was "close it", which is what happened.
+- No `VERSION` bump: docs only.
+
 ## ✅ Layer 3: FRS classifier made honest about public access — 2026-09-15 (Mac Claude Code)
 
 - **Pipeline confirmed reproducible.** The 69 MB FL bundle was gone (never

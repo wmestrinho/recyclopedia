@@ -15,6 +15,22 @@ Required baseline for AI agents
 - Keep deployment notes current in `README.md`.
 - Run validation before commit.
 
+Pit Board — owner decisions
+- Recyclopedia has **no board of its own**. Its open owner-decisions live on the
+  **workspace-wide AP Ops board**, which already covers every repo:
+  **https://ops.absolutelyplausible.com → Pit Board** (Cloudflare Access-gated).
+- **Read it at the start of every session, before planning work:**
+  `cd ../ap-ops && node scripts/pitboard.mjs read`
+  Recyclopedia's items are the ones tagged `repo: recyclopedia`.
+- Act only on what Luiz actually chose. Never invent an answer he has not given.
+- Close what you finish, in the same commit as the work:
+  `node scripts/pitboard.mjs close <key> "what actually happened"`
+- File new owner-questions on the board rather than asking in chat and losing them:
+  `node scripts/pitboard.mjs file <item.json>`
+- Closing a board item does **not** close the GitHub issue — do that by hand.
+- Standard: https://github.com/wmestrinho/ap-workspace-standards/blob/main/pitboard-standard.md
+  AP Ops's §5 answers: `ap-ops/docs/PITBOARD.md`
+
 Version rule
 - Single source of truth: the `VERSION` file. Read it; never restate the number
   in prose (it has drifted every time we have).

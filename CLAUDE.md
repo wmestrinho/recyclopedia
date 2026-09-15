@@ -45,6 +45,23 @@ npm run build && npx wrangler pages deploy dist --project-name recyclopedia
 
 Domain: `recyclopedia.cc`
 
+## Pit Board — owner decisions
+
+Recyclopedia has **no board of its own**. Its open owner-decisions live on the
+**workspace-wide AP Ops board** at **ops.absolutelyplausible.com → Pit Board**.
+
+**Read it at the start of every session, before planning work:**
+
+```sh
+cd ../ap-ops && node scripts/pitboard.mjs read     # items tagged repo: recyclopedia
+node scripts/pitboard.mjs close <key> "outcome"    # ship with the work, same commit
+node scripts/pitboard.mjs file <item.json>         # new question for Luiz
+```
+
+Act only on what he actually chose — never invent an answer. Closing a board
+item does **not** close the GitHub issue. Standard:
+[pitboard-standard.md](https://github.com/wmestrinho/ap-workspace-standards/blob/main/pitboard-standard.md).
+
 ## Version Rule
 
 Versioning, CHANGELOG, LICENSE, and CI conventions: see `ap-ops-workspace/PROJECT-RULES.md`.
