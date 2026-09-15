@@ -4,6 +4,37 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Cards 0.5 + A.1–A.3: material-first data layer, tests wired — 2026-09-15 (Mac Claude Code, Fable 5.1)
+
+- **Card 0.5 — observed.** After the 0.7.10 push `gh run list --limit 3` is
+  empty: both workflows are `active` and Actions is `enabled` at repo level,
+  yet nothing has ever run. Not touched (Pit Board H parked). The board CLI has
+  no "annotate" command, so the observation lives here, not on the item.
+- **Card 0.2 — confirmed by the push test.** `bcfddec` produced no
+  `github:push` deployment and no check-run; both 0.7.10 and this release were
+  deployed manually. Owner ask stands (below).
+- **Card A.1 — `src/data/materials.ts`.** 40 materials, every category
+  covered, 141 OFF `packaging_materials` ids (taxonomy fetched from
+  `static.openfoodfacts.org` 2026-09-15 — children such as `en:pet-transparent`
+  and all `en:tetra-*` listed explicitly), `shape_overrides` from
+  `packaging_shapes` (`en:drink-can` → `aluminum-can`, caps → `loose-bottle-cap`,
+  cutlery → `plastic-utensils-cutlery`…). Deliberate splits: rigid PS #6 vs
+  foam EPS (different paths); `plastic-unknown` recommends "check local", never
+  a bin; `en:unknown` maps to nothing (renders "not sure"). Known gap for Card
+  B.4: PP/OPP *film* has no honest item — the function should fall back to the
+  category default, not `yogurt-container-pp`.
+- **Card A.2 — `recognition.ts` + enrichment.** `VOCAB.length === 95`;
+  aliases on all 84 items; `material_codes` on 37 containers. Lookup chunk
+  62.9 → 67.9 KB (alias data only; `materials.ts`/`recognition.ts` are not in
+  the homepage bundle).
+- **Card A.3 — tests.** 16 checks green via `npm test` (build → node --test).
+  Data reaches the tests through Astro endpoints (`dist/data/*.json`), no
+  `tsx`/loader dep. CI step added after Build; validator requires
+  `scripts/test/`.
+- Version `0.7.10-alpha.1 → 0.7.11-alpha.1`. Deployed manually; live footer
+  verified.
+- Next card: **B.1** (`ItemCard.svelte` extraction).
+
 ## ✅ Cards 0.1–0.4: production un-frozen, site tells the truth — 2026-09-15 (Mac Claude Code, Fable 5.1)
 
 - **Card 0.1 — done.** `npm ci && npm run build && npx wrangler pages deploy dist

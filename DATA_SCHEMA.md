@@ -285,6 +285,31 @@ create table item (
 create index item_category_idx on item (category);
 create index item_aliases_idx  on item using gin (aliases);
 
+-- materials (the unit we author — 2026-09-15, Lens master plan Phase A) ------
+-- Product identity and packaging composition come from APIs (Open Food Facts
+-- family, ODbL). This bounded table (~40 rows, `src/data/materials.ts`) turns a
+-- material tag into the ranked, cited path we own, and is the category-default
+-- answer when no item matches (Confidence Ladder rung 3). It doubles as the
+-- Academy's teaching table.
+create table material (
+  id             text primary key,          -- 'aluminium','pet-1','hdpe-2','carton-brick',...
+  name           text not null,
+  category       category_t not null,       -- one of the 11 — no 'other'
+  off_tags       text[] not null default '{}', -- Open Food Facts packaging_materials ids ('en:pet-1-polyethylene-terephthalate')
+  resin_code     smallint check (resin_code between 1 and 7),
+  default_item   text references item (slug), -- "a container made of this"
+  shape_overrides jsonb not null default '{}', -- OFF packaging_shapes id → item slug ('en:drink-can' → 'aluminum-can')
+  source         text,                      -- citation id, only if verified for the material generally
+  lesson         text,                      -- Academy lesson URL (Phase D)
+  created_at     timestamptz not null default now(),
+  updated_at     timestamptz not null default now()
+);
+create unique index material_off_tag_idx on material using gin (off_tags); -- one material per OFF tag (enforced by scripts/test/)
+-- material dispositions reuse `disposition` with material_id in place of item_id
+-- (a check constraint requires exactly one of the two).
+-- category defaults: one material per category answers a bare 'category:<cat>'
+-- vision candidate — CATEGORY_DEFAULT_MATERIAL in materials.ts.
+
 -- facility types (generic "kind of place" a disposition points at) ---------
 -- Spans EVERY Gratitude rung, not recycling-only: repair_shop, donation_center,
 -- hhw, compost_site, scrap_yard, retail_takeback, recycling/transfer, etc. The
@@ -426,11 +451,23 @@ This is the **Recognition Ladder** running over the backbones, gated by the
 
 ## Open schema questions
 
-- **Materials vs items:** some rules key on *material* (`#5 PP`) not the item.
-  `material_codes[]` + `local_rule.material_code` support this; may warrant a
-  full `material` table later.
+- ~~**Materials vs items:** some rules key on *material* (`#5 PP`) not the item.~~
+  **Resolved 2026-09-15** — see `material` table above and "Materials ↔ Open
+  Food Facts" below.
 
 ### Resolved
+- **Materials ↔ Open Food Facts (the mapping rule, 2026-09-15).** A barcode
+  resolves through OFF `packagings[]` → each component's `material` tag → the
+  one `material` row whose `off_tags` contains it (children such as
+  `en:pet-transparent` are listed explicitly; no taxonomy walk at runtime) →
+  the item via `shape_overrides[shape]`, else `default_item`, else the
+  material's own category-default `dispositions[]`. `en:unknown` maps to
+  nothing and renders as "not sure" — we never invent a material. Open Food
+  Facts is the source for *product and packaging facts*, never for disposal
+  advice: `Disposition.source` on a material only ever cites a verified
+  guidance page (EPA, Call2Recycle, …). Multi-component packaging renders as
+  one card per component — data-itemised, not vision-guessed, so it does not
+  violate the Mode-1 MVP rule.
 - **No `other` category** — replaced by the complete 11-category taxonomy above
   (`organics` / `rubber` / `bulky` added). Every item earns a real home.
 - **Multi-material objects** — handled by the **pre-capture scan-mode gate**

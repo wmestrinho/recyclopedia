@@ -1,13 +1,14 @@
 {
   "name": "recyclopedia",
-  "version": "0.7.10-alpha.1",
+  "version": "0.7.11-alpha.1",
   "license": "AGPL-3.0-only",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "npm run build && node --test scripts/test/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

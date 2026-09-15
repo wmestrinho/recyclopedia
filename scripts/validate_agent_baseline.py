@@ -14,6 +14,7 @@ require(ROOT / "README.md", "README")
 if not (ROOT / "AGENTS.md").exists() and not (ROOT / "CLAUDE.md").exists():
     errors.append("Missing AI-agent instructions: AGENTS.md or CLAUDE.md")
 require(ROOT / "VERSION", "VERSION")
+require(ROOT / "scripts" / "test", "data tests folder (scripts/test/, run by `npm test`)")
 
 if (ROOT / "VERSION").exists():
     version = (ROOT / "VERSION").read_text(errors="replace").strip().splitlines()[0].strip()

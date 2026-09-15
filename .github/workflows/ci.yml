@@ -56,3 +56,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Data tests (materials + recognition vocabulary)
+        run: node --test "scripts/test/*.test.mjs"

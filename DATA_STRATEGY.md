@@ -35,7 +35,7 @@ maintain 9,000 municipal rulebooks — that is a whole company by itself.
 
 | Layer | Decision | Rationale |
 |-------|----------|-----------|
-| **1. Item knowledge** | 🔨 **BUILD & OWN** | Our IP, voice, and ranked dispositions. ~500 items is hand/agent-buildable. Nobody sells "grateful ranked dispositions." |
+| **1. Item knowledge** | 🔨 **BUILD & OWN the materials; 🔧 AGGREGATE product identity** | Our IP, voice, and ranked dispositions — authored as a bounded **materials + categories** table (`src/data/materials.ts`, ~40 rows) plus items grown opportunistically, not a hand-written 500-item list (Luiz, 2026-09-15: "we need APIs … building a database is for us to use it as material for the academy"). Product identity and packaging composition come from the **Open Food Facts family** (ODbL — attribution + share-alike apply to the *data*, not our code; we send contributors back). Nobody sells "grateful ranked dispositions." |
 | **2. Local rules** | 🤝 **LICENSE / PARTNER (later)** | 9,000+ programs change weekly; maintaining it *is* a company (it's TRP's). Until licensed, answer honestly with **"check local."** |
 | **3. Facility map** | 🔧 **AGGREGATE** | Seed from free **EPA FRS** + municipal open data + Google Places (retail drop-offs). Build a *pipeline*, not the data. |
 | **4. Macro / credibility** | 📎 **CITE** | Pull World Bank / UNEP / Yale openly. Backs Academy + "no greenwashing." Never blocks a user. |

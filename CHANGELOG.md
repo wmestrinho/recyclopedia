@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.7.11-alpha.1] - 2026-09-15
+### Added
+- `src/data/materials.ts` — the material-first knowledge layer (Lens master
+  plan, Phase A): 40 materials across all 11 categories, 141 Open Food Facts
+  packaging-material ids mapped explicitly (children listed, no taxonomy walk),
+  `shape_overrides` (OFF shape → item), `default_item`, a category-default
+  ranked path per material, and `CATEGORY_DEFAULT_MATERIAL` for bare category
+  guesses. Citations only where the cited page covers the material generally.
+- `src/data/recognition.ts` — `VOCAB` (84 items + 11 `category:*` entries)
+  and `resolveCandidate()` for the vision tier.
+- `src/pages/data/materials.json.ts` + `vocab.json.ts` — build-time JSON
+  exports (`/data/materials.json`, `/data/vocab.json`, CC BY-NC-SA 4.0); the
+  first "database as Academy material" artifact.
+- `scripts/test/*.test.mjs` (`node:test`, no new deps): unique OFF tags,
+  real item slugs behind every default/override, 11 categories, one
+  recommended rung per material, no bare-category path recommended into the
+  trash, citations resolve, every item ≥ 2 aliases, material-code shape, glyph
+  guard. `npm test` = build + tests; CI runs them after Build;
+  `validate_agent_baseline.py` requires `scripts/test/`.
+
+### Changed
+- `src/data/items.ts`: aliases on all 84 items (58 added; one duplicate
+  removed), `material_codes` on 37 containers (resin + EU codes: `PET-1`,
+  `ALU-41`, `PAP-20`, `GL-70`, `C/PAP-81`…).
+- `DATA_SCHEMA.md`: `material` table DDL, the OFF mapping rule, "materials
+  vs items" question resolved. `DATA_STRATEGY.md` layer 1: materials we
+  author + product identity we aggregate (OFF family, ODbL).
+
 ## [0.7.10-alpha.1] - 2026-09-15
 ### Changed
 - Homepage now renders the item and category counts from `src/data/items.ts`
