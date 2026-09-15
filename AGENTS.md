@@ -45,9 +45,12 @@ Version rule
 
 Deployment
 - Cloudflare Pages (project `recyclopedia`): `npm run build && npx wrangler pages deploy dist --project-name=recyclopedia --branch=main`
-- Never deploy `.` — that ships the repo root instead of the build output. Normal
-  deploys are automatic: push to `main` and Pages builds. This command is the
-  manual fallback only.
+- Never deploy `.` — that ships the repo root instead of the build output.
+- **Auto-deploy is broken (since 2026-07-16, owner-gated).** The GitHub App stopped
+  delivering pushes to Pages, so the command above is not a fallback right now —
+  run it after every push, then verify:
+  `curl -sS https://recyclopedia.cc | grep -o 'footer-version">[^<]*'`.
+  Diagnosis and the owner fix are in `CLAUDE.md` under Deployment.
 - Live: https://recyclopedia.pages.dev — see `HANDOFF.md` for domain status.
 
 Validation

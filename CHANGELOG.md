@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.1-alpha.1] - 2026-09-15
+### Added
+- `scripts/lens_bench.mjs` — the Card C.0 recognition benchmark: runs a fixture
+  folder through `@cf/meta/llama-4-scout-17b-16e-instruct` and
+  `@cf/moondream/moondream3.1-9B-A2B`, scores top-1 / top-3 / category-only
+  against `labels.json`, records latency percentiles and estimated cost per
+  1,000 scans, and writes `docs/research/<date>-lens-benchmark.md`.
+  `--selftest` proves credentials and API shapes without fixtures.
+  Refuses to start on a label that is not in `VOCAB`.
+- `bench/README.md` with the fixture contract; `bench/fixtures/` gitignored
+  (the repo is public — photos never land in it).
+
+### Fixed
+- `AGENTS.md` still told agents that pushing to `main` deploys automatically.
+  It has not since 2026-07-16; it now says to deploy manually and verify.
+
 ## [0.8.0-alpha.1] - 2026-09-15
 ### Added
 - **Tier 2 is live: a camera on the search bar.** A 44px 📷 button in

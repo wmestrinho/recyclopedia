@@ -4,6 +4,45 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Card C.0 harness ready — waiting on the owner's photos — 2026-09-15 (Mac Claude Code, Opus 5)
+
+- **`scripts/lens_bench.mjs` is written and proven against the live API.** The
+  benchmark cannot produce numbers until the fixtures exist, so everything
+  except the photos is done: drop the Drive folder into `bench/fixtures/` and
+  run `node scripts/lens_bench.mjs`.
+- **Both request shapes verified live (the Cloudflare docs show neither):**
+  - `llama-4-scout` takes OpenAI-style content parts with the image as a
+    `data:` URI in `image_url.url`, plus `guided_json`; the answer is a JSON
+    string at `result.choices[0].message.content`. **No licence agreement was
+    required** — the first call succeeded, so the master plan's "agree to
+    Meta's licence" owner touchpoint is not needed.
+  - `moondream3.1` takes `{ task:'query', image:<data URI>, question, stream:false }`.
+    **`stream` must be sent explicitly as `false`** — omit it and the API
+    returns `{"result":{},"success":true}`, an empty answer that looks like a
+    success. Answer is at `result.result.answer`.
+- **Early signal, not a result** (two DIY build photos, out of distribution):
+  Llama returned in-vocabulary structured candidates both times (1.5–3.5 s);
+  Moondream returned free text ("chair", "shoe rack") that matched no slug.
+  Moondream has no structured output and no closed vocabulary, so it needs a
+  text→slug match that fails whenever it names something we do not list. If
+  the real fixtures repeat that pattern, Llama 4 Scout wins on shape alone.
+- **A real finding for Phase C, found by the selftest.** On a photo of a
+  pallet-wood frame Llama returned `candidates: []` with
+  `material_guess: "wood (not listed)"` — the honest refusal we designed for,
+  but it never reached for `category:organics`, which is where `materials.ts`
+  files wood. Nobody looking at a plank thinks "organics". Before C.1, the
+  category entries in `VOCAB` should name what they cover (e.g. "Organics —
+  food scraps, wood, cork, yard waste") or wood should earn an item of its
+  own. Otherwise Tier 3 will drop honest-but-useless answers on anything
+  wooden. Cheap to fix in `recognition.ts`; it changes the prompt, not the
+  schema.
+- **Owner ask (this is the blocker):** ~40 phone photos across the 11
+  categories into Drive `RandDRecyclopedia/lens-fixtures/`, one object per
+  photo, plus `labels.json` mapping each filename to an item slug or
+  `category:<name>`. Contract and examples: `bench/README.md`.
+- Version `0.8.0-alpha.1 → 0.8.1-alpha.1`.
+- Next card: **C.0** (run it), then C.1.
+
 ## ✅ Cards B.1–B.5: Tier 2 LIVE — camera on the search bar — 2026-09-15 (Mac Claude Code, Fable 5.1 → Opus 5)
 
 - **The camera is live on `recyclopedia.cc`.** Tap 📷 in the search bar →

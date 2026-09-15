@@ -27,3 +27,6 @@ public/assets/
 
 # Self-hosted third-party binaries copied by scripts/copy-vendor.mjs at prebuild
 public/vendor/
+
+# Lens benchmark fixtures — real photos, kept out of the public repo
+bench/fixtures/
