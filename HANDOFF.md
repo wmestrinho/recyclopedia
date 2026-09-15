@@ -4,6 +4,31 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ▶ START HERE — Lens master plan approved — 2026-09-15 (Mac Claude Code, Fable 5.1)
+
+- **Read `docs/LENS-MASTER-PLAN.md` first.** It is the approved master plan for
+  the engine (camera on the search bar) plus an execution handoff with 19 task
+  cards (0.1 → D.2), each with a "Done when" test. Work the cards in order; do
+  not re-plan. Written for Opus 5 / Codex / any cold session on either machine.
+- **Scope locked by Luiz:** engine only. Pit Board items D, E, F, H stay parked
+  (read the board, do not act on them). Item knowledge comes from APIs
+  (Open Food Facts family for barcode → packaging materials); the data we own
+  is a material-first layer (~40 materials + 11 categories) that doubles as
+  Academy teaching material. Uncertain scans show top-3 guesses, then search.
+- **Production is frozen at v0.7.5.** Cloudflare Pages has not built anything
+  since commit `d338934` (~2 months). Five commits (v0.7.7 → v0.7.9) never
+  deployed and no build was even attempted, so the GitHub → Pages integration
+  is broken. **Card 0.1** (manual deploy) and **Card 0.2** (repair the
+  integration; may need Luiz in the dashboard) come before everything else.
+- **Owner asks (from the plan):** reconnect the Pages git integration if the
+  dashboard shows it disconnected; ~40 fixture photos for the vision benchmark
+  (Drive `RandDRecyclopedia/lens-fixtures/`); later a rate-limit rule on
+  `/api/vision`.
+- **ap-website:** publish Luiz's 2026-09-15 API-first / symbiosis statement
+  (verbatim text in `docs/LENS-MASTER-PLAN.md`, "Statement to preserve"; Card
+  0.4 also adds it to `VISION.md`).
+- Docs only; no `VERSION` bump. Next card: **0.1**.
+
 ## ✅ Pit Board wired up — 2026-09-15 (Mac Claude Code)
 
 - **Recyclopedia gets no board of its own.** The workspace-wide **AP Ops board**
