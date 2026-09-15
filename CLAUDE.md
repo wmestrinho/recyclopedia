@@ -37,6 +37,23 @@ Push to `main` → Cloudflare Pages git integration builds (`npm run build` →
 > `npm run build` and pinning Node via `.nvmrc` (Astro 6 needs Node ≥22.12). If builds
 > regress, check the project's **build command** first.
 
+> **History (open 2026-09-15):** auto-deploy broke a second time, differently.
+> The last GitHub-triggered build was `d338934` (2026-07-16); the five commits
+> from 2026-09-05 on never reached Pages. The project config is intact (source
+> `wmestrinho/recyclopedia`, repo id matches GitHub, production branch `main`,
+> build `npm run build`, output `dist`, deployments enabled) and the
+> "Cloudflare Workers and Pages" GitHub App is still installed on the account —
+> but the September commits carry **no Cloudflare check-run at all**, so the
+> App is not delivering push events for this repo any more (most likely its
+> repository-access list, or a stale authorisation on the Cloudflare side).
+> Fixing it needs the owner: GitHub → Settings → Installed GitHub Apps →
+> Cloudflare Workers and Pages → Configure (2FA prompt) → confirm `recyclopedia`
+> is in the allowed repositories; and the Pages dashboard → Settings → Builds &
+> deployments → reconnect if prompted. Until then, ship with the manual
+> fallback below after every push and verify the live footer version.
+> **Diagnostic:** `gh api repos/wmestrinho/recyclopedia/commits/<sha>/check-runs`
+> — a healthy push shows a `cloudflare-workers-and-pages` run.
+
 Manual fallback (if ever needed):
 
 ```sh

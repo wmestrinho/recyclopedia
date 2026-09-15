@@ -4,7 +4,45 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
-## ▶ START HERE — Lens master plan approved — 2026-09-15 (Mac Claude Code, Fable 5.1)
+## ✅ Cards 0.1–0.4: production un-frozen, site tells the truth — 2026-09-15 (Mac Claude Code, Fable 5.1)
+
+- **Card 0.1 — done.** `npm ci && npm run build && npx wrangler pages deploy dist
+  --project-name recyclopedia --branch main` → live footer went `v0.7.5 alpha`
+  → `v0.7.9-alpha.1` (verified with the curl in the card). Two months of work
+  (SEO, social footer, dark mode, FRS) is finally visible.
+- **Card 0.2 — diagnosed, owner-blocked.** Config is intact (source attached,
+  repo id matches, branch/build/output correct, deployments enabled) and the
+  Cloudflare GitHub App is still installed on the account. But the first
+  September commit (`e83654d`) has **zero check-runs** where `d338934` has a
+  `cloudflare-workers-and-pages` run — the App stopped delivering pushes for
+  this repo between 2026-07-16 and 2026-09-05. Both fix surfaces are gated by
+  auth an agent must not do (GitHub sudo 2FA; Cloudflare dashboard sign-in).
+  Root cause + diagnostic recorded in `CLAUDE.md` deployment history.
+  **Until fixed: manual deploy after every push** (done for this release).
+- **Card 0.3 — done.** Homepage counts render from `ITEMS.length` /
+  `CATEGORIES` at build time; stack tags honest; one four-phase roadmap in
+  `index.astro`, `README.md`, `VISION.md` Status; header/footer wording per
+  the footer standard; `.feature-grid` → `auto-fit/minmax`.
+  Verified: `grep -rn "60+" src/ README.md` empty; build green;
+  `validate_agent_baseline.py` OK; live footer `v0.7.10-alpha.1`.
+- **Card 0.4 — done.** "Sourcing principle" (Luiz, verbatim) sits under "The
+  core idea" in `VISION.md`; memory file `luiz-api-first-symbiosis-statement.md`
+  already existed and is indexed.
+- Version `0.7.9-alpha.1 → 0.7.10-alpha.1`.
+- **Owner asks:**
+  - **Auto-deploy (Card 0.2):** GitHub → Settings → Installed GitHub Apps →
+    *Cloudflare Workers and Pages* → Configure → make sure `recyclopedia` is in
+    the repository list. Then Cloudflare → Workers & Pages → recyclopedia →
+    Settings → Builds & deployments → reconnect if it prompts. Proof: the next
+    push shows in `npx wrangler pages deployment list --project-name recyclopedia`
+    with source `github:push`.
+  - **ap-website:** publish Luiz's 2026-09-15 API-first / symbiosis statement
+    (text in `VISION.md` → "Sourcing principle").
+  - **Card C.0 fixtures:** ~40 phone photos across the 11 categories into Drive
+    `RandDRecyclopedia/lens-fixtures/` with a `labels.json`.
+- Next card: **0.5** (CI observation after this push), then **A.1**.
+
+## ▶ Lens master plan approved — 2026-09-15 (Mac Claude Code, Fable 5.1)
 
 - **Read `docs/LENS-MASTER-PLAN.md` first.** It is the approved master plan for
   the engine (camera on the search bar) plus an execution handoff with 19 task

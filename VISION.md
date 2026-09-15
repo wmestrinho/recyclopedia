@@ -25,6 +25,20 @@ separate product.** Human input comes first, then barcode recognition, then
 last-resort AI vision and material identification. Every tier ends in the same
 gesture: *identify → understand → act.*
 
+### Sourcing principle
+
+Luiz, 2026-09-15 (verbatim):
+
+> "We should be pulling this from the internet somewhere, we need APIs. Building a
+> database is for us to use it as material for the academy as both entities grow
+> along reinforcing and supporting each other, in a symbiotic and mutual manner of
+> reciprocity."
+
+Item and product facts come from APIs (the Open Food Facts family first). The
+database we own is a bounded **materials + categories** layer with the ranked,
+cited, kindly-voiced path on top — small enough to author, and the same table
+the Academy teaches from.
+
 ## The differentiator
 
 Every recycling app answers one narrow question: *recycle or trash?*
@@ -112,7 +126,7 @@ Every complete answer is a **Lookup item × an Atlas location, gated by Confiden
 
 `Search box · Lens · The Map (Atlas) · Donate · Academy pages`
 
-- **Lens** — the **orchestrating front door** (Phase 4). Owns no data; it runs all
+- **Lens** — the **orchestrating front door** (Phase 2 onward). Owns no data; it runs all
   four ladders over all three backbones in a single gesture.
 - **Donate** — a rung-4 **action surface**: a "where to donate" Atlas view (all
   categories) + AP's own intake form (AP as a donation node, electronics-only).
@@ -169,7 +183,7 @@ camera north star:
 
 - **Delivery: PWA now, native later.** Ship as an installable Progressive Web App
   using the browser camera — one codebase, no app stores, on the current
-  pure-HTML / Cloudflare Pages stack. Wrap/port to native once usage justifies it.
+  Astro / Cloudflare Pages stack. Wrap/port to native once usage justifies it.
 
 - **Recognition: the Recognition Ladder.** Start with **human input**, then try a
   barcode for an exact product match, then use **visual AI plus material
@@ -204,7 +218,7 @@ camera north star:
 - **Data model evolution.** Lookup items today carry a single `status`
   (curbside / drop-off / hazardous / …). The camera flow needs each object to map
   to a **ranked list of dispositions** following the Gratitude Hierarchy. This
-  shapes the Phase 2 Supabase schema. **How we source all of this is set out in
+  shapes the Phase 4 local-resolution schema. **How we source all of this is set out in
   [DATA_STRATEGY.md](DATA_STRATEGY.md)** (the four-layer build/license/aggregate model).
 - **Local rules.** How we source and store municipality/state-level rules so the
   ranked path is locally accurate.
@@ -218,5 +232,10 @@ camera north star:
 
 ## Status
 
-- Human-input identification and ranked paths are live in v0.2.0 alpha.
-- Barcode, vision/material identification, and local resolution are forward-looking.
+One phase order, shared with `README.md` and the homepage roadmap
+(release train in `docs/LENS-MASTER-PLAN.md`; current version in `VERSION`).
+
+- **Phase 1 — live:** human-input identification and ranked paths.
+- **Phase 2 — in development:** camera on the search bar — barcode first, then AI vision with a top-3 fallback.
+- **Phase 3 — planned:** installable PWA and the material-first knowledge layer.
+- **Phase 4 — parked:** local resolution, gated on Pit Board D and the data outreach.

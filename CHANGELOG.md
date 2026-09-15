@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.7.10-alpha.1] - 2026-09-15
+### Changed
+- Homepage now renders the item and category counts from `src/data/items.ts`
+  at build time (metric card, two ledes, Tier 1 card, Phase 1 roadmap card)
+  instead of a hard-coded "60+".
+- About stack tags tell the truth: `Astro · Svelte · TypeScript`,
+  `Cloudflare Pages`, `$0/month hosting`, `Open data`.
+- One phase order everywhere (homepage roadmap, `README.md`, `VISION.md`
+  Status): 1 human input (live) → 2 camera on the search bar (barcode, then
+  vision) → 3 PWA + materials layer → 4 local resolution (parked).
+- Header sub-line and footer link text is "Absolutely Plausible"; footer
+  "initiative" → "production" (footer standard, AP-owned public brand).
+- `.feature-grid` uses `auto-fit` / `minmax` so a fourth roadmap card wraps
+  cleanly (responsive standard).
+- `VISION.md` gains "Sourcing principle" under "The core idea" — Luiz's
+  2026-09-15 API-first / symbiosis statement, verbatim.
+
+### Fixed
+- Production had been frozen at `v0.7.5` since 2026-07-16: the GitHub → Pages
+  integration stopped receiving pushes. Deployed manually; see `CLAUDE.md`
+  deployment history and `HANDOFF.md` for the owner ask.
+
 ## [0.7.9-alpha.1] - 2026-09-15
 ### Changed
 - `scripts/frs_ingest.py` (layer 3, EPA FRS facilities): records now carry

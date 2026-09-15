@@ -21,7 +21,7 @@ donation-supported, run like an encyclopedia: open to read, edited in-house.
 
 An item-identification and local-action reasoning engine.
 
-- **Human input (live)** — Searchable knowledge base of 60+ items with preparation guidance and ranked paths through the Gratitude Hierarchy.
+- **Human input (live)** — Searchable knowledge base (every item in `src/data/items.ts`; the homepage renders the exact count at build time) with preparation guidance and ranked paths through the Gratitude Hierarchy.
 - **Barcode recognition (in development)** — Product-code identification feeding the same item and material knowledge.
 - **AI vision + material ID (researching)** — A last-resort recognition tier, not a committed model choice.
 - **Local resolution (planned)** — Combine the identified item with district rules and available facilities to return an immediate plan of action.
@@ -58,7 +58,7 @@ but `recyclopedia.cc` remains the action engine. The domain boundary is canon in
 - Existing CSS and browser JS preserved under `public/`
 - Cloudflare Pages — `$0/month` hosting
 - Type: Newsreader display, Hanken Grotesk body/UI, Share Tech Mono for technical labels
-- Database (Phase 2): Supabase
+- Server code: Cloudflare Pages Functions in `functions/` only (no adapter, no database)
 
 ## Deployment
 
@@ -85,7 +85,9 @@ python3 scripts/validate_agent_baseline.py
 
 ## Roadmap
 
-- **Phase 1 (current):** Human-input identification, 60+ item knowledge base, ranked paths
-- **Phase 2:** 500+ items plus district rules and nearby-facility resolution
-- **Phase 3:** Barcode recognition
-- **Phase 4:** AI vision and material identification after explicit model research
+One phase order, shared with `VISION.md` and the homepage (see `docs/LENS-MASTER-PLAN.md` for the release train).
+
+- **Phase 1 (live):** Human-input identification over the item knowledge base, ranked paths
+- **Phase 2 (in development):** Camera on the search bar — barcode recognition first (product and packaging facts from the Open Food Facts family), then AI vision with a top-3 fallback
+- **Phase 3 (planned):** Installable PWA with an offline shell, plus the material-first knowledge layer surfaced on every answer
+- **Phase 4 (parked):** Local resolution — district rules and nearby facilities; waits on Pit Board item D and the data outreach
