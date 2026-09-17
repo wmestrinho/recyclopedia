@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.4-alpha.1] - 2026-09-17
+### Added
+- **The Academy bridge (Card D.2) — the engine cites, the school teaches.**
+  `src/data/lessons.ts` maps materials, resin / EU material codes, and three
+  categories to the one Academy lesson that teaches their routing (1.2 resin
+  codes, 1.6 wardrobe, 2.2 biopolymers, 2.3 inside the MRF, 2.4 hazardous
+  test). Answer cards — search and scanner alike — show a "Learn more" link
+  when a lesson fits, and nothing when none does (glass, electronics, rubber,
+  bulky goods, foam, cartons have no lesson yet). Links are absolute on
+  `lettucebeetgrapefruit.org`, so they survive the Academy's move.
+- "Why this path" line on the card, drawn from `Disposition.why`. First four
+  authored, each from what the linked lesson actually says: PLA, plastic film,
+  textiles, lithium batteries.
+- `/data/materials.json` now carries each material's `lesson` URL; README gains
+  a "Data" section linking the export (CC BY-NC-SA 4.0).
+- Test: every material id in the lesson map exists; lesson URLs are absolute.
+### Notes
+- Standalone module on purpose: the search bundle grew 2.4 KB instead of
+  pulling in the materials table.
+- Version stays on the 0.8 line; the plan's `0.10.0` label waits until Tier 3
+  (`0.9.0`) has actually shipped.
+
 ## [0.8.3-alpha.1] - 2026-09-17
 ### Added
 - **Installable + offline (Card D.1).** `public/manifest.webmanifest`, ♻ icons

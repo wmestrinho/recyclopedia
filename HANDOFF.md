@@ -4,6 +4,29 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Card D.2: the Academy bridge — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **Answer cards now link the lesson that explains them.** `src/data/lessons.ts`
+  (standalone — never import `materials.ts` into it, `ItemCard` ships in the
+  search bundle): material id → lesson, item `material_codes` → lesson, and a
+  category fallback for Textiles / Batteries / Hazardous. **A lesson was mapped
+  only after reading the module and finding it teaches that routing**; no fit,
+  no link. All five linked modules return 200 on `lettucebeetgrapefruit.org`.
+- **"Why this path"** renders from `Disposition.why`. Four authored so far
+  (pla-7, plastic-film, textile, battery-lithium), each paraphrasing its lesson.
+  `why` only exists on material default paths today, so it shows on scanner
+  cards, not on the 84 search items — extending it to `items.ts` is content
+  work for a later pass, same rule: say only what the lesson says.
+- `/data/materials.json` carries `lesson`; README has a "Data" section.
+- **Verified on a preview deployment**, Chromium 320, Chromium dark 390, WebKit
+  iPhone 14: aluminum can → 2.3; smartphone → no link; a mocked film barcode →
+  why line + 2.3 link inside the Lens; no sideways scroll; dark mode holds.
+- **Version:** `0.8.4-alpha.1`, not the plan's `0.10.0` — Tier 3 (`0.9.0`) has
+  not shipped, and version numbers should not claim it has.
+- **Phase D is complete. Phase E is parked on Pit Board D + act4.** The only
+  remaining engine work is Phase C, and it starts with the owner's fixture
+  photos (see the C.0 entry below). Nothing else is unblocked.
+
 ## ✅ Card D.1: installable + offline, and the scanner's ✕ fixed — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **Worked out of order on purpose.** C.0 is blocked on the owner's photos and

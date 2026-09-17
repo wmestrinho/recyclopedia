@@ -206,7 +206,7 @@ export const MATERIALS: Material[] = [
     default_item: 'compostable-pla-7',
     shape_overrides: { ...CUTLERY_SHAPES },
     dispositions: [
-      { rung: 'compost', rank: 6, channel: 'compost_municipal', label: 'industrial / municipal compost that accepts PLA', local_variance: true, is_recommended: true },
+      { rung: 'compost', rank: 6, channel: 'compost_municipal', label: 'industrial / municipal compost that accepts PLA', local_variance: true, is_recommended: true, why: 'PLA only breaks down in sustained industrial-compost heat, and in the recycling bin it contaminates PET bales.' },
       { rung: 'dispose', rank: 7, channel: 'trash', label: 'trash if no industrial composter (never curbside recycling)' },
     ],
   },
@@ -230,7 +230,7 @@ export const MATERIALS: Material[] = [
     default_item: 'plastic-bag-film',
     shape_overrides: { 'en:bubble-wrap': 'bubble-wrap', 'en:net': 'plastic-bag-film' },
     dispositions: [
-      { rung: 'reuse', rank: 1, channel: 'retail_takeback', label: 'use it again first', is_recommended: true },
+      { rung: 'reuse', rank: 1, channel: 'retail_takeback', label: 'use it again first', is_recommended: true, why: "Film is the sorting line's worst tangler: it wraps the screens' shafts until the whole line stops, so it never goes in the curbside bin." },
       { rung: 'recycle', rank: 5, channel: 'drop_off', label: 'clean and dry, at a store film drop-off bin (never curbside)', local_variance: true },
     ],
   },
@@ -385,7 +385,7 @@ export const MATERIALS: Material[] = [
     dispositions: [
       { rung: 'reuse', rank: 1, channel: 'retail_takeback', label: 'use it again — a cloth bag is a bag' },
       { rung: 'donate', rank: 4, channel: 'donation_center', label: 'donate if still usable' },
-      { rung: 'recycle', rank: 5, channel: 'drop_off', label: 'textile recycling bin, clean and dry', is_recommended: true },
+      { rung: 'recycle', rank: 5, channel: 'drop_off', label: 'textile recycling bin, clean and dry', is_recommended: true, why: 'Keeping fibres in a loop of wear, repair, and recovery bypasses the heavy manufacturing behind new cloth.' },
     ],
   },
 
@@ -452,7 +452,7 @@ export const MATERIALS: Material[] = [
     default_item: 'lithium-ion-battery',
     source: 'epa-lithium-batteries',
     dispositions: [
-      { rung: 'recycle', rank: 5, channel: 'drop_off', label: 'certified e-waste or battery drop-off, terminals taped', source: 'epa-lithium-batteries', facility_type: 'ewaste', hazard: true, is_recommended: true },
+      { rung: 'recycle', rank: 5, channel: 'drop_off', label: 'certified e-waste or battery drop-off, terminals taped', source: 'epa-lithium-batteries', facility_type: 'ewaste', hazard: true, is_recommended: true, why: 'Many batteries are reactive, one of the four marks of hazardous waste, so they never ride in the bin or the trash.' },
     ],
   },
   {

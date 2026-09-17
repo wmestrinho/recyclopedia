@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { VOCAB, ITEMS, CATEGORIES, ITEM_SLUGS, itemsTsSource, SOURCE_IDS } from './_load.mjs';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { VOCAB, ITEMS, CATEGORIES, ITEM_SLUGS, itemsTsSource, SOURCE_IDS, MATERIALS, ROOT } from './_load.mjs';
 
 test('VOCAB = every item + one entry per category', () => {
   assert.equal(VOCAB.length, ITEMS.length + CATEGORIES.length);
@@ -56,4 +58,15 @@ test('category entries say what they cover, without shadowing any item', () => {
   }
   const organics = VOCAB.find((v) => v.slug === 'category:organics');
   assert.ok(organics.aliases.includes('wood'), 'wood must route to category:organics');
+});
+
+test('Academy lessons: every mapped material exists and every link is an absolute .org URL', () => {
+  const src = readFileSync(path.join(ROOT, 'src', 'data', 'lessons.ts'), 'utf8');
+  const block = src.slice(src.indexOf('LESSON_BY_MATERIAL'), src.indexOf('// Item material_codes'));
+  const ids = [...block.matchAll(/(?:'([a-z0-9-]+)'|\b([a-z]+)):\s*'(?:resin|wardrobe|biopolymer|mrf|hazardous)'/g)].map((m) => m[1] ?? m[2]);
+  assert.ok(ids.length >= 20, `only ${ids.length} mapped materials parsed`);
+  const known = new Set(MATERIALS.map((m) => m.id));
+  for (const id of ids) assert.ok(known.has(id), `lessons.ts maps unknown material "${id}"`);
+  assert.ok(!/url:\s*['"`]\//.test(src), 'lesson URLs must be absolute');
+  assert.match(src, /const ACADEMY = 'https:\/\/lettucebeetgrapefruit\.org\/academy\/'/);
 });

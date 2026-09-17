@@ -4,6 +4,7 @@
   // unchanged so the homepage renders identically.
   import { RUNG_BADGE, RUNG_ORDER, type Disposition, type Item, type Status } from '../data/items';
   import { SOURCES } from '../data/sources';
+  import { lessonForItem } from '../data/lessons';
 
   interface Props {
     item: Item;
@@ -45,6 +46,7 @@
 
   const status = $derived(STATUS_CONFIG[item.status]);
   const best = $derived(bestDisposition(item.dispositions));
+  const lesson = $derived(lessonForItem(item));
   const others = $derived([...item.dispositions].sort(byRank).filter((disposition) => disposition !== best));
 </script>
 
@@ -88,6 +90,9 @@
         {/if}
       </span>
     </p>
+    {#if best.why}
+      <p class="recycle-card__why"><span class="recycle-card__best-label">Why this path</span>{best.why}</p>
+    {/if}
   {/if}
 
   <div class="recycle-card__detail">
@@ -119,4 +124,12 @@
   {/if}
 
   <p class="recycle-card__note">{item.note}</p>
+
+  {#if lesson}
+    <p class="recycle-card__lesson">
+      <span class="recycle-card__best-label">Learn more</span>
+      <a href={lesson.url} target="_blank" rel="noopener noreferrer">{lesson.title} ↗</a>
+      <span class="recycle-card__lesson-teaches">— {lesson.teaches}</span>
+    </p>
+  {/if}
 </article>

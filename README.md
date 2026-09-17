@@ -51,6 +51,15 @@ resolution. Its research foundation is shared with the separate LBG Academy prod
 but `recyclopedia.cc` remains the action engine. The domain boundary is canon in
 [docs/LBG_BRAND_ARCHITECTURE.md](docs/LBG_BRAND_ARCHITECTURE.md).
 
+## Data
+
+The material-first table behind the scanner is public, built on every deploy:
+[`recyclopedia.cc/data/materials.json`](https://recyclopedia.cc/data/materials.json)
+— every material, its Open Food Facts packaging tags, ranked default paths, and
+(where one exists) the Academy lesson that teaches the routing. Licensed
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), like the
+rest of the content. It is the first "database as Academy material" artifact.
+
 ## Stack
 
 - Astro + TypeScript at the repo root

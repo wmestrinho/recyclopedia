@@ -1123,6 +1123,20 @@ table {
   color: var(--accent-mid);
 }
 
+.recycle-card__why,
+.recycle-card__lesson {
+  margin: 0;
+  font-size: 0.77rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.recycle-card__lesson a {
+  display: inline-block;
+  padding: 0.2rem 0;
+  color: var(--accent-deep);
+}
+.recycle-card__lesson-teaches { display: block; }
+
 .recycle-card__paths {
   border-top: 1px solid var(--border);
   padding-top: 0.55rem;
