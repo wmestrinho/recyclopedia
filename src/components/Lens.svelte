@@ -175,6 +175,38 @@
     }
   }
 
+  // One-time "Add to Home Screen" hint after the first successful scan (Card D.1).
+  // 'prompt' = the browser handed us an install prompt; 'ios' = Safari, manual steps.
+  const A2HS_KEY = 'rcy:a2hs-hinted';
+  let installHint = $state<'none' | 'prompt' | 'ios'>('none');
+
+  function offerInstallOnce() {
+    try {
+      if (localStorage.getItem(A2HS_KEY)) return;
+      const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true;
+      if (standalone) return;
+      const ua = navigator.userAgent;
+      const iosSafari = /iP(hone|ad|od)/.test(ua) && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+      if ((window as any).__rcyInstallPrompt) installHint = 'prompt';
+      else if (iosSafari) installHint = 'ios';
+      else return;
+      localStorage.setItem(A2HS_KEY, '1');
+    } catch { /* storage blocked — skip the hint, never the answer */ }
+  }
+
+  async function install() {
+    const prompt = (window as any).__rcyInstallPrompt;
+    installHint = 'none';
+    if (!prompt) return;
+    try { await prompt.prompt(); } catch { /* dismissed */ }
+    (window as any).__rcyInstallPrompt = null;
+  }
+
+  function confirmAnswer() {
+    state = 'answer';
+    offerInstallOnce();
+  }
+
   async function onCode(code: string) {
     cancelAnimationFrame(raf);
     try { navigator.vibrate?.(40); } catch { /* optional */ }
@@ -220,6 +252,13 @@
     if (e.key === 'Escape') { e.preventDefault(); close(); }
   }
 
+  // main.site-shell is its own stacking context (z-index: 1), so a fixed overlay
+  // inside it can never rise above the sticky header. Mount the dialog on <body>.
+  function portal(node: HTMLElement) {
+    document.body.appendChild(node);
+    return { destroy() { node.remove(); } };
+  }
+
   onMount(() => {
     closeButton?.focus();
     startCamera();
@@ -229,7 +268,7 @@
 
 <svelte:window onkeydown={onKey} />
 
-<div class="lens" role="dialog" aria-modal="true" aria-labelledby="lens-title">
+<div class="lens" role="dialog" use:portal aria-modal="true" aria-labelledby="lens-title">
   <div class="lens__bar">
     <p class="lens__title" id="lens-title">📷 Scan it</p>
     <button class="lens__close" type="button" aria-label="Close the scanner" bind:this={closeButton} onclick={close}>✕</button>
@@ -279,7 +318,7 @@
         <p class="lens__ask">Does this look right?</p>
         <div class="lens__actions">
           <button class="button button--ghost" type="button" onclick={() => (state = 'notsure')}>Not quite</button>
-          <button class="button button--solid" type="button" onclick={() => (state = 'answer')}>Yes, that's it</button>
+          <button class="button button--solid" type="button" onclick={confirmAnswer}>Yes, that's it</button>
         </div>
         <button class="button button--link" type="button" onclick={scanAgain}>↺ Scan again</button>
       </section>
@@ -293,6 +332,22 @@
           {/if}
           <ItemCard item={card.item} origin="barcode" productName={productName} sourceLabel="Open Food Facts" sourceUrl={result.source_url} />
         {/each}
+        {#if installHint !== 'none'}
+          <aside class="lens__install" aria-label="Install Recyclopedia">
+            {#if installHint === 'prompt'}
+              <p>Keep the scanner one tap away — add Recyclopedia to your home screen.</p>
+              <div class="lens__install-actions">
+                <button class="button button--ghost" type="button" onclick={install}>Add to Home Screen</button>
+                <button class="button button--link" type="button" onclick={() => (installHint = 'none')}>Not now</button>
+              </div>
+            {:else}
+              <p>Keep the scanner one tap away: tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</p>
+              <div class="lens__install-actions">
+                <button class="button button--link" type="button" onclick={() => (installHint = 'none')}>Got it</button>
+              </div>
+            {/if}
+          </aside>
+        {/if}
         <div class="lens__actions">
           <button class="button button--ghost" type="button" onclick={scanAgain}>↺ Scan another</button>
           <button class="button button--solid" type="button" onclick={close}>Done</button>

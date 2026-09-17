@@ -1,0 +1,15 @@
+{
+  "name": "Recyclopedia",
+  "short_name": "Recyclopedia",
+  "description": "Search, scan, or photograph any item and get its most respectful path.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#efe9db",
+  "theme_color": "#efe9db",
+  "icons": [
+    { "src": "/images/pwa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/images/pwa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/images/pwa/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

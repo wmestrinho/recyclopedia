@@ -28,6 +28,10 @@ const effectiveDate = 'September 15, 2026';
   <meta name="twitter:description" content="What Recyclopedia collects (almost nothing), what happens to electronics-donation details, and how donated devices are wiped. No accounts, no analytics, no cookies." />
   <meta name="twitter:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/images/pwa/apple-touch-icon.png" />
+  <meta name="theme-color" content="#efe9db" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#191610" media="(prefers-color-scheme: dark)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
@@ -95,6 +99,13 @@ const effectiveDate = 'September 15, 2026';
             is never transmitted to us, and disappears if you clear your browser
             data. That's its entire life cycle.
           </p>
+          <p>
+            So the engine opens without a connection, your browser also keeps a copy
+            of the site's own pages, styles, and scripts. Nothing about you is in that
+            copy, and nothing you scan is ever put in it. After your first successful
+            scan we may suggest adding Recyclopedia to your home screen — once; a
+            single flag in <code>localStorage</code> remembers that we already asked.
+          </p>
         </article>
       </div>
 
@@ -136,7 +147,7 @@ const effectiveDate = 'September 15, 2026';
             <ul class="bullet-list">
               <li>No image, video, or audio is ever transmitted</li>
               <li>The barcode number is not logged or linked to you</li>
-              <li>No account, no cookie, nothing stored on your device</li>
+              <li>No account, no cookie, and no scan or product is ever saved on your device</li>
               <li>Camera access is asked for by your browser, and you can refuse — the scanner falls back to a photo you choose yourself, decoded the same way, on your device</li>
             </ul>
             <p style="margin-top: 0.75rem;">
@@ -269,5 +280,6 @@ const effectiveDate = 'September 15, 2026';
       <p class="footer-version">{version}</p>
     </div>
   </footer>
+  <script is:inline src="/js/pwa.js"></script>
 </body>
 </html>

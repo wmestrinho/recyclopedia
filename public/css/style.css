@@ -886,6 +886,24 @@ table {
   line-height: 1.5;
 }
 .lens__how a { color: var(--accent-deep); }
+.lens__install {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-alt);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.lens__install p { margin: 0; }
+.lens__install-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.lens__install-actions .button { min-height: 44px; }
 .lens__error {
   margin: 0;
   padding: 0.6rem 0.8rem;

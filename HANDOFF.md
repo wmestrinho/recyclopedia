@@ -4,6 +4,40 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Card D.1: installable + offline, and the scanner's ✕ fixed — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **Worked out of order on purpose.** C.0 is blocked on the owner's photos and
+  C.1–C.3 depend on it, so per the plan's "continue with the next card that
+  does not depend on it" this session did D.1. Version stays on the 0.8 line
+  (`0.8.3-alpha.1`); 0.9.0 is still reserved for Tier 3.
+- **Deviation:** no `@vite-pwa/astro` — its peer range ends at Astro 5, we are on
+  6.4.7. `scripts/build_sw.mjs` writes `dist/sw.js` after `astro build` (zero
+  new deps): precache of the engine shell, network-first navigations,
+  cache-first `/_astro/*`, stale-while-revalidate for other static files and
+  Google Fonts, **`/api/*` never intercepted**. Cache name = VERSION + content
+  hash, old caches deleted on activate. The build fails loudly if a precache
+  entry is missing from `dist/`.
+- **Install hint:** once, after the first "Yes, that's it" — real install
+  prompt on Chromium, Share → Add to Home Screen text on iOS Safari
+  (`rcy:a2hs-hinted` in localStorage, try/catch).
+- **Bug found and fixed on the way:** the Lens ✕ was covered by the sticky
+  header on every phone since v0.8.0 (`main.site-shell` z-index:1 trapped the
+  overlay). The dialog now portals to `<body>`; verified with a hit-tested click
+  in Chromium and WebKit, focus returns to the camera button.
+- **Verified on a Pages preview deployment**, Chromium 390 + 320 and WebKit
+  iPhone 14: SW active + controlling, manifest and all icons 200, hint shown
+  once / never twice, install button calls `prompt()`, buttons 44 px, no
+  sideways scroll, no `/api/` entry in any cache, console clean. **Offline
+  reload renders and search answers — Chromium only.** Playwright's WebKit
+  blocks navigation before the service worker sees it, so offline on Safari is
+  **not verified**; the cache there does hold `/` (140 KB).
+- **Owner ask:** on the iPhone — open recyclopedia.cc, scan a barcode, follow
+  the hint to add it to the Home Screen, then switch on Airplane Mode and open
+  it from the icon. It should load and search; scanning needs a connection.
+  Also confirm the scanner works from the installed icon (the card's
+  "Done when").
+- Next card: **C.0** when photos land; otherwise **D.2** (Academy bridge).
+
 ## ✅ Pre-C.1 vocabulary fix: categories say what they cover — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **The wood gap from the C.0 selftest is closed.** `recognition.ts` gained
