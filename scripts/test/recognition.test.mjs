@@ -43,3 +43,17 @@ test('every item citation points at a real source', () => {
 test('items.ts carries no "? " glyph corruption (the v0.1.4 bug)', () => {
   assert.ok(!/['"]\? /.test(itemsTsSource), 'corrupted badge glyph detected');
 });
+
+test('category entries say what they cover, without shadowing any item', () => {
+  const itemTerms = new Set(ITEMS.flatMap((i) => [i.name.toLowerCase(), ...i.aliases]));
+  for (const v of VOCAB.filter((v) => v.slug.startsWith('category:'))) {
+    assert.match(v.label, / — .+/, `${v.slug}: label names no contents`);
+    assert.ok(v.aliases.length >= 4, `${v.slug}: too few cover terms`);
+    for (const a of v.aliases) {
+      assert.equal(a, a.toLowerCase(), `${v.slug}: "${a}" not lowercase`);
+      assert.ok(!itemTerms.has(a), `${v.slug}: "${a}" collides with an item name/alias`);
+    }
+  }
+  const organics = VOCAB.find((v) => v.slug === 'category:organics');
+  assert.ok(organics.aliases.includes('wood'), 'wood must route to category:organics');
+});

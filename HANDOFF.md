@@ -4,6 +4,21 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Pre-C.1 vocabulary fix: categories say what they cover — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **The wood gap from the C.0 selftest is closed.** `recognition.ts` gained
+  `CATEGORY_COVERS`; each `category:<name>` VOCAB entry now carries its
+  contents in the label and aliases. Verified live: `dj-03-boards.jpeg` went
+  from `candidates: []` / "wood (not listed)" to `category:organics 0.90`
+  on Llama 4 Scout. Moondream still answers free text ("chair") — unchanged.
+- New test guards the cover terms against colliding with item names/aliases
+  (it caught five on the first pass — those objects are items, not categories).
+- **C.0 is still blocked on the owner's photos** — checked 2026-09-17: nothing
+  in Drive `RandDRecyclopedia/lens-fixtures/`, `bench/fixtures/` empty. Pit
+  Board has no answered Recyclopedia items.
+- Version `0.8.1-alpha.1 → 0.8.2-alpha.1`.
+- Next card: **C.0** (run it when photos land), then C.1.
+
 ## 🔶 Card C.0 harness ready — waiting on the owner's photos — 2026-09-15 (Mac Claude Code, Opus 5)
 
 - **`scripts/lens_bench.mjs` is written and proven against the live API.** The

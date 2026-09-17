@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.2-alpha.1] - 2026-09-17
+### Changed
+- `recognition.ts`: every `category:<name>` entry in `VOCAB` now says what it
+  covers (`CATEGORY_COVERS` — e.g. "Organics — wood, lumber, pallet wood, cork,
+  yard waste…"), in both the label and the aliases. Found by the C.0 selftest:
+  the vision model refused a pallet-wood photo ("wood (not listed)") because
+  nothing told it wood lives under Organics. After the change the same photo
+  returns `category:organics` at 0.90. Prompt-only — the schema is unchanged.
+### Added
+- Test: category cover terms are lowercase, at least four per category, and
+  never shadow an item name or alias (so free-text matching stays unambiguous).
+
 ## [0.8.1-alpha.1] - 2026-09-15
 ### Added
 - `scripts/lens_bench.mjs` — the Card C.0 recognition benchmark: runs a fixture

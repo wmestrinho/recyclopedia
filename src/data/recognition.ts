@@ -28,12 +28,30 @@ const REAL_CATEGORIES = CATEGORIES.filter((c): c is Category => c !== 'All');
 const CATEGORY_BY_SLUG = new Map(REAL_CATEGORIES.map((c) => [categorySlug(c), c]));
 const ITEM_BY_SLUG = new Map(ITEMS.map((i) => [i.slug, i]));
 
+// What each category covers, in the words someone looking at the object would
+// use. A bare "Organics" never gets picked for a plank of wood (found by the
+// C.0 selftest), so the category entries name their contents in the prompt.
+// Keep every term distinct from item names and aliases — the tests enforce it.
+export const CATEGORY_COVERS: Record<Category, string[]> = {
+  Metal: ['metal objects', 'cookware', 'metal tools', 'wire', 'hardware'],
+  Plastic: ['plastic containers', 'plastic packaging', 'plastic parts', 'plastic housewares'],
+  Paper: ['paper products', 'paper packaging', 'books', 'stationery'],
+  Glass: ['glassware', 'ceramics', 'drinking glasses', 'window glass'],
+  Electronics: ['electronic devices', 'gadgets', 'anything with a plug or circuit board'],
+  Batteries: ['any battery', 'loose cells', 'unlabelled battery', 'battery of unknown type'],
+  Hazardous: ['chemicals', 'solvents', 'fuel', 'pesticides', 'unknown liquids'],
+  Textiles: ['upholstery', 'bedding', 'curtains', 'bags', 'soft goods'],
+  Organics: ['wood', 'lumber', 'pallet wood', 'cork', 'yard waste', 'plants', 'natural fibres'],
+  Rubber: ['rubber objects', 'silicone', 'hoses', 'mats'],
+  'Bulky Goods': ['large household objects', 'fixtures', 'anything too big for a bin'],
+};
+
 export const VOCAB: VocabEntry[] = [
   ...ITEMS.map((item) => ({ slug: item.slug, label: item.name, aliases: item.aliases ?? [] })),
   ...REAL_CATEGORIES.map((c) => ({
     slug: categorySlug(c),
-    label: `Category: ${c}`,
-    aliases: [c.toLowerCase(), `${c.toLowerCase()} (unsure which item)`],
+    label: `Category: ${c} — ${CATEGORY_COVERS[c].join(', ')}`,
+    aliases: [c.toLowerCase(), `${c.toLowerCase()} (unsure which item)`, ...CATEGORY_COVERS[c]],
   })),
 ];
 
