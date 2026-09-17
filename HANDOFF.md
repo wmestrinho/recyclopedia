@@ -29,7 +29,10 @@ every session.
   path), and the card's own done-when (sharp phone → Confirm, blurry → picker,
   battery → hazard).
 - Version `0.8.5-alpha.1 → 0.8.6-alpha.1`. **Everything left in Phase C now
-  waits on the owner's fixture photos.**
+  waits on the owner's fixture photos** — filed on the AP Ops Pit Board as
+  **`act5`** (2026-09-17), with the iPhone offline check folded in. Read its
+  answer before starting C.0: one option is "use openly licensed photos for a
+  first rough number", another parks Tier 3.
 
 ## 🔶 Card C.1 built and switched off — waiting on C.0 to switch it on — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
