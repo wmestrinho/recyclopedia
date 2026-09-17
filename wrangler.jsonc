@@ -3,6 +3,10 @@
   "name": "recyclopedia",
   "pages_build_output_dir": "dist",
   "compatibility_date": "2025-09-27",
+  // Tier 3 (Card C.1). The binding is free to declare; the endpoint stays off
+  // until VISION_ENABLED is "1" — flip it only after the C.0 benchmark.
+  "ai": { "binding": "AI" },
+  "vars": { "VISION_ENABLED": "0" },
   "observability": {
     "enabled": true
   }

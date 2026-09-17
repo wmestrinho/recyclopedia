@@ -32,6 +32,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { CANDIDATE_SCHEMA, USER_PROMPT, buildSystemPrompt, extractContent, postProcess } from '../src/lib/vision_core.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FIXTURES = path.join(ROOT, 'bench', 'fixtures');
@@ -60,6 +61,7 @@ const flag = (name, fallback = null) => {
 };
 const has = (name) => argv.includes(`--${name}`);
 const SELFTEST = has('selftest');
+const RECORD = has('record'); // selftest only: save raw Llama answers as test fixtures
 const LIMIT = Number(flag('limit', '0')) || 0;
 const CHOSEN = (flag('models', 'llama,moondream')).split(',').map((s) => s.trim()).filter((m) => MODELS[m]);
 
@@ -108,33 +110,8 @@ if (!existsSync(vocabFile)) {
 const { vocab: VOCAB } = JSON.parse(readFileSync(vocabFile, 'utf8'));
 const VOCAB_SLUGS = new Set(VOCAB.map((v) => v.slug));
 
-// AP_GUIDELINES in three lines + the closed list. The server-side prompt in
-// functions/api/vision.js must stay in step with this one.
-const SYSTEM_PROMPT = [
-  'You identify ONE household object for a recycling encyclopedia.',
-  'Choose only from the provided list. If you are unsure which exact item it is, prefer a "category:" entry — never invent a slug and never guess.',
-  'Flag hazards (batteries, chemicals, sharps, pressurised cans).',
-  '',
-  'List:',
-  VOCAB.map((v) => (v.aliases.length ? `${v.slug} (${v.label}; ${v.aliases.slice(0, 4).join(', ')})` : `${v.slug} (${v.label})`)).join('\n'),
-].join('\n');
-
-const CANDIDATE_SCHEMA = {
-  type: 'object',
-  properties: {
-    candidates: {
-      type: 'array', maxItems: 3,
-      items: {
-        type: 'object',
-        properties: { slug: { type: 'string' }, confidence: { type: 'number' } },
-        required: ['slug', 'confidence'],
-      },
-    },
-    material_guess: { type: 'string' },
-    hazard_flag: { type: 'boolean' },
-  },
-  required: ['candidates', 'material_guess', 'hazard_flag'],
-};
+// Prompt, schema, and post-processing are shared with functions/api/vision.js.
+const SYSTEM_PROMPT = buildSystemPrompt(VOCAB);
 
 // ── helpers ────────────────────────────────────────────────────────────────
 function dataUri(file) {
@@ -180,25 +157,17 @@ async function askLlama(uri) {
     messages: [
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: [
-        { type: 'text', text: 'Identify the single main object in this photo.' },
+        { type: 'text', text: USER_PROMPT },
         { type: 'image_url', image_url: { url: uri } },
       ] },
     ],
     guided_json: CANDIDATE_SCHEMA,
     max_tokens: 256,
   });
-  const content = json?.result?.choices?.[0]?.message?.content ?? '';
-  let parsed = null;
-  try { parsed = JSON.parse(content); } catch { /* guided_json should prevent this */ }
-  const candidates = (parsed?.candidates ?? [])
-    .filter((c) => VOCAB_SLUGS.has(c.slug))
-    .map((c) => ({ slug: c.slug, confidence: Math.min(1, Math.max(0, Number(c.confidence) || 0)) }))
-    .sort((a, b) => b.confidence - a.confidence)
-    .slice(0, 3);
+  const content = extractContent(json);
+  const { candidates, dropped, hazard_flag, material_guess } = postProcess(content, { vocabSlugs: VOCAB_SLUGS });
   const usage = json?.result?.usage ?? {};
-  return { ms, ok, candidates, raw: content,
-    dropped: (parsed?.candidates ?? []).filter((c) => !VOCAB_SLUGS.has(c.slug)).map((c) => c.slug),
-    hazard: !!parsed?.hazard_flag, material: parsed?.material_guess ?? '',
+  return { ms, ok, candidates, raw: content, dropped, hazard: hazard_flag, material: material_guess,
     tokensIn: usage.prompt_tokens ?? 0, tokensOut: usage.completion_tokens ?? 0 };
 }
 
@@ -219,7 +188,7 @@ const ASK = { llama: askLlama, moondream: askMoondream };
 
 // ── selftest: two photos from the repo, no scoring ─────────────────────────
 async function selftest() {
-  const shots = ['public/images/diy/dj-03-boards.jpeg', 'public/images/diy/build-shoe-rack-b.jpeg']
+  const shots = ['public/images/diy/dj-03-boards.jpeg', 'public/images/diy/build-shoe-rack-b.jpeg', 'public/images/diy/build-can-shelf.jpeg']
     .map((p) => path.join(ROOT, p)).filter(existsSync);
   if (!shots.length) { console.error('no repo images found for the selftest'); process.exit(1); }
   console.log(`Selftest — ${shots.length} repo photo(s), models: ${CHOSEN.join(', ')}`);
@@ -231,6 +200,12 @@ async function selftest() {
       const r = await ASK[key](uri);
       const top = r.candidates.map((c) => `${c.slug} ${c.confidence.toFixed(2)}`).join(', ') || '—';
       console.log(`  ${MODELS[key].label.padEnd(18)} ${String(r.ms).padStart(5)} ms  ok=${r.ok}  → ${top}`);
+      if (RECORD && key === 'llama' && r.ok) {
+        const dir = path.join(ROOT, 'scripts', 'test', 'fixtures', 'vision');
+        mkdirSync(dir, { recursive: true });
+        writeFileSync(path.join(dir, path.basename(shot).replace(IMAGE_RE, '') + '.json'),
+          JSON.stringify({ model: MODELS.llama.id, photo: path.basename(shot), content: r.raw }, null, 2) + '\n');
+      }
       if (!r.candidates.length || r.dropped.length) console.log(`      raw: ${String(r.raw).replace(/\s+/g, ' ').slice(0, 160)}`);
     }
   }

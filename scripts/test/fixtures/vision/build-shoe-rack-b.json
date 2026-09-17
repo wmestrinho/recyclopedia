@@ -1,0 +1,5 @@
+{
+  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+  "photo": "build-shoe-rack-b.jpeg",
+  "content": "{ \n  \"candidates\": [\n    {\n      \"confidence\": 0.9,\n      \"slug\": \"shoes\"\n    }\n  ],\n  \"hazard_flag\": false,\n  \"material_guess\": \"category:textiles\"\n}"
+}

@@ -1,0 +1,5 @@
+{
+  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+  "photo": "dj-03-boards.jpeg",
+  "content": "{ \n\"candidates\": [\n    {\n        \"confidence\": 0.9,\n        \"slug\": \"category:organics\"\n    }\n],\n\"hazard_flag\": false,\n\"material_guess\": \"wood\"\n}"
+}

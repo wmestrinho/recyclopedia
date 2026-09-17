@@ -4,6 +4,33 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Card C.1 built and switched off — waiting on C.0 to switch it on — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **`functions/api/vision.js` exists, is deployed, and answers 503.** Everything
+  in C.1 that does not depend on the benchmark is done: validation (JPEG magic
+  bytes, 1 MB), limiter, `no-store`, and `src/lib/vision_core.js` — the shared
+  prompt / schema / post-processor that the function, `lens_bench.mjs`, and the
+  tests all import. **To turn it on after C.0:** set the `MODEL` constant to
+  the benchmark's winner, `VISION_ENABLED` to `"1"` in `wrangler.jsonc`, deploy.
+- **Verified with `npx wrangler pages dev dist --binding VISION_ENABLED=1`**
+  (real binding, two paid calls): boards photo → `category:organics 0.9`,
+  `assert: true`, ~2.2 s, `Cache-Control: no-store`; GET → 405; text → 415; a
+  body that only claims to be JPEG → 415; 1.5 MB → 413; 11th request in a
+  minute → 429 + `Retry-After`. Default config → 503, no model call.
+- **The binding's response shape matches REST** (`choices[0].message.content`);
+  `extractContent` also accepts the older `{ response }` shape.
+- **Beyond the brief:** hazard is not left to the model's memory — a candidate
+  that is a known-hazardous item (or the Batteries / Hazardous category) sets
+  `hazard_flag` and `safe_path: 'hhw'` even when the model said `false`.
+- **Seen again, worth a fixture photo:** a shelf *of cans* came back
+  `category:organics` (the shelf is wood; the cans are small). "One object per
+  photo" in `bench/README.md` matters — and C.2's framing hint should say
+  "fill the frame with one thing".
+- **Owner touchpoint when it goes live:** a dashboard rate-limiting rule on
+  `/api/vision` (the in-function limiter is best-effort, per edge location).
+- Version `0.8.4-alpha.1 → 0.8.5-alpha.1`. Next: **C.0** (photos), flip the
+  switch, then **C.2** (Snap flow + top-3 picker).
+
 ## ✅ Card D.2: the Academy bridge — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **Answer cards now link the lesson that explains them.** `src/data/lessons.ts`

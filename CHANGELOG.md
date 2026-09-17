@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.5-alpha.1] - 2026-09-17
+### Added
+- **`/api/vision` — built, tested, and switched off (Card C.1, the part that
+  does not depend on the benchmark).** POST `image/jpeg` ≤ 1 MB (magic bytes
+  checked, not just the header) → Workers AI → up to three in-vocabulary
+  candidates. Replies 503 `vision_disabled` without calling any model until
+  `VISION_ENABLED` is `"1"` in `wrangler.jsonc`. `no-store`; the image is
+  never stored or logged; best-effort 10/min per IP; 405 / 413 / 415 / 429 / 502.
+- `src/lib/vision_core.js` — prompt, `guided_json` schema, and the rules the
+  model cannot override: unknown slugs dropped, confidence clamped, duplicates
+  removed, top three, identity asserted only at ≥ 0.6, and the hazard safe path
+  attached when the model flags a hazard **or** a candidate is an item we
+  already know is hazardous. The benchmark now imports the same file, so the
+  bench and production cannot drift.
+- `wrangler.jsonc`: `ai` binding + `VISION_ENABLED: "0"`.
+- Tests (5): three recorded Llama 4 Scout responses (`lens_bench --selftest
+  --record`), invented slugs, clamping, the 0.6 floor, junk input, hazards.
+### Notes
+- The model constant (`llama-4-scout`) is provisional. C.0 still decides the
+  model and item-level vs category-only; nothing here pre-empts it.
+
 ## [0.8.4-alpha.1] - 2026-09-17
 ### Added
 - **The Academy bridge (Card D.2) — the engine cites, the school teaches.**

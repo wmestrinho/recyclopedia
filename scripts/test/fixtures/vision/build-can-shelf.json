@@ -1,0 +1,5 @@
+{
+  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+  "photo": "build-can-shelf.jpeg",
+  "content": "{ \"candidates\": [ \n    { \"confidence\": 0.9, \"slug\": \"category:organics\" } \n  ], \"hazard_flag\": false, \"material_guess\": \"wood\" }"
+}
