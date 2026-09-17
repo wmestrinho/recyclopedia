@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.6-alpha.1] - 2026-09-17
+### Added
+- **The Snap flow and top-3 picker (Card C.2), built and switched off.**
+  `src/data/flags.ts` → `VISION_LIVE = false`; while it is false the Snap button
+  is the same disabled placeholder as before. With it on: Snap grabs the video
+  frame (or a chosen photo where there is no camera), re-encodes to a ≤ 768 px
+  JPEG on a canvas (which strips EXIF), posts it once to `/api/vision`, then
+  - asserted (≥ 0.6) → Confirm with a confidence meter → Answer, badged
+    "Identified by AI — please confirm";
+  - not asserted, or "Not quite" → up to three chips (items or categories);
+    a category lands on the material's general path and says so;
+  - "None of these" → Not sure → search pre-filled with the model's
+    plain-word material guess (a slug-shaped guess is never pushed into search);
+  - a hazard flag puts the safe-handling banner above every screen, answer included;
+  - 429 / 503 / 502 → a plain message that points back to barcode or search.
+- Test: `VISION_LIVE` and the server's `VISION_ENABLED` must agree, so the
+  button and the endpoint can only be switched on together.
+### Fixed
+- A camera that answers late (slow permission prompt) could replace whatever
+  screen the Lens had moved on to. Only an idle Lens now enters scanning.
+
 ## [0.8.5-alpha.1] - 2026-09-17
 ### Added
 - **`/api/vision` — built, tested, and switched off (Card C.1, the part that

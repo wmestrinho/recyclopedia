@@ -886,6 +886,43 @@ table {
   line-height: 1.5;
 }
 .lens__how a { color: var(--accent-deep); }
+.lens__snap-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.lens__hazard {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--status-hazard);
+  background: var(--status-hazard-bg);
+  color: var(--status-hazard);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.lens__conf {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  overflow: hidden;
+}
+.lens__conf-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+.lens__conf-label,
+.lens__general {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.lens__choice { min-height: 44px; text-align: left; }
 .lens__install {
   display: grid;
   gap: 0.4rem;

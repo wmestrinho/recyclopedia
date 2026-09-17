@@ -4,6 +4,33 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Card C.2 built and switched off — Tier 3 is two switches from live — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **The whole photo tier now exists, dark.** To go live after C.0:
+  1. `functions/api/vision.js` → `MODEL` = the benchmark's winner;
+  2. `wrangler.jsonc` → `"VISION_ENABLED": "1"`;
+  3. `src/data/flags.ts` → `VISION_LIVE = true` (a test refuses 2 without 3);
+  4. Card C.3 copy (`/privacy` photo paragraph, homepage Tier 3 card), `0.9.0`.
+  If the benchmark says **category-only**, also make `postProcess` keep only
+  `category:` slugs — the picker and the general-path answer already handle it.
+- **Verified on a flags-on build deployed to the preview branch only**
+  (production never had the flag on): Chromium 320, Chromium dark 390, WebKit
+  iPhone 14 — 18 checks each against mocked `/api/vision` responses (confirm,
+  meter, AI badge, below-floor never asserts, picker chips 44 px, category →
+  general path, none-of-these → pre-filled search, hazard banner above picker
+  and answer, slug-shaped guess withheld, 429, 503, no sideways scroll, no page
+  errors) **plus one real model call per engine**: boards photo →
+  `category:organics 0.9` → Confirm "90% sure of the category, not the exact
+  item". The upload is a real JPEG (`ffd8ff`, ~110 KB).
+- **Harness note:** Playwright WebKit reports a Blob POST body as 0 bytes; the
+  real call returning 200 (the function checks magic bytes) is the proof.
+- **Not verified — needs the iPhone once live:** Snap from the *live video
+  frame* (headless has no camera, so tests went through the photo-picker
+  path), and the card's own done-when (sharp phone → Confirm, blurry → picker,
+  battery → hazard).
+- Version `0.8.5-alpha.1 → 0.8.6-alpha.1`. **Everything left in Phase C now
+  waits on the owner's fixture photos.**
+
 ## 🔶 Card C.1 built and switched off — waiting on C.0 to switch it on — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **`functions/api/vision.js` exists, is deployed, and answers 503.** Everything

@@ -68,3 +68,12 @@ test('prompt lists every vocabulary slug; both response shapes are read', () => 
   assert.equal(extractContent({ response: { a: 1 } }), '{"a":1}');
   assert.equal(extractContent(undefined), '');
 });
+
+test('the client flag and the server switch are flipped together', () => {
+  const flags = readFileSync(path.join(ROOT, 'src', 'data', 'flags.ts'), 'utf8');
+  const wrangler = readFileSync(path.join(ROOT, 'wrangler.jsonc'), 'utf8');
+  const client = /export const VISION_LIVE = (true|false);/.exec(flags)?.[1];
+  const server = /"VISION_ENABLED":\s*"([01])"/.exec(wrangler)?.[1];
+  assert.ok(client && server, 'could not read both switches');
+  assert.equal(client === 'true', server === '1', `VISION_LIVE=${client} but VISION_ENABLED="${server}"`);
+});

@@ -1,15 +1,18 @@
 <script lang="ts">
   // Recyclopedia Lens — the camera on the search bar (Lens master plan, Card B.3).
-  // Tier 2 (barcode) is live here; Tier 3 (photo) arrives with Phase C — the
-  // Snap button is present so the layout is final, but disabled.
+  // Tier 2 (barcode) is live. Tier 3 (photo, Card C.2) is built and gated on
+  // VISION_LIVE — while it is false the Snap button stays disabled.
   //
   // Privacy: frames never leave the phone. Barcode decoding runs on-device
   // (native BarcodeDetector where available, else the ZXing WASM ponyfill,
-  // self-hosted at /vendor/). Only the GTIN is sent to /api/barcode.
+  // self-hosted at /vendor/). Only the GTIN is sent to /api/barcode. A photo
+  // leaves the phone only when Snap is tapped: one downsized JPEG (the canvas
+  // re-encode strips EXIF) to /api/vision, which never stores it.
   import { onMount } from 'svelte';
   import { ITEMS, type Item } from '../data/items';
   import { materialById } from '../data/materials';
-  import { itemFromMaterial } from '../data/recognition';
+  import { itemFromMaterial, resolveCandidate } from '../data/recognition';
+  import { VISION_LIVE } from '../data/flags';
   import ItemCard from './ItemCard.svelte';
 
   interface Props {
@@ -18,7 +21,8 @@
   }
   let { onclose, onresult }: Props = $props();
 
-  type LensState = 'idle' | 'scanning' | 'lookingUp' | 'confirm' | 'answer' | 'notsure' | 'error';
+  type LensState = 'idle' | 'scanning' | 'lookingUp' | 'confirm' | 'answer' | 'notsure' | 'error'
+    | 'identifying' | 'vconfirm' | 'pick' | 'vanswer';
   interface Component {
     material_id: string | null;
     material_name: string | null;
@@ -35,7 +39,19 @@
     contribute_url?: string;
   }
 
+  interface VisionResult {
+    candidates: { slug: string; confidence: number }[];
+    assert: boolean;
+    material_guess: string;
+    hazard_flag: boolean;
+    safe_path?: string;
+  }
+  interface VisionChoice { slug: string; confidence: number; name: string; item: Item; general: boolean }
+
   let state = $state<LensState>('idle');
+  let vision = $state<VisionResult | null>(null);
+  let chosen = $state<VisionChoice | null>(null);
+  let snapInput: HTMLInputElement | undefined = $state();
   let errorMsg = $state('');
   let usingFile = $state(false);
   let gtin = $state('');
@@ -83,6 +99,23 @@
     return out;
   });
 
+  /** Vision candidates → things we can answer. Category guesses take the material's general path. */
+  const choices = $derived.by((): VisionChoice[] => {
+    const out: VisionChoice[] = [];
+    for (const c of vision?.candidates ?? []) {
+      const hit = resolveCandidate(c.slug);
+      if (!hit) continue;
+      if (hit.kind === 'item') out.push({ ...c, name: hit.item.name, item: hit.item, general: false });
+      else out.push({ ...c, name: `Category: ${hit.category}`, item: itemFromMaterial(hit.material, `${hit.category} (general path)`), general: true });
+    }
+    return out;
+  });
+  // The model sometimes answers material_guess with a slug; only plain words go to the search box.
+  const guessQuery = $derived.by(() => {
+    const g = (vision?.material_guess ?? '').trim();
+    return /[:()]/.test(g) ? '' : g;
+  });
+
   async function getDetector() {
     if (detector) return detector;
     const Native = (globalThis as unknown as { BarcodeDetector?: { getSupportedFormats(): Promise<string[]>; new (o: { formats: string[] }): typeof detector } }).BarcodeDetector;
@@ -105,16 +138,22 @@
     return detector;
   }
 
+  // The camera can take seconds to answer (permission prompt). Only an idle
+  // Lens moves to scanning — a late answer must never replace a later screen.
+  function beginScanning() {
+    if (state === 'idle') state = 'scanning';
+  }
+
   async function startCamera() {
     if (!navigator.mediaDevices?.getUserMedia) {
       usingFile = true;
-      state = 'scanning';
+      beginScanning();
       return;
     }
     try {
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
       if (stopped) { stopTracks(); return; }
-      state = 'scanning';
+      beginScanning();
       await tickReady();
       if (video) {
         video.srcObject = stream;
@@ -125,7 +164,7 @@
       raf = requestAnimationFrame(loop);
     } catch {
       usingFile = true;
-      state = 'scanning';
+      beginScanning();
     }
   }
 
@@ -207,6 +246,65 @@
     offerInstallOnce();
   }
 
+  const SNAP_EDGE = 768;
+
+  function toJpeg(source: CanvasImageSource, w: number, h: number): Promise<Blob | null> {
+    const scale = Math.min(1, SNAP_EDGE / Math.max(w, h));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(1, Math.round(w * scale));
+    canvas.height = Math.max(1, Math.round(h * scale));
+    canvas.getContext('2d')?.drawImage(source, 0, 0, canvas.width, canvas.height);
+    return new Promise((r) => canvas.toBlob(r, 'image/jpeg', 0.8));
+  }
+
+  async function identify(blob: Blob | null) {
+    if (!blob) { errorMsg = 'Could not capture that photo.'; state = 'error'; return; }
+    try {
+      const res = await fetch('/api/vision', { method: 'POST', headers: { 'Content-Type': 'image/jpeg', Accept: 'application/json' }, body: blob });
+      if (res.status === 429) { errorMsg = 'That was a lot of photos — give it a minute, or search by name.'; state = 'error'; return; }
+      if (!res.ok) throw new Error(String(res.status));
+      vision = (await res.json()) as VisionResult;
+      if (!choices.length) state = 'notsure';
+      else if (vision.assert) { chosen = choices[0]; state = 'vconfirm'; }
+      else state = 'pick';
+    } catch {
+      errorMsg = 'Photo identification is not available right now. Try the barcode, or search by name.';
+      state = 'error';
+    }
+  }
+
+  async function snap() {
+    if (!VISION_LIVE || state !== 'scanning') return;
+    if (usingFile || !video || video.readyState < 2) { snapInput?.click(); return; }
+    cancelAnimationFrame(raf);
+    video.pause();
+    state = 'identifying';
+    await identify(await toJpeg(video, video.videoWidth, video.videoHeight));
+  }
+
+  async function onSnapFile(e: Event) {
+    const input = e.currentTarget as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file || state !== 'scanning') { input.value = ''; return; }
+    state = 'identifying';
+    try {
+      const bitmap = await createImageBitmap(file);
+      const blob = await toJpeg(bitmap, bitmap.width, bitmap.height);
+      bitmap.close?.();
+      await identify(blob);
+    } catch {
+      errorMsg = 'Could not read that photo.'; state = 'error';
+    } finally {
+      input.value = '';
+    }
+  }
+
+  function pick(choice: VisionChoice) {
+    chosen = choice;
+    state = 'vanswer';
+    offerInstallOnce();
+  }
+
   async function onCode(code: string) {
     cancelAnimationFrame(raf);
     try { navigator.vibrate?.(40); } catch { /* optional */ }
@@ -228,9 +326,9 @@
   }
 
   function scanAgain() {
-    result = null; gtin = ''; errorMsg = '';
+    result = null; gtin = ''; errorMsg = ''; vision = null; chosen = null;
     lastCode = ''; stableHits = 0;
-    if (usingFile || !stream) { if (!usingFile) startCamera(); else state = 'scanning'; return; }
+    if (usingFile || !stream) { if (!usingFile) { state = 'idle'; startCamera(); } else state = 'scanning'; return; }
     state = 'scanning';
     video?.play().catch(() => undefined);
     raf = requestAnimationFrame(loop);
@@ -245,7 +343,7 @@
   function searchByName() {
     stopped = true;
     stopTracks();
-    onresult(productName);
+    onresult(vision ? guessQuery : productName);
   }
 
   function onKey(e: KeyboardEvent) {
@@ -268,6 +366,25 @@
 
 <svelte:window onkeydown={onKey} />
 
+{#snippet installAside()}
+  {#if installHint !== 'none'}
+    <aside class="lens__install" aria-label="Install Recyclopedia">
+      {#if installHint === 'prompt'}
+        <p>Keep the scanner one tap away — add Recyclopedia to your home screen.</p>
+        <div class="lens__install-actions">
+          <button class="button button--ghost" type="button" onclick={install}>Add to Home Screen</button>
+          <button class="button button--link" type="button" onclick={() => (installHint = 'none')}>Not now</button>
+        </div>
+      {:else}
+        <p>Keep the scanner one tap away: tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</p>
+        <div class="lens__install-actions">
+          <button class="button button--link" type="button" onclick={() => (installHint = 'none')}>Got it</button>
+        </div>
+      {/if}
+    </aside>
+  {/if}
+{/snippet}
+
 <div class="lens" role="dialog" use:portal aria-modal="true" aria-labelledby="lens-title">
   <div class="lens__bar">
     <p class="lens__title" id="lens-title">📷 Scan it</p>
@@ -275,7 +392,7 @@
   </div>
 
   <div class="lens__body">
-    {#if state === 'idle' || state === 'scanning' || state === 'lookingUp' || state === 'error'}
+    {#if state === 'idle' || state === 'scanning' || state === 'lookingUp' || state === 'identifying' || state === 'error'}
       <div class="lens__view" class:is-paused={state !== 'scanning'}>
         {#if !usingFile}
           <!-- svelte-ignore a11y_media_has_caption -->
@@ -291,6 +408,8 @@
           <p class="lens__hint">Starting the camera…</p>
         {:else if state === 'lookingUp'}
           <p class="lens__hint" aria-live="polite">Looking up {gtin}…</p>
+        {:else if state === 'identifying'}
+          <p class="lens__hint" aria-live="polite">Taking a careful look…</p>
         {/if}
       </div>
       <p class="lens__privacy">Frames stay on your phone; only the barcode number is looked up. A photo is only sent when you tap Snap.</p>
@@ -298,10 +417,15 @@
         <p class="lens__error" role="alert">{errorMsg}</p>
       {/if}
       <div class="lens__actions">
-        <button class="button button--ghost" type="button" onclick={scanAgain} disabled={state === 'lookingUp'}>↺ Scan again</button>
-        <button class="button button--solid" type="button" disabled title="Photo identification arrives in the next release">◎ Snap (coming next)</button>
+        <button class="button button--ghost" type="button" onclick={scanAgain} disabled={state === 'lookingUp' || state === 'identifying'}>↺ Scan again</button>
+        {#if VISION_LIVE}
+          <button class="button button--solid" type="button" onclick={snap} disabled={state !== 'scanning'}>◎ Snap a photo</button>
+          <input class="lens__snap-input" type="file" accept="image/*" capture="environment" bind:this={snapInput} onchange={onSnapFile} tabindex="-1" aria-hidden="true" />
+        {:else}
+          <button class="button button--solid" type="button" disabled title="Photo identification arrives in the next release">◎ Snap (coming next)</button>
+        {/if}
       </div>
-      <p class="lens__how">Point at an EAN or UPC barcode. <a href="/privacy#camera">How this works ↗</a></p>
+      <p class="lens__how">Point at an EAN or UPC barcode{VISION_LIVE ? ' — or fill the frame with one object and tap Snap' : ''}. <a href="/privacy#camera">How this works ↗</a></p>
 
     {:else if state === 'confirm' && result}
       <section class="lens__card">
@@ -332,27 +456,61 @@
           {/if}
           <ItemCard item={card.item} origin="barcode" productName={productName} sourceLabel="Open Food Facts" sourceUrl={result.source_url} />
         {/each}
-        {#if installHint !== 'none'}
-          <aside class="lens__install" aria-label="Install Recyclopedia">
-            {#if installHint === 'prompt'}
-              <p>Keep the scanner one tap away — add Recyclopedia to your home screen.</p>
-              <div class="lens__install-actions">
-                <button class="button button--ghost" type="button" onclick={install}>Add to Home Screen</button>
-                <button class="button button--link" type="button" onclick={() => (installHint = 'none')}>Not now</button>
-              </div>
-            {:else}
-              <p>Keep the scanner one tap away: tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</p>
-              <div class="lens__install-actions">
-                <button class="button button--link" type="button" onclick={() => (installHint = 'none')}>Got it</button>
-              </div>
-            {/if}
-          </aside>
-        {/if}
+        {@render installAside()}
         <div class="lens__actions">
           <button class="button button--ghost" type="button" onclick={scanAgain}>↺ Scan another</button>
           <button class="button button--solid" type="button" onclick={close}>Done</button>
         </div>
       </section>
+
+    {:else if (state === 'vconfirm' || state === 'pick' || state === 'vanswer') && vision}
+      {#if vision.hazard_flag}
+        <p class="lens__hazard" role="alert"><strong>⚠ Treat this as hazardous.</strong> Keep it out of the bin and the trash. Take it to a household hazardous waste site or a take-back point — whatever else this screen says.</p>
+      {/if}
+
+      {#if state === 'vconfirm' && chosen}
+        <section class="lens__card">
+          <p class="recycle-card__cat">Photo · identified by AI · likely match</p>
+          <h3 class="lens__name">{chosen.name}</h3>
+          <div class="lens__conf" role="meter" aria-label="Confidence" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(chosen.confidence * 100)}>
+            <span class="lens__conf-bar" style={`width: ${Math.round(chosen.confidence * 100)}%`}></span>
+          </div>
+          <p class="lens__conf-label">{Math.round(chosen.confidence * 100)}% sure{chosen.general ? ' of the category, not the exact item' : ''}</p>
+          <p class="lens__ask">Does this look right?</p>
+          <div class="lens__actions">
+            <button class="button button--ghost" type="button" onclick={() => (state = 'pick')}>Not quite</button>
+            <button class="button button--solid" type="button" onclick={() => chosen && pick(chosen)}>Yes, that's it</button>
+          </div>
+          <button class="button button--link" type="button" onclick={scanAgain}>↺ Snap again</button>
+        </section>
+
+      {:else if state === 'pick'}
+        <section class="lens__card">
+          <p class="recycle-card__cat">Photo · identified by AI · not sure enough to say</p>
+          <h3 class="lens__name">Is it one of these?</h3>
+          <div class="lens__actions lens__actions--stack">
+            {#each choices as choice (choice.slug)}
+              <button class="button button--ghost lens__choice" type="button" onclick={() => pick(choice)}>{choice.name}</button>
+            {/each}
+            <button class="button button--link" type="button" onclick={() => (state = 'notsure')}>None of these</button>
+          </div>
+          <button class="button button--link" type="button" onclick={scanAgain}>↺ Snap again</button>
+        </section>
+
+      {:else if state === 'vanswer' && chosen}
+        <section class="lens__answer">
+          <p class="lens__confirmed">✓ {chosen.name}</p>
+          {#if chosen.general}
+            <p class="lens__general">This is the general path for the category — check your local rules for the exact item.</p>
+          {/if}
+          <ItemCard item={chosen.item} origin="vision" />
+          {@render installAside()}
+          <div class="lens__actions">
+            <button class="button button--ghost" type="button" onclick={scanAgain}>↺ Snap again</button>
+            <button class="button button--solid" type="button" onclick={close}>Done</button>
+          </div>
+        </section>
+      {/if}
 
     {:else if state === 'notsure'}
       <section class="lens__card lens__card--unsure">
@@ -360,7 +518,7 @@
         <p class="lens__unsure-msg">We're not sure about this one.</p>
         <p class="lens__unsure-sub">We'd rather say so than guess you into a landfill. Let's find it together.</p>
         <div class="lens__actions lens__actions--stack">
-          <button class="button button--solid" type="button" onclick={searchByName}>🔍 Search by name{productName ? `: ${productName}` : ''}</button>
+          <button class="button button--solid" type="button" onclick={searchByName}>🔍 Search by name{vision ? (guessQuery ? `: ${guessQuery}` : '') : (productName ? `: ${productName}` : '')}</button>
           <button class="button button--ghost" type="button" onclick={scanAgain}>↺ Try again</button>
         </div>
         {#if result?.contribute_url}
