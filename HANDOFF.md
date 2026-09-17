@@ -31,6 +31,12 @@ every session.
   reload renders and search answers — Chromium only.** Playwright's WebKit
   blocks navigation before the service worker sees it, so offline on Safari is
   **not verified**; the cache there does hold `/` (140 KB).
+- **Zone quirk worth knowing:** on `recyclopedia.cc` (not on `*.pages.dev`) the
+  Cloudflare zone rewrites `Cache-Control` to `max-age=14400` for `.js`/`.css`,
+  overriding Pages' `max-age=0` and even `no-cache`. Only `no-store` gets
+  through — that is what `public/_headers` sets on `/sw.js`. This is also why
+  unhashed `/css/style.css` goes stale for hours after a deploy. Owner-side fix:
+  zone → Caching → Browser Cache TTL → "Respect Existing Headers".
 - **Owner ask:** on the iPhone — open recyclopedia.cc, scan a barcode, follow
   the hint to add it to the Home Screen, then switch on Airplane Mode and open
   it from the icon. It should load and search; scanning needs a connection.

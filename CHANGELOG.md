@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   successful scan — the browser's install prompt where there is one, Share →
   Add to Home Screen steps on iOS Safari, nothing elsewhere.
 - `/privacy` says what the offline copy and the one-time flag are.
+- `public/_headers`: `sw.js` is `no-store`, the manifest `no-cache`. The zone
+  rewrites browser TTL to 4 h for `.js` on `recyclopedia.cc` (it ignored
+  `no-cache`; it respects `no-store`), which would have pinned a stale worker.
 ### Fixed
 - **The scanner's ✕ could not be tapped.** `main.site-shell` is a stacking
   context (`z-index: 1`), so the Lens overlay sat *under* the sticky header,

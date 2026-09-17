@@ -1,0 +1,6 @@
+# The service worker and manifest must always be revalidated, or a deploy can
+# sit behind a stale worker for hours (Card D.1).
+/sw.js
+  Cache-Control: no-store, max-age=0
+/manifest.webmanifest
+  Cache-Control: no-cache
