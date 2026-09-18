@@ -141,7 +141,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     {code && <span class="sign__code">{code}</span>}
   </div>
 
-  <header class="sign__title">
+  <header class="sign__title sign__paper">
     <Fragment set:html={recycleMark} />
     <h2 id={titleId}>{permalink ? <a href={permalink}>{sign.title}</a> : sign.title}</h2>
     <Fragment set:html={recycleMark} />
@@ -218,7 +218,6 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
         <small>by Absolutely Plausible Solutions</small>
       </span>
     </a>
-    {code && <span class="sign__code sign__code--foot" aria-hidden="true">{code}</span>}
   </footer>
 
   <a class="sign__bar" href={sign.moreInfo.href} data-page={sign.moreInfo.href === '#recyclopedia' ? 'recyclopedia' : undefined}>{sign.moreInfo.label}</a>
@@ -277,7 +276,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
 
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: 'title' 'board' 'foot' 'bar';
+    grid-template-areas: 'spine' 'title' 'board' 'foot' 'bar';
     background: var(--s-paper);
     color: var(--s-ink);
     border: 1px solid var(--line);
@@ -287,29 +286,23 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     margin-top: var(--space-6, 2.5rem);
   }
 
-  /* ── Margin spine (desktop only): print blocks + job code ─────────────── */
+  /* ── Top strip: the print shop's job code, across the top ─────────────── */
   .sign__spine {
-    display: none;
     grid-area: spine;
-    position: relative;
-    background:
-      linear-gradient(var(--s-frame), var(--s-frame)) top / 100% 3.25rem no-repeat,
-      linear-gradient(var(--s-frame), var(--s-frame)) bottom / 100% 6.5rem no-repeat,
-      var(--s-paper);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 1.6rem;
+    padding: 0.25rem var(--gutter, 1rem);
+    background: var(--s-frame);
+    color: var(--s-white);
   }
   .sign__code {
     font-family: 'Share Tech Mono', ui-monospace, monospace;
     font-size: 0.68rem;
-    color: var(--s-muted);
     letter-spacing: 0.04em;
-  }
-  .sign__spine .sign__code {
-    position: absolute;
-    top: 4.25rem;
-    left: 50%;
-    transform: translateX(-50%) rotate(180deg);
-    writing-mode: vertical-rl;
-    white-space: nowrap;
+    color: inherit;
+    opacity: 0.85;
   }
 
   /* ── Title row ────────────────────────────────────────────────────────── */
@@ -517,7 +510,6 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
   .sign__brand span { display: grid; line-height: 1.15; }
   .sign__brand strong { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.01em; }
   .sign__brand small { font-size: 0.72rem; color: var(--s-muted); }
-  .sign__code--foot { display: inline; }
 
   /* ── More-info bar: a strip on phones, a spine on desktop ─────────────── */
   .sign__bar {
@@ -546,15 +538,6 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
 
   /* ── md 900: the full printed layout — spine, vertical bar, side rail ─── */
   @media (min-width: 900px) {
-    .sign {
-      grid-template-columns: 2.25rem minmax(0, 1fr) 3rem;
-      grid-template-areas:
-        'spine title bar'
-        'spine board bar'
-        'spine foot  bar';
-    }
-    .sign__spine { display: block; }
-    .sign__code--foot { display: none; }
     .sign__board { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr); }
     .sign__right { grid-template-columns: minmax(0, 1fr) minmax(7.25rem, 0.36fr); }
     .sign__rail { grid-template-columns: auto minmax(0, 1fr); border-top: 0; border-left: 2px solid var(--s-ink); }
@@ -571,13 +554,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
       align-content: space-evenly;
       padding-inline: 0.35rem;
     }
-    .sign__bar {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      padding: var(--gutter, 1rem) 0.6rem;
-      font-size: 0.95rem;
-    }
-    .sign__bar:focus-visible { outline-offset: -5px; }
+    .sign__bar { font-size: 0.9rem; padding: 0.8rem var(--gutter, 1rem); }
   }
 
   /* ── lg 1200: room for the original's generous cells ──────────────────── */
