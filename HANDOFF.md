@@ -4,6 +4,40 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Sketch icons + board pages (Phase A) — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **Owner approved the design page** ("THIS is PERFECT… the graph paper behind
+  it, everything I imagined worked"): direction D, ink outline + hatched logo
+  colour, on graph paper. Kept at `docs/design/sketch-icons.html`
+  (`node scripts/sketch_icons_preview.mjs` regenerates it from the icon map)
+  and as a Claude artifact: https://claude.ai/artifact/PQ7ngoCLrLr8fxz1i9arJg
+- **Implementation:** `roughjs@4.6.6` (devDependency) runs inside
+  `CurbsideSign.astro`'s frontmatter — `icon()` parses our `ICONS` paths,
+  `rough.generator()` re-draws them (roughness 0.7, bowing 1.1, strokeWidth
+  1.15, hachureGap 3, fillWeight 0.5, angle −41°, seed = FNV hash of the icon
+  name), coordinates rounded to 0.1. Hatch is `currentColor` so `--s-cell`
+  decides the colour. Fields carry `.sign__paper`. Homepage HTML is 274 KB
+  raw / 53 KB gzipped with two boards; if a third board lands on the homepage,
+  consider `disableMultiStroke` or moving boards off the homepage.
+- **Phase A:** `src/pages/signs/[slug].astro` from the `SIGNS` registry in
+  `signs.ts`; flip links wrap around. Links are real URLs; `Lookup.svelte`
+  reads `?q=`, the sign's script reads `?item=`. Verified 1280 / 390:
+  homepage taps still switch in place; from a board page a tap navigates and
+  the value is picked up (Lookup card shown, donate item box filled); no
+  errors, no sideways scroll.
+- **Merge regression found and fixed:** `d39cd7f` (ThinkPad, Copilot-authored
+  Astro upgrade) resolved `package.json` to the branch side and lost
+  `barcode-detector@3.2.2`, `prebuild`, the `build_sw.mjs` step and `test`.
+  It only surfaced when `npm i roughjs` pruned the orphaned packages. **After
+  any merge from the ThinkPad, diff `package.json` against the pre-merge
+  commit.** Deploys 0.8.7–0.8.10 shipped without `sw.js`; 0.8.11 restores it.
+- **Next (owner said "implement as suggested"; these are the remaining
+  phases):** B — a master board as the site map across recyclopedia.cc and
+  the LBG properties; C — the quiz *is* the board (sort items onto the halves);
+  D — lessons as annotated boards. Icons: Doodle Icons (CC0) for missing
+  objects, Excalidraw for one-offs, both through the same Rough.js step.
+- Version `0.8.10-alpha.1 → 0.8.11-alpha.1`, manual deploy.
+
 ## ✅ Signs in the logo trio — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - Owner rule, stated on seeing the first two signs: **stay within the theme,

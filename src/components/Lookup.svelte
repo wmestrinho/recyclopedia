@@ -16,6 +16,10 @@
   let cameraButton: HTMLButtonElement | undefined = $state();
 
   onMount(() => {
+    // A sign cell on another page links here as /?q=<item name>#recyclopedia.
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) { activeFilter = 'All'; query = q; }
+
     const hasMedia = !!navigator.mediaDevices?.getUserMedia;
     const hasCapture = 'capture' in document.createElement('input');
     canScan = hasMedia || hasCapture;

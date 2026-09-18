@@ -1,0 +1,153 @@
+---
+// /signs/<slug> — every board on its own page, in flip order.
+// Like /privacy this is outside the hash-routed home page (a board needs a
+// stable link), so the header links are plain anchors back into the SPA and
+// main.js is not loaded: a tap on a cell navigates to /?q=…#recyclopedia or
+// /?item=…#donate and the homepage picks the value up from the URL.
+import CurbsideSign from '../../components/CurbsideSign.astro';
+import { SIGNS } from '../../data/signs';
+import versionSource from '../../../VERSION?raw';
+
+export function getStaticPaths() {
+  return SIGNS.map((s, i) => ({ params: { slug: s.slug }, props: { index: i } }));
+}
+
+const { index } = Astro.props as { index: number };
+const board = SIGNS[index];
+const prev = SIGNS[(index - 1 + SIGNS.length) % SIGNS.length];
+const next = SIGNS[(index + 1) % SIGNS.length];
+const version = `v${versionSource.trim()}`;
+const pageTitle = `${board.spec.title} | Recyclopedia`;
+const url = `https://recyclopedia.cc/signs/${board.slug}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={board.blurb} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Recyclopedia" />
+  <meta property="og:url" content={url} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={board.blurb} />
+  <meta property="og:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
+  <meta property="og:image:alt" content="Hand-painted lettuce leaf, beet, and grapefruit — the Lettuce Beet Grapefruit mark" />
+  <link rel="canonical" href={url} />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/images/pwa/apple-touch-icon.png" />
+  <meta name="theme-color" content="#efe9db" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/lbg-theme.css" />
+</head>
+<body class="lbg-site lbg-engine-site">
+  <a class="skip-link" href="#board">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="brand">
+        <span class="brand__mark">♻</span>
+        <span class="brand__copy">
+          <a class="brand__title" href="/" aria-label="Recyclopedia home"><strong>Recyclopedia</strong></a>
+          <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible</a></small>
+        </span>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/#home">Home</a>
+        <a href="/#recyclopedia">Lookup</a>
+        <a href="/#donate">Donate</a>
+        <a href="/#about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="button button--solid" href="/#donate">Donate Electronics</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page is-active board-page" id="board" aria-labelledby="board-heading">
+      <h1 id="board-heading" class="board-page__heading">Boards</h1>
+      <p class="board-page__count">Board {index + 1} of {SIGNS.length}</p>
+
+      <CurbsideSign spec={board.spec} id={`${board.slug}-sign`} code={version} />
+
+      <nav class="board-flip" aria-label="Flip between boards">
+        <a class="board-flip__link board-flip__link--prev" href={`/signs/${prev.slug}`} rel="prev">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+          <span><small>Previous board</small><strong>{prev.spec.title}</strong></span>
+        </a>
+        <a class="board-flip__link board-flip__link--next" href={`/signs/${next.slug}`} rel="next">
+          <span><small>Next board</small><strong>{next.spec.title}</strong></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>Better technology for the trees, since 1993. An <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible</a> production.</p>
+      <p class="footer-license">EDUCATIONAL PURPOSES ONLY · Content © 2026 Recyclopedia — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (no commercial use) · <a href="/privacy">Privacy</a></p>
+      <p class="footer-version">{version}</p>
+    </div>
+  </footer>
+  <script is:inline src="/js/pwa.js"></script>
+</body>
+</html>
+
+<style>
+  .board-page__heading {
+    font-size: 0.85rem;
+    font-family: var(--font);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  .board-page__count {
+    margin: 0.15rem 0 0;
+    font-family: 'Share Tech Mono', ui-monospace, monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .board-page :global(.sign) { margin-top: 1rem; }
+
+  .board-flip {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .board-flip__link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    min-height: 44px;
+  }
+  .board-flip__link--next { justify-content: flex-end; text-align: right; }
+  .board-flip__link span { display: grid; line-height: 1.2; }
+  .board-flip__link small { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .board-flip__link strong { font-size: 1rem; font-weight: 700; }
+  .board-flip__link svg { width: 1.5rem; height: 1.5rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .board-flip__link:hover strong { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  .board-flip__link:focus-visible { outline: 3px solid var(--border); outline-offset: 3px; }
+
+  @media (min-width: 600px) {
+    .board-flip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

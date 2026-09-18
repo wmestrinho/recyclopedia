@@ -130,7 +130,7 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
 
       <!-- The curbside sign: what goes in the bin, in the layout every
            solid-waste department prints — filled from our own item data. -->
-      <CurbsideSign spec={CURBSIDE_SIGN} id="curbside-sign" code={version} />
+      <CurbsideSign spec={CURBSIDE_SIGN} id="curbside-sign" code={version} permalink="/signs/curbside" />
 
       <!-- Trickle-down tier engine -->
       <div class="section-block" id="tiers">
@@ -198,7 +198,7 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
       </div>
 
       <!-- The donation sign: what we take, what has its own path, what to do first. -->
-      <CurbsideSign spec={DONATION_SIGN} id="donation-sign" code={version} />
+      <CurbsideSign spec={DONATION_SIGN} id="donation-sign" code={version} permalink="/signs/donate" />
 
       <div class="split-layout" style="align-items: start;">
         <!-- Left: info panel -->

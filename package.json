@@ -1,21 +1,25 @@
 {
   "name": "recyclopedia",
-  "version": "0.7.8-alpha.1",
+  "version": "0.8.11-alpha.1",
   "license": "AGPL-3.0-only",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "prebuild": "node scripts/copy-vendor.mjs",
+    "build": "astro build && node scripts/build_sw.mjs",
+    "preview": "astro preview",
+    "test": "npm run build && node --test scripts/test/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
     "@astrojs/svelte": "9.0.1",
     "astro": "7.3.3",
+    "barcode-detector": "3.2.2",
     "svelte": "5.56.3"
   },
   "devDependencies": {
+    "roughjs": "4.6.6",
     "typescript": "6.0.3"
   }
 }

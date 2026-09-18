@@ -213,11 +213,23 @@ export function resolveSign(spec: SignSpec): SignSpec {
   return spec;
 }
 
-/** The anchor attributes for a cell (see SignLink). */
+/**
+ * The anchor attributes for a cell (see SignLink). The hrefs are real URLs
+ * that work from any page (`/?q=…#recyclopedia`, `/?item=…#donate`); on the
+ * homepage main.js and the sign's own script intercept the click and do the
+ * same thing without a reload.
+ */
 export function linkFor(l: SignLink & { slugs?: string[] }): Record<string, string> {
-  if (l.slug) return { href: '#recyclopedia', 'data-page': 'recyclopedia', 'data-search': itemFor(l.slug).name };
-  if (l.donate) return { href: '#item-input', 'data-donate': l.donate };
+  const search = (q: string) => ({ href: `/?q=${encodeURIComponent(q)}#recyclopedia`, 'data-page': 'recyclopedia', 'data-search': q });
+  if (l.slug) return search(itemFor(l.slug).name);
+  if (l.donate) return { href: `/?item=${encodeURIComponent(l.donate)}#donate`, 'data-donate': l.donate };
   if (l.href) return { href: l.href };
-  if (l.slugs?.length) return { href: '#recyclopedia', 'data-page': 'recyclopedia', 'data-search': itemFor(l.slugs[0]).cat };
+  if (l.slugs?.length) return search(itemFor(l.slugs[0]).cat);
   throw new Error(`signs.ts: cell "${'label' in l ? (l as { label: string }).label : '?'}" has nowhere to link`);
 }
+
+/** Every board, in flip order. Each gets a page at /signs/<slug>. */
+export const SIGNS: { slug: string; spec: SignSpec; blurb: string }[] = [
+  { slug: 'curbside', spec: CURBSIDE_SIGN, blurb: 'What goes in the curbside recycling bin, and what does not.' },
+  { slug: 'donate', spec: DONATION_SIGN, blurb: 'The electronics we accept for donation, and what to do before you bring them.' },
+];

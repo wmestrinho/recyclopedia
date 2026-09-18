@@ -15,6 +15,7 @@
  * its paper and ink in dark mode the way a photograph would. The values are
  * the LBG theme's own (lbg-theme.css); nothing here is a new colour.
  */
+import rough from 'roughjs';
 import { resolveSign, linkFor, type SignSpec, type SignIcon } from '../data/signs';
 
 interface Props {
@@ -23,9 +24,11 @@ interface Props {
   id?: string;
   /** Printed in the margin where a print shop puts its job number. */
   code?: string;
+  /** When set, the title links to the board's own page. */
+  permalink?: string;
 }
 
-const { spec, code, id = 'sign' } = Astro.props;
+const { spec, code, id = 'sign', permalink } = Astro.props;
 const sign = resolveSign(spec);
 const titleId = `${id}-title`;
 
@@ -81,8 +84,43 @@ const ICONS: Record<SignIcon, string> = {
 // Presentation attributes live on the element: injected markup does not get
 // Astro's scoping attribute, so the scoped <style> cannot reach it.
 const STROKE = 'fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"';
-const icon = (name: SignIcon) =>
-  `<svg class="sign__glyph" viewBox="0 0 24 24" ${STROKE} stroke-width="1.6" aria-hidden="true" focusable="false">${ICONS[name]}</svg>`;
+
+// ── The sketch renderer ("direction D", approved 2026-09-17) ───────────────
+// Every glyph above is re-drawn at build time by Rough.js as a pencil sketch:
+// an ink outline that wobbles, and the half's colour hatched inside closed
+// shapes (`currentColor`, so CSS `--s-cell` decides lettuce / beet /
+// grapefruit). A seed derived from the icon's name keeps each drawing
+// identical from build to build. Static SVG ships; nothing runs in the browser.
+const INK = '#2b2822';
+const gen = rough.generator();
+const seedOf = (s: string) => {
+  let h = 2166136261;
+  for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+  return (h % 100000) + 1;
+};
+const attrsOf = (s: string) => Object.fromEntries([...s.matchAll(/([a-z]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]));
+const round = (d: string) => d.replace(/-?\d+\.\d+/g, (n) => (+n).toFixed(1));
+const icon = (name: SignIcon, hatch = true): string => {
+  const out: string[] = [];
+  [...ICONS[name].matchAll(/<(path|rect|circle|ellipse)\b([^>]*)\/>/g)].forEach((m, i) => {
+    const tag = m[1];
+    const a = attrsOf(m[2]);
+    const closed = tag !== 'path' || /z\s*$/i.test(a.d);
+    const o = {
+      roughness: 0.7, bowing: 1.1, seed: seedOf(name) + i, stroke: INK, strokeWidth: 1.15,
+      ...(hatch && closed ? { fill: 'currentColor', fillStyle: 'hachure', hachureGap: 3, fillWeight: 0.5, hachureAngle: -41 } : {}),
+    };
+    const d =
+      tag === 'path' ? gen.path(a.d, o)
+      : tag === 'rect' ? gen.rectangle(+a.x, +a.y, +a.width, +a.height, o)
+      : tag === 'circle' ? gen.circle(+a.cx, +a.cy, 2 * +a.r, o)
+      : gen.ellipse(+a.cx, +a.cy, 2 * +a.rx, 2 * +a.ry, o);
+    for (const p of gen.toPaths(d)) {
+      out.push(`<path d="${round(p.d)}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" fill="${p.fill || 'none'}"/>`);
+    }
+  });
+  return `<svg class="sign__glyph" viewBox="-1 -1 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${out.join('')}</svg>`;
+};
 
 // The universal recycling mark. Outline from Lucide (`recycle`, ISC licence),
 // so it reads as the real thing at 2rem instead of a hand-drawn approximation.
@@ -105,7 +143,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
 
   <header class="sign__title">
     <Fragment set:html={recycleMark} />
-    <h2 id={titleId}>{sign.title}</h2>
+    <h2 id={titleId}>{permalink ? <a href={permalink}>{sign.title}</a> : sign.title}</h2>
     <Fragment set:html={recycleMark} />
   </header>
 
@@ -120,7 +158,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
           <p>{sign.yes.sub}</p>
         </div>
       </div>
-      <ul class="sign__groups">
+      <ul class="sign__groups sign__paper">
         {sign.yes.groups.map((g) => (
           <li>
             <a {...linkFor(g)}>
@@ -144,7 +182,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
         </div>
       </div>
       <div class="sign__right">
-        <ul class="sign__entries">
+        <ul class="sign__entries sign__paper">
           {sign.no.entries.map((e) => (
             <li>
               <a {...linkFor(e)}>
@@ -154,7 +192,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
             </li>
           ))}
         </ul>
-        <aside class="sign__rail" aria-label={sign.rail.heading}>
+        <aside class="sign__rail sign__paper" aria-label={sign.rail.heading}>
           <p class="sign__rail-heading" aria-hidden="true">{sign.rail.heading}</p>
           <ul class="sign__entries sign__entries--rail">
             {sign.rail.entries.map((e) => (
@@ -189,15 +227,25 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
 <script>
   // A click on any cell tells the Lookup island what to search for. main.js
   // handles the page switch (data-page); this only carries the query across.
+  // Arriving from a board page as /?item=<name>#donate: fill the item box.
+  {
+    const item = new URLSearchParams(location.search).get('item');
+    const input = document.getElementById('item-input') as HTMLInputElement | null;
+    if (item && input) { input.value = item; input.dispatchEvent(new Event('input', { bubbles: true })); }
+  }
   document.addEventListener('click', (e) => {
     const a = (e.target as Element | null)?.closest?.('a[data-search], a[data-donate]') as HTMLAnchorElement | null;
     if (!a) return;
     if (a.dataset.search !== undefined) {
-      window.dispatchEvent(new CustomEvent('recyclopedia:search', { detail: a.dataset.search }));
+      // On the homepage main.js has switched pages; off it, the href navigates
+      // and the Lookup reads ?q= itself.
+      if (document.getElementById('recycle-search')) {
+        window.dispatchEvent(new CustomEvent('recyclopedia:search', { detail: a.dataset.search }));
+      }
       return;
     }
     // Donation sign: pre-fill the form's item box and open its suggestions
-    // (donate.js renders matches on focus).
+    // (donate.js renders matches on focus). Off the homepage the href navigates.
     const input = document.getElementById('item-input') as HTMLInputElement | null;
     if (!input) return;
     e.preventDefault();
@@ -219,13 +267,13 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
        grapefruit = the rail. One light tint of each for the fields. The
        frame is ink, so no fourth shade competes with them. */
     --s-yes: #57862f;
-    --s-yes-bg: #ecf1e0;
     --s-no: #8a2450;
-    --s-no-bg: #f6e6ea;
     --s-rail: #e4562e;
-    --s-rail-bg: #fbe7de;
     --s-frame: var(--s-ink);
     --s-white: #fcfaf4;
+    /* Graph paper: a 10px grid with a heavier line every fifth, in faint ink. */
+    --s-grid: rgba(43, 40, 34, 0.11);
+    --s-grid-major: rgba(43, 40, 34, 0.2);
 
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -299,8 +347,20 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     grid-template-columns: minmax(0, 1fr);
   }
   .sign__half { display: grid; grid-template-rows: auto minmax(0, 1fr); }
-  .sign__half--yes { --s-band: var(--s-yes); --s-body: var(--s-yes-bg); }
-  .sign__half--no  { --s-band: var(--s-no);  --s-body: var(--s-no-bg); }
+  .sign__half--yes { --s-band: var(--s-yes); }
+  .sign__half--no  { --s-band: var(--s-no); }
+  .sign__paper {
+    background-color: var(--s-paper);
+    background-image:
+      linear-gradient(var(--s-grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--s-grid-major) 1px, transparent 1px),
+      linear-gradient(var(--s-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--s-grid) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  }
+  .sign__title h2 a { color: inherit; text-decoration: none; }
+  .sign__title h2 a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
+  .sign__title h2 a:focus-visible { outline: 3px solid var(--s-ink); outline-offset: 4px; }
 
   .sign__band {
     display: grid;
@@ -387,9 +447,9 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
   .sign__rail      { --s-cell: var(--s-rail); }
   .sign li > a :global(.sign__glyph) { color: var(--s-cell, var(--s-ink)); }
 
-  .sign :global(.sign__glyph) { width: 2.5rem; height: 2.5rem; }
-  .sign__cluster { display: flex; gap: 0.15rem; justify-content: center; }
-  .sign__cluster :global(.sign__glyph) { width: 2.25rem; height: 2.25rem; }
+  .sign :global(.sign__glyph) { width: 2.75rem; height: 2.75rem; }
+  .sign__cluster { display: flex; gap: 0.2rem; justify-content: center; }
+  .sign__cluster :global(.sign__glyph) { width: 2.5rem; height: 2.5rem; }
 
   /* Acceptable: clusters, two across. */
   .sign__groups {
@@ -397,7 +457,6 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
     align-content: space-evenly;
     gap: var(--space-3, 0.75rem) var(--space-2, 0.5rem);
-    background: var(--s-body);
     padding: var(--space-4, 1.25rem) var(--gutter, 1rem);
   }
   .sign__groups strong { font-size: 0.88rem; }
@@ -406,7 +465,6 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
   .sign__right {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    background: var(--s-body);
   }
   .sign__entries {
     display: grid;
@@ -417,10 +475,10 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
 
   /* The rail: what needs a special trip. */
   .sign__rail {
-    background: var(--s-rail-bg);
     color: var(--s-ink);
     display: grid;
     grid-template-columns: minmax(0, 1fr);
+    border-top: 2px solid var(--s-ink);
   }
   .sign__rail-heading {
     margin: 0;
@@ -499,7 +557,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     .sign__code--foot { display: none; }
     .sign__board { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr); }
     .sign__right { grid-template-columns: minmax(0, 1fr) minmax(7.25rem, 0.36fr); }
-    .sign__rail { grid-template-columns: auto minmax(0, 1fr); }
+    .sign__rail { grid-template-columns: auto minmax(0, 1fr); border-top: 0; border-left: 2px solid var(--s-ink); }
     .sign__rail-heading {
       padding: var(--gutter, 1rem) 0.5rem;
       writing-mode: vertical-rl;
