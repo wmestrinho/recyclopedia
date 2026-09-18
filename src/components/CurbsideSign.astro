@@ -86,14 +86,15 @@ const icon = (name: SignIcon) =>
 
 // The universal recycling mark. Outline from Lucide (`recycle`, ISC licence),
 // so it reads as the real thing at 2rem instead of a hand-drawn approximation.
+// Its three arrows are the three logo colours: lettuce, beet, grapefruit.
 const RECYCLE_PATHS =
-  '<path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>' +
-  '<path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>' +
-  '<path d="m14 16-3 3 3 3"/>' +
-  '<path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>' +
-  '<path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>' +
-  '<path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>';
-const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} stroke-width="1.8" aria-hidden="true" focusable="false">${RECYCLE_PATHS}</svg>`;
+  '<g class="mark-lettuce"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>' +
+  '<path d="M8.293 13.596 7.196 9.5 3.1 10.598"/></g>' +
+  '<g class="mark-beet"><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>' +
+  '<path d="m14 16-3 3 3 3"/></g>' +
+  '<g class="mark-grapefruit"><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>' +
+  '<path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></g>';
+const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} stroke-width="2" aria-hidden="true" focusable="false">${RECYCLE_PATHS}</svg>`;
 
 ---
 
@@ -214,15 +215,17 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     --s-paper: #fcfaf4;
     --s-ink: #2b2822;
     --s-muted: #77705f;
-    --s-frame: #3c5e2c;
+    /* The three logo colours, one job each: lettuce = yes, beet = no,
+       grapefruit = the rail. One light tint of each for the fields. The
+       frame is ink, so no fourth shade competes with them. */
     --s-yes: #57862f;
     --s-yes-bg: #ecf1e0;
     --s-no: #8a2450;
     --s-no-bg: #f6e6ea;
-    --s-rail: #8a5e12;
-    --s-rail-bg: #f6ecd6;
+    --s-rail: #e4562e;
+    --s-rail-bg: #fbe7de;
+    --s-frame: var(--s-ink);
     --s-white: #fcfaf4;
-    --s-band-h: 1.05rem;
 
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -284,8 +287,10 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
   .sign :global(.sign__mark) {
     width: clamp(2rem, 1.2rem + 4vw, 4rem);
     height: auto;
-    color: var(--s-yes);
   }
+  .sign :global(.mark-lettuce) { color: var(--s-yes); }
+  .sign :global(.mark-beet) { color: var(--s-no); }
+  .sign :global(.mark-grapefruit) { color: var(--s-rail); }
 
   /* ── Board: the two halves ────────────────────────────────────────────── */
   .sign__board {
@@ -370,8 +375,17 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     max-width: 22ch;
   }
   .sign li > a:hover strong,
-  .sign li > a:focus-visible strong { text-decoration: underline; text-underline-offset: 0.15em; }
-  .sign li > a:focus-visible { outline: 3px solid var(--s-ink); outline-offset: 2px; }
+  .sign li > a:focus-visible strong {
+    text-decoration: underline;
+    text-decoration-color: var(--s-cell, var(--s-ink));
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .sign li > a:focus-visible { outline: 3px solid var(--s-cell, var(--s-ink)); outline-offset: 2px; }
+  .sign__half--yes { --s-cell: var(--s-yes); }
+  .sign__half--no  { --s-cell: var(--s-no); }
+  .sign__rail      { --s-cell: var(--s-rail); }
+  .sign li > a :global(.sign__glyph) { color: var(--s-cell, var(--s-ink)); }
 
   .sign :global(.sign__glyph) { width: 2.5rem; height: 2.5rem; }
   .sign__cluster { display: flex; gap: 0.15rem; justify-content: center; }
@@ -404,18 +418,18 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
   /* The rail: what needs a special trip. */
   .sign__rail {
     background: var(--s-rail-bg);
-    color: var(--s-rail);
-    border-top: 1px solid rgba(43, 40, 34, 0.12);
+    color: var(--s-ink);
     display: grid;
     grid-template-columns: minmax(0, 1fr);
   }
   .sign__rail-heading {
     margin: 0;
-    padding: var(--space-3, 0.75rem) var(--gutter, 1rem) 0;
-    font-size: 0.82rem;
-    font-weight: 600;
-    line-height: 1.25;
+    padding: 0.55rem var(--gutter, 1rem);
+    background: var(--s-rail);
     color: var(--s-ink);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.25;
   }
   .sign__entries--rail {
     grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
@@ -485,17 +499,14 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
     .sign__code--foot { display: none; }
     .sign__board { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr); }
     .sign__right { grid-template-columns: minmax(0, 1fr) minmax(7.25rem, 0.36fr); }
-    .sign__rail {
-      border-top: 0;
-      border-left: 1px solid rgba(43, 40, 34, 0.12);
-      grid-template-columns: auto minmax(0, 1fr);
-    }
+    .sign__rail { grid-template-columns: auto minmax(0, 1fr); }
     .sign__rail-heading {
-      padding: var(--space-3, 0.75rem) 0.4rem;
+      padding: var(--gutter, 1rem) 0.5rem;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       font-size: 0.78rem;
-      align-self: center;
+      display: grid;
+      align-content: center;
     }
     .sign__entries--rail {
       grid-template-columns: minmax(0, 1fr);

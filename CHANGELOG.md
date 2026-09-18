@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.10-alpha.1] - 2026-09-17
+### Changed
+- **Signs re-cut to the three logo colours.** Lettuce owns Acceptable, beet
+  owns Not Acceptable, grapefruit owns the rail (which now has a solid
+  grapefruit heading strip), the frame and more-info bar are ink, and each
+  half's glyphs, hover underline and focus ring take that half's colour. The
+  recycling mark's three arrows are lettuce, beet and grapefruit. Gone: the
+  dark-green frame, the amber rail and the cream field — no shade outside the
+  logo trio, paper and ink remains.
+
 ## [0.8.9-alpha.1] - 2026-09-17
 ### Added
 - **The donation sign** at the top of the Donate page: "What can you donate?"

@@ -4,6 +4,18 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Signs in the logo trio — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- Owner rule, stated on seeing the first two signs: **stay within the theme,
+  base colours on the logo, fewer shades of one colour, use all three
+  actively.** Applied to `CurbsideSign.astro`: palette is paper, ink, lettuce
+  `#57862f`, beet `#8a2450`, grapefruit `#e4562e`, plus one light tint of each
+  for the fields. Frame/bar are ink. Glyphs, hover underline and focus ring
+  take the colour of their half (`--s-cell`). The recycling mark's three
+  arrows are the three colours (`.mark-lettuce/-beet/-grapefruit`).
+- Verified locally at 1280 / 900 / 390: both signs, both link behaviours,
+  no errors, no sideways scroll. Version `0.8.9 → 0.8.10-alpha.1`, manual deploy.
+
 ## ✅ The donation sign — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - Second `SignSpec`, `DONATION_SIGN` in `src/data/signs.ts`, placed at the
