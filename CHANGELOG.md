@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.8-alpha.1] - 2026-09-17
+### Removed
+- **Automatic dark mode** (added in 0.7.8). The owner wants the LBG family to
+  stay on its light oat-paper theme everywhere: the `prefers-color-scheme:
+  dark` token block is gone from `public/css/lbg-theme.css`, `body.lbg-site`
+  declares `color-scheme: light`, and both pages carry a single light
+  `theme-color`.
+
 ## [0.8.7-alpha.1] - 2026-09-17
 ### Added
 - **The curbside sign on the homepage.** `src/components/CurbsideSign.astro`

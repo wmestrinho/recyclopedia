@@ -4,6 +4,15 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Dark mode removed by owner decision — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- Luiz, on seeing the site in dark mode: keep the lighter theme, "this darker
+  mode is not cool at all". The automatic dark scheme from `988e56b` (v0.7.8,
+  ThinkPad Codex) is removed: no `prefers-color-scheme: dark` block in
+  `lbg-theme.css`, `color-scheme: light` on `body.lbg-site`, one light
+  `theme-color` meta on `/` and `/privacy`. **Do not reintroduce it.**
+- Version `0.8.7-alpha.1 → 0.8.8-alpha.1`, deployed manually.
+
 ## ✅ The curbside sign — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **The homepage now carries the "what should be recycled?" board** in the
