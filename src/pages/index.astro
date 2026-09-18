@@ -1,7 +1,7 @@
 ---
 import Lookup from '../components/Lookup.svelte';
 import CurbsideSign from '../components/CurbsideSign.astro';
-import { CURBSIDE_SIGN } from '../data/signs';
+import { CURBSIDE_SIGN, DONATION_SIGN } from '../data/signs';
 import { ITEMS, CATEGORIES } from '../data/items';
 import versionSource from '../../VERSION?raw';
 
@@ -130,7 +130,7 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
 
       <!-- The curbside sign: what goes in the bin, in the layout every
            solid-waste department prints — filled from our own item data. -->
-      <CurbsideSign spec={CURBSIDE_SIGN} code={version} />
+      <CurbsideSign spec={CURBSIDE_SIGN} id="curbside-sign" code={version} />
 
       <!-- Trickle-down tier engine -->
       <div class="section-block" id="tiers">
@@ -196,6 +196,9 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
         <h2 id="donate-title">Give your devices a second life.</h2>
         <p class="lede">Working or broken — we accept all electronics. Every device you donate gets properly recycled or refurbished instead of going to a landfill.</p>
       </div>
+
+      <!-- The donation sign: what we take, what has its own path, what to do first. -->
+      <CurbsideSign spec={DONATION_SIGN} id="donation-sign" code={version} />
 
       <div class="split-layout" style="align-items: start;">
         <!-- Left: info panel -->

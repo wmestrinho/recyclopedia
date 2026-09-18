@@ -11,26 +11,44 @@ import { ITEMS, type Item } from './items';
 export type SignIcon =
   | 'newspaper' | 'paper-bag' | 'sheets'
   | 'box' | 'carton'
-  | 'can' | 'tin' | 'aerosol'
+  | 'can' | 'tin' | 'aerosol' | 'spray-bottle'
   | 'bottle' | 'jug'
   | 'plastic-bag' | 'foam-cup' | 'chip-bag' | 'cutlery' | 'pizza-box'
   | 'coffee-cup' | 'receipt' | 'broken-glass' | 'dish'
-  | 'battery' | 'laptop' | 'bulb' | 'paint-can';
+  | 'battery' | 'laptop' | 'bulb' | 'paint-can'
+  | 'phone' | 'tablet' | 'watch' | 'monitor' | 'tv' | 'printer' | 'router'
+  | 'speaker' | 'headphones' | 'gamepad' | 'camera'
+  | 'microwave' | 'fridge' | 'drill' | 'plug' | 'bundle'
+  | 'tire' | 'sofa' | 'shirt' | 'apple' | 'lock';
+
+/**
+ * Where a cell goes when tapped. Exactly one of:
+ *  - `slug`   → the Lookup, pre-filled with that item's real name;
+ *  - `donate` → the donation form's item box, pre-filled with this text;
+ *  - `href`   → any URL (a page, an anchor), as a plain link.
+ */
+export interface SignLink {
+  slug?: string;
+  donate?: string;
+  href?: string;
+}
 
 /** A cluster on the "yes" half: several icons, one label, one sub-line. */
-export interface SignGroup {
+export interface SignGroup extends SignLink {
   label: string;
   sub: string;
   icons: SignIcon[];
-  /** Items this group speaks for. The first one's category is the search. */
-  slugs: string[];
+  /** Items this group speaks for; without `slug`/`donate`/`href`, the
+   *  first one's category becomes the Lookup search. */
+  slugs?: string[];
 }
 
 /** A single cell on the "no" half or the side rail: one icon, one label. */
-export interface SignEntry {
+export interface SignEntry extends SignLink {
   label: string;
   icon: SignIcon;
-  slug: string;
+  /** Optional second line, used on the rail for a short instruction. */
+  sub?: string;
 }
 
 export interface SignSpec {
@@ -100,6 +118,81 @@ export const CURBSIDE_SIGN: SignSpec = {
   moreInfo: { label: 'More info: recyclopedia.cc', href: '#recyclopedia' },
 };
 
+// ── Sign 2: what we accept for donation ──────────────────────────────────────
+// The groups summarise the 19 categories in public/js/donate.js (the form's
+// own list). "Not this way" is filled from items.ts — things people try to
+// hand over with their electronics that have a path of their own.
+export const DONATION_SIGN: SignSpec = {
+  title: 'What can you donate?',
+  yes: {
+    heading: 'We take these',
+    sub: 'Working or broken. If it plugs in or runs on a battery, bring it.',
+    groups: [
+      {
+        label: 'Phones and tablets',
+        sub: 'Smartphones, tablets, e-readers, smartwatches',
+        icons: ['phone', 'tablet', 'watch'],
+        donate: 'Smartphone',
+      },
+      {
+        label: 'Computers and screens',
+        sub: 'Laptops, desktops, monitors, TVs of any kind',
+        icons: ['laptop', 'monitor', 'tv'],
+        donate: 'Laptop',
+      },
+      {
+        label: 'Audio, video, gaming',
+        sub: 'Speakers, headphones, players, consoles, controllers',
+        icons: ['speaker', 'headphones', 'gamepad'],
+        donate: 'Gaming Console',
+      },
+      {
+        label: 'Office and networking',
+        sub: 'Printers, scanners, routers, modems, drives, cameras',
+        icons: ['printer', 'router', 'camera'],
+        donate: 'Printer',
+      },
+      {
+        label: 'Appliances and tools',
+        sub: 'Kitchen and large appliances, electric power tools',
+        icons: ['microwave', 'fridge', 'drill'],
+        donate: 'Microwave',
+      },
+      {
+        label: 'Cables, chargers, batteries',
+        sub: 'Bundled cables and adapters, power banks, batteries taped and bagged',
+        icons: ['plug', 'battery'],
+        donate: 'Charging Cables',
+      },
+    ],
+  },
+  no: {
+    heading: 'Not this way',
+    sub: 'Not part of an electronics donation. Each has a path of its own. Tap one to see it.',
+    entries: [
+      { label: 'Paint', icon: 'paint-can', slug: 'paint-latex-water-based' },
+      { label: 'Motor oil', icon: 'jug', slug: 'motor-oil' },
+      { label: 'Pesticides', icon: 'spray-bottle', slug: 'pesticides-herbicides' },
+      { label: 'Tires', icon: 'tire', slug: 'tires' },
+      { label: 'Mattresses', icon: 'sofa', slug: 'mattress' },
+      { label: 'Clothing', icon: 'shirt', slug: 'clothing-wearable' },
+      { label: 'Food scraps', icon: 'apple', slug: 'food-scraps-organics' },
+      { label: 'Ceramic dishes', icon: 'dish', slug: 'ceramics-pottery' },
+      { label: 'Broken glass', icon: 'broken-glass', slug: 'broken-glass' },
+    ],
+  },
+  rail: {
+    heading: 'Before you bring it:',
+    entries: [
+      { label: 'Back up and wipe data', icon: 'lock', href: '/privacy' },
+      { label: 'Tape battery terminals', icon: 'battery', slug: 'lithium-ion-battery' },
+      { label: 'Bag loose batteries', icon: 'paper-bag', slug: 'alkaline-battery-aa-aaa-9v' },
+      { label: 'Bundle cables', icon: 'bundle', slug: 'charging-cables-cords' },
+    ],
+  },
+  moreInfo: { label: 'Donate: recyclopedia.cc/#donate', href: '#donation-form' },
+};
+
 const bySlug = new Map(ITEMS.map((i) => [i.slug, i]));
 
 export function itemFor(slug: string): Item {
@@ -110,8 +203,21 @@ export function itemFor(slug: string): Item {
 
 /** Build-time check that every slug on a sign still exists. Returns the spec. */
 export function resolveSign(spec: SignSpec): SignSpec {
-  for (const g of spec.yes.groups) g.slugs.forEach(itemFor);
-  for (const e of spec.no.entries) itemFor(e.slug);
-  for (const e of spec.rail.entries) itemFor(e.slug);
+  const check = (l: SignLink & { slugs?: string[] }) => {
+    l.slugs?.forEach(itemFor);
+    if (l.slug) itemFor(l.slug);
+  };
+  spec.yes.groups.forEach(check);
+  spec.no.entries.forEach(check);
+  spec.rail.entries.forEach(check);
   return spec;
+}
+
+/** The anchor attributes for a cell (see SignLink). */
+export function linkFor(l: SignLink & { slugs?: string[] }): Record<string, string> {
+  if (l.slug) return { href: '#recyclopedia', 'data-page': 'recyclopedia', 'data-search': itemFor(l.slug).name };
+  if (l.donate) return { href: '#item-input', 'data-donate': l.donate };
+  if (l.href) return { href: l.href };
+  if (l.slugs?.length) return { href: '#recyclopedia', 'data-page': 'recyclopedia', 'data-search': itemFor(l.slugs[0]).cat };
+  throw new Error(`signs.ts: cell "${'label' in l ? (l as { label: string }).label : '?'}" has nowhere to link`);
 }

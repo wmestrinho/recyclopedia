@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.9-alpha.1] - 2026-09-17
+### Added
+- **The donation sign** at the top of the Donate page: "What can you donate?"
+  — six "We take these" groups summarising the form's 19 categories, nine
+  "Not this way" items from `items.ts` that each link to their own path, and a
+  "Before you bring it" rail (wipe data, tape terminals, bag batteries, bundle
+  cables). A tap on a "We take these" group pre-fills the form's item box and
+  opens its suggestions.
+### Changed
+- `CurbsideSign` cells can now link three ways (`SignLink`): an item slug →
+  Lookup, `donate` → the form's item box, or a plain `href`. `id` prop keeps
+  two signs on one page from sharing a title id. 22 new line-art glyphs.
+
 ## [0.8.8-alpha.1] - 2026-09-17
 ### Removed
 - **Automatic dark mode** (added in 0.7.8). The owner wants the LBG family to

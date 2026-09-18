@@ -4,6 +4,20 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ The donation sign — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- Second `SignSpec`, `DONATION_SIGN` in `src/data/signs.ts`, placed at the
+  top of `#donate` under the section heading. Groups mirror the categories in
+  `public/js/donate.js` (187 items, 19 groups); "Not this way" and the rail
+  reference `items.ts` slugs, so the build guards them.
+- `SignLink` generalises where a cell goes: `slug` → Lookup, `donate` → the
+  form's `#item-input` (value set, `input` event, focus; donate.js opens the
+  suggestions on focus), `href` → plain link. `linkFor()` builds the anchor.
+- Verified locally at 1280 / 390: Laptop group → item box "Laptop" with two
+  suggestions open, page stays on Donate; Tires → Lookup with the query set;
+  no duplicate ids with two signs on the page; no errors; no sideways scroll.
+- Version `0.8.8-alpha.1 → 0.8.9-alpha.1`, deployed manually.
+
 ## ✅ Dark mode removed by owner decision — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - Luiz, on seeing the site in dark mode: keep the lighter theme, "this darker
