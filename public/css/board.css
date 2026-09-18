@@ -1,0 +1,296 @@
+/*
+ * Board layout for the Recyclopedia engine root (body.lbg-engine-site only).
+ *
+ * The owner approved the look of the sketch-icons design page on 2026-09-17
+ * ("follow that template of how to lay all information on the screen"):
+ * oat ground, paper containers with a 1px ink border and 12px radius, a
+ * coloured title band with an uppercase heading and a one-line sub, graph
+ * paper under the content, thin-bordered note cards, an ink-headed table for
+ * numbers, Hanken Grotesk bold for every heading. This file restyles the
+ * existing classes to that grammar and adds the .board family. Loaded after
+ * lbg-theme.css; every rule is scoped to .lbg-engine-site so /academy and
+ * /lbg keep their own pages.
+ *
+ * Palette: paper, ink, lettuce, beet, grapefruit — nothing else (owner rule).
+ */
+
+.lbg-engine-site {
+  --paper: #fcfaf4;
+  --ink: #2b2822;
+  --lettuce: #57862f;
+  --beet: #8a2450;
+  --grapefruit: #e4562e;
+  --grid: rgba(43, 40, 34, 0.11);
+  --grid-major: rgba(43, 40, 34, 0.2);
+  --hairline: rgba(43, 40, 34, 0.25);
+  --board-radius: 12px;
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
+
+  --surface: var(--paper);
+  --surface-alt: var(--paper);
+  --border: var(--ink);
+  --radius: var(--board-radius);
+  --radius-lg: var(--board-radius);
+  --max-width: 1040px;
+}
+
+/* ── Type: Hanken bold carries every heading on the engine root ─────────── */
+.lbg-engine-site h1,
+.lbg-engine-site h2,
+.lbg-engine-site h3 {
+  font-family: var(--font);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+.lbg-engine-site .hero-copy h1 {
+  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.6rem);
+  line-height: 1.12;
+  max-width: 20ch;
+}
+.lbg-engine-site .lede {
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 64ch;
+}
+.lbg-engine-site .eyebrow,
+.lbg-engine-site .section-kicker {
+  font-family: 'Share Tech Mono', ui-monospace, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--muted);
+}
+
+/* ── Hero: unframed, like the top of the design page ───────────────────── */
+.lbg-engine-site .site-shell { padding-top: 2.5rem; }
+.lbg-engine-site .hero-grid { gap: 2rem; align-items: center; }
+.lbg-engine-site .hero-copy,
+.lbg-engine-site .hero-panel {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.lbg-engine-site .hero-panel__frame {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+  justify-items: center;
+}
+.lbg-engine-site .hero-swirl { max-width: 380px; width: 100%; height: auto; }
+.lbg-engine-site .hero-taglines {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.15;
+  color: var(--muted);
+  text-align: center;
+  margin: 0;
+}
+.lbg-engine-site .hero-taglines p { margin: 0; }
+.lbg-engine-site .hero-taglines strong { color: var(--ink); font-weight: 500; letter-spacing: 0; }
+.lbg-engine-site .hero-panel__meta { display: none; }
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+.lbg-engine-site .button {
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.lbg-engine-site .button--solid { background: var(--lettuce); border-color: var(--lettuce); color: var(--paper); }
+.lbg-engine-site .button--solid:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.lbg-engine-site .button--ghost { background: var(--paper); border: 1px solid var(--ink); color: var(--ink); }
+.lbg-engine-site .button--ghost:hover { background: var(--ink); color: var(--paper); }
+
+/* ── The board: band + field ───────────────────────────────────────────── */
+.lbg-engine-site .board {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--board-radius);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.lbg-engine-site .board--first { margin-top: 0; }
+.lbg-engine-site .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lbg-engine-site .board__band {
+  --band: var(--ink);
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.85rem 1rem 0.9rem;
+  background: var(--band);
+  color: var(--paper);
+}
+.lbg-engine-site .board__band--lettuce { --band: var(--lettuce); }
+.lbg-engine-site .board__band--beet { --band: var(--beet); }
+.lbg-engine-site .board__band--grapefruit { --band: var(--grapefruit); color: var(--ink); }
+.lbg-engine-site .board__band h2,
+.lbg-engine-site .board__band h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 0.95rem + 1vw, 1.55rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: inherit;
+}
+.lbg-engine-site .board__band p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  max-width: 70ch;
+  color: inherit;
+}
+.lbg-engine-site .board__band p a { color: inherit; text-decoration: underline; text-underline-offset: 0.15em; }
+.lbg-engine-site .board__field {
+  padding: 1.5rem 1rem 1.75rem;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+}
+.lbg-engine-site .board__field > * + * { margin-top: 1rem; }
+.lbg-engine-site .board__field > .sign { margin-top: 0; }
+.lbg-engine-site .board__field > .sign + * { margin-top: 1.25rem; }
+
+/* Ink-headed table, for numbers */
+.lbg-engine-site .board__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+.lbg-engine-site .board__table th {
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.75rem;
+  text-align: center;
+}
+.lbg-engine-site .board__table td {
+  padding: 0.9rem 0.75rem;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  border-right: 1px solid var(--hairline);
+}
+.lbg-engine-site .board__table td:last-child { border-right: 0; }
+.lbg-engine-site .board__table td small {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ── Note cards: every card on the root is the same quiet object ───────── */
+.lbg-engine-site .panel-card,
+.lbg-engine-site .feature-card,
+.lbg-engine-site .support-card,
+.lbg-engine-site .module-card,
+.lbg-engine-site .recycle-card,
+.lbg-engine-site .form-wrap,
+.lbg-engine-site .donate-success {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: var(--board-radius);
+  box-shadow: none;
+}
+/* Specificity matches lbg-theme's `.lbg-site .module-card h3` so Hanken wins. */
+.lbg-site.lbg-engine-site .panel-card h3,
+.lbg-site.lbg-engine-site .feature-card h3,
+.lbg-site.lbg-engine-site .module-card h3,
+.lbg-site.lbg-engine-site .recycle-card__name,
+.lbg-site.lbg-engine-site .recycle-card h3 {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+.lbg-engine-site .module-card--wash::before { display: none; }
+.lbg-engine-site .module-card__number,
+.lbg-engine-site .module-card__status,
+.lbg-engine-site .recycle-card__cat {
+  font-family: 'Share Tech Mono', ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--muted);
+}
+.lbg-engine-site .module-card__status { border-top-color: var(--hairline); }
+.lbg-engine-site .module-card__status--live { color: var(--lettuce); }
+.lbg-engine-site .module-card--link:hover { border-color: var(--ink); transform: none; }
+
+/* CTA band: a coloured strip, like a sign's band on its own */
+.lbg-engine-site .cta-band {
+  background: var(--lettuce);
+  border: 0;
+  border-radius: var(--board-radius);
+  color: var(--paper);
+}
+.lbg-engine-site .cta-band .section-kicker { color: var(--paper); opacity: 0.85; margin-bottom: 0.25rem; }
+.lbg-engine-site .cta-band h3 { font-size: 1.1rem; line-height: 1.3; color: inherit; }
+.lbg-engine-site .cta-band h3 a { color: inherit; }
+.lbg-engine-site .cta-band .button--solid { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+.lbg-engine-site .cta-band .button--ghost { background: transparent; border-color: var(--paper); color: var(--paper); }
+.lbg-engine-site .cta-band .button:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+/* ── Lookup: search, pills, cards ──────────────────────────────────────── */
+.lbg-engine-site .search-wrap { margin-top: 0; }
+.lbg-engine-site .search-input {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--board-radius);
+  box-shadow: none;
+}
+.lbg-engine-site .search-input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px var(--grid-major); }
+.lbg-engine-site .search-wrap__camera { background: var(--paper); border: 1px solid var(--ink); }
+.lbg-engine-site .pill {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 0.8rem;
+}
+.lbg-engine-site .pill:hover { border-color: var(--ink); background: var(--paper); }
+.lbg-engine-site .pill.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); box-shadow: none; }
+.lbg-engine-site .empty-state {
+  background: var(--paper);
+  border: 1px dashed var(--hairline);
+  border-radius: var(--board-radius);
+}
+
+/* ── Donate form ───────────────────────────────────────────────────────── */
+.lbg-engine-site .form-input,
+.lbg-engine-site .form-select,
+.lbg-engine-site .form-textarea {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: var(--board-radius);
+}
+.lbg-engine-site .form-input:focus,
+.lbg-engine-site .form-select:focus,
+.lbg-engine-site .form-textarea:focus { border-color: var(--ink); box-shadow: 0 0 0 3px var(--grid-major); }
+.lbg-engine-site .form-label { letter-spacing: 0.04em; text-transform: none; font-weight: 600; }
+.lbg-engine-site .stack-tags span {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--ink);
+}
+
+/* ── Phone ─────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .lbg-engine-site .board__field { padding: 1rem 0.75rem 1.25rem; }
+  .lbg-engine-site .board__table td { font-size: 1.35rem; padding: 0.7rem 0.4rem; }
+  .lbg-engine-site .board__table th { font-size: 0.64rem; padding: 0.5rem 0.4rem; }
+  .lbg-engine-site .hero-swirl { max-width: 260px; }
+}

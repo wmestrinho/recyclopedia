@@ -5,10 +5,16 @@ import { CURBSIDE_SIGN, DONATION_SIGN } from '../data/signs';
 import { ITEMS, CATEGORIES } from '../data/items';
 import versionSource from '../../VERSION?raw';
 
+import { readFileSync } from 'node:fs';
+
 const version = `v${versionSource.trim()}`;
 // Rendered at build time so the site never under-reports itself again.
 const itemCount = ITEMS.length;
 const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
+// The donate form's own list (public/js/donate.js) is the source of truth for
+// how many electronics we name; counted here rather than typed.
+const donateCount = (readFileSync(new URL('public/js/donate.js', `file://${process.cwd()}/`), 'utf8').match(/items: \[[^\]]*\]/g) ?? [])
+  .reduce((n, list) => n + list.split("',").length, 0);
 ---
 
 <!DOCTYPE html>
@@ -35,9 +41,10 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
   <meta name="theme-color" content="#efe9db" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&family=Caveat:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href={`/css/style.css?v=${version}`} />
   <link rel="stylesheet" href={`/css/lbg-theme.css?v=${version}`} />
+  <link rel="stylesheet" href={`/css/board.css?v=${version}`} />
 </head>
 <body class="lbg-site lbg-engine-site">
   <a class="skip-link" href="#home">Skip to content</a>
@@ -91,24 +98,6 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
             <a class="button button--ghost" href="#tiers">How the engine works</a>
           </div>
 
-          <div class="metric-grid">
-            <article class="metric-card">
-              <strong>{itemCount}</strong>
-              <span>Items in Recyclopedia</span>
-            </article>
-            <article class="metric-card">
-              <strong>3</strong>
-              <span>Reasoning tiers</span>
-            </article>
-            <article class="metric-card">
-              <strong>200+</strong>
-              <span>Electronics accepted</span>
-            </article>
-            <article class="metric-card">
-              <strong>0</strong>
-              <span>Items to landfill (goal)</span>
-            </article>
-          </div>
         </div>
 
         <aside class="hero-panel" aria-hidden="true">
@@ -128,42 +117,65 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
         </aside>
       </div>
 
+      <div class="board" aria-labelledby="numbers-title">
+        <table class="board__table">
+          <caption class="visually-hidden" id="numbers-title">Recyclopedia by the numbers</caption>
+          <thead>
+            <tr>
+              <th scope="col">Items answered</th>
+              <th scope="col">Reasoning tiers</th>
+              <th scope="col">Electronics we take</th>
+              <th scope="col">Items to landfill</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{itemCount}<small>and growing</small></td>
+              <td>3<small>search, scan, show</small></td>
+              <td>{donateCount}<small>named on the donate form</small></td>
+              <td>0<small>the goal, every time</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <!-- The curbside sign: what goes in the bin, in the layout every
            solid-waste department prints — filled from our own item data. -->
       <CurbsideSign spec={CURBSIDE_SIGN} id="curbside-sign" code={version} permalink="/signs/curbside" />
 
       <!-- Trickle-down tier engine -->
-      <div class="section-block" id="tiers">
-        <div class="section-heading">
-          <p class="section-kicker">The engine</p>
-          <h2>Trickle-down tier reasoning. Any item in, a plan of action out.</h2>
-          <p class="lede">Identification escalates only as far as it needs to — then everything funnels into the same answer: where this item actually goes, near you.</p>
+      <div class="board" id="tiers" aria-labelledby="tiers-title">
+        <div class="board__band">
+          <h2 id="tiers-title">How the engine works</h2>
+          <p>Identification escalates only as far as it needs to. Then everything funnels into the same answer: where this item actually goes, near you.</p>
         </div>
+        <div class="board__field">
         <div class="module-grid">
           <a class="module-card module-card--link module-card--wash module-card--wash-lettuce" href="#recyclopedia" data-page="recyclopedia">
             <p class="module-card__number">Tier 1 · Human input</p>
-            <h3>🔍 Search it</h3>
+            <h3>Search it</h3>
             <p>Type any item — pizza box, battery, old TV, motor oil. Instant answer: recyclable or not, how to prep it, and where to take it. {itemCount} items and growing.</p>
             <p class="module-card__status module-card__status--live">Live now →</p>
           </a>
           <a class="module-card module-card--link module-card--wash module-card--wash-beet" href="#recyclopedia" data-page="recyclopedia">
             <p class="module-card__number">Tier 2 · Barcode</p>
-            <h3>📷 Scan it</h3>
+            <h3>Scan it</h3>
             <p>Tap the camera on the search bar and point it at any barcode. We read it on your phone, then look up what the packaging is actually made of — no typing, no guessing which name we filed it under.</p>
             <p class="module-card__status module-card__status--live">Live now →</p>
           </a>
           <article class="module-card module-card--wash module-card--wash-grapefruit">
             <p class="module-card__number">Tier 3 · AI vision (last resort)</p>
-            <h3>👁 Show it</h3>
+            <h3>Show it</h3>
             <p>No barcode, no name? YOLO-class object recognition identifies the item — then its composition, so even new or discovered materials get an answer.</p>
             <p class="module-card__status">Planned</p>
           </article>
         </div>
-        <div class="cta-band" style="margin-top: 1rem;">
+        <div class="cta-band">
           <div>
             <p class="section-kicker">Every tier funnels here</p>
-            <h3>Your location + district + available facilities → an immediate plan of action for proper disposal.</h3>
+            <h3>Your location, your district, the facilities near you: an immediate plan of action for proper disposal.</h3>
           </div>
+        </div>
         </div>
       </div>
 
@@ -179,23 +191,26 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
 
     <!-- ── RECYCLOPEDIA ───────────────────────────────────────── -->
     <section class="page" id="recyclopedia" data-page="recyclopedia" aria-labelledby="recyclopedia-title">
-      <div class="section-heading">
-        <p class="section-kicker">Lookup</p>
-        <h2 id="recyclopedia-title">What can you do with that?</h2>
-        <p class="lede">Search any material or item. Instant answer: recyclable or not, how to prepare it, and exactly where it goes. {itemCount} items across {categoryCount} categories.</p>
+      <div class="board board--first" aria-labelledby="recyclopedia-title">
+        <div class="board__band board__band--lettuce">
+          <h2 id="recyclopedia-title">What can you do with that?</h2>
+          <p>Search any material or item, or tap the camera. Recyclable or not, how to prepare it, and exactly where it goes. {itemCount} items across {categoryCount} categories.</p>
+        </div>
+        <div class="board__field">
+          <Lookup client:load />
+        </div>
       </div>
-
-      <Lookup client:load />
     </section>
 
 
     <!-- ── DONATE ─────────────────────────────────────────────── -->
     <section class="page" id="donate" data-page="donate" aria-labelledby="donate-title">
-      <div class="section-heading">
-        <p class="section-kicker">Donate Electronics</p>
-        <h2 id="donate-title">Give your devices a second life.</h2>
-        <p class="lede">Working or broken — we accept all electronics. Every device you donate gets properly recycled or refurbished instead of going to a landfill.</p>
-      </div>
+      <div class="board board--first" aria-labelledby="donate-title">
+        <div class="board__band board__band--lettuce">
+          <h2 id="donate-title">Give your devices a second life</h2>
+          <p>Working or broken, we accept all electronics. Every device you donate is refurbished or properly recycled instead of going to a landfill.</p>
+        </div>
+        <div class="board__field">
 
       <!-- The donation sign: what we take, what has its own path, what to do first. -->
       <CurbsideSign spec={DONATION_SIGN} id="donation-sign" code={version} permalink="/signs/donate" />
@@ -319,17 +334,19 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
           </form>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
 
     <!-- ── ABOUT ──────────────────────────────────────────────── -->
     <section class="page" id="about" data-page="about" aria-labelledby="about-title">
-      <div class="section-heading">
-        <p class="section-kicker">About Recyclopedia</p>
-        <h2 id="about-title">Zero waste. No exceptions. Ever.</h2>
-        <p class="lede">Recyclopedia is a project by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a> — an Orlando-based consultancy built on one non-negotiable: zero waste, 100% sustainable, in everything we do.</p>
-      </div>
-
+      <div class="board board--first" aria-labelledby="about-title">
+        <div class="board__band">
+          <h2 id="about-title">Zero waste. No exceptions. Ever.</h2>
+          <p>Recyclopedia is a project by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible Solutions</a>, an Orlando consultancy built on one non-negotiable: zero waste, 100% sustainable, in everything we do.</p>
+        </div>
+        <div class="board__field">
       <div class="split-layout">
         <article class="panel-card panel-card--accent">
           <h3>The Mission</h3>
@@ -357,11 +374,15 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
         </article>
       </div>
 
-      <div class="section-block">
-        <div class="section-heading">
-          <p class="section-kicker">Roadmap</p>
-          <h2>What's coming next.</h2>
         </div>
+      </div>
+
+      <div class="board" aria-labelledby="roadmap-title">
+        <div class="board__band board__band--grapefruit">
+          <h2 id="roadmap-title">What's coming next</h2>
+          <p>Four phases. Two are live, one is being built, one waits on data we can stand behind.</p>
+        </div>
+        <div class="board__field">
         <div class="feature-grid">
           <article class="feature-card">
             <h3>Phase 1 — Tier 1 foundation</h3>
@@ -383,6 +404,8 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
             <p>District rules and nearby facilities, so every answer becomes a local plan of action. Waits on verified facility data we can stand behind.</p>
             <div class="stack-tags" style="margin-top:0.75rem;"><span>Parked</span></div>
           </article>
+        </div>
+
         </div>
       </div>
 
