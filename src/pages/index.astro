@@ -1,4 +1,5 @@
 ---
+import EngineHeader from '../components/EngineHeader.astro';
 import Lookup from '../components/Lookup.svelte';
 import CurbsideSign from '../components/CurbsideSign.astro';
 import { CURBSIDE_SIGN, DONATION_SIGN } from '../data/signs';
@@ -35,7 +36,7 @@ const donateCount = (readFileSync(new URL('public/js/donate.js', `file://${proce
   <meta name="twitter:title" content="Recyclopedia — The World's Most Complete Recycling Resource" />
   <meta name="twitter:description" content="Recyclopedia is the recycling answer engine. Search any item — or soon, scan any barcode or photograph any object — and get an immediate, local plan of action for proper disposal. Donate your old electronics too." />
   <meta name="twitter:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E♻%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="/images/recyclopedia-mark.svg" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="apple-touch-icon" href="/images/pwa/apple-touch-icon.png" />
   <meta name="theme-color" content="#efe9db" />
@@ -49,34 +50,7 @@ const donateCount = (readFileSync(new URL('public/js/donate.js', `file://${proce
 <body class="lbg-site lbg-engine-site">
   <a class="skip-link" href="#home">Skip to content</a>
 
-  <header class="site-header">
-    <div class="site-header__inner">
-      <div class="brand">
-        <span class="brand__mark">♻</span>
-        <span class="brand__copy">
-          <a class="brand__title" href="#home" data-page="home" aria-label="Recyclopedia home"><strong>Recyclopedia</strong></a>
-          <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible</a></small>
-        </span>
-      </div>
-
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#home" data-page="home">Home</a>
-        <a href="#recyclopedia" data-page="recyclopedia">Lookup</a>
-        <a href="#donate" data-page="donate">Donate</a>
-        <a href="#about" data-page="about">About</a>
-      </nav>
-
-      <div class="header-actions">
-        <a class="button button--solid" href="#donate" data-page="donate">Donate Electronics</a>
-      </div>
-
-      <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
+  <EngineHeader root="" />
 
   <main class="site-shell">
 

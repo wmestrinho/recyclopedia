@@ -15,8 +15,8 @@
  * its paper and ink in dark mode the way a photograph would. The values are
  * the LBG theme's own (lbg-theme.css); nothing here is a new colour.
  */
-import rough from 'roughjs';
 import { resolveSign, linkFor, type SignSpec, type SignIcon } from '../data/signs';
+import { RECYCLE_PATHS, sketchShapes, seedOf } from '../lib/sketch';
 
 interface Props {
   spec: SignSpec;
@@ -86,52 +86,17 @@ const ICONS: Record<SignIcon, string> = {
 const STROKE = 'fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"';
 
 // ── The sketch renderer ("direction D", approved 2026-09-17) ───────────────
-// Every glyph above is re-drawn at build time by Rough.js as a pencil sketch:
-// an ink outline that wobbles, and the half's colour hatched inside closed
-// shapes (`currentColor`, so CSS `--s-cell` decides lettuce / beet /
-// grapefruit). A seed derived from the icon's name keeps each drawing
-// identical from build to build. Static SVG ships; nothing runs in the browser.
-const INK = '#2b2822';
-const gen = rough.generator();
-const seedOf = (s: string) => {
-  let h = 2166136261;
-  for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
-  return (h % 100000) + 1;
-};
-const attrsOf = (s: string) => Object.fromEntries([...s.matchAll(/([a-z]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]));
-const round = (d: string) => d.replace(/-?\d+\.\d+/g, (n) => (+n).toFixed(1));
-const icon = (name: SignIcon, hatch = true): string => {
-  const out: string[] = [];
-  [...ICONS[name].matchAll(/<(path|rect|circle|ellipse)\b([^>]*)\/>/g)].forEach((m, i) => {
-    const tag = m[1];
-    const a = attrsOf(m[2]);
-    const closed = tag !== 'path' || /z\s*$/i.test(a.d);
-    const o = {
-      roughness: 0.7, bowing: 1.1, seed: seedOf(name) + i, stroke: INK, strokeWidth: 1.15,
-      ...(hatch && closed ? { fill: 'currentColor', fillStyle: 'hachure', hachureGap: 3, fillWeight: 0.5, hachureAngle: -41 } : {}),
-    };
-    const d =
-      tag === 'path' ? gen.path(a.d, o)
-      : tag === 'rect' ? gen.rectangle(+a.x, +a.y, +a.width, +a.height, o)
-      : tag === 'circle' ? gen.circle(+a.cx, +a.cy, 2 * +a.r, o)
-      : gen.ellipse(+a.cx, +a.cy, 2 * +a.rx, 2 * +a.ry, o);
-    for (const p of gen.toPaths(d)) {
-      out.push(`<path d="${round(p.d)}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" fill="${p.fill || 'none'}"/>`);
-    }
-  });
-  return `<svg class="sign__glyph" viewBox="-1 -1 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${out.join('')}</svg>`;
-};
+// Every glyph above is re-drawn at build time by Rough.js as a pencil sketch
+// (src/lib/sketch.ts): an ink outline that wobbles, and the half's colour
+// hatched inside closed shapes (`currentColor`, so CSS `--s-cell` decides
+// lettuce / beet / grapefruit). A seed derived from the icon's name keeps each
+// drawing identical from build to build. Static SVG ships; nothing runs in
+// the browser.
+const icon = (name: SignIcon): string =>
+  `<svg class="sign__glyph" viewBox="-1 -1 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${sketchShapes(ICONS[name], { seed: seedOf(name) })}</svg>`;
 
-// The universal recycling mark. Outline from Lucide (`recycle`, ISC licence),
-// so it reads as the real thing at 2rem instead of a hand-drawn approximation.
-// Its three arrows are the three logo colours: lettuce, beet, grapefruit.
-const RECYCLE_PATHS =
-  '<g class="mark-lettuce"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>' +
-  '<path d="M8.293 13.596 7.196 9.5 3.1 10.598"/></g>' +
-  '<g class="mark-beet"><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>' +
-  '<path d="m14 16-3 3 3 3"/></g>' +
-  '<g class="mark-grapefruit"><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>' +
-  '<path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></g>';
+// The universal recycling mark (src/lib/sketch.ts), flat here: on a sign it
+// reads as the printed symbol, its three arrows the three logo colours.
 const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} stroke-width="2" aria-hidden="true" focusable="false">${RECYCLE_PATHS}</svg>`;
 
 ---

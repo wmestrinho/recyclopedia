@@ -40,12 +40,7 @@
     activatePage(page);
   });
 
-  if (menuToggle && nav) {
-    menuToggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('is-open');
-      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
+  // The menu button itself is wired by EngineHeader.astro; only closing lives here.
 
   window.addEventListener('popstate', function () {
     activatePage(window.location.hash.replace('#', '') || 'home');

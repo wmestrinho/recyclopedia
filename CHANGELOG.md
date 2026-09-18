@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.12-alpha.1] - 2026-09-17
+### Changed
+- **The top header is a sign's title row.** Graph paper under the bar, a 1px
+  ink rule, the recycling mark re-drawn at build time as a pencil sketch (one
+  arrow per logo colour) on its own paper tile, the wordmark in Hanken bold
+  uppercase, the AP by-line in Share Tech Mono, nav pills that fill with ink
+  when active. One `EngineHeader.astro` now serves the homepage, `/privacy`
+  and every `/signs/*` page (the board pages' mobile menu button works for
+  the first time; the toggle moved out of `main.js`).
+- **The logo is the sketch.** The favicon is `images/recyclopedia-mark.svg`
+  (the same drawing on a bordered graph-paper tile) and the PWA / touch icons
+  are rendered from it by `scripts/make_brand_mark.mjs` (sharp), replacing the
+  ♻ glyph and the Playwright icon script.
+- The sketch renderer moved to `src/lib/sketch.ts`, shared by the sign glyphs
+  and the brand mark.
+
 ## [0.8.11-alpha.1] - 2026-09-17
 ### Added
 - **Sketch icons on graph paper (the approved "direction D").** Every sign

@@ -4,6 +4,24 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ Sketch header + logo — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- `design-preview` merged into `main` (fast-forward), then the top header was
+  re-cut in the approved sketch grammar: `src/components/EngineHeader.astro`
+  (one component for `/`, `/privacy`, `/signs/*`; `root=""` on the homepage
+  keeps the SPA anchors, `root="/"` elsewhere), styles at the end of
+  `public/css/board.css`. The brand mark is `sketchRecycleMark()` from the new
+  `src/lib/sketch.ts` — the Rough.js renderer now lives there and
+  `CurbsideSign.astro` imports it.
+- Favicon and PWA icons regenerated from the same drawing:
+  `node --experimental-strip-types scripts/make_brand_mark.mjs` writes
+  `public/images/recyclopedia-mark.svg` and `public/images/pwa/*.png`.
+  `scripts/make_pwa_icons.mjs` is gone. The OG image is still the LBG trio
+  mark on purpose (the parent brand).
+- Verified with Playwright at 1280 / 390: header, menu panel on the privacy
+  page, no page errors, no sideways scroll; `npm test` 24/24.
+- Version `0.8.11-alpha.1 → 0.8.12-alpha.1`, manual deploy.
+
 ## ✅ Sketch icons + board pages (Phase A) — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **Owner approved the design page** ("THIS is PERFECT… the graph paper behind

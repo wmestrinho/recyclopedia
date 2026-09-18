@@ -1,0 +1,68 @@
+---
+/**
+ * EngineHeader — the recyclopedia.cc top bar, in the sketch-on-graph-paper
+ * grammar the owner approved on 2026-09-17: the recycling mark re-drawn as a
+ * pencil sketch (one arrow per logo colour) on a graph-paper tile, the
+ * wordmark in Hanken bold uppercase like a sign title, the AP by-line in
+ * Share Tech Mono. Same markup on every engine page; the header standard's
+ * BEM `site-header` contract is kept (brand → home, nav aria-label="Primary",
+ * data-page active state driven by public/js/main.js on the homepage).
+ *
+ * `root` is '' on the homepage (in-page anchors the SPA script intercepts)
+ * and '/' everywhere else (real links back to the homepage sections).
+ */
+import { sketchRecycleMark } from '../lib/sketch';
+
+interface Props {
+  root?: '' | '/';
+}
+const { root = '' } = Astro.props;
+const home = root === '' ? '#home' : '/';
+const to = (page: string) => `${root}#${page}`;
+const mark = sketchRecycleMark();
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="brand">
+      <a class="brand__mark brand__mark--sketch" href={home} data-page="home" aria-label="Recyclopedia home">
+        <Fragment set:html={mark} />
+      </a>
+      <span class="brand__copy">
+        <a class="brand__title" href={home} data-page="home"><strong>Recyclopedia</strong></a>
+        <small>by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible</a></small>
+      </span>
+    </div>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href={to('home')} data-page="home">Home</a>
+      <a href={to('recyclopedia')} data-page="recyclopedia">Lookup</a>
+      <a href={to('donate')} data-page="donate">Donate</a>
+      <a href={to('about')} data-page="about">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="button button--solid" href={to('donate')} data-page="donate">Donate Electronics</a>
+    </div>
+
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<script is:inline>
+  // The mobile menu. The homepage's main.js closes it on navigation; opening
+  // and closing by the button lives here so every engine page has it.
+  (function () {
+    var nav = document.querySelector('.site-header .site-nav');
+    var toggle = document.querySelector('.site-header .menu-toggle');
+    if (!nav || !toggle) return;
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
