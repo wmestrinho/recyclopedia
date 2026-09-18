@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.7-alpha.1] - 2026-09-17
+### Added
+- **The curbside sign on the homepage.** `src/components/CurbsideSign.astro`
+  reproduces the board every solid-waste department prints — title row with
+  the recycling mark, a green Acceptable half, a red Not Acceptable half, a
+  side rail for what needs a special trip, a vertical more-info bar, and the
+  brand in the footer — filled from our own item data (`src/data/signs.ts`).
+  Every cell is a link into the Lookup pre-filled with the item's real name
+  (`recyclopedia:search` event, listened for in `Lookup.svelte`), and a slug
+  that leaves `items.ts` fails the build rather than the sign. Icons are
+  monochrome line art; the palette is the LBG theme's own and stays paper-and-
+  ink in dark mode, as a printed object would. Stacks to one column on phones.
+
 ## [0.8.6-alpha.1] - 2026-09-17
 ### Added
 - **The Snap flow and top-3 picker (Card C.2), built and switched off.**

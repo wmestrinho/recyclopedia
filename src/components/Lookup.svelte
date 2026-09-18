@@ -19,6 +19,12 @@
     const hasMedia = !!navigator.mediaDevices?.getUserMedia;
     const hasCapture = 'capture' in document.createElement('input');
     canScan = hasMedia || hasCapture;
+
+    // The homepage sign (CurbsideSign.astro) hands a query across when one of
+    // its cells is clicked; main.js has already switched to this page.
+    const onSignSearch = (e: Event) => searchInstead((e as CustomEvent<string>).detail ?? '');
+    window.addEventListener('recyclopedia:search', onSignSearch);
+    return () => window.removeEventListener('recyclopedia:search', onSignSearch);
   });
 
   async function openLens() {

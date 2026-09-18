@@ -1,0 +1,485 @@
+---
+/**
+ * CurbsideSign — the "what goes in the bin" board, in the layout every
+ * municipal solid-waste department prints: a title row flanked by the
+ * recycling mark, a green ACCEPTABLE half and a red NOT ACCEPTABLE half,
+ * a side rail for the things that need a special trip, a vertical
+ * more-info bar, and the brand in the footer.
+ *
+ * Content comes from `src/data/signs.ts`; every cell links into the Lookup
+ * with the item's real name (see `data-search` and the listener in
+ * Lookup.svelte). Icons are the AP house style: monochrome line art in the
+ * section's ink, not full-colour illustrations.
+ *
+ * The palette is fixed on purpose — a sign is a printed object, so it keeps
+ * its paper and ink in dark mode the way a photograph would. The values are
+ * the LBG theme's own (lbg-theme.css); nothing here is a new colour.
+ */
+import { resolveSign, itemFor, type SignSpec, type SignIcon } from '../data/signs';
+
+interface Props {
+  spec: SignSpec;
+  /** Printed in the margin where a print shop puts its job number. */
+  code?: string;
+}
+
+const { spec, code } = Astro.props;
+const sign = resolveSign(spec);
+
+// 24×24 line-art glyphs. Paths only; the wrapper <svg> supplies stroke/fill.
+const ICONS: Record<SignIcon, string> = {
+  'newspaper': '<path d="M4 5h13v14H4z"/><path d="M17 8h3v9a2 2 0 0 1-2 2"/><path d="M7 9h4v4H7z"/><path d="M13 9.5h2M13 12.5h2M7 16h8"/>',
+  'paper-bag': '<path d="M6 8h12l1 13H5z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  'sheets': '<path d="M8 3h9l3 3v13H8z"/><path d="M8 7H5v14h11v-3"/><path d="M11 10h6M11 13h6"/>',
+  'box': '<path d="M3 8l9-4 9 4-9 4z"/><path d="M3 8v9l9 4 9-4V8"/><path d="M12 12v9"/><path d="M7.5 6l9 4"/>',
+  'carton': '<path d="M7 9l2-4h6l2 4v12H7z"/><path d="M7 9h10"/><path d="M12 5v4"/>',
+  'can': '<ellipse cx="12" cy="5" rx="5" ry="1.6"/><path d="M7 5v14c0 .9 2.2 1.6 5 1.6s5-.7 5-1.6V5"/><path d="M8.5 10.5h7"/>',
+  'tin': '<ellipse cx="12" cy="6" rx="6" ry="2"/><path d="M6 6v12c0 1.1 2.7 2 6 2s6-.9 6-2V6"/><path d="M6 10c0 1.1 2.7 2 6 2s6-.9 6-2"/>',
+  'aerosol': '<path d="M8 9h8v11a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z"/><path d="M10 9V6h4v3"/><path d="M11 6V3.5h2V6"/><path d="M14 4.5h3"/>',
+  'bottle': '<path d="M10 3h4v3l2 3v11a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9l2-3z"/><path d="M8 13h8"/>',
+  'jug': '<path d="M9 3h5v3l3 3v11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V9l2-3z"/><path d="M12 10h3v5h-3"/>',
+  'plastic-bag': '<path d="M7 8h10l1 13H6z"/><path d="M9 8V5.5a1.5 1.5 0 0 1 3 0V8M12 8V5.5a1.5 1.5 0 0 1 3 0V8"/>',
+  'foam-cup': '<path d="M6 5h12l-1.5 15h-9z"/><path d="M5 5h14"/><path d="M7 10h10"/>',
+  'chip-bag': '<path d="M7 4h10l-1 3 1 12-1 2H8l-1-2 1-12z"/><path d="M7 7h10M7 19h10"/><path d="M10 11l2 3 2-3"/>',
+  'cutlery': '<path d="M7 3v5a2 2 0 0 0 4 0V3M9 3v18"/><path d="M16 3c-2.5 3-2.5 7 0 9v9"/>',
+  'pizza-box': '<path d="M3 11h18v9H3z"/><path d="M3 11l2-6h14l2 6"/><circle cx="9" cy="15.5" r="1"/><circle cx="14" cy="16.5" r="1"/>',
+  'coffee-cup': '<path d="M5 7h13l-1.4 13H6.4z"/><path d="M18 9h1.5a2 2 0 0 1 0 4h-2"/><path d="M4 7h15"/>',
+  'receipt': '<path d="M6 3h12v18l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5L6 21z"/><path d="M9 8h6M9 11h6M9 14h4"/>',
+  'broken-glass': '<path d="M7 3h10l-1.5 18h-7z"/><path d="M12 3l-1 5 2 3-1.5 4"/>',
+  'dish': '<path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8 20h8"/><path d="M12 17v3"/>',
+  'battery': '<rect x="3" y="8" width="16" height="9" rx="1.5"/><path d="M19 11h2v3h-2"/><path d="M7 11v3M10.5 11v3"/>',
+  'laptop': '<rect x="4" y="5" width="16" height="11" rx="1"/><path d="M2 19h20"/>',
+  'bulb': '<path d="M9 17a6 6 0 1 1 6 0v2H9z"/><path d="M10 21h4"/>',
+  'paint-can': '<rect x="6" y="7" width="12" height="14" rx="1"/><path d="M6 11h12"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/>',
+};
+
+// Presentation attributes live on the element: injected markup does not get
+// Astro's scoping attribute, so the scoped <style> cannot reach it.
+const STROKE = 'fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"';
+const icon = (name: SignIcon) =>
+  `<svg class="sign__glyph" viewBox="0 0 24 24" ${STROKE} stroke-width="1.6" aria-hidden="true" focusable="false">${ICONS[name]}</svg>`;
+
+// The universal recycling mark. Outline from Lucide (`recycle`, ISC licence),
+// so it reads as the real thing at 2rem instead of a hand-drawn approximation.
+const RECYCLE_PATHS =
+  '<path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>' +
+  '<path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>' +
+  '<path d="m14 16-3 3 3 3"/>' +
+  '<path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>' +
+  '<path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>' +
+  '<path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>';
+const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} stroke-width="1.8" aria-hidden="true" focusable="false">${RECYCLE_PATHS}</svg>`;
+
+const searchFor = (slug: string) => itemFor(slug).name;
+---
+
+<section class="sign" aria-labelledby="sign-title">
+  <div class="sign__spine" aria-hidden="true">
+    {code && <span class="sign__code">{code}</span>}
+  </div>
+
+  <header class="sign__title">
+    <Fragment set:html={recycleMark} />
+    <h2 id="sign-title">{sign.title}</h2>
+    <Fragment set:html={recycleMark} />
+  </header>
+
+  <div class="sign__board">
+    <div class="sign__half sign__half--yes">
+      <div class="sign__band">
+        <span class="sign__badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </span>
+        <div>
+          <h3>{sign.yes.heading}</h3>
+          <p>{sign.yes.sub}</p>
+        </div>
+      </div>
+      <ul class="sign__groups">
+        {sign.yes.groups.map((g) => (
+          <li>
+            <a href="#recyclopedia" data-page="recyclopedia" data-search={itemFor(g.slugs[0]).cat}>
+              <span class="sign__cluster"><Fragment set:html={g.icons.map((i) => icon(i)).join('')} /></span>
+              <strong>{g.label}</strong>
+              <small>{g.sub}</small>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sign__half sign__half--no">
+      <div class="sign__band">
+        <span class="sign__badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M7 7l10 10M17 7L7 17"/></svg>
+        </span>
+        <div>
+          <h3>{sign.no.heading}</h3>
+          <p>{sign.no.sub}</p>
+        </div>
+      </div>
+      <div class="sign__right">
+        <ul class="sign__entries">
+          {sign.no.entries.map((e) => (
+            <li>
+              <a href="#recyclopedia" data-page="recyclopedia" data-search={searchFor(e.slug)}>
+                <Fragment set:html={icon(e.icon)} />
+                <strong>{e.label}</strong>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <aside class="sign__rail" aria-label={sign.rail.heading}>
+          <p class="sign__rail-heading" aria-hidden="true">{sign.rail.heading}</p>
+          <ul class="sign__entries sign__entries--rail">
+            {sign.rail.entries.map((e) => (
+              <li>
+                <a href="#recyclopedia" data-page="recyclopedia" data-search={searchFor(e.slug)}>
+                  <Fragment set:html={icon(e.icon)} />
+                  <strong>{e.label}</strong>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <footer class="sign__foot">
+    <a class="sign__brand" href="#home" data-page="home">
+      <img src="/images/lbg/lbg-trio-mark-600.webp" alt="" width="600" height="600" loading="lazy" decoding="async" />
+      <span>
+        <strong>Recyclopedia</strong>
+        <small>by Absolutely Plausible Solutions</small>
+      </span>
+    </a>
+    {code && <span class="sign__code sign__code--foot" aria-hidden="true">{code}</span>}
+  </footer>
+
+  <a class="sign__bar" href={sign.moreInfo.href} data-page="recyclopedia">{sign.moreInfo.label}</a>
+</section>
+
+<script>
+  // A click on any cell tells the Lookup island what to search for. main.js
+  // handles the page switch (data-page); this only carries the query across.
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element | null)?.closest?.('a[data-search]') as HTMLAnchorElement | null;
+    if (!a) return;
+    window.dispatchEvent(new CustomEvent('recyclopedia:search', { detail: a.dataset.search ?? '' }));
+  });
+</script>
+
+<style>
+  .sign {
+    /* Printed-sign palette: LBG paper, ink, lettuce, beet, and the drop-off
+       amber. Fixed in both colour schemes on purpose (see the header note). */
+    --s-paper: #fcfaf4;
+    --s-ink: #2b2822;
+    --s-muted: #77705f;
+    --s-frame: #3c5e2c;
+    --s-yes: #57862f;
+    --s-yes-bg: #ecf1e0;
+    --s-no: #8a2450;
+    --s-no-bg: #f6e6ea;
+    --s-rail: #8a5e12;
+    --s-rail-bg: #f6ecd6;
+    --s-white: #fcfaf4;
+    --s-band-h: 1.05rem;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'title' 'board' 'foot' 'bar';
+    background: var(--s-paper);
+    color: var(--s-ink);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    font-family: var(--font);
+    margin-top: var(--space-6, 2.5rem);
+  }
+
+  /* ── Margin spine (desktop only): print blocks + job code ─────────────── */
+  .sign__spine {
+    display: none;
+    grid-area: spine;
+    position: relative;
+    background:
+      linear-gradient(var(--s-frame), var(--s-frame)) top / 100% 3.25rem no-repeat,
+      linear-gradient(var(--s-frame), var(--s-frame)) bottom / 100% 6.5rem no-repeat,
+      var(--s-paper);
+  }
+  .sign__code {
+    font-family: 'Share Tech Mono', ui-monospace, monospace;
+    font-size: 0.68rem;
+    color: var(--s-muted);
+    letter-spacing: 0.04em;
+  }
+  .sign__spine .sign__code {
+    position: absolute;
+    top: 4.25rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+  }
+
+  /* ── Title row ────────────────────────────────────────────────────────── */
+  .sign__title {
+    grid-area: title;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-3, 0.75rem);
+    padding: var(--space-4, 1.25rem) var(--gutter, 1rem) var(--space-3, 0.9rem);
+    text-align: center;
+  }
+  .sign__title h2 {
+    margin: 0;
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 1rem + 2.4vw, 2.35rem);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--s-ink);
+  }
+  .sign :global(.sign__mark) {
+    width: clamp(2rem, 1.2rem + 4vw, 4rem);
+    height: auto;
+    color: var(--s-yes);
+  }
+
+  /* ── Board: the two halves ────────────────────────────────────────────── */
+  .sign__board {
+    grid-area: board;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sign__half { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+  .sign__half--yes { --s-band: var(--s-yes); --s-body: var(--s-yes-bg); }
+  .sign__half--no  { --s-band: var(--s-no);  --s-body: var(--s-no-bg); }
+
+  .sign__band {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3, 0.75rem);
+    padding: var(--space-3, 0.8rem) var(--gutter, 1rem);
+    background: var(--s-band);
+    color: var(--s-white);
+  }
+  .sign__band h3 {
+    margin: 0;
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 0.9rem + 1.4vw, 1.75rem);
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+  .sign__band p {
+    margin: 0.2rem 0 0;
+    font-size: 0.86rem;
+    line-height: 1.3;
+    max-width: 44ch;
+    color: inherit;
+  }
+  .sign__badge {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--s-white);
+    color: var(--s-band);
+    flex: none;
+  }
+  .sign__badge svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Shared cell styling: every cell is a link into the Lookup. */
+  .sign ul { list-style: none; margin: 0; padding: 0; }
+  .sign li > a {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 0.4rem;
+    text-align: center;
+    color: var(--s-ink);
+    text-decoration: none;
+    border-radius: var(--radius);
+    padding: 0.5rem 0.25rem;
+  }
+  .sign li > a strong {
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .sign li > a small {
+    font-size: 0.74rem;
+    line-height: 1.3;
+    color: var(--s-muted);
+    max-width: 22ch;
+  }
+  .sign li > a:hover strong,
+  .sign li > a:focus-visible strong { text-decoration: underline; text-underline-offset: 0.15em; }
+  .sign li > a:focus-visible { outline: 3px solid var(--s-ink); outline-offset: 2px; }
+
+  .sign :global(.sign__glyph) { width: 2.5rem; height: 2.5rem; }
+  .sign__cluster { display: flex; gap: 0.15rem; justify-content: center; }
+  .sign__cluster :global(.sign__glyph) { width: 2.25rem; height: 2.25rem; }
+
+  /* Acceptable: clusters, two across. */
+  .sign__groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    align-content: space-evenly;
+    gap: var(--space-3, 0.75rem) var(--space-2, 0.5rem);
+    background: var(--s-body);
+    padding: var(--space-4, 1.25rem) var(--gutter, 1rem);
+  }
+  .sign__groups strong { font-size: 0.88rem; }
+
+  /* Not acceptable: single items, three across, and the rail beside them. */
+  .sign__right {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    background: var(--s-body);
+  }
+  .sign__entries {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2, 0.5rem) 0.25rem;
+    padding: var(--space-4, 1.25rem) var(--gutter, 1rem);
+  }
+
+  /* The rail: what needs a special trip. */
+  .sign__rail {
+    background: var(--s-rail-bg);
+    color: var(--s-rail);
+    border-top: 1px solid rgba(43, 40, 34, 0.12);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sign__rail-heading {
+    margin: 0;
+    padding: var(--space-3, 0.75rem) var(--gutter, 1rem) 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--s-ink);
+  }
+  .sign__entries--rail {
+    grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+    padding-top: var(--space-2, 0.5rem);
+  }
+  .sign__entries--rail :global(.sign__glyph) { width: 2.1rem; height: 2.1rem; }
+
+  /* ── Footer: brand where the city seal goes ───────────────────────────── */
+  .sign__foot {
+    grid-area: foot;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3, 0.75rem);
+    padding: var(--space-3, 0.9rem) var(--gutter, 1rem);
+  }
+  .sign__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--s-ink);
+    text-decoration: none;
+    border-radius: var(--radius);
+  }
+  .sign__brand:focus-visible { outline: 3px solid var(--s-ink); outline-offset: 3px; }
+  .sign__brand img { width: 2.75rem; height: 2.75rem; object-fit: contain; }
+  .sign__brand span { display: grid; line-height: 1.15; }
+  .sign__brand strong { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.01em; }
+  .sign__brand small { font-size: 0.72rem; color: var(--s-muted); }
+  .sign__code--foot { display: inline; }
+
+  /* ── More-info bar: a strip on phones, a spine on desktop ─────────────── */
+  .sign__bar {
+    grid-area: bar;
+    display: grid;
+    place-items: center;
+    padding: 0.7rem var(--gutter, 1rem);
+    background: var(--s-frame);
+    color: var(--s-white);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+  }
+  .sign__bar:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+  .sign__bar:focus-visible { outline: 3px solid var(--s-white); outline-offset: -5px; }
+
+  /* ── sm 600: the two halves sit side by side ──────────────────────────── */
+  @media (min-width: 600px) {
+    .sign__board { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+    .sign__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sign__half--yes { border-right: 2px solid var(--s-ink); }
+  }
+
+  /* ── md 900: the full printed layout — spine, vertical bar, side rail ─── */
+  @media (min-width: 900px) {
+    .sign {
+      grid-template-columns: 2.25rem minmax(0, 1fr) 3rem;
+      grid-template-areas:
+        'spine title bar'
+        'spine board bar'
+        'spine foot  bar';
+    }
+    .sign__spine { display: block; }
+    .sign__code--foot { display: none; }
+    .sign__board { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr); }
+    .sign__right { grid-template-columns: minmax(0, 1fr) minmax(7.25rem, 0.36fr); }
+    .sign__rail {
+      border-top: 0;
+      border-left: 1px solid rgba(43, 40, 34, 0.12);
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    .sign__rail-heading {
+      padding: var(--space-3, 0.75rem) 0.4rem;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.78rem;
+      align-self: center;
+    }
+    .sign__entries--rail {
+      grid-template-columns: minmax(0, 1fr);
+      align-content: space-evenly;
+      padding-inline: 0.35rem;
+    }
+    .sign__bar {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      padding: var(--gutter, 1rem) 0.6rem;
+      font-size: 0.95rem;
+    }
+    .sign__bar:focus-visible { outline-offset: -5px; }
+  }
+
+  /* ── lg 1200: room for the original's generous cells ──────────────────── */
+  @media (min-width: 1200px) {
+    .sign :global(.sign__glyph) { width: 2.9rem; height: 2.9rem; }
+    .sign__cluster :global(.sign__glyph) { width: 2.6rem; height: 2.6rem; }
+    .sign li > a strong { font-size: 0.82rem; }
+    .sign__groups strong { font-size: 0.95rem; }
+    .sign__groups, .sign__entries { padding: var(--space-5, 1.75rem) var(--space-4, 1.25rem); }
+  }
+</style>

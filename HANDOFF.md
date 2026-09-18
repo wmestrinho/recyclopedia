@@ -4,6 +4,33 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## ✅ The curbside sign — 2026-09-17 (Mac Claude Code, Fable 5.1)
+
+- **The homepage now carries the "what should be recycled?" board** in the
+  layout municipal solid-waste departments print (the owner supplied a City of
+  Kissimmee sign as the reference): `src/components/CurbsideSign.astro`, content
+  in `src/data/signs.ts` (`CURBSIDE_SIGN`). It sits in `#home` directly under
+  the hero grid, before the tiers block. The owner asked for it as **a template
+  for displaying our lists and categories** — a second sign is a second
+  `SignSpec` and one more `<CurbsideSign spec={…} />`.
+- **Content is data, not copy.** Groups and entries reference item slugs;
+  `resolveSign` throws at build time on a missing slug. The acceptable half is
+  the four groups whose items are `status: curbside`; the red half is nine
+  `no` / common-contaminant items; the rail is batteries, electronics, bulbs,
+  paint and oil. Labels are authored; the click carries the item's real name
+  into the Lookup (`window` event `recyclopedia:search`).
+- **Astro gotcha, worth remembering:** markup injected with `set:html` does not
+  get the component's `data-astro-cid-*` attribute, so scoped rules never match
+  it. The glyphs carry `fill`/`stroke` as presentation attributes and the size
+  rules use `:global(.sign__glyph)`. The first build shipped black silhouettes.
+- **Verified locally** (Playwright Chromium against `python3 -m http.server` on
+  `dist`) at 1280 / 900 / 600 / 390-dark / 320: no sideways scroll, no page
+  errors, and a click on a cell activates the Lookup page with the query filled
+  and one card returned. The fixed header overlaps element screenshots taken at
+  the top of the page — that is the harness, not the layout.
+- Version `0.8.6-alpha.1 → 0.8.7-alpha.1`. Auto-deploy is still broken (see
+  CLAUDE.md); deployed with the manual fallback and the live footer checked.
+
 ## 🔶 Card C.2 built and switched off — Tier 3 is two switches from live — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - **The whole photo tier now exists, dark.** To go live after C.0:

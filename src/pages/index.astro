@@ -1,5 +1,7 @@
 ---
 import Lookup from '../components/Lookup.svelte';
+import CurbsideSign from '../components/CurbsideSign.astro';
+import { CURBSIDE_SIGN } from '../data/signs';
 import { ITEMS, CATEGORIES } from '../data/items';
 import versionSource from '../../VERSION?raw';
 
@@ -126,6 +128,10 @@ const categoryCount = CATEGORIES.filter((c) => c !== 'All').length;
           </div>
         </aside>
       </div>
+
+      <!-- The curbside sign: what goes in the bin, in the layout every
+           solid-waste department prints — filled from our own item data. -->
+      <CurbsideSign spec={CURBSIDE_SIGN} code={version} />
 
       <!-- Trickle-down tier engine -->
       <div class="section-block" id="tiers">
