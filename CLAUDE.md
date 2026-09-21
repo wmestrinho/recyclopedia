@@ -81,7 +81,7 @@ item does **not** close the GitHub issue. Standard:
 
 ## Version Rule
 
-Versioning, CHANGELOG, LICENSE, and CI conventions: see `ap-ops-workspace/PROJECT-RULES.md`.
+Versioning, CHANGELOG, LICENSE, and CI conventions: see [`ap-ops/docs/PROJECT-RULES.md`](https://github.com/wmestrinho/ap-ops/blob/main/docs/PROJECT-RULES.md).
 
 ## Before Committing
 
