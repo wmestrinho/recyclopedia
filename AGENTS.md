@@ -39,9 +39,9 @@ Version rule
 - Bump `VERSION` + `package.json` together and add a `CHANGELOG.md` entry for any
   meaningful change. CI (`.github/workflows/version-check.yml`) fails a PR that
   touches non-doc files without bumping `VERSION`.
-- Fuller conventions: `ap-ops-workspace/PROJECT-RULES.md` — **this file does not
-  exist yet** (checked 2026-09-15; the repo is `ap-ops`, and nothing named
-  PROJECT-RULES.md is in it). Treat the rules above as authoritative until it does.
+- Fuller conventions: [`ap-ops/docs/PROJECT-RULES.md`](https://github.com/wmestrinho/ap-ops/blob/main/docs/PROJECT-RULES.md) —
+  canonical for every AP repo since 2026-09-21 (Pit Board `G`); the rules above
+  restate it and must not drift from it.
 
 Deployment
 - Cloudflare Pages (project `recyclopedia`): `npm run build && npx wrangler pages deploy dist --project-name=recyclopedia --branch=main`
