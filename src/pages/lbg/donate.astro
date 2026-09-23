@@ -1,0 +1,73 @@
+---
+// lettucebeetgrapefruit.com/donate/ — Donate Electronics (Pit Board E, 2026-09-21).
+// Built at /lbg/donate/; functions/_middleware.js serves it at /donate on the
+// .com host. The form, the sign and the item list moved here from the
+// recyclopedia.cc homepage; recyclopedia.cc keeps the sign and links here.
+import LbgFooter from '../../components/LbgFooter.astro';
+import LbgHeader from '../../components/LbgHeader.astro';
+import CurbsideSign from '../../components/CurbsideSign.astro';
+import DonateForm from '../../components/DonateForm.astro';
+import { DONATION_SIGN } from '../../data/signs';
+import versionSource from '../../../VERSION?raw';
+
+const version = `v${versionSource.trim()}`;
+const title = 'Donate Electronics — Lettuce Beet Grapefruit';
+const description =
+  'Donate working or broken electronics in the Orlando area. Devices are wiped, repaired, used as teaching material in LBG repair workshops, or recycled responsibly.';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href="https://lettucebeetgrapefruit.com/donate/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lettuce Beet Grapefruit" />
+  <meta property="og:url" content="https://lettucebeetgrapefruit.com/donate/" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
+  <meta property="og:image:alt" content="Hand-painted lettuce leaf, beet, and grapefruit — the Lettuce Beet Grapefruit mark" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://recyclopedia.cc/images/lbg/lbg-trio-mark.webp" />
+  <link rel="icon" type="image/png" href="/images/lbg/lbg-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href={`/css/style.css?v=${version}`} />
+  <link rel="stylesheet" href={`/css/lbg-theme.css?v=${version}`} />
+  <link rel="stylesheet" href={`/css/board.css?v=${version}`} />
+</head>
+<body class="lbg-site lbg-community">
+  <a class="skip-link" href="#donate">Skip to content</a>
+  <LbgHeader surface="community" />
+
+  <main class="site-shell" id="donate">
+    <section class="lbg-section" aria-labelledby="donate-title">
+      <div class="lbg-section__heading">
+        <p class="lbg-kicker">Donate technology</p>
+        <h1 id="donate-title">Give your devices a second life.</h1>
+        <p>
+          Working or broken, we take electronics. Every device is wiped, then
+          repaired, used as teaching material in our repair workshops, or
+          recycled properly. Nothing goes to a landfill.
+        </p>
+      </div>
+
+      <CurbsideSign spec={DONATION_SIGN} id="donation-sign" code={version} permalink="https://recyclopedia.cc/signs/donate" engine="https://recyclopedia.cc" />
+
+      <div id="donation-form-anchor" style="margin-top: 2rem;">
+        <DonateForm />
+      </div>
+    </section>
+  </main>
+
+  <LbgFooter surface="community" />
+  <script is:inline src="/js/donate.js"></script>
+</body>
+</html>
