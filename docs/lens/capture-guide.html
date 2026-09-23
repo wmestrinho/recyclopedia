@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>Lens Photo Shot List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Share+Tech+Mono&display=swap">
+<style>
+:root {
+  --paper: #efe9db; --card: #fcfaf4; --ink: #2b2822; --muted: #6f6858; --rule: #d6cdb8;
+  --grid: rgba(43, 40, 34, 0.06);
+  --lettuce: #57862f; --beet: #8a2450; --grapefruit: #c9431f; --tone: var(--lettuce);
+  --display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Share Tech Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #1d1b17; --card: #27241f; --ink: #efe9db; --muted: #b3aa96; --rule: #3d3830;
+    --grid: rgba(239, 233, 219, 0.05);
+    --lettuce: #8dbb5f; --beet: #e07aa8; --grapefruit: #f08a62;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #1d1b17; --card: #27241f; --ink: #efe9db; --muted: #b3aa96; --rule: #3d3830;
+  --grid: rgba(239, 233, 219, 0.05);
+  --lettuce: #8dbb5f; --beet: #e07aa8; --grapefruit: #f08a62;
+}
+body {
+  background: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.22rem; }
+a { color: inherit; text-underline-offset: 2px; }
+code, .file { font-family: var(--mono); font-size: 0.92em; }
+.eyebrow { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; color: var(--muted); margin: 0 0 0.5rem; }
+.lede { max-width: 65ch; color: var(--muted); font-size: 1.05rem; margin: 0.8rem 0 0; }
+.progress { font-family: var(--mono); display: inline-block; margin: 1rem 0 0; padding: 0.25rem 0.6rem; border: 1px solid var(--ink); border-radius: 4px; }
+.rules { margin-top: 2rem; background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 1.1rem 1.25rem; }
+.rules ol { margin: 0.75rem 0 0; padding-left: 1.3rem; display: grid; gap: 0.45rem; max-width: 75ch; }
+.rules p { max-width: 70ch; }
+.jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1.75rem 0 0; }
+.jump a { text-decoration: none; font-size: 0.88rem; font-weight: 600; padding: 0.35rem 0.7rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--card); min-height: 32px; display: inline-flex; align-items: center; }
+.jump a:focus-visible, button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.cat { margin-top: 2.5rem; scroll-margin-top: 16px; }
+.cat--beet { --tone: var(--beet); }
+.cat--grapefruit { --tone: var(--grapefruit); }
+.cat > h2 { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; border-bottom: 2px solid var(--tone); padding-bottom: 0.35rem; }
+.count { font-family: var(--mono); font-size: 0.85rem; font-weight: 400; color: var(--muted); }
+.grid { display: grid; gap: 14px; margin-top: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); }
+.shot { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+.shot figure { margin: 0; }
+.shot img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: var(--paper); }
+.shot figcaption { font-size: 0.74rem; color: var(--muted); padding: 0.4rem 0.75rem 0; line-height: 1.4; }
+.shot .body { padding: 0.6rem 0.85rem 0.85rem; display: grid; gap: 0.45rem; flex: 1; align-content: start; }
+.meta { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.num { font-family: var(--mono); font-size: 0.85rem; color: var(--card); background: var(--tone); border-radius: 3px; padding: 0.05rem 0.4rem; }
+.file { overflow-wrap: anywhere; color: var(--tone); }
+dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.6rem; font-size: 0.93rem; }
+dt { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; color: var(--muted); padding-top: 0.2rem; }
+dd { margin: 0; }
+.done { display: inline-flex; gap: 0.5rem; align-items: center; font-weight: 600; font-size: 0.9rem; min-height: 36px; margin-top: auto; cursor: pointer; }
+.done input { width: 20px; height: 20px; accent-color: var(--tone); }
+.shot:has(.done input:checked) { border-color: var(--tone); }
+.codebox { overflow-x: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; margin: 0.75rem 0; }
+.codebox pre { margin: 0; padding: 0.8rem 1rem; font-family: var(--mono); font-size: 0.82rem; }
+button { font: inherit; font-weight: 600; min-height: 40px; padding: 0.4rem 0.9rem; border-radius: 6px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; }
+.foot { margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; display: grid; gap: 0.5rem; }
+.foot p { margin: 0; max-width: 80ch; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">Recyclopedia · photo scanner benchmark</p>
+  <h1>Forty photos, one object each</h1>
+  <p class="lede">The photo scanner is built and switched off until we know how often it is right on real phone photos. This is the shot list: what to photograph, how, and what to avoid, with an openly licensed photo of each as an example. Your photos should look <em>less</em> tidy than the examples: a real counter, a real garage, whatever light the room has.</p>
+  <p class="progress" id="progress" aria-live="polite">0 of 40 taken</p>
+</header>
+
+<section class="rules" aria-labelledby="rules-title">
+  <h2 id="rules-title">Before you start</h2>
+  <ol>
+    <li><strong>Turn off location in photos.</strong> iPhone: Settings → Privacy &amp; Security → Location Services → Camera → Never. The folder must not carry your home address.</li>
+    <li><strong>Save as JPEG.</strong> iPhone: Settings → Camera → Formats → Most Compatible.</li>
+    <li><strong>One object, filling about two thirds of the frame.</strong> Normal 1× camera, no zoom, no portrait mode, no filters.</li>
+    <li><strong>Whatever light the room has.</strong> No flash.</li>
+    <li><strong>Nothing personal in frame.</strong> No faces, no addresses on labels, no lit screens.</li>
+    <li><strong>Name each file as shown on its card</strong> (e.g. <code>01-aluminum-can.jpg</code>). The name is the answer the scanner has to find, so a card and its file must match.</li>
+    <li><strong>Drop them in Google Drive:</strong> <code>RandDRecyclopedia/lens-fixtures/</code>. They never go into the public repository.</li>
+  </ol>
+</section>
+
+<nav class="jump" aria-label="Categories"><a href="#cat-metal">Metal</a><a href="#cat-plastic">Plastic</a><a href="#cat-paper">Paper</a><a href="#cat-glass">Glass</a><a href="#cat-electronics">Electronics</a><a href="#cat-batteries">Batteries</a><a href="#cat-hazardous">Hazardous</a><a href="#cat-textiles">Textiles</a><a href="#cat-organics">Organics</a><a href="#cat-rubber">Rubber</a><a href="#cat-bulky">Bulky</a><a href="#cat-deliberately">Deliberately bad</a></nav>
+
+<section class="cat cat--lettuce" aria-labelledby="cat-metal"><h2 id="cat-metal">Metal <span class="count">4 shots</span></h2><div class="grid"><article class="shot" id="shot-01">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Can_of_Diet_Sierra_Mist_lemon-lime_soda%2C_2011.jpg/960px-Can_of_Diet_Sierra_Mist_lemon-lime_soda%2C_2011.jpg" alt="Example: An empty drink can, standing up." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Can_of_Diet_Sierra_Mist_lemon-lime_soda,_2011.jpg" target="_blank" rel="noopener">DimiTalen</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">01</span><code class="file">01-aluminum-can.jpg</code></div>
+    <h3>An empty drink can, standing up.</h3>
+    <dl>
+      <dt>How</dt><dd>Stand it on the kitchen counter. Shoot from the side at can height so the shape and the ring pull both show.</dd>
+      <dt>Avoid</dt><dd>Crushing it first. A crushed can is a different photo.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-01" data-shot="01"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-02">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/A_can_of_baked_beans.jpg/960px-A_can_of_baked_beans.jpg" alt="Example: An empty food can (soup, beans, tomatoes), label on or off." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:A_can_of_baked_beans.jpg" target="_blank" rel="noopener">Hockeytown11</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">02</span><code class="file">02-steel-tin-can.jpg</code></div>
+    <h3>An empty food can (soup, beans, tomatoes), label on or off.</h3>
+    <dl>
+      <dt>How</dt><dd>Rinse it, stand it up, shoot from slightly above so the rim shows. Holding it in your hand is fine.</dd>
+      <dt>Avoid</dt><dd>A lid still hanging off by a sharp edge. Press it in first.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-02" data-shot="02"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-03">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Lata_de_spray_congelante.jpg/960px-Lata_de_spray_congelante.jpg" alt="Example: An empty spray can (air freshener, cooking spray, deodorant)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Lata_de_spray_congelante.jpg" target="_blank" rel="noopener">Nave do Conhecimento</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">03</span><code class="file">03-aerosol-can-empty.jpg</code></div>
+    <h3>An empty spray can (air freshener, cooking spray, deodorant).</h3>
+    <dl>
+      <dt>How</dt><dd>Upright, cap on, on a counter or shelf. Fill the frame top to bottom.</dd>
+      <dt>Avoid</dt><dd>Pressing the nozzle to check it is empty while you shoot.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-03" data-shot="03"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-04">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Assortment_of_rusty_pipes_4.jpg/960px-Assortment_of_rusty_pipes_4.jpg" alt="Example: A piece of scrap metal: an old pipe, bracket, hinge, a pan without its handle." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Assortment_of_rusty_pipes_4.jpg" target="_blank" rel="noopener">W.carter</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">04</span><code class="file">04-scrap-metal.jpg</code></div>
+    <h3>A piece of scrap metal: an old pipe, bracket, hinge, a pan without its handle.</h3>
+    <dl>
+      <dt>How</dt><dd>Lay it on the garage floor or a workbench. One piece, or a few of the same kind.</dd>
+      <dt>Avoid</dt><dd>A mixed pile of metal and other junk.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-04" data-shot="04"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-plastic"><h2 id="cat-plastic">Plastic <span class="count">5 shots</span></h2><div class="grid"><article class="shot" id="shot-05">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Bottle_of_Water.jpg/960px-Bottle_of_Water.jpg" alt="Example: A clear plastic water or soda bottle (#1 PET), cap on." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Bottle_of_Water.jpg" target="_blank" rel="noopener">Jiafei Slay Queen</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">05</span><code class="file">05-plastic-bottle-pet.jpg</code></div>
+    <h3>A clear plastic water or soda bottle (#1 PET), cap on.</h3>
+    <dl>
+      <dt>How</dt><dd>Stand it up against a plain wall. Clear plastic hides against busy backgrounds.</dd>
+      <dt>Avoid</dt><dd>A window behind it: the bottle disappears into the light.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-05" data-shot="05"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-06">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Square_milk_jug_side.JPG/960px-Square_milk_jug_side.JPG" alt="Example: A milk or juice jug (#2 HDPE), rinsed." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Square_milk_jug_side.JPG" target="_blank" rel="noopener">Kelapstick</a>, <a href="https://commons.wikimedia.org/wiki/Template:PD-user" target="_blank" rel="noopener">Public domain</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">06</span><code class="file">06-plastic-jug-hdpe.jpg</code></div>
+    <h3>A milk or juice jug (#2 HDPE), rinsed.</h3>
+    <dl>
+      <dt>How</dt><dd>Side view with the handle visible. The kitchen counter is fine.</dd>
+      <dt>Avoid</dt><dd>Showing only the bottom with the recycling number.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-06" data-shot="06"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-07">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/White_plastic_bag_on_brown_wooden_table.jpg/960px-White_plastic_bag_on_brown_wooden_table.jpg" alt="Example: A plastic shopping bag." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:White_plastic_bag_on_brown_wooden_table.jpg" target="_blank" rel="noopener">999real</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">07</span><code class="file">07-plastic-bag-film.jpg</code></div>
+    <h3>A plastic shopping bag.</h3>
+    <dl>
+      <dt>How</dt><dd>Lay it flat on a dark table so its edges show, or hold it up by the handles.</dd>
+      <dt>Avoid</dt><dd>A bag stuffed inside another bag.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-07" data-shot="07"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-08">
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Physical_weathering_styrofoam_cup_Lake_Michigan_obverse.jpg" alt="Example: A foam cup, tray or packing block (#6 polystyrene)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Physical_weathering_styrofoam_cup_Lake_Michigan_obverse.jpg" target="_blank" rel="noopener">Visviva</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">08</span><code class="file">08-styrofoam-foam-ps.jpg</code></div>
+    <h3>A foam cup, tray or packing block (#6 polystyrene).</h3>
+    <dl>
+      <dt>How</dt><dd>On a dark surface: white foam vanishes on a white counter.</dd>
+      <dt>Avoid</dt><dd>Crumbs of foam everywhere. One piece, whole or broken.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-08" data-shot="08"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-09">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Raffi_kojian-yogurt-102247039.jpg/960px-Raffi_kojian-yogurt-102247039.jpg" alt="Example: A yogurt cup or tub (#5 PP)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Raffi_kojian-yogurt-102247039.jpg" target="_blank" rel="noopener">RaffiKojian</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">09</span><code class="file">09-yogurt-container-pp.jpg</code></div>
+    <h3>A yogurt cup or tub (#5 PP).</h3>
+    <dl>
+      <dt>How</dt><dd>Empty and rinsed, lid on or beside it. Shoot at a slight angle so the depth shows.</dd>
+      <dt>Avoid</dt><dd>Shooting it on a store shelf among many others (the example does; yours should not).</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-09" data-shot="09"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-paper"><h2 id="cat-paper">Paper <span class="count">4 shots</span></h2><div class="grid"><article class="shot" id="shot-10">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Asaxiy_jo%CA%BBnatmasi.jpg/960px-Asaxiy_jo%CA%BBnatmasi.jpg" alt="Example: A clean, dry cardboard box." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Asaxiy_jo%CA%BBnatmasi.jpg" target="_blank" rel="noopener">Anjaniy</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">10</span><code class="file">10-cardboard-clean-dry.jpg</code></div>
+    <h3>A clean, dry cardboard box.</h3>
+    <dl>
+      <dt>How</dt><dd>A shipping box on the floor or held in one hand. Tape on is fine.</dd>
+      <dt>Avoid</dt><dd>Your name and address on the shipping label. Peel it off or turn the box around.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-10" data-shot="10"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-11">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Newspaper_20250330_120826.jpg/960px-Newspaper_20250330_120826.jpg" alt="Example: A newspaper, or a small stack of them." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Newspaper_20250330_120826.jpg" target="_blank" rel="noopener">Ka23 13</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">11</span><code class="file">11-newspaper.jpg</code></div>
+    <h3>A newspaper, or a small stack of them.</h3>
+    <dl>
+      <dt>How</dt><dd>Folded, on a table. A stack is fine if it is only newspaper.</dd>
+      <dt>Avoid</dt><dd>Mixing in magazines or mail.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-11" data-shot="11"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-12">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Pizza_Box_%2849522718298%29.jpg/960px-Pizza_Box_%2849522718298%29.jpg" alt="Example: A pizza box, the clean top half if you have one." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Pizza_Box_(49522718298).jpg" target="_blank" rel="noopener">Mike Licht from Washington, DC, USA</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">12</span><code class="file">12-pizza-box-clean-top-half.jpg</code></div>
+    <h3>A pizza box, the clean top half if you have one.</h3>
+    <dl>
+      <dt>How</dt><dd>Closed, from above, on the counter or floor.</dd>
+      <dt>Avoid</dt><dd>An open box full of leftovers (that is organics, not this shot).</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-12" data-shot="12"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-13">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Smiling_paper_coffee_cup.jpg/960px-Smiling_paper_coffee_cup.jpg" alt="Example: A disposable paper coffee cup, lid on." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Smiling_paper_coffee_cup.jpg" target="_blank" rel="noopener">Henry Söderlund</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">13</span><code class="file">13-paper-coffee-cup.jpg</code></div>
+    <h3>A disposable paper coffee cup, lid on.</h3>
+    <dl>
+      <dt>How</dt><dd>Stand it on a table and shoot from the side at cup height.</dd>
+      <dt>Avoid</dt><dd>A reusable mug: it is a different item.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-13" data-shot="13"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-glass"><h2 id="cat-glass">Glass <span class="count">3 shots</span></h2><div class="grid"><article class="shot" id="shot-14">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Clear_glass_bottle_with_cork_stopper_is_displayed_on_a_wooden_surface_near_a_window_in_soft_natural_light.jpg/960px-Clear_glass_bottle_with_cork_stopper_is_displayed_on_a_wooden_surface_near_a_window_in_soft_natural_light.jpg" alt="Example: A clear glass bottle." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Clear_glass_bottle_with_cork_stopper_is_displayed_on_a_wooden_surface_near_a_window_in_soft_natural_light.jpg" target="_blank" rel="noopener">Shixart1985</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">14</span><code class="file">14-glass-bottle-clear.jpg</code></div>
+    <h3>A clear glass bottle.</h3>
+    <dl>
+      <dt>How</dt><dd>Upright against a plain wall, like the PET bottle. A label is fine.</dd>
+      <dt>Avoid</dt><dd>A bottle with a drink still in it.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-14" data-shot="14"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-15">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Mason_jar_01.JPG/960px-Mason_jar_01.JPG" alt="Example: A glass food jar (jam, pickles, pasta sauce), lid on." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Mason_jar_01.JPG" target="_blank" rel="noopener">Witia</a>, <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">15</span><code class="file">15-glass-food-jar.jpg</code></div>
+    <h3>A glass food jar (jam, pickles, pasta sauce), lid on.</h3>
+    <dl>
+      <dt>How</dt><dd>On the counter, at a slight angle so the lid and the glass both show.</dd>
+      <dt>Avoid</dt><dd>A plastic jar that looks like glass. Tap it if unsure.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-15" data-shot="15"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-16">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/PlainMug.jpg/960px-PlainMug.jpg" alt="Example: A ceramic mug or plate." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:PlainMug.jpg" target="_blank" rel="noopener">Henning Makholm</a>, <a href="https://commons.wikimedia.org/wiki/Template:PD-user-en" target="_blank" rel="noopener">Public domain</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">16</span><code class="file">16-ceramics-pottery.jpg</code></div>
+    <h3>A ceramic mug or plate.</h3>
+    <dl>
+      <dt>How</dt><dd>One mug on a table, handle to the side.</dd>
+      <dt>Avoid</dt><dd>A glass mug: ceramics are the point of this shot.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-16" data-shot="16"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-electronics"><h2 id="cat-electronics">Electronics <span class="count">4 shots</span></h2><div class="grid"><article class="shot" id="shot-17">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Galaxy_Note_4_on_White_Table_1.jpg/960px-Galaxy_Note_4_on_White_Table_1.jpg" alt="Example: A smartphone, screen off." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Galaxy_Note_4_on_White_Table_1.jpg" target="_blank" rel="noopener">Douglas Perkins</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">17</span><code class="file">17-smartphone.jpg</code></div>
+    <h3>A smartphone, screen off.</h3>
+    <dl>
+      <dt>How</dt><dd>Lay it on a plain table, screen up, at a slight angle.</dd>
+      <dt>Avoid</dt><dd>A lit screen showing messages, photos or notifications.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-17" data-shot="17"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-18">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Laptop%2C_Small_notebook%2C_Netbook%2C_Rostov-on-Don%2C_Russia.jpg/960px-Laptop%2C_Small_notebook%2C_Netbook%2C_Rostov-on-Don%2C_Russia.jpg" alt="Example: A laptop, lid open." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Laptop,_Small_notebook,_Netbook,_Rostov-on-Don,_Russia.jpg" target="_blank" rel="noopener">Vyacheslav Argenberg</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">18</span><code class="file">18-laptop-notebook-computer.jpg</code></div>
+    <h3>A laptop, lid open.</h3>
+    <dl>
+      <dt>How</dt><dd>On a desk, shot from the front and a little above.</dd>
+      <dt>Avoid</dt><dd>Anything personal on the screen. Close apps or turn it off.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-18" data-shot="18"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-19">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Black_Computer_keyboard.jpg/960px-Black_Computer_keyboard.jpg" alt="Example: A computer keyboard, a mouse, or both." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Black_Computer_keyboard.jpg" target="_blank" rel="noopener">Samiknoov</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">19</span><code class="file">19-keyboard-mouse.jpg</code></div>
+    <h3>A computer keyboard, a mouse, or both.</h3>
+    <dl>
+      <dt>How</dt><dd>From above on the desk, the whole keyboard in frame.</dd>
+      <dt>Avoid</dt><dd>Cutting off one end of the keyboard.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-19" data-shot="19"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-20">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Bad_USB-C_cable.agr.jpg/960px-Bad_USB-C_cable.agr.jpg" alt="Example: A charging cable, coiled." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Bad_USB-C_cable.agr.jpg" target="_blank" rel="noopener">ArnoldReinhold</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">20</span><code class="file">20-charging-cables-cords.jpg</code></div>
+    <h3>A charging cable, coiled.</h3>
+    <dl>
+      <dt>How</dt><dd>Coil it loosely on a table so both connectors show.</dd>
+      <dt>Avoid</dt><dd>A tangle of several cables (a bundle is a different shot).</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-20" data-shot="20"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--beet" aria-labelledby="cat-batteries"><h2 id="cat-batteries">Batteries <span class="count">4 shots</span></h2><div class="grid"><article class="shot" id="shot-21">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/IKEA_LADDA_rechargeable_AA-batteries.jpg/960px-IKEA_LADDA_rechargeable_AA-batteries.jpg" alt="Example: AA or AAA alkaline batteries (a few)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:IKEA_LADDA_rechargeable_AA-batteries.jpg" target="_blank" rel="noopener">RAIL P (RAIL.PHOTOGRAPHY)</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">21</span><code class="file">21-alkaline-battery-aa-aaa-9v.jpg</code></div>
+    <h3>AA or AAA alkaline batteries (a few).</h3>
+    <dl>
+      <dt>How</dt><dd>Two to four batteries on a table, labels up. The example shows rechargeable AAs: same framing; the printed label is what tells them apart.</dd>
+      <dt>Avoid</dt><dd>Batteries still inside a remote or toy.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-21" data-shot="21"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-22">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Button_Cell_Battery_%2829545182424%29.jpg/960px-Button_Cell_Battery_%2829545182424%29.jpg" alt="Example: A coin cell (CR2032 or similar)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Button_Cell_Battery_(29545182424).jpg" target="_blank" rel="noopener">I G</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">22</span><code class="file">22-button-coin-cell.jpg</code></div>
+    <h3>A coin cell (CR2032 or similar).</h3>
+    <dl>
+      <dt>How</dt><dd>Get close: it is small. Tap the screen to focus and keep it in the middle of the frame.</dd>
+      <dt>Avoid</dt><dd>Shooting from far away, where it becomes a dot.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-22" data-shot="22"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-23">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Photo-CarBattery.jpg/960px-Photo-CarBattery.jpg" alt="Example: A car battery." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg" target="_blank" rel="noopener">Shaddack</a>, <a href="https://commons.wikimedia.org/wiki/Template:PD-self" target="_blank" rel="noopener">Public domain</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">23</span><code class="file">23-car-battery-lead-acid.jpg</code></div>
+    <h3>A car battery.</h3>
+    <dl>
+      <dt>How</dt><dd>In the garage, from the front and a little above so the terminals show.</dd>
+      <dt>Avoid</dt><dd>Touching both terminals, or moving the battery only to take a photo.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-23" data-shot="23"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-24">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Counterfeit_Ryobi_18V_4Ah_battery_01.jpg/960px-Counterfeit_Ryobi_18V_4Ah_battery_01.jpg" alt="Example: A power-tool battery pack (drill, trimmer)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Counterfeit_Ryobi_18V_4Ah_battery_01.jpg" target="_blank" rel="noopener">Retired electrician</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">24</span><code class="file">24-power-tool-battery.jpg</code></div>
+    <h3>A power-tool battery pack (drill, trimmer).</h3>
+    <dl>
+      <dt>How</dt><dd>Off the tool, on a workbench, label side up.</dd>
+      <dt>Avoid</dt><dd>Leaving it on the tool: then it is a drill.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-24" data-shot="24"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--beet" aria-labelledby="cat-hazardous"><h2 id="cat-hazardous">Hazardous <span class="count">4 shots</span></h2><div class="grid"><article class="shot" id="shot-25">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Paint_bucket_and_brush.jpg/960px-Paint_bucket_and_brush.jpg" alt="Example: A can of paint." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Paint_bucket_and_brush.jpg" target="_blank" rel="noopener">Ionenlaser</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">25</span><code class="file">25-paint-latex-water-based.jpg</code></div>
+    <h3>A can of paint.</h3>
+    <dl>
+      <dt>How</dt><dd>Lid on, on the garage floor, from above at an angle so the lid and label both show.</dd>
+      <dt>Avoid</dt><dd>Opening a can just for the photo.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-25" data-shot="25"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-26">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Window_cleaner_and_an_empty_spray_bottle.jpg/960px-Window_cleaner_and_an_empty_spray_bottle.jpg" alt="Example: A household cleaner in its bottle (spray, bleach, drain cleaner)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Window_cleaner_and_an_empty_spray_bottle.jpg" target="_blank" rel="noopener">Corn cheese</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">26</span><code class="file">26-category-hazardous.jpg</code></div>
+    <h3>A household cleaner in its bottle (spray, bleach, drain cleaner).</h3>
+    <dl>
+      <dt>How</dt><dd>Upright on the counter or under the sink, label facing the camera.</dd>
+      <dt>Avoid</dt><dd>Opening or mixing cleaners. Never pour one into another.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-26" data-shot="26"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-27">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Compact_fluorescent_lamp.jpg/960px-Compact_fluorescent_lamp.jpg" alt="Example: A compact fluorescent bulb (the curly or folded-tube kind)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Compact_fluorescent_lamp.jpg" target="_blank" rel="noopener">Levente Fulop from Brno, Czech Republic</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">27</span><code class="file">27-fluorescent-bulb-cfl.jpg</code></div>
+    <h3>A compact fluorescent bulb (the curly or folded-tube kind).</h3>
+    <dl>
+      <dt>How</dt><dd>Switched off, on a table, lying down or standing on its base.</dd>
+      <dt>Avoid</dt><dd>A broken bulb. If one breaks, air out the room and skip this shot.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-27" data-shot="27"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-28">
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Motor_oil.JPG" alt="Example: A motor oil bottle." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Motor_oil.JPG" target="_blank" rel="noopener">Interiot (retouched by Where next Columbus? and H Padleckas)</a>, <a href="https://commons.wikimedia.org/wiki/Template:PD-self" target="_blank" rel="noopener">Public domain</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">28</span><code class="file">28-motor-oil.jpg</code></div>
+    <h3>A motor oil bottle.</h3>
+    <dl>
+      <dt>How</dt><dd>Cap on, upright on the garage floor or a shelf.</dd>
+      <dt>Avoid</dt><dd>Oil dripping down the outside. Wipe the bottle first.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-28" data-shot="28"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-textiles"><h2 id="cat-textiles">Textiles <span class="count">3 shots</span></h2><div class="grid"><article class="shot" id="shot-29">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/T-shirt_mocup.jpg/960px-T-shirt_mocup.jpg" alt="Example: A piece of clothing someone could still wear (T-shirt, sweater)." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:T-shirt_mocup.jpg" target="_blank" rel="noopener">EdaBojci</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">29</span><code class="file">29-clothing-wearable.jpg</code></div>
+    <h3>A piece of clothing someone could still wear (T-shirt, sweater).</h3>
+    <dl>
+      <dt>How</dt><dd>Folded, or laid flat on a bed or table, filling the frame.</dd>
+      <dt>Avoid</dt><dd>Your feet or legs in the shot (the example has them; yours should not).</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-29" data-shot="29"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-30">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Worn-out_torn_shabby_hole-ridden_grey_canvas_shoes_light_soles_dirty_used_broken_laces_Utg%C3%A5tte_slitte_hullete_fillete_gr%C3%A5_t%C3%B8ysko_med_lette_gr%C3%A5_plasts%C3%A5ler_s%C3%A5ler_brukte_skitne_%C3%B8delagte_skolisser_Norway_2025_IMG_1793.jpg/960px-thumbnail.jpg" alt="Example: A pair of shoes." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Worn-out_torn_shabby_hole-ridden_grey_canvas_shoes_light_soles_dirty_used_broken_laces_Utg%C3%A5tte_slitte_hullete_fillete_gr%C3%A5_t%C3%B8ysko_med_lette_gr%C3%A5_plasts%C3%A5ler_s%C3%A5ler_brukte_skitne_%C3%B8delagte_skolisser_Norway_2025_IMG_1793.jpg" target="_blank" rel="noopener">Wolfmann</a>, <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">30</span><code class="file">30-shoes.jpg</code></div>
+    <h3>A pair of shoes.</h3>
+    <dl>
+      <dt>How</dt><dd>Side by side on the floor, from the side and a little above.</dd>
+      <dt>Avoid</dt><dd>One shoe on a foot.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-30" data-shot="30"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-31">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Fabric_scraps_and_pin_cushions_%286281207987%29.jpg/960px-Fabric_scraps_and_pin_cushions_%286281207987%29.jpg" alt="Example: Fabric scraps or rags." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Fabric_scraps_and_pin_cushions_(6281207987).jpg" target="_blank" rel="noopener">Leslie Seaton from Seattle, WA, USA</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">31</span><code class="file">31-textiles-fabric-scraps.jpg</code></div>
+    <h3>Fabric scraps or rags.</h3>
+    <dl>
+      <dt>How</dt><dd>A small pile on a table.</dd>
+      <dt>Avoid</dt><dd>Clothes that still work: those are shot 29.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-31" data-shot="31"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-organics"><h2 id="cat-organics">Organics <span class="count">2 shots</span></h2><div class="grid"><article class="shot" id="shot-32">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Bio_seau.jpg/960px-Bio_seau.jpg" alt="Example: Food scraps: peels, cores, coffee grounds." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Bio_seau.jpg" target="_blank" rel="noopener">Benitronne</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">32</span><code class="file">32-food-scraps-organics.jpg</code></div>
+    <h3>Food scraps: peels, cores, coffee grounds.</h3>
+    <dl>
+      <dt>How</dt><dd>In a bowl or compost bin, from above.</dd>
+      <dt>Avoid</dt><dd>Packaging mixed into the scraps.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-32" data-shot="32"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-33">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Piece_of_wood_123424321.jpg/960px-Piece_of_wood_123424321.jpg" alt="Example: A piece of plain wood: an offcut, a plank, a pallet slat." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Piece_of_wood_123424321.jpg" target="_blank" rel="noopener">JohnnyEnglish1234</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">33</span><code class="file">33-category-organics.jpg</code></div>
+    <h3>A piece of plain wood: an offcut, a plank, a pallet slat.</h3>
+    <dl>
+      <dt>How</dt><dd>On the floor, the whole piece in frame.</dd>
+      <dt>Avoid</dt><dd>Painted or treated wood (that has a different answer).</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-33" data-shot="33"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-rubber"><h2 id="cat-rubber">Rubber <span class="count">2 shots</span></h2><div class="grid"><article class="shot" id="shot-34">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Old_Tire_%283863872768%29.jpg/960px-Old_Tire_%283863872768%29.jpg" alt="Example: A car tire." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Old_Tire_(3863872768).jpg" target="_blank" rel="noopener">dave_7 from Lethbridge, Canada</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">34</span><code class="file">34-tires.jpg</code></div>
+    <h3>A car tire.</h3>
+    <dl>
+      <dt>How</dt><dd>Lying flat or leaning against a wall, the whole tire in frame.</dd>
+      <dt>Avoid</dt><dd>A tire still on the car.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-34" data-shot="34"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-35">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Garden-gardening-hosepipe-tube_%2823957197619%29.jpg/960px-Garden-gardening-hosepipe-tube_%2823957197619%29.jpg" alt="Example: A garden hose." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Garden-gardening-hosepipe-tube_(23957197619).jpg" target="_blank" rel="noopener">www.Pixel.la Free Stock Photos</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">35</span><code class="file">35-category-rubber.jpg</code></div>
+    <h3>A garden hose.</h3>
+    <dl>
+      <dt>How</dt><dd>Loosely coiled on the ground.</dd>
+      <dt>Avoid</dt><dd>A hose on its reel: the reel becomes the subject.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-35" data-shot="35"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--lettuce" aria-labelledby="cat-bulky"><h2 id="cat-bulky">Bulky <span class="count">2 shots</span></h2><div class="grid"><article class="shot" id="shot-36">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Discarded_mattress_by_trash_bin_%2818822330575%29.jpg/960px-Discarded_mattress_by_trash_bin_%2818822330575%29.jpg" alt="Example: A mattress." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Discarded_mattress_by_trash_bin_(18822330575).jpg" target="_blank" rel="noopener">Eric Fischer</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">36</span><code class="file">36-mattress.jpg</code></div>
+    <h3>A mattress.</h3>
+    <dl>
+      <dt>How</dt><dd>Leaning against a wall, the whole mattress in frame. Step back.</dd>
+      <dt>Avoid</dt><dd>Shooting only a corner.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-36" data-shot="36"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-37">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Abandoned_gray_sofa.jpg/960px-Abandoned_gray_sofa.jpg" alt="Example: A big piece of furniture: an armchair, sofa or desk chair." loading="lazy" width="480" height="480">
+    <figcaption> Photo: <a href="https://commons.wikimedia.org/wiki/File:Abandoned_gray_sofa.jpg" target="_blank" rel="noopener">Fumikas Sagisavas</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">37</span><code class="file">37-category-bulky-goods.jpg</code></div>
+    <h3>A big piece of furniture: an armchair, sofa or desk chair.</h3>
+    <dl>
+      <dt>How</dt><dd>The whole piece, from a few steps back.</dd>
+      <dt>Avoid</dt><dd>People sitting on it.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-37" data-shot="37"> Taken</label>
+  </div>
+</article></div></section><section class="cat cat--grapefruit" aria-labelledby="cat-deliberately"><h2 id="cat-deliberately">Deliberately bad <span class="count">3 shots</span></h2><div class="grid"><article class="shot" id="shot-38">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Blurry_image_of_cat_walking.jpg/960px-Blurry_image_of_cat_walking.jpg" alt="Example: BLURRY: the drink can from shot 01." loading="lazy" width="480" height="480">
+    <figcaption>The example shows the <em>defect</em> on a different subject. Photo: <a href="https://commons.wikimedia.org/wiki/File:Blurry_image_of_cat_walking.jpg" target="_blank" rel="noopener">Big Slosh</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">38</span><code class="file">38-aluminum-can.jpg</code></div>
+    <h3>BLURRY: the drink can from shot 01.</h3>
+    <dl>
+      <dt>How</dt><dd>Move the phone as you press the shutter. The can is still the only thing in the frame, just smeared.</dd>
+      <dt>Avoid</dt><dd>A different object. The label stays aluminum-can, so it has to be a can.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-38" data-shot="38"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-39">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Underexposed_pollen_flower_%2825413776865%29.jpg/960px-Underexposed_pollen_flower_%2825413776865%29.jpg" alt="Example: DARK: the AA batteries from shot 21." loading="lazy" width="480" height="480">
+    <figcaption>The example shows the <em>defect</em> on a different subject. Photo: <a href="https://commons.wikimedia.org/wiki/File:Underexposed_pollen_flower_(25413776865).jpg" target="_blank" rel="noopener">Raita Futo from Tokyo, Japan</a>, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">39</span><code class="file">39-alkaline-battery-aa-aaa-9v.jpg</code></div>
+    <h3>DARK: the AA batteries from shot 21.</h3>
+    <dl>
+      <dt>How</dt><dd>Same framing as shot 21, in a dim room, flash off.</dd>
+      <dt>Avoid</dt><dd>Pure black. Dim, not dark.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-39" data-shot="39"> Taken</label>
+  </div>
+</article><article class="shot" id="shot-40">
+  <figure>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Gfp-office-desk-area.jpg/960px-Gfp-office-desk-area.jpg" alt="Example: CLUTTERED: your phone in a messy drawer or on a messy desk." loading="lazy" width="480" height="480">
+    <figcaption>The example shows the <em>defect</em> on a different subject. Photo: <a href="https://commons.wikimedia.org/wiki/File:Gfp-office-desk-area.jpg" target="_blank" rel="noopener">Yinan Chen</a>, <a href="https://web.archive.org/web/20230926203737/https://creativecommons.org/licenses/publicdomain/" target="_blank" rel="noopener">Public Domain</a>, via Wikimedia Commons</figcaption>
+  </figure>
+  <div class="body">
+    <div class="meta"><span class="num">40</span><code class="file">40-smartphone.jpg</code></div>
+    <h3>CLUTTERED: your phone in a messy drawer or on a messy desk.</h3>
+    <dl>
+      <dt>How</dt><dd>Put the phone somewhere busy (junk drawer, crowded desk) and shoot it where it lies, roughly in the middle of the frame.</dd>
+      <dt>Avoid</dt><dd>Letters, papers or screens that can be read.</dd>
+    </dl>
+    <label class="done"><input type="checkbox" id="done-40" data-shot="40"> Taken</label>
+  </div>
+</article></div></section>
+
+<section class="rules" aria-labelledby="labels-title">
+  <h2 id="labels-title">labels.json</h2>
+  <p>If the files are named as above, this is the <code>labels.json</code> for the folder. Skipped a shot? Delete its line.</p>
+  <div class="codebox"><pre id="labels">{
+  &quot;01-aluminum-can.jpg&quot;: &quot;aluminum-can&quot;,
+  &quot;02-steel-tin-can.jpg&quot;: &quot;steel-tin-can&quot;,
+  &quot;03-aerosol-can-empty.jpg&quot;: &quot;aerosol-can-empty&quot;,
+  &quot;04-scrap-metal.jpg&quot;: &quot;scrap-metal&quot;,
+  &quot;05-plastic-bottle-pet.jpg&quot;: &quot;plastic-bottle-pet&quot;,
+  &quot;06-plastic-jug-hdpe.jpg&quot;: &quot;plastic-jug-hdpe&quot;,
+  &quot;07-plastic-bag-film.jpg&quot;: &quot;plastic-bag-film&quot;,
+  &quot;08-styrofoam-foam-ps.jpg&quot;: &quot;styrofoam-foam-ps&quot;,
+  &quot;09-yogurt-container-pp.jpg&quot;: &quot;yogurt-container-pp&quot;,
+  &quot;10-cardboard-clean-dry.jpg&quot;: &quot;cardboard-clean-dry&quot;,
+  &quot;11-newspaper.jpg&quot;: &quot;newspaper&quot;,
+  &quot;12-pizza-box-clean-top-half.jpg&quot;: &quot;pizza-box-clean-top-half&quot;,
+  &quot;13-paper-coffee-cup.jpg&quot;: &quot;paper-coffee-cup&quot;,
+  &quot;14-glass-bottle-clear.jpg&quot;: &quot;glass-bottle-clear&quot;,
+  &quot;15-glass-food-jar.jpg&quot;: &quot;glass-food-jar&quot;,
+  &quot;16-ceramics-pottery.jpg&quot;: &quot;ceramics-pottery&quot;,
+  &quot;17-smartphone.jpg&quot;: &quot;smartphone&quot;,
+  &quot;18-laptop-notebook-computer.jpg&quot;: &quot;laptop-notebook-computer&quot;,
+  &quot;19-keyboard-mouse.jpg&quot;: &quot;keyboard-mouse&quot;,
+  &quot;20-charging-cables-cords.jpg&quot;: &quot;charging-cables-cords&quot;,
+  &quot;21-alkaline-battery-aa-aaa-9v.jpg&quot;: &quot;alkaline-battery-aa-aaa-9v&quot;,
+  &quot;22-button-coin-cell.jpg&quot;: &quot;button-coin-cell&quot;,
+  &quot;23-car-battery-lead-acid.jpg&quot;: &quot;car-battery-lead-acid&quot;,
+  &quot;24-power-tool-battery.jpg&quot;: &quot;power-tool-battery&quot;,
+  &quot;25-paint-latex-water-based.jpg&quot;: &quot;paint-latex-water-based&quot;,
+  &quot;26-category-hazardous.jpg&quot;: &quot;category:hazardous&quot;,
+  &quot;27-fluorescent-bulb-cfl.jpg&quot;: &quot;fluorescent-bulb-cfl&quot;,
+  &quot;28-motor-oil.jpg&quot;: &quot;motor-oil&quot;,
+  &quot;29-clothing-wearable.jpg&quot;: &quot;clothing-wearable&quot;,
+  &quot;30-shoes.jpg&quot;: &quot;shoes&quot;,
+  &quot;31-textiles-fabric-scraps.jpg&quot;: &quot;textiles-fabric-scraps&quot;,
+  &quot;32-food-scraps-organics.jpg&quot;: &quot;food-scraps-organics&quot;,
+  &quot;33-category-organics.jpg&quot;: &quot;category:organics&quot;,
+  &quot;34-tires.jpg&quot;: &quot;tires&quot;,
+  &quot;35-category-rubber.jpg&quot;: &quot;category:rubber&quot;,
+  &quot;36-mattress.jpg&quot;: &quot;mattress&quot;,
+  &quot;37-category-bulky-goods.jpg&quot;: &quot;category:bulky-goods&quot;,
+  &quot;38-aluminum-can.jpg&quot;: &quot;aluminum-can&quot;,
+  &quot;39-alkaline-battery-aa-aaa-9v.jpg&quot;: &quot;alkaline-battery-aa-aaa-9v&quot;,
+  &quot;40-smartphone.jpg&quot;: &quot;smartphone&quot;
+}</pre></div>
+  <button type="button" id="copy-labels">Copy labels.json</button> <span id="copy-state" aria-live="polite"></span>
+</section>
+
+<footer class="foot">
+  <p>Example photos are from Wikimedia Commons under CC0, public domain, or CC BY (2.0, 3.0, 4.0); the credit and licence are under each one. Each was checked by eye for watermarks and overlays. They show the <em>subject</em>; they are not the benchmark. Brand names printed on products belong to their owners.</p>
+  <p>Pit Board act5 · the manifest behind this page: <code>docs/lens/capture-examples.json</code> in the recyclopedia repository.</p>
+</footer>
+</div>
+<script>
+(function () {
+  var KEY = 'lens-shot-list-done';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[data-shot]'));
+  var progress = document.getElementById('progress');
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  function update() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    progress.textContent = n + ' of ' + boxes.length + ' taken';
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!saved[b.getAttribute('data-shot')];
+    b.addEventListener('change', function () {
+      saved[b.getAttribute('data-shot')] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* per-viewer convenience only */ }
+      update();
+    });
+  });
+  update();
+
+  var btn = document.getElementById('copy-labels');
+  var state = document.getElementById('copy-state');
+  var pre = document.getElementById('labels');
+  btn.addEventListener('click', function () {
+    var text = pre.textContent;
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(pre);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      state.textContent = 'Selected. Copy it with your keyboard or the Copy menu.';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { state.textContent = 'Copied.'; }, selectIt);
+    } else { selectIt(); }
+  });
+})();
+</script>
+
+</body>
+</html>
