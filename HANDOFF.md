@@ -4,6 +4,33 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Pit Board E: Donate Electronics moved to lettucebeetgrapefruit.com — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+- Branch `agent/seat2/donate-lbg` (stacked on `agent/seat2/dropoff-db`), PR
+  open, **not merged, not deployed**. The LBG .com site is this repo
+  (`/lbg`, host-routed by `functions/_middleware.js`), so the move is here.
+- **Built:** `src/pages/lbg/donate.astro` (served at
+  `lettucebeetgrapefruit.com/donate`) with the donation sign and the form
+  (`src/components/DonateForm.astro`, extracted from the homepage). The
+  recyclopedia.cc Donate section keeps the sign and a card linking there; the
+  engine header button, sign cells (`DONATE_URL?item=…`), LBG donate band and
+  LBG nav all point at the new page.
+- **Intake built, switched off** (same pattern as the vision switch):
+  `functions/api/donate.js` + `db/intake/schema.sql` (D1). Off → 503 → the
+  form's email hand-off, exactly as before. **To turn on (owner):** create the
+  D1 database, apply the schema, uncomment the `DONATIONS` binding in
+  `wrangler.jsonc`, set `DONATE_INTAKE_ENABLED` "1" and `DONATE_INTAKE_LIVE`
+  true together (a test refuses one without the other), and first add the
+  retention period to `/privacy`. Staff need a way to read the table (a
+  wrangler query today; an AP Ops view later).
+- Luiz's 24-hour repair shop idea: `docs/lbg/24HR-REPAIR-SHOP.md` (stub,
+  questions only).
+- Verified: `npm test` 34/34; Playwright Chromium 390 / 1280 on `dist`:
+  `/lbg/donate/?item=Laptop` fills the item box, submit with intake off shows
+  the email state, no sideways scroll, no page errors; homepage header button
+  points at the LBG URL.
+- Version `0.8.14-alpha.1 → 0.8.15-alpha.1`.
+
 ## 🔶 Pit Board D: the facility database + the Florida experiment — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
 
 - Branch `agent/seat2/dropoff-db` (stacked on `agent/seat2/version-rule`),
