@@ -4,6 +4,41 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Pit Board F, act4, act5: plans, outreach redraft, capture guide — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+Branch `agent/seat2/lbg-plans` (docs only, stacked on `agent/seat2/donate-lbg`).
+
+- **F — Academy migration plan:** `docs/academy/MIGRATION-PLAN.md`. Reads
+  Luiz's note ("meant to be internal, to be used on multiple projects") as:
+  the material gets its own private home (working name `lbg-academy`, plain
+  Markdown + JSON), and the `.org` site and other projects render from it.
+  Inventory, destination table, six-step sequence that keeps every URL
+  working, risks, and **eight questions for Luiz** (what "internal" means vs
+  the CC licence already on the lessons; which projects draw on it; one repo
+  or two; paths; theme; which duplicate wins; what "less than planned"
+  means; timing). **Found:** modules 1.1, 1.2, 1.3 and 5 each exist twice
+  (the `module-*.astro` page and an older `src/content/academy/*.md` at
+  another URL). Nothing has moved; F stays open until he answers.
+- **act4 — outreach redraft:** new Google Doc in Drive `RandDRecyclopedia`:
+  "Recyclopedia Data Outreach — Redraft v2 (Earth911 & The Recycling
+  Partnership) — 2026-09-22". Not committed (public repo; negotiation
+  material stays in Drive, same rule as July). The July guide is untouched.
+  It covers what was wrong, preconditions, a dated timing plan (Earth911 Tue 13 Oct,
+  TRP Tue 27 Oct, one follow-up each, quiet period 9 Nov–4 Jan around
+  America Recycles Day and the holidays, fresh try 12 Jan 2027), both emails
+  rewritten, follow-ups, and how to find a named contact. **Nothing sent.**
+  The Earth911 email links the Florida experiment, so send only after PR for
+  D is deployed.
+- **act5 — capture guide:** `docs/lens/` (guide HTML, manifest JSON with
+  every licence and credit, README) and a phone-friendly private artifact:
+  https://claude.ai/artifact/DJSjX1i8rqRtbkUDUZkDEy . 40 Wikimedia Commons
+  examples, CC0 / PD / CC BY only, each checked by eye for watermarks.
+  **The rough stock-photo number was not run:** the bench calls Workers AI
+  (billed, remote, needs the account token; the script does not find
+  wrangler's Windows token path). Steps for the Mac are in
+  `docs/lens/README.md`. 37 resized stock fixtures + `labels.json` sit in the
+  ThinkPad's `bench/fixtures/` (gitignored); delete them before a real run.
+
 ## 🔶 Pit Board E: Donate Electronics moved to lettucebeetgrapefruit.com — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
 
 - Branch `agent/seat2/donate-lbg` (stacked on `agent/seat2/dropoff-db`), PR
