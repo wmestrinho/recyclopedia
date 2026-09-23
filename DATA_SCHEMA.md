@@ -341,6 +341,9 @@ create table disposition (
 create index disposition_item_idx on disposition (item_id, rank);
 
 -- facilities (layer 3 — physical places, for the map) ----------------------
+-- First concrete, runnable form (SQLite/D1, every US state and territory, with
+-- the public-access and operator classes): db/facilities/schema.sql, built by
+-- scripts/frs_national.py. See docs/research/2026-09-22-facility-database.md.
 -- enable postgis for nearest-facility queries: create extension postgis;
 create table facility (
   id            uuid primary key default gen_random_uuid(),
