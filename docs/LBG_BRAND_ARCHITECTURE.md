@@ -91,9 +91,11 @@ all current LBG/Recyclopedia work**. Mechanics to know:
 
 ## Open items (decide with Luiz, in order of dependency)
 
-1. **Donate Electronics intake** (currently on recyclopedia.cc) — likely moves to
-   the `.com` storefront, since donated electronics feed the workshops. Not yet
-   decided.
+1. **Donate Electronics intake** — **DECIDED 2026-09-21 (Pit Board `E`): it
+   moves to the `.com` site**, since donated electronics feed the workshops.
+   Built at `lettucebeetgrapefruit.com/donate` (2026-09-22); the direct intake
+   is switched off until the owner creates its database. Luiz's wider idea, a
+   24-hour electronics repair shop, is recorded in `docs/lbg/24HR-REPAIR-SHOP.md`.
 2. **Naming pass** — new names for all features across the three properties.
 3. **Repo strategy** — today everything is in the `recyclopedia` repo / one
    Cloudflare Pages project. Eventual split into per-property repos; the

@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.15-alpha.1] - 2026-09-22
+### Changed
+- **Donate Electronics moved to Lettuce Beet Grapefruit** (Pit Board `E`):
+  the form, the donation sign and the item list now live at
+  `lettucebeetgrapefruit.com/donate` (built at `/lbg/donate/`; the middleware
+  maps `/donate` on the `.com` host). recyclopedia.cc keeps the sign in its
+  Donate section with a card pointing there; the header's Donate Electronics
+  button, the sign's item cells, the LBG homepage's donate band and its
+  "Donate Tech" nav link all open the new page, pre-filling `?item=`. The
+  sign's Lookup links point back at recyclopedia.cc when shown off it.
+- The privacy notice says where the form lives and that it will say so before
+  direct submission is switched on.
+### Added
+- **The direct intake, built and switched off**: `functions/api/donate.js`
+  (JSON, 8 KB cap, validation, honeypot, per-IP limit, `no-store`, no IP or
+  user agent stored) writing to a D1 table (`db/intake/schema.sql`). While
+  `DONATE_INTAKE_ENABLED` / `DONATE_INTAKE_LIVE` are off, the form keeps the
+  email hand-off; when on, it falls back to email on any failure.
+- `scripts/test/donate.test.mjs`: switches in step, validation, 503 when off,
+  store / honeypot when on, the `/donate` host route, and the built pages.
+- `docs/lbg/24HR-REPAIR-SHOP.md`: a planning stub for Luiz's 24-hour
+  electronics repair shop idea (questions only, no code).
+
 ## [0.8.14-alpha.1] - 2026-09-22
 ### Added
 - **An experiment: Florida scrap yards and county drop-offs** at

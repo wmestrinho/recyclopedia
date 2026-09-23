@@ -15,8 +15,9 @@ An item-identification and local-action reasoning engine by Absolutely Plausible
 
 Academy content remains in the repo only while it migrates to
 `lettucebeetgrapefruit.org`; it is not part of the `recyclopedia.cc` product boundary.
-Donate Electronics remains temporarily pending an owner decision about moving it to
-the LBG `.com` property.
+Donate Electronics lives on the LBG `.com` property (Pit Board `E`, 2026-09-21):
+`src/pages/lbg/donate.astro`, served at `lettucebeetgrapefruit.com/donate`; the
+direct intake (`functions/api/donate.js`) is built and switched off.
 
 **Stack:** Astro + Svelte islands · TypeScript · Cloudflare Pages
 **Design:** LBG family warm theme — Newsreader + Hanken Grotesk on oat paper with lettuce, beet, and grapefruit accents.

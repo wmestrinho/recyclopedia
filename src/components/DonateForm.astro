@@ -1,0 +1,145 @@
+---
+// The Donate Electronics intake. Lives on lettucebeetgrapefruit.com/donate/
+// (Pit Board E, 2026-09-21); moved here from the recyclopedia.cc homepage.
+// Behaviour is in public/js/donate.js: with DONATE_INTAKE_LIVE it POSTs to
+// /api/donate and falls back to the email hand-off on any failure; without
+// it, it goes straight to the email hand-off (the pre-2026-09-22 behaviour).
+import { DONATE_INTAKE_LIVE } from '../data/flags';
+---
+
+      <div class="split-layout" style="align-items: start;">
+        <!-- Left: info panel -->
+        <div style="display: grid; gap: 1rem;">
+          <article class="panel-card panel-card--accent">
+            <h3>What we accept</h3>
+            <p>Any consumer electronic item — working or not. This includes:</p>
+            <ul class="bullet-list">
+              <li>Smartphones, tablets, laptops, desktops</li>
+              <li>Flat-screen and CRT televisions</li>
+              <li>Printers, scanners, fax machines</li>
+              <li>Gaming consoles and accessories</li>
+              <li>Small and large kitchen appliances</li>
+              <li>Power tools (electric)</li>
+              <li>Cables, chargers, accessories (bundles)</li>
+              <li>Batteries (properly taped and bagged)</li>
+              <li>If it plugs in or runs on a battery — bring it.</li>
+            </ul>
+          </article>
+          <article class="panel-card">
+            <h3>What happens next</h3>
+            <p>After you submit this form, we'll contact you within 48 hours to arrange drop-off or pickup (Orlando, FL area). Every device is assessed, and the best of them become teaching material at our repair workshops:</p>
+            <ul class="bullet-list">
+              <li>Working devices → refurbished and donated or resold</li>
+              <li>Repairable devices → fixed and given a new life</li>
+              <li>End-of-life devices → sent to certified e-waste recyclers</li>
+              <li>Zero landfill. Always.</li>
+            </ul>
+          </article>
+          <article class="panel-card">
+            <h3>Data security</h3>
+            <p>Before donating, please back up and factory reset your device. If you cannot reset it, note this in the form — we handle secure data destruction at no charge. Every data-bearing device is wiped before refurbishment or recycling; see the <a href="https://recyclopedia.cc/privacy">privacy notice</a> for the full policy on your form details and device data.</p>
+          </article>
+        </div>
+
+        <!-- Right: form -->
+        <div>
+          <!-- Success states (hidden until submit). "received": the intake stored it.
+               "email": the intake is off or failed, so the donor's email app was opened. -->
+          <div class="donate-success" id="donate-success" role="alert" aria-live="polite">
+            <div class="donate-success__icon" aria-hidden="true">♻</div>
+            <div data-donate-state="received" hidden>
+              <h2>Received. Thank you.</h2>
+              <p>Your donation details reached us. We'll reply by email within 48 hours to arrange drop-off or pickup. Nothing to send, nothing else to do.</p>
+            </div>
+            <div data-donate-state="email">
+              <h2>Almost there — check your email</h2>
+              <p>Thank you for keeping electronics out of the landfill. Your email app should open with your donation details ready to send — just hit send and we'll reply within 48 hours to coordinate drop-off or pickup. If it didn't open, email us at <a href="mailto:contact@absolutelyplausible.com">contact@absolutelyplausible.com</a>.</p>
+            </div>
+            <button class="button button--solid" id="donate-reset" type="button">Submit another donation</button>
+          </div>
+
+          <!-- The form -->
+          <form class="form-wrap" id="donation-form" novalidate data-intake={DONATE_INTAKE_LIVE ? 'live' : 'email'}>
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label class="form-label" for="donor-name">Full Name *</label>
+                <input class="form-input" type="text" id="donor-name" name="name" required autocomplete="name" placeholder="Jane Smith" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="donor-email">Email *</label>
+                <input class="form-input" type="email" id="donor-email" name="email" required autocomplete="email" placeholder="jane@example.com" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="donor-phone">Phone (optional)</label>
+                <input class="form-input" type="tel" id="donor-phone" name="phone" autocomplete="tel" placeholder="(407) 555-0100" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="donor-zip">ZIP Code (optional)</label>
+                <input class="form-input" type="text" id="donor-zip" name="zip" autocomplete="postal-code" placeholder="32801" maxlength="10" />
+              </div>
+
+              <!-- Item combobox — full width -->
+              <div class="form-group form-grid--full">
+                <label class="form-label" for="item-input">Item to Donate *</label>
+                <div class="combobox" id="item-combobox">
+                  <input
+                    class="combobox__input"
+                    type="text"
+                    id="item-input"
+                    autocomplete="off"
+                    placeholder="Type to search — smartphone, laptop, TV, printer..."
+                    aria-label="Search electronics items to donate"
+                    aria-autocomplete="list"
+                    aria-controls="item-dropdown"
+                    aria-expanded="false"
+                  />
+                  <button class="combobox__clear" id="item-clear" type="button" aria-label="Clear item selection">✕</button>
+                  <div class="combobox__dropdown" id="item-dropdown" role="listbox" aria-label="Electronics items"></div>
+                  <input type="hidden" name="item" id="item-value" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="item-condition">Condition *</label>
+                <select class="form-select" id="item-condition" name="condition" required>
+                  <option value="">— Select condition —</option>
+                  <option value="working">Working</option>
+                  <option value="partially-working">Partially Working</option>
+                  <option value="not-working">Not Working</option>
+                  <option value="unknown">Unknown / Unsure</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="item-quantity">Quantity</label>
+                <input class="form-input" type="number" id="item-quantity" name="quantity" min="1" max="99" value="1" />
+              </div>
+
+              <!-- Notes — full width -->
+              <div class="form-group form-grid--full">
+                <label class="form-label" for="item-notes">Additional Notes (optional)</label>
+                <textarea class="form-textarea" id="item-notes" name="notes" placeholder="Model number, accessories included, data status, pickup preferences, multiple items..."></textarea>
+              </div>
+
+            </div>
+
+            <!-- Honeypot: people never see or fill it; bots do. -->
+            <div class="donate-hp" aria-hidden="true">
+              <label for="donor-website">Leave this empty</label>
+              <input type="text" id="donor-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-actions">
+              <button class="button button--solid" type="submit">Submit Donation ♻</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+<style is:global>
+  .donate-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+</style>

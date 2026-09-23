@@ -250,6 +250,7 @@ body.lbg-site {
   margin-bottom: 1.4rem;
 }
 
+.lbg-section__heading h1,
 .lbg-section__heading h2 {
   margin: 0;
   font-size: clamp(2rem, 5vw, 3.5rem);
