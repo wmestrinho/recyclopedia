@@ -26,9 +26,11 @@ interface Props {
   code?: string;
   /** When set, the title links to the board's own page. */
   permalink?: string;
+  /** Origin for Lookup links when the sign is shown off recyclopedia.cc. */
+  engine?: string;
 }
 
-const { spec, code, id = 'sign', permalink } = Astro.props;
+const { spec, code, id = 'sign', permalink, engine = '' } = Astro.props;
 const sign = resolveSign(spec);
 const titleId = `${id}-title`;
 
@@ -126,7 +128,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
       <ul class="sign__groups sign__paper">
         {sign.yes.groups.map((g) => (
           <li>
-            <a {...linkFor(g)}>
+            <a {...linkFor(g, engine)}>
               <span class="sign__cluster"><Fragment set:html={g.icons.map((i) => icon(i)).join('')} /></span>
               <strong>{g.label}</strong>
               <small>{g.sub}</small>
@@ -150,7 +152,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
         <ul class="sign__entries sign__paper">
           {sign.no.entries.map((e) => (
             <li>
-              <a {...linkFor(e)}>
+              <a {...linkFor(e, engine)}>
                 <Fragment set:html={icon(e.icon)} />
                 <strong>{e.label}</strong>
               </a>
@@ -162,7 +164,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
           <ul class="sign__entries sign__entries--rail">
             {sign.rail.entries.map((e) => (
               <li>
-                <a {...linkFor(e)}>
+                <a {...linkFor(e, engine)}>
                   <Fragment set:html={icon(e.icon)} />
                   <strong>{e.label}</strong>
                   {e.sub && <small>{e.sub}</small>}
@@ -176,7 +178,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
   </div>
 
   <footer class="sign__foot">
-    <a class="sign__brand" href="#home" data-page="home">
+    <a class="sign__brand" href={engine ? `${engine}/` : '#home'} data-page={engine ? undefined : 'home'}>
       <img src="/images/lbg/lbg-trio-mark-600.webp" alt="" width="600" height="600" loading="lazy" decoding="async" />
       <span>
         <strong>Recyclopedia</strong>
@@ -191,7 +193,7 @@ const recycleMark = `<svg class="sign__mark" viewBox="0 0 24 24" ${STROKE} strok
 <script>
   // A click on any cell tells the Lookup island what to search for. main.js
   // handles the page switch (data-page); this only carries the query across.
-  // Arriving from a board page as /?item=<name>#donate: fill the item box.
+  // Arriving with ?item=<name> (from any board, on any host): fill the donation form's item box.
   {
     const item = new URLSearchParams(location.search).get('item');
     const input = document.getElementById('item-input') as HTMLInputElement | null;

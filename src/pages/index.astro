@@ -2,7 +2,7 @@
 import EngineHeader from '../components/EngineHeader.astro';
 import Lookup from '../components/Lookup.svelte';
 import CurbsideSign from '../components/CurbsideSign.astro';
-import { CURBSIDE_SIGN, DONATION_SIGN } from '../data/signs';
+import { CURBSIDE_SIGN, DONATION_SIGN, DONATE_URL } from '../data/signs';
 import { ITEMS, CATEGORIES } from '../data/items';
 import versionSource from '../../VERSION?raw';
 
@@ -189,124 +189,18 @@ const donateCount = (readFileSync(new URL('public/js/donate.js', `file://${proce
       <!-- The donation sign: what we take, what has its own path, what to do first. -->
       <CurbsideSign spec={DONATION_SIGN} id="donation-sign" code={version} permalink="/signs/donate" />
 
+      <!-- Donate Electronics moved to the LBG community site (Pit Board E). The
+           sign stays here as the map of what we take; its cells open the form there. -->
       <div class="split-layout" style="align-items: start;">
-        <!-- Left: info panel -->
-        <div style="display: grid; gap: 1rem;">
-          <article class="panel-card panel-card--accent">
-            <h3>What we accept</h3>
-            <p>Any consumer electronic item — working or not. This includes:</p>
-            <ul class="bullet-list">
-              <li>Smartphones, tablets, laptops, desktops</li>
-              <li>Flat-screen and CRT televisions</li>
-              <li>Printers, scanners, fax machines</li>
-              <li>Gaming consoles and accessories</li>
-              <li>Small and large kitchen appliances</li>
-              <li>Power tools (electric)</li>
-              <li>Cables, chargers, accessories (bundles)</li>
-              <li>Batteries (properly taped and bagged)</li>
-              <li>If it plugs in or runs on a battery — bring it.</li>
-            </ul>
-          </article>
-          <article class="panel-card">
-            <h3>What happens next</h3>
-            <p>After you submit this form, our team will contact you within 48 hours to arrange drop-off or pickup (Orlando, FL area). Every device is assessed:</p>
-            <ul class="bullet-list">
-              <li>Working devices → refurbished and donated or resold</li>
-              <li>Repairable devices → fixed and given a new life</li>
-              <li>End-of-life devices → sent to certified e-waste recyclers</li>
-              <li>Zero landfill. Always.</li>
-            </ul>
-          </article>
-          <article class="panel-card">
-            <h3>Data security</h3>
-            <p>Before donating, please back up and factory reset your device. If you cannot reset it, note this in the form — we handle secure data destruction at no charge. Every data-bearing device is wiped before refurbishment or recycling; see our <a href="/privacy">privacy notice</a> for the full policy on your form details and device data.</p>
-          </article>
-        </div>
-
-        <!-- Right: form -->
-        <div>
-          <!-- Success state (hidden until submit) -->
-          <div class="donate-success" id="donate-success" role="alert" aria-live="polite">
-            <div class="donate-success__icon" aria-hidden="true">♻</div>
-            <h2>Almost there — check your email</h2>
-            <p>Thank you for keeping electronics out of the landfill. Your email app should open with your donation details ready to send — just hit send and we'll reply within 48 hours to coordinate drop-off or pickup. If it didn't open, email us at <a href="mailto:contact@absolutelyplausible.com">contact@absolutelyplausible.com</a>.</p>
-            <button class="button button--solid" id="donate-reset" type="button">Submit another donation</button>
-          </div>
-
-          <!-- The form -->
-          <form class="form-wrap" id="donation-form" novalidate>
-            <div class="form-grid">
-
-              <div class="form-group">
-                <label class="form-label" for="donor-name">Full Name *</label>
-                <input class="form-input" type="text" id="donor-name" name="name" required autocomplete="name" placeholder="Jane Smith" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="donor-email">Email *</label>
-                <input class="form-input" type="email" id="donor-email" name="email" required autocomplete="email" placeholder="jane@example.com" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="donor-phone">Phone (optional)</label>
-                <input class="form-input" type="tel" id="donor-phone" name="phone" autocomplete="tel" placeholder="(407) 555-0100" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="donor-zip">ZIP Code (optional)</label>
-                <input class="form-input" type="text" id="donor-zip" name="zip" autocomplete="postal-code" placeholder="32801" maxlength="10" />
-              </div>
-
-              <!-- Item combobox — full width -->
-              <div class="form-group form-grid--full">
-                <label class="form-label" for="item-input">Item to Donate *</label>
-                <div class="combobox" id="item-combobox">
-                  <input
-                    class="combobox__input"
-                    type="text"
-                    id="item-input"
-                    autocomplete="off"
-                    placeholder="Type to search — smartphone, laptop, TV, printer..."
-                    aria-label="Search electronics items to donate"
-                    aria-autocomplete="list"
-                    aria-controls="item-dropdown"
-                    aria-expanded="false"
-                  />
-                  <button class="combobox__clear" id="item-clear" type="button" aria-label="Clear item selection">✕</button>
-                  <div class="combobox__dropdown" id="item-dropdown" role="listbox" aria-label="Electronics items"></div>
-                  <input type="hidden" name="item" id="item-value" />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="item-condition">Condition *</label>
-                <select class="form-select" id="item-condition" name="condition" required>
-                  <option value="">— Select condition —</option>
-                  <option value="working">Working</option>
-                  <option value="partially-working">Partially Working</option>
-                  <option value="not-working">Not Working</option>
-                  <option value="unknown">Unknown / Unsure</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="item-quantity">Quantity</label>
-                <input class="form-input" type="number" id="item-quantity" name="quantity" min="1" max="99" value="1" />
-              </div>
-
-              <!-- Notes — full width -->
-              <div class="form-group form-grid--full">
-                <label class="form-label" for="item-notes">Additional Notes (optional)</label>
-                <textarea class="form-textarea" id="item-notes" name="notes" placeholder="Model number, accessories included, data status, pickup preferences, multiple items..."></textarea>
-              </div>
-
-            </div>
-
-            <div class="form-actions">
-              <button class="button button--solid" type="submit">Submit Donation ♻</button>
-            </div>
-          </form>
-        </div>
+        <article class="panel-card panel-card--accent">
+          <h3>Donating now happens at Lettuce Beet Grapefruit</h3>
+          <p>Donated electronics become teaching material at Lettuce Beet Grapefruit’s repair workshops, so the donation form lives there now. Tap any item on the sign above, or open the form directly.</p>
+          <p style="margin-top: 1rem;"><a class="button button--solid" href={DONATE_URL}>Donate electronics at lettucebeetgrapefruit.com</a></p>
+        </article>
+        <article class="panel-card">
+          <h3>Throwing it out instead?</h3>
+          <p>If a device is past saving, <a href="#recyclopedia" data-page="recyclopedia">look it up</a> for its safe path. Batteries and anything that leaks need their own drop-off, never the bin.</p>
+        </article>
       </div>
         </div>
       </div>
@@ -375,8 +269,8 @@ const donateCount = (readFileSync(new URL('public/js/donate.js', `file://${proce
           </article>
           <article class="feature-card">
             <h3>Phase 4 — Local resolution</h3>
-            <p>District rules and nearby facilities, so every answer becomes a local plan of action. Waits on verified facility data we can stand behind.</p>
-            <div class="stack-tags" style="margin-top:0.75rem;"><span>Parked</span></div>
+            <p>District rules and nearby facilities, so every answer becomes a local plan of action. Verified data is still the goal; meanwhile, <a href="/dropoff/florida">an experiment: Florida scrap yards and county drop-offs</a> from public records, unconfirmed and clearly marked.</p>
+            <div class="stack-tags" style="margin-top:0.75rem;"><span>Experiment · Florida</span></div>
           </article>
         </div>
 
@@ -408,7 +302,6 @@ const donateCount = (readFileSync(new URL('public/js/donate.js', `file://${proce
     </div>
   </footer>
 
-  <script is:inline src="/js/donate.js"></script>
   <script is:inline src="/js/main.js"></script>
   <script is:inline src="/js/pwa.js"></script>
 </body>

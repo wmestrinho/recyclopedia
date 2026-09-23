@@ -6,7 +6,12 @@
   // Tier 3 (Card C.1). The binding is free to declare; the endpoint stays off
   // until VISION_ENABLED is "1" — flip it only after the C.0 benchmark.
   "ai": { "binding": "AI" },
-  "vars": { "VISION_ENABLED": "0" },
+  // Donate Electronics intake (Pit Board E): off until the owner creates the D1
+  // database (db/intake/schema.sql), uncomments the binding below with its id,
+  // and flips DONATE_INTAKE_ENABLED together with DONATE_INTAKE_LIVE in
+  // src/data/flags.ts.
+  // "d1_databases": [{ "binding": "DONATIONS", "database_name": "lbg-intake", "database_id": "<from wrangler d1 create>" }],
+  "vars": { "VISION_ENABLED": "0", "DONATE_INTAKE_ENABLED": "0" },
   "observability": {
     "enabled": true
   }

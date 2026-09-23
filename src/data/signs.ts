@@ -24,7 +24,8 @@ export type SignIcon =
 /**
  * Where a cell goes when tapped. Exactly one of:
  *  - `slug`   → the Lookup, pre-filled with that item's real name;
- *  - `donate` → the donation form's item box, pre-filled with this text;
+ *  - `donate` → the donation form's item box, pre-filled with this text
+ *                (the form lives on lettucebeetgrapefruit.com: DONATE_URL);
  *  - `href`   → any URL (a page, an anchor), as a plain link.
  */
 export interface SignLink {
@@ -118,6 +119,11 @@ export const CURBSIDE_SIGN: SignSpec = {
   moreInfo: { label: 'More info: recyclopedia.cc', href: '#recyclopedia' },
 };
 
+// Donate Electronics lives on the LBG community site (Pit Board E, 2026-09-21:
+// "the electronics donation belongs here with LBG.com"). Absolute, so a tap
+// works from recyclopedia.cc and from the LBG page alike.
+export const DONATE_URL = 'https://lettucebeetgrapefruit.com/donate/';
+
 // ── Sign 2: what we accept for donation ──────────────────────────────────────
 // The groups summarise the 19 categories in public/js/donate.js (the form's
 // own list). "Not this way" is filled from items.ts — things people try to
@@ -190,7 +196,7 @@ export const DONATION_SIGN: SignSpec = {
       { label: 'Bundle cables', icon: 'bundle', slug: 'charging-cables-cords' },
     ],
   },
-  moreInfo: { label: 'Donate: recyclopedia.cc/#donate', href: '#donation-form' },
+  moreInfo: { label: 'Donate: lettucebeetgrapefruit.com/donate', href: DONATE_URL },
 };
 
 const bySlug = new Map(ITEMS.map((i) => [i.slug, i]));
@@ -215,14 +221,16 @@ export function resolveSign(spec: SignSpec): SignSpec {
 
 /**
  * The anchor attributes for a cell (see SignLink). The hrefs are real URLs
- * that work from any page (`/?q=…#recyclopedia`, `/?item=…#donate`); on the
- * homepage main.js and the sign's own script intercept the click and do the
- * same thing without a reload.
+ * that work from any page (`/?q=…#recyclopedia`, `DONATE_URL?item=…`); where
+ * the target is on the same page (the homepage Lookup, the LBG donation form)
+ * main.js and the sign's own script intercept the click instead.
+ * `engine` prefixes Lookup links when the sign sits on another host (the LBG
+ * donation page passes 'https://recyclopedia.cc').
  */
-export function linkFor(l: SignLink & { slugs?: string[] }): Record<string, string> {
-  const search = (q: string) => ({ href: `/?q=${encodeURIComponent(q)}#recyclopedia`, 'data-page': 'recyclopedia', 'data-search': q });
+export function linkFor(l: SignLink & { slugs?: string[] }, engine = ''): Record<string, string> {
+  const search = (q: string) => ({ href: `${engine}/?q=${encodeURIComponent(q)}#recyclopedia`, 'data-page': 'recyclopedia', 'data-search': q });
   if (l.slug) return search(itemFor(l.slug).name);
-  if (l.donate) return { href: `/?item=${encodeURIComponent(l.donate)}#donate`, 'data-donate': l.donate };
+  if (l.donate) return { href: `${DONATE_URL}?item=${encodeURIComponent(l.donate)}`, 'data-donate': l.donate };
   if (l.href) return { href: l.href };
   if (l.slugs?.length) return search(itemFor(l.slugs[0]).cat);
   throw new Error(`signs.ts: cell "${'label' in l ? (l as { label: string }).label : '?'}" has nowhere to link`);

@@ -1,0 +1,249 @@
+---
+// /dropoff/florida — the Florida drop-off experiment (Pit Board D, 2026-09-21).
+//
+// Luiz: publish scrap yards and county transfer stations "WITH PROPER CAUTION
+// DECLARATIONS", Florida only, labelled as an experiment, only places we think
+// take the public. The list is generated — scripts/frs_national.py writes
+// src/data/dropoff-fl.json from EPA's Facility Registry — and nothing here is
+// typed by hand. Three rules from the research (docs/research/README.md):
+//   * never say "open to the public" — we have not confirmed a single site;
+//   * every site says WHY it is listed (the registry evidence);
+//   * always pair it with "call first".
+import EngineHeader from '../../components/EngineHeader.astro';
+import data from '../../data/dropoff-fl.json';
+import versionSource from '../../../VERSION?raw';
+
+const version = `v${versionSource.trim()}`;
+
+type Site = (typeof data.sites)[number];
+
+const TIER = {
+  scrap_yard: {
+    label: 'Scrap yard',
+    what: 'Registered as a scrap and recyclable-materials dealer. Places like this usually buy scrap metal over the counter.',
+  },
+  public_drop_off: {
+    label: 'County or city drop-off',
+    what: 'A transfer station or drop-off centre that the registry puts in local-government hands. These usually take residents’ loads.',
+  },
+} as const;
+
+const titleCase = (s: string | null) =>
+  (s ?? '')
+    .toLowerCase()
+    .replace(/\b([a-z])/g, (m) => m.toUpperCase())
+    .replace(/\b(Llc|Inc|Ltd|Lf|Ts|Hhw|Usa|Wm)\b/g, (m) => m.toUpperCase());
+
+function why(s: Site): string {
+  if (s.publish_tier === 'public_drop_off') {
+    return s.operator_basis.startsWith('frs-organization')
+      ? `EPA's registry lists a ${s.operator_basis.replace('frs-organization: ', '').toLowerCase()}`
+      : 'The name is a county or city name; the registry does not say who runs it';
+  }
+  return s.class_basis.startsWith('sic')
+    ? 'Older industry code 5093 (scrap and waste materials)'
+    : 'Industry code 423930 (recyclable-material dealers)';
+}
+
+const zip5 = (z: string | null) => (z ?? '').match(/^\d{5}/)?.[0] ?? '';
+
+const byCounty = new Map<string, Site[]>();
+for (const s of data.sites) {
+  const c = s.county ? titleCase(s.county) : 'County not recorded';
+  if (!byCounty.has(c)) byCounty.set(c, []);
+  byCounty.get(c)!.push(s);
+}
+const counties = [...byCounty.keys()].sort((a, b) =>
+  a === 'County not recorded' ? 1 : b === 'County not recorded' ? -1 : a.localeCompare(b),
+);
+const edition = data.source_edition.join(', ');
+const counts = data.counts as Record<string, number>;
+const reportSubject = encodeURIComponent('Florida drop-off list: a correction');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Florida Drop-off Experiment | Recyclopedia</title>
+  <meta name="description" content="An experiment: Florida scrap yards and county drop-off sites from EPA's facility registry. Not confirmed, no opening hours. Call before you go." />
+  <!-- An unconfirmed list should not become a search result that outlives it. -->
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/images/recyclopedia-mark.svg" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#efe9db" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Share+Tech+Mono&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href={`/css/style.css?v=${version}`} />
+  <link rel="stylesheet" href={`/css/lbg-theme.css?v=${version}`} />
+  <link rel="stylesheet" href={`/css/board.css?v=${version}`} />
+  <style is:global>
+    .caution { border: 2px solid var(--ink, #1f2a1d); border-left-width: 10px; border-left-color: #e4562e; background: #fff7f0; padding: 1rem 1.25rem; border-radius: 6px; margin: 1.25rem 0 1.5rem; }
+    .caution h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
+    .caution ul { margin: .25rem 0 0 1.1rem; padding: 0; }
+    .caution li { margin: .3rem 0; }
+    .exp-tag { display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; border: 1px solid currentColor; padding: .1rem .45rem; border-radius: 3px; color: #8a2450; }
+    .dropoff-tools { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; margin: 0 0 1rem; }
+    .dropoff-tools label { display: grid; gap: .25rem; font-weight: 600; font-size: .9rem; }
+    .dropoff-tools select, .dropoff-tools input { min-height: 44px; font: inherit; padding: .4rem .6rem; border: 1px solid #b9b2a2; border-radius: 6px; background: #fff; max-width: 100%; }
+    .dropoff-count { font-size: .9rem; color: #555; margin: 0 0 1rem; }
+    .county-block { margin: 0 0 1.5rem; }
+    .county-block h3 { font-size: 1.2rem; margin: 0 0 .5rem; border-bottom: 1px solid #d8d1c0; padding-bottom: .25rem; }
+    .site-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+    .site-card { background: #fff; border: 1px solid #d8d1c0; border-radius: 8px; padding: .8rem .9rem; overflow-wrap: anywhere; }
+    .site-card h4 { margin: 0 0 .2rem; font-size: 1.05rem; font-weight: 700; }
+    .site-card .tier { font-size: .8rem; font-weight: 600; color: #57862f; }
+    .site-card .tier--public_drop_off { color: #8a2450; }
+    .site-card p { margin: .25rem 0; font-size: .92rem; }
+    .site-card .why { font-size: .82rem; color: #555; }
+    .site-card .links { display: flex; flex-wrap: wrap; gap: .35rem 1rem; font-size: .88rem; margin-top: .35rem; }
+    .site-card .links a { min-height: 32px; display: inline-flex; align-items: center; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body class="lbg-site lbg-engine-site">
+  <a class="skip-link" href="#dropoff">Skip to content</a>
+  <EngineHeader root="/" />
+
+  <main class="site-shell">
+    <section class="page is-active" id="dropoff" aria-labelledby="dropoff-title">
+      <div class="section-heading">
+        <p class="section-kicker"><span class="exp-tag">Experiment</span> Florida only</p>
+        <h2 id="dropoff-title">Where could it go? Scrap yards and county drop-offs in Florida.</h2>
+        <p class="lede">
+          {data.total} places from the U.S. EPA’s Facility Registry that we think
+          take things from the public: {counts.scrap_yard ?? 0} scrap yards and
+          {' '}{counts.public_drop_off ?? 0} county or city drop-off sites. It is a
+          first try at answering “where”, built from public records only.
+        </p>
+      </div>
+
+      <div class="caution" role="note" aria-labelledby="caution-title">
+        <h3 id="caution-title">Read this before you drive anywhere</h3>
+        <ul>
+          <li><strong>We have not confirmed any of these places.</strong> The list comes from a government registry of permits and industry codes, not from visiting or calling them.</li>
+          <li><strong>No opening hours, no phone numbers, no list of what each accepts.</strong> The registry has none of that. Some sites may have closed, moved, or take businesses only.</li>
+          <li><strong>Call first, every time.</strong> Ask whether they take your item, whether they take it from residents, and whether there is a fee. County drop-offs often ask for proof you live in the county.</li>
+          <li><strong>Hazardous things are different.</strong> Batteries, paint, oil, chemicals and fluorescent bulbs need a household hazardous waste site or a take-back program. Look the item up in <a href="/#recyclopedia">Recyclopedia</a> first.</li>
+          <li>Each place says <em>why</em> it is on this list. That reason is the whole of our evidence.</li>
+        </ul>
+      </div>
+
+      <div class="dropoff-tools">
+        <label>County
+          <select id="dropoff-county">
+            <option value="">All counties ({counties.length})</option>
+            {counties.map((c) => <option value={c}>{c} ({byCounty.get(c)!.length})</option>)}
+          </select>
+        </label>
+        <label>Kind of place
+          <select id="dropoff-tier">
+            <option value="">Both</option>
+            <option value="scrap_yard">Scrap yards</option>
+            <option value="public_drop_off">County or city drop-offs</option>
+          </select>
+        </label>
+        <label>City or name
+          <input id="dropoff-q" type="search" placeholder="e.g. Orlando" autocomplete="off" />
+        </label>
+      </div>
+      <p class="dropoff-count" id="dropoff-count" aria-live="polite">Showing all {data.total} places.</p>
+
+      {counties.map((c) => (
+        <section class="county-block" data-county={c} aria-label={`${c} County`}>
+          <h3>{c}</h3>
+          <ul class="site-list">
+            {byCounty.get(c)!.map((s) => (
+              <li class="site-card" data-tier={s.publish_tier} data-text={`${s.name} ${s.city ?? ''} ${s.zip ?? ''}`.toLowerCase()}>
+                <span class={`tier tier--${s.publish_tier}`}>{TIER[s.publish_tier as keyof typeof TIER].label}</span>
+                <h4>{titleCase(s.name)}</h4>
+                <p>{[titleCase(s.address), titleCase(s.city), zip5(s.zip)].filter(Boolean).join(', ') || 'Address not recorded'}</p>
+                <p class="why">Why it is listed: {why(s)}. Not confirmed.</p>
+                <p class="links">
+                  {s.lat != null && s.lng != null && (
+                    <a href={`https://www.openstreetmap.org/?mlat=${s.lat}&mlon=${s.lng}#map=17/${s.lat}/${s.lng}`} target="_blank" rel="noopener">Map</a>
+                  )}
+                  {s.frs_url && <a href={s.frs_url} target="_blank" rel="noopener">EPA record</a>}
+                  <a href={`mailto:contact@absolutelyplausible.com?subject=${reportSubject}&body=${encodeURIComponent(`Site: ${s.name} (${s.registry_id})\nWhat is wrong:\n`)}`}>Report a problem</a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      <div class="section-block">
+        <div class="section-heading">
+          <p class="section-kicker">How this list was made</p>
+          <h2>What we did, and what we did not</h2>
+        </div>
+        <div class="split-layout" style="align-items: start;">
+          <article class="panel-card panel-card--accent">
+            <h3>The source</h3>
+            <p>
+              The U.S. EPA’s <a href="https://www.epa.gov/frs/epa-state-combined-csv-download-files" target="_blank" rel="noopener">Facility Registry Service</a>,
+              Florida file, EPA edition {edition}. It records permits and industry codes for regulated sites. It does not record whether a person may walk in.
+            </p>
+            <p style="margin-top:.75rem;">
+              <strong>{TIER.scrap_yard.label}:</strong> {TIER.scrap_yard.what}
+              We leave out names that say the business is not a counter (paving, medical, document shredding and similar).
+            </p>
+            <p style="margin-top:.75rem;">
+              <strong>{TIER.public_drop_off.label}:</strong> {TIER.public_drop_off.what}
+            </p>
+          </article>
+          <article class="panel-card">
+            <h3>What is not here</h3>
+            <ul class="bullet-list">
+              <li>Landfills, sorting plants, haulers and hazardous-waste firms. Most do not take walk-ins, and the registry cannot tell which do.</li>
+              <li>Repair shops, thrift stores and store take-back counters. Different sources, coming later.</li>
+              <li>Any state but Florida. We keep the national data for research and publish Florida first.</li>
+            </ul>
+            <p style="margin-top:.75rem;">
+              Found a mistake, or a place that closed? <a href={`mailto:contact@absolutelyplausible.com?subject=${reportSubject}`}>Tell us</a> and we will fix or remove it.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>An experiment by <a href="https://absolutelyplausible.com" target="_blank" rel="noopener">Absolutely Plausible</a>. Listings from the U.S. EPA Facility Registry Service (public domain); not endorsed by EPA.</p>
+      <p class="footer-license">EDUCATIONAL PURPOSES ONLY · Content © 2026 Recyclopedia — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (no commercial use) · <a href="/privacy">Privacy</a></p>
+      <p class="footer-version">{version}</p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    (function () {
+      var county = document.getElementById('dropoff-county');
+      var tier = document.getElementById('dropoff-tier');
+      var q = document.getElementById('dropoff-q');
+      var out = document.getElementById('dropoff-count');
+      var blocks = Array.prototype.slice.call(document.querySelectorAll('.county-block'));
+      function apply() {
+        var c = county.value, t = tier.value, s = q.value.trim().toLowerCase(), shown = 0;
+        blocks.forEach(function (b) {
+          var any = 0;
+          var inCounty = !c || b.getAttribute('data-county') === c;
+          b.querySelectorAll('.site-card').forEach(function (card) {
+            var ok = inCounty && (!t || card.getAttribute('data-tier') === t) &&
+              (!s || card.getAttribute('data-text').indexOf(s) !== -1);
+            card.hidden = !ok;
+            if (ok) any++;
+          });
+          b.hidden = !any;
+          shown += any;
+        });
+        out.textContent = shown ? 'Showing ' + shown + ' place' + (shown === 1 ? '' : 's') + '.' : 'Nothing matches. Try another county or clear the search.';
+      }
+      [county, tier].forEach(function (el) { el.addEventListener('change', apply); });
+      q.addEventListener('input', apply);
+    })();
+  </script>
+</body>
+</html>

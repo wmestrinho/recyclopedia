@@ -1,14 +1,11 @@
 ---
 import LbgFooter from '../../components/LbgFooter.astro';
 import LbgHeader from '../../components/LbgHeader.astro';
+import { DONATE_URL } from '../../data/signs';
 
 const eventSubject = encodeURIComponent('LBG community event proposal');
 const eventBody = encodeURIComponent(
   'Hi LBG team,\n\nI would like to propose or help with a community event.\n\nEvent idea:\nLocation:\nPreferred timing:\nHow I can help:\n',
-);
-const donationSubject = encodeURIComponent('Electronics for an LBG repair workshop');
-const donationBody = encodeURIComponent(
-  'Hi LBG team,\n\nI have electronics that may be useful for a repair workshop.\n\nItem(s):\nCondition:\nQuantity:\nLocation / ZIP:\nAnything else we should know:\n',
 );
 ---
 
@@ -154,16 +151,13 @@ const donationBody = encodeURIComponent(
           <p class="lbg-kicker" style="color: #d9e8c5;">Donate technology</p>
           <h2 id="donate-title">Give useful hardware a teaching life.</h2>
           <p>
-            Workshop intake is being coordinated directly while the public
-            calendar launches. Describe the item and its condition; we will reply
-            before asking you to transport anything.
+            Phones, laptops, consoles, printers, kitchen appliances: working or
+            broken, if it plugs in or runs on a battery, we take it. Tell us what
+            you have; we reply within 48 hours before asking you to bring anything.
           </p>
         </div>
-        <a
-          class="button button--ghost"
-          href={`mailto:contact@absolutelyplausible.com?subject=${donationSubject}&body=${donationBody}`}
-        >
-          Offer workshop hardware
+        <a class="button button--ghost" href={DONATE_URL}>
+          Donate electronics
         </a>
       </div>
     </section>

@@ -4,6 +4,100 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Pit Board F, act4, act5: plans, outreach redraft, capture guide — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+Branch `agent/seat2/lbg-plans` (docs only, stacked on `agent/seat2/donate-lbg`).
+
+- **F — Academy migration plan:** `docs/academy/MIGRATION-PLAN.md`. Reads
+  Luiz's note ("meant to be internal, to be used on multiple projects") as:
+  the material gets its own private home (working name `lbg-academy`, plain
+  Markdown + JSON), and the `.org` site and other projects render from it.
+  Inventory, destination table, six-step sequence that keeps every URL
+  working, risks, and **eight questions for Luiz** (what "internal" means vs
+  the CC licence already on the lessons; which projects draw on it; one repo
+  or two; paths; theme; which duplicate wins; what "less than planned"
+  means; timing). **Found:** modules 1.1, 1.2, 1.3 and 5 each exist twice
+  (the `module-*.astro` page and an older `src/content/academy/*.md` at
+  another URL). Nothing has moved; F stays open until he answers.
+- **act4 — outreach redraft:** new Google Doc in Drive `RandDRecyclopedia`:
+  "Recyclopedia Data Outreach — Redraft v2 (Earth911 & The Recycling
+  Partnership) — 2026-09-22". Not committed (public repo; negotiation
+  material stays in Drive, same rule as July). The July guide is untouched.
+  It covers what was wrong, preconditions, a dated timing plan (Earth911 Tue 13 Oct,
+  TRP Tue 27 Oct, one follow-up each, quiet period 9 Nov–4 Jan around
+  America Recycles Day and the holidays, fresh try 12 Jan 2027), both emails
+  rewritten, follow-ups, and how to find a named contact. **Nothing sent.**
+  The Earth911 email links the Florida experiment, so send only after PR for
+  D is deployed.
+- **act5 — capture guide:** `docs/lens/` (guide HTML, manifest JSON with
+  every licence and credit, README) and a phone-friendly private artifact:
+  https://claude.ai/artifact/DJSjX1i8rqRtbkUDUZkDEy . 40 Wikimedia Commons
+  examples, CC0 / PD / CC BY only, each checked by eye for watermarks.
+  **The rough stock-photo number was not run:** the bench calls Workers AI
+  (billed, remote, needs the account token; the script does not find
+  wrangler's Windows token path). Steps for the Mac are in
+  `docs/lens/README.md`. 37 resized stock fixtures + `labels.json` sit in the
+  ThinkPad's `bench/fixtures/` (gitignored); delete them before a real run.
+
+## 🔶 Pit Board E: Donate Electronics moved to lettucebeetgrapefruit.com — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+- Branch `agent/seat2/donate-lbg` (stacked on `agent/seat2/dropoff-db`), PR
+  open, **not merged, not deployed**. The LBG .com site is this repo
+  (`/lbg`, host-routed by `functions/_middleware.js`), so the move is here.
+- **Built:** `src/pages/lbg/donate.astro` (served at
+  `lettucebeetgrapefruit.com/donate`) with the donation sign and the form
+  (`src/components/DonateForm.astro`, extracted from the homepage). The
+  recyclopedia.cc Donate section keeps the sign and a card linking there; the
+  engine header button, sign cells (`DONATE_URL?item=…`), LBG donate band and
+  LBG nav all point at the new page.
+- **Intake built, switched off** (same pattern as the vision switch):
+  `functions/api/donate.js` + `db/intake/schema.sql` (D1). Off → 503 → the
+  form's email hand-off, exactly as before. **To turn on (owner):** create the
+  D1 database, apply the schema, uncomment the `DONATIONS` binding in
+  `wrangler.jsonc`, set `DONATE_INTAKE_ENABLED` "1" and `DONATE_INTAKE_LIVE`
+  true together (a test refuses one without the other), and first add the
+  retention period to `/privacy`. Staff need a way to read the table (a
+  wrangler query today; an AP Ops view later).
+- Luiz's 24-hour repair shop idea: `docs/lbg/24HR-REPAIR-SHOP.md` (stub,
+  questions only).
+- Verified: `npm test` 34/34; Playwright Chromium 390 / 1280 on `dist`:
+  `/lbg/donate/?item=Laptop` fills the item box, submit with intake off shows
+  the email state, no sideways scroll, no page errors; homepage header button
+  points at the LBG URL.
+- Version `0.8.14-alpha.1 → 0.8.15-alpha.1`.
+
+## 🔶 Pit Board D: the facility database + the Florida experiment — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+- Branch `agent/seat2/dropoff-db` (stacked on `agent/seat2/version-rule`),
+  PR open, **not merged, not deployed**. Luiz chose *pilot* and added: keep
+  every state incl. AK/HI/PR for statistics and Academy charts, build the
+  database with these classes, publish scrap yards and county transfer
+  stations with proper caution declarations, deepen the research.
+- **Built:** `db/facilities/schema.sql` (SQLite/D1), `scripts/frs_national.py`
+  (all 56 EPA bundles → 36,297 sites; shares `classify()` with
+  `frs_ingest.py`, whose output is byte-identical to the 2026-09-15 file),
+  `docs/research/frs-national-summary.json` (per state + per county, for the
+  Academy), `src/data/dropoff-fl.json` and the page `/dropoff/florida`
+  (637 scrap yards + 13 county/city drop-offs, `noindex`, not in the sitemap,
+  linked from the About roadmap). Write-up with sources and numbers:
+  `docs/research/2026-09-22-facility-database.md`.
+- **Research findings:** FRS's `ORGANIZATION_FILE` records who owns/operates a
+  site (COUNTY / MUNICIPAL / PRIVATE…) — the honest basis for "county
+  drop-off". SIC 5093 finds 7,084 scrap sites NAICS misses. The registry is
+  silent on the operator for 62% of sites, so the drop-off list is short on
+  purpose.
+- The 1.4 GB of bundles and the 16 MB database live in `.cache/`
+  (gitignored) on the ThinkPad only. Rebuild commands are in the write-up.
+- Verified: `npm test` 28/28 (24 + the new `dropoff.test.mjs`), Playwright Chromium
+  390 / 1280 against `dist`: no sideways scroll, no page errors, county
+  filter works (Orange → 50 places).
+- **Open questions for Luiz:** (1) also publish the 30 Florida transfer
+  stations whose operator the registry does not record (Key Largo,
+  Clewiston, Naples, Ocala, Orlando…)? (2) county-run landfills (83 in FL)
+  often take resident self-haul — add them as a third class? (3) is `noindex`
+  right for the experiment, or should it be findable?
+- Version `0.8.13-alpha.1 → 0.8.14-alpha.1`.
+
 ## 🔶 Pit Board H: the version rule runs on every push — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
 
 - Branch `agent/seat2/version-rule`, PR open, not merged, not deployed (Seat 2

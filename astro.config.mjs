@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://recyclopedia.cc',
-  integrations: [svelte(), sitemap()],
+  integrations: [svelte(), sitemap({ filter: (page) => !page.includes('/dropoff/') })],
   vite: {
     resolve: {
       alias: {

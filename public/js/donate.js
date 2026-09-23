@@ -232,31 +232,68 @@
         return;
       }
 
-      // No backend yet — rather than silently drop the submission, hand it off
-      // to the donor's email client fully pre-filled so it actually reaches us.
       var get = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
       var item = itemHidden ? itemHidden.value : '';
-      var body = [
-        'Item: ' + item,
-        'Condition: ' + get('item-condition'),
-        'Quantity: ' + get('item-quantity'),
-        'Name: ' + get('donor-name'),
-        'Email: ' + get('donor-email'),
-        'Phone: ' + get('donor-phone'),
-        'ZIP: ' + get('donor-zip'),
-        '',
-        'Notes:',
-        get('item-notes')
-      ].join('\n');
-      var mailto = 'mailto:contact@absolutelyplausible.com'
-        + '?subject=' + encodeURIComponent('Electronics donation — ' + (item || 'item'))
-        + '&body=' + encodeURIComponent(body);
-      window.location.href = mailto;
+      var fields = {
+        item: item,
+        condition: get('item-condition'),
+        quantity: get('item-quantity'),
+        name: get('donor-name'),
+        email: get('donor-email'),
+        phone: get('donor-phone'),
+        zip: get('donor-zip'),
+        notes: get('item-notes'),
+        website: get('donor-website') // honeypot; people leave it empty
+      };
 
-      if (successPanel) {
+      function showSuccess(state) {
+        if (!successPanel) return;
+        successPanel.querySelectorAll('[data-donate-state]').forEach(function (el) {
+          el.hidden = el.getAttribute('data-donate-state') !== state;
+        });
         form.style.display = 'none';
         successPanel.classList.add('is-visible');
       }
+
+      // The email hand-off: opens the donor's own email app, fully pre-filled,
+      // so a submission is never silently dropped. Used whenever the direct
+      // intake is off or fails.
+      function emailHandoff() {
+        var body = [
+          'Item: ' + fields.item,
+          'Condition: ' + fields.condition,
+          'Quantity: ' + fields.quantity,
+          'Name: ' + fields.name,
+          'Email: ' + fields.email,
+          'Phone: ' + fields.phone,
+          'ZIP: ' + fields.zip,
+          '',
+          'Notes:',
+          fields.notes
+        ].join('\n');
+        window.location.href = 'mailto:contact@absolutelyplausible.com'
+          + '?subject=' + encodeURIComponent('Electronics donation — ' + (fields.item || 'item'))
+          + '&body=' + encodeURIComponent(body);
+        showSuccess('email');
+      }
+
+      if (form.getAttribute('data-intake') !== 'live' || typeof fetch !== 'function') {
+        emailHandoff();
+        return;
+      }
+
+      var button = form.querySelector('button[type="submit"]');
+      if (button) button.disabled = true;
+      fetch('/api/donate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fields)
+      }).then(function (res) {
+        if (res.ok) showSuccess('received');
+        else emailHandoff();
+      }).catch(emailHandoff).then(function () {
+        if (button) button.disabled = false;
+      });
     });
 
     var resetBtn = document.getElementById('donate-reset');

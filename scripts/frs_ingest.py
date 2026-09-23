@@ -92,6 +92,26 @@ TYPE_OF = dict(NAICS_TO_TYPE)
 SOURCE_ID = 'epa-frs'
 
 
+def classify(name, codes):
+    """(facility_type, public_access, public_access_basis) for one site.
+
+    `codes` are its in-scope NAICS codes sorted by TYPE_PRIORITY. Shared with
+    scripts/frs_national.py so every state is classified by the same rules.
+    """
+    ftype = TYPE_OF[codes[0]]
+    # Name evidence beats NAICS for transfer stations / drop-offs, which FRS
+    # files under whatever permit program happened to register them.
+    upper = name.upper()
+    looks_transfer = any(h in upper for h in TRANSFER_HINTS)
+    if looks_transfer and '423930' in codes and any(w in upper for w in SCRAP_WORDS):
+        looks_transfer = False  # a metal "recycling center" is a scrap yard
+    if looks_transfer:
+        ftype = 'transfer_station'
+    basis = ('name-heuristic: looks like a transfer station / drop-off'
+             if looks_transfer else f'facility_type: {ftype}')
+    return ftype, PUBLIC_ACCESS[ftype], basis
+
+
 def read_csv(path):
     with open(path, encoding='utf-8', errors='replace', newline='') as f:
         yield from csv.DictReader(f)
@@ -131,24 +151,13 @@ def main():
         codes = sorted(naics_by_reg[reg], key=lambda c: TYPE_PRIORITY[c])
         lat, lon = row['LATITUDE83'].strip(), row['LONGITUDE83'].strip()
         name = row['PRIMARY_NAME'].strip()
-        ftype = TYPE_OF[codes[0]]
-        # Name evidence beats NAICS for transfer stations / drop-offs, which FRS
-        # files under whatever permit program happened to register them.
-        upper = name.upper()
-        looks_transfer = any(h in upper for h in TRANSFER_HINTS)
-        if looks_transfer and '423930' in codes and any(w in upper for w in SCRAP_WORDS):
-            looks_transfer = False  # a metal "recycling center" is a scrap yard
-        if looks_transfer:
-            ftype = 'transfer_station'
-        access = PUBLIC_ACCESS[ftype]
+        ftype, access, basis = classify(name, codes)
         facilities.append({
             'registry_id': reg,
             'name': name,
             'facility_type': ftype,
             'public_access': access,
-            'public_access_basis': (
-                'name-heuristic: looks like a transfer station / drop-off'
-                if looks_transfer else f'facility_type: {ftype}'),
+            'public_access_basis': basis,
             'county': row['COUNTY_NAME'].strip() or None,
             'address': row['LOCATION_ADDRESS'].strip() or None,
             'city': row['CITY_NAME'].strip() or None,
