@@ -83,13 +83,17 @@ Domains: `recyclopedia.cc`, `lettucebeetgrapefruit.org`, and
 ## Version
 
 The `VERSION` file is the single source of truth; `CHANGELOG.md` has the
-per-release detail. Don't restate the number in prose — it drifts.
+per-release detail. Don't restate the number in prose — it drifts. The rule is
+stated once for every AP repo in
+[`ap-ops/docs/PROJECT-RULES.md`](https://github.com/wmestrinho/ap-ops/blob/main/docs/PROJECT-RULES.md);
+`scripts/check_version_rule.mjs` makes it runnable here.
 
 ## Validation
 
 ```sh
 npm run build
 python3 scripts/validate_agent_baseline.py
+node scripts/check_version_rule.mjs     # after committing, before pushing
 ```
 
 ## Roadmap

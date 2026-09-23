@@ -4,6 +4,27 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Pit Board H: the version rule runs on every push — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+- Branch `agent/seat2/version-rule`, PR open, not merged, not deployed (Seat 2
+  cannot deploy). Luiz's answer: *"it was never meant to be a check. the
+  version rule was stated from ap-ops for every repo."* So the rule stays in
+  `ap-ops/docs/PROJECT-RULES.md`, and this repo only makes it runnable:
+  `node scripts/check_version_rule.mjs` (commit first; it compares `HEAD` with
+  `origin/main`). `version-check.yml` runs the same script on push to `main`
+  **and** on PRs.
+- **Found and fixed:** `ci.yml`'s drift guard grepped `VERSION` for a `v`
+  prefix it no longer has, so under Actions' `pipefail` it fails every run.
+  Reproduced locally (`bash -eo pipefail` → exit 1).
+- **Actions have never run on this repo or on `ap-ops`**, not even `ci.yml`,
+  which has always triggered on push. `gh api .../actions/runs` → 0 in both,
+  and the repo setting reads enabled. So the block is account-level (billing
+  or a spending limit is the usual cause). Only Luiz can see that setting.
+  Until it is fixed, the script before each push is the only enforcement.
+- Suggested for `ap-ops/docs/PROJECT-RULES.md` §5 (not changed from here): say
+  "push and PR", and point other repos at this script as the copy source.
+- Version `0.8.12-alpha.1 → 0.8.13-alpha.1`.
+
 ## ✅ Sketch header + logo — 2026-09-17 (Mac Claude Code, Fable 5.1)
 
 - `design-preview` merged into `main` (fast-forward), then the top header was

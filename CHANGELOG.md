@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.13-alpha.1] - 2026-09-22
+### Changed
+- **The version rule runs on every push, not only on pull requests**
+  (Pit Board `H`). The rule is the one stated for every AP repo in
+  `ap-ops/docs/PROJECT-RULES.md`; `scripts/check_version_rule.mjs` makes it
+  runnable (bare SemVer `VERSION`, `package.json` agrees, a dated `CHANGELOG`
+  section for the current version, and a `VERSION` bump whenever anything but
+  docs or CI config changed). `version-check.yml` now runs it on push to
+  `main` and on PRs; agents run it before pushing.
+### Fixed
+- `ci.yml`'s version-drift guard grepped for a `v` prefix that `VERSION` has
+  not carried since the SemVer cleanup, so it would have failed every run. It
+  never ran, which is why nobody saw it. Replaced with the shared script.
+
 ## [0.8.12-alpha.1] - 2026-09-17
 ### Changed
 - **The top header is a sign's title row.** Graph paper under the bar, a 1px

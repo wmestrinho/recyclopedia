@@ -37,8 +37,11 @@ Version rule
 - Format: `MAJOR.MINOR.PATCH[-alpha.N]`, no `v` prefix — enforced by
   `scripts/validate_agent_baseline.py`.
 - Bump `VERSION` + `package.json` together and add a `CHANGELOG.md` entry for any
-  meaningful change. CI (`.github/workflows/version-check.yml`) fails a PR that
-  touches non-doc files without bumping `VERSION`.
+  meaningful change. Before pushing, run `node scripts/check_version_rule.mjs`
+  (commit first — it compares `HEAD` with `origin/main`). CI runs the same
+  script (`.github/workflows/version-check.yml`) on **every push to `main` and
+  every PR**; docs-only and CI-config-only changes are exempt. It used to run on
+  PRs only and so never ran at all (Pit Board `H`).
 - Fuller conventions: [`ap-ops/docs/PROJECT-RULES.md`](https://github.com/wmestrinho/ap-ops/blob/main/docs/PROJECT-RULES.md) —
   canonical for every AP repo since 2026-09-21 (Pit Board `G`); the rules above
   restate it and must not drift from it.
@@ -55,6 +58,7 @@ Deployment
 
 Validation
 - Run: `python3 scripts/validate_agent_baseline.py`
+- Run: `node scripts/check_version_rule.mjs` (after committing, before pushing)
 
 Coordination warning
 - Multiple AI agents may be working across this workspace. Do not run destructive git commands without checking status and coordinating with Luiz.

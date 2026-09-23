@@ -45,14 +45,14 @@ jobs:
             exit 1
           fi
 
-          # 2. Version drift: VERSION must agree with package.json.
-          ver_file=$(head -n1 VERSION | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sed 's/^v//')
-          ver_pkg=$(node -p "require('./package.json').version" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
-          if [ "$ver_file" != "$ver_pkg" ]; then
-            echo "::error::VERSION ($ver_file) and package.json ($ver_pkg) disagree"
-            exit 1
-          fi
-          echo "Regression guards passed (glyphs intact, version $ver_file in sync)."
+          echo "Regression guards passed (glyphs intact)."
+
+      # VERSION format, package.json agreement, CHANGELOG section. The old
+      # inline guard grepped for a "v" prefix VERSION no longer carries, so it
+      # would have failed every run (it never ran: Pit Board H). The bump
+      # comparison runs in version-check.yml.
+      - name: Version rule (consistency)
+        run: node scripts/check_version_rule.mjs --consistency
 
       - name: Build
         run: npm run build
