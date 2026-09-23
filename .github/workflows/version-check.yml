@@ -1,6 +1,15 @@
 name: Version Check
 
+# The AP version rule (ap-ops/docs/PROJECT-RULES.md §1, §2, §5), run on every
+# push to main AND on every PR. Until 2026-09-22 this fired on pull requests
+# only while work was pushed straight to main, so it never ran once
+# (Pit Board H). The rule itself is stated in ap-ops for every AP repo; the
+# logic lives in scripts/check_version_rule.mjs so a person or agent runs the
+# exact same thing before pushing:  node scripts/check_version_rule.mjs
+
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -12,15 +21,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check if VERSION was bumped
-        run: |
-          git fetch origin ${{ github.base_ref }} --depth=1
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-          echo "$CHANGED_FILES"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-          if echo "$CHANGED_FILES" | grep -qvE '\.(md|txt)$|^docs/|^\.github/'; then
-            if ! echo "$CHANGED_FILES" | grep -q '^VERSION$'; then
-              echo "::error::Source files changed but VERSION was not bumped. See PROJECT-RULES.md."
-              exit 1
-            fi
-          fi
+      - name: Version rule
+        env:
+          # PR: compare with the target branch. Push: compare with what main
+          # pointed at before the push (all zeros on a brand-new branch, and
+          # then the script checks VERSION / package.json / CHANGELOG only).
+          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
+        run: node scripts/check_version_rule.mjs "$BASE"

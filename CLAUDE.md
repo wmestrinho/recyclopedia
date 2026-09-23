@@ -86,4 +86,5 @@ Versioning, CHANGELOG, LICENSE, and CI conventions: see [`ap-ops/docs/PROJECT-RU
 ## Before Committing
 
 - Run: `python3 scripts/validate_agent_baseline.py`
+- Run: `node scripts/check_version_rule.mjs` (after committing, before pushing)
 - Run: `git status --short --branch`
