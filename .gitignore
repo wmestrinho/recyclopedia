@@ -30,3 +30,6 @@ public/vendor/
 
 # Lens benchmark fixtures — real photos, kept out of the public repo
 bench/fixtures/
+
+# EPA FRS bundles and the generated facility database (scripts/frs_national.py)
+.cache/

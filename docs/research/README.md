@@ -19,6 +19,7 @@ critically before implementation — archived text is provenance, not policy.
 | [LBG directory seed (~200 orgs)](2026-07-12-lbg-directory-seed.md) | 2026-07-12 | Research handoff (via Luiz) | `ORGANIZATIONS` table in `src/data/organizations.ts`; public directory at `/academy/directory`; directory extension in `DATA_SCHEMA.md`; Module 1.7 "Why Do We Have Trash At All?" (the note's 9-stage learning path) |
 | [EPA FRS — Orange County FL pilot](2026-07-14-frs-orange-county-fl.json) | 2026-07-14 | `scripts/frs_ingest.py` (EPA FRS state CSV) | Layer-3 facility prototype; `epa-frs` added to `SOURCES` |
 | [EPA FRS — Florida statewide](2026-09-15-frs-florida-statewide.json) | 2026-09-15 | `scripts/frs_ingest.py --county ALL` | 1,700 facilities across 95 counties, 98.6% geocoded; the `public_access` classification (below) was derived and validated against it |
+| [Facility database, every state + the Florida experiment](2026-09-22-facility-database.md) · [national summary](frs-national-summary.json) | 2026-09-22 | `scripts/frs_national.py --states ALL` | 36,297 sites in 56 bundles; `db/facilities/schema.sql`; operator type from FRS's own records; SIC 5093 fallback; `/dropoff/florida` (Pit Board D) |
 
 ## Corrections applied during implementation
 
@@ -40,7 +41,9 @@ Generated, not hand-written: `scripts/frs_ingest.py` reads an EPA FRS
 fresh download — re-running FL on the 2026-09-08 EPA edition reproduced the
 July pilot exactly, plus two new facilities.
 
-**Do not commit a statewide file per state.** Florida is here as the reference
+**Do not commit a statewide file per state.** The national database is
+generated into `.cache/` (gitignored) by `scripts/frs_national.py`; only its
+per-state / per-county summary and the published Florida slice are committed. Florida is here as the reference
 dataset the classifier was validated against; 50 of these would be ~60 MB of
 generated data in a public repo. Generate what you need.
 

@@ -4,6 +4,38 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 Pit Board D: the facility database + the Florida experiment — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
+
+- Branch `agent/seat2/dropoff-db` (stacked on `agent/seat2/version-rule`),
+  PR open, **not merged, not deployed**. Luiz chose *pilot* and added: keep
+  every state incl. AK/HI/PR for statistics and Academy charts, build the
+  database with these classes, publish scrap yards and county transfer
+  stations with proper caution declarations, deepen the research.
+- **Built:** `db/facilities/schema.sql` (SQLite/D1), `scripts/frs_national.py`
+  (all 56 EPA bundles → 36,297 sites; shares `classify()` with
+  `frs_ingest.py`, whose output is byte-identical to the 2026-09-15 file),
+  `docs/research/frs-national-summary.json` (per state + per county, for the
+  Academy), `src/data/dropoff-fl.json` and the page `/dropoff/florida`
+  (637 scrap yards + 13 county/city drop-offs, `noindex`, not in the sitemap,
+  linked from the About roadmap). Write-up with sources and numbers:
+  `docs/research/2026-09-22-facility-database.md`.
+- **Research findings:** FRS's `ORGANIZATION_FILE` records who owns/operates a
+  site (COUNTY / MUNICIPAL / PRIVATE…) — the honest basis for "county
+  drop-off". SIC 5093 finds 7,084 scrap sites NAICS misses. The registry is
+  silent on the operator for 62% of sites, so the drop-off list is short on
+  purpose.
+- The 1.4 GB of bundles and the 16 MB database live in `.cache/`
+  (gitignored) on the ThinkPad only. Rebuild commands are in the write-up.
+- Verified: `npm test` 28/28 (24 + the new `dropoff.test.mjs`), Playwright Chromium
+  390 / 1280 against `dist`: no sideways scroll, no page errors, county
+  filter works (Orange → 50 places).
+- **Open questions for Luiz:** (1) also publish the 30 Florida transfer
+  stations whose operator the registry does not record (Key Largo,
+  Clewiston, Naples, Ocala, Orlando…)? (2) county-run landfills (83 in FL)
+  often take resident self-haul — add them as a third class? (3) is `noindex`
+  right for the experiment, or should it be findable?
+- Version `0.8.13-alpha.1 → 0.8.14-alpha.1`.
+
 ## 🔶 Pit Board H: the version rule runs on every push — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
 
 - Branch `agent/seat2/version-rule`, PR open, not merged, not deployed (Seat 2

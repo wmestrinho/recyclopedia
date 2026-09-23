@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.8.14-alpha.1] - 2026-09-22
+### Added
+- **An experiment: Florida scrap yards and county drop-offs** at
+  `/dropoff/florida` (Pit Board `D`). 637 scrap yards and 13 county or city
+  drop-off sites from the U.S. EPA Facility Registry, each with the reason it
+  is listed, a map link, its EPA record and a "report a problem" link, under a
+  caution block: not confirmed, no hours, call first, hazardous items go
+  elsewhere. `noindex`, and left out of the sitemap. Linked from the About
+  roadmap's Phase 4 card.
+- **The facility database, every state and territory**:
+  `db/facilities/schema.sql` (SQLite / D1) and `scripts/frs_national.py`,
+  which reads all 56 EPA bundles (36,297 sites) and adds who runs each site
+  from FRS's own owner/operator records and an SIC 5093 fallback for scrap
+  yards. The database stays generated in `.cache/`; the per-state and
+  per-county summary (`docs/research/frs-national-summary.json`) is committed
+  for the Academy's statistics.
+- `scripts/test/dropoff.test.mjs`: Florida only, two classes, evidence on
+  every site, and the page never says "open to the public".
+### Changed
+- `scripts/frs_ingest.py`: classification moved into `classify()`, shared with
+  the national builder. Output unchanged.
+
 ## [0.8.13-alpha.1] - 2026-09-22
 ### Changed
 - **The version rule runs on every push, not only on pull requests**
