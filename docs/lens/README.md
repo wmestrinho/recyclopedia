@@ -31,17 +31,12 @@ junk drawer turned up.
 
 ## The rough first number
 
-Luiz chose "use openly licensed photos for a first rough number". It has
-**not** been run. `scripts/lens_bench.mjs` calls Workers AI on the
-Cloudflare account (billed, a few cents), so it cannot run offline. On the
-ThinkPad the script also does not find wrangler's Windows token path, and
-running it would mean handling the account token, which Seat 2 does not do.
-To run it on the Mac:
-
-1. Build 37 stock fixtures from `capture-examples.json`: shots 01–37 (not
-   38–40, whose example is a different subject), resized to 768 px. Label #21
-   `rechargeable-battery-nimh-nicd`, because that is what the example shows.
-2. Put them and their `labels.json` in `bench/fixtures/` (gitignored), then
-   run `npm run build` and `node scripts/lens_bench.mjs`.
-3. Record the result as **stock photos, rough**. Tidy stock photos flatter a
-   vision model, so the real number still needs Luiz's own 40 photos.
+Luiz chose "use openly licensed photos for a first rough number". **Run
+2026-09-25 on Seat 1**, over shots 01–37 as the stock fixtures (#21 labelled
+`rechargeable-battery-nimh-nicd`). The result is in
+[`docs/research/2026-09-26-lens-benchmark.md`](../research/2026-09-26-lens-benchmark.md):
+Llama 4 Scout top-1 86.5% / top-3 86.5% / p95 3.2 s (passes the bar on stock
+photos). Moondream 3.1: 35.1%. Stock photos flatter a vision model, so the
+real number still needs Luiz's own 40 photos, taken with the guide above. To
+re-run: rebuild the fixtures in `bench/fixtures/` (gitignored), then run
+`npm run build` and `node scripts/lens_bench.mjs` on the Mac.
