@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
+### Added
+- `docs/research/2026-09-26-lens-benchmark.md`: the first rough Lens number,
+  run on the 37 openly licensed stock examples (Pit Board `act5`). Llama 4
+  Scout: top-1 86.5%, p95 3.2 s, which passes the Card C.0 bar on stock
+  photos. Moondream 3.1: 35.1%. The real number still needs the owner's own
+  photos.
 
 ## [0.8.15-alpha.1] - 2026-09-22
 ### Changed
