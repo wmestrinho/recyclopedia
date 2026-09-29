@@ -4,6 +4,45 @@ Cross-machine handoff notes. Read this first when picking up work on another
 machine (e.g. the Lenovo ThinkPad running Codex). Keep it current at the end of
 every session.
 
+## 🔶 2026-09-29 — Seat 2 marketing audit (Recyclopedia + LBG) (Seat 2 ThinkPad, Claude Code)
+
+Branch `agent/seat2/marketing-audit-2026-09-29`. Docs only: no site change and
+no version bump (docs are exempt under `check_version_rule.mjs`). Read-only
+audit of the live sites, with public observations only.
+
+- **Audits:** `docs/marketing/MARKETING-AUDIT-2026-09-29-recyclopedia.md`
+  (RCY-MKT-01…18) and `docs/marketing/MARKETING-AUDIT-2026-09-29-lbg.md`
+  (LBG-MKT-01…18). Each has a scorecard, evidence, tiers, a checklist and
+  re-check commands. Checked that `docs/` is not in `dist/`, and that repo-root
+  files (qa-*.png, mockups/, whitepaper) are not served: the live site returns
+  the SPA fallback for them.
+- **Headline:** every page of all three brands answers on every host
+  (`_middleware.js` rewrites only `/` and `/donate`). There is no 404 page:
+  unknown paths return the homepage with a 200 status. There are no item
+  pages: all 84 items are on the homepage behind `/?q=`. There is no
+  analytics and no Search Console, and recyclopedia.cc and the .com do not
+  show up in search.
+- **Tier 1: the next agent can just do these** (branch → PR → deploy):
+  - [ ] Add `404.astro`, plus host-boundary 301s and `www` → apex in
+    `functions/_middleware.js`, and noindex `pages.dev` (RCY-MKT-02/03, LBG-MKT-01)
+  - [ ] Canonicals on every page, with trailing slashes; Academy og:url → .org (RCY-MKT-03/13, LBG-MKT-02)
+  - [ ] Recyclopedia-only sitemap, plus per-host robots.txt and sitemaps for .com/.org (RCY-MKT-04, LBG-MKT-03)
+  - [ ] JSON-LD: WebSite+SearchAction and Organization (RCY-MKT-05, LBG-MKT-12)
+  - [ ] Meta descriptions at 150–160 characters, H1 on the signs and privacy pages, H2s and favicon on .org (RCY-MKT-07, LBG-MKT-16)
+  - [ ] Dead anchors `#menu`/`#library`… (LBG-MKT-06); CC BY-NC-SA line (LBG-MKT-14); footer spacing (LBG-MKT-15)
+  - [ ] Dead links: Open Food Facts privacy (RCY-MKT-18) and 4 in the directory (LBG-MKT-17); self-host fonts (RCY-MKT-16)
+- **Tier 2: branch + Luiz review:** item pages `/item/<slug>/` (RCY-MKT-01,
+  the biggest lever), hero and title copy (RCY-MKT-08), naming LBG on
+  recyclopedia.cc, an about/method page, "can't find it?" on the empty state,
+  Academy header/footer (LBG-MKT-05), service area on .com, the .com CTA while
+  the calendar is empty.
+- **Tier 3: Luiz only:** Search Console and Bing for all three domains
+  (DNS TXT); any analytics (update `/privacy` first); positioning and claims;
+  the "Recyclopedia" name collision; the Academy name (LBG-MKT-04, with
+  Pit Board F); which duplicate lessons win (LBG-MKT-07); the entity and
+  nonprofit framing and the privacy controller (LBG-MKT-09/13); an email
+  tool; one home for DIY; a terms page.
+
 ## 🔶 Pit Board F, act4, act5: plans, outreach redraft, capture guide — 2026-09-22 (Seat 2 ThinkPad, Claude Code)
 
 Branch `agent/seat2/lbg-plans` (docs only, stacked on `agent/seat2/donate-lbg`).
